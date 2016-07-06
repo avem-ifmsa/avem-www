@@ -29,7 +29,7 @@ class MbMember extends Model
 
     public function getIsActiveAttribute()
     {
-        return ! $this->periods()->active()->get()->isEmpty();
+        return $this->periods()->active()->count() > 0;
     }
 
     public function organizedActivities()
