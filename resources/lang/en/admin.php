@@ -210,6 +210,9 @@ return [
 				'member' => 'Member',
 				'dniNif' => 'DNI/NIF',
 				'notApplicable' => 'n/a',
+				'isActive' => 'Is Active?',
+				'yes' => 'yes',
+				'no' => 'no',
 			],
 
 			'form' => [
