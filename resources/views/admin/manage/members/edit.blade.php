@@ -1,0 +1,21 @@
+@extends('admin.manage.members.panel')
+
+@push('breadcrumb')
+	<li>
+		{{ link_to_route('admin.manage.members.edit',
+				trans('admin.breadcrumb.edit'),
+				[$member]) }}
+	</li>
+@endpush
+
+@section('main')
+	{{ Form::model($member, [ 'method' => 'put',
+			'route' => ['admin.manage.members.update', $member]
+	]) }}
+
+		@include('admin.manage.members.form', [
+			'submitLabel' => trans('admin.manage.members.edit.submitButton'),
+		])
+
+	{{ Form::close() }}
+@endsection
