@@ -3,6 +3,7 @@
 @section('main')
 	<table class="table table-hover table-compact">
 		<tr>
+			<th>{{ trans('admin.manage.members.index.id') }}</th>
 			<th>{{ trans('admin.manage.members.index.fullName') }}</th>
 			<th>{{ trans('admin.manage.members.index.points') }}</th>
 			<th>{{ trans('admin.manage.members.index.isActive') }}</th>
@@ -14,6 +15,7 @@
 		</tr>
 		@foreach($members as $member)
 			<tr>
+				<td>{{ $member->id }}</td>
 				<td>{{ $member->full_name }}</td>
 				<td>{{ $member->points }}</td>
 				<td>

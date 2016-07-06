@@ -144,6 +144,7 @@ return [
 				'points' => 'Points',
 				'yes' => 'yes',
 				'no' => 'no',
+				'id' => 'ID',
 			],
 
 			'form' => [
