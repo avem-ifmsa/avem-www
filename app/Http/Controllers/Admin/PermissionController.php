@@ -40,7 +40,7 @@ class PermissionController extends Controller
     public function store(PermissionRequest $request)
     {
         Permission::create($request->all());
-        flash()->success(trans('admin.permissions.create.successMessage'));
+        flash()->success(trans('admin.manage.permissions.create.successMessage'));
         return redirect()->route('admin.manage.permissions.index');
     }
 
@@ -65,7 +65,7 @@ class PermissionController extends Controller
     public function update(Permission $permission, PermissionRequest $request)
     {
         $permission->update($request->all());
-        flash()->success(trans('admin.permissions.edit.successMessage'));
+        flash()->success(trans('admin.manage.permissions.edit.successMessage'));
         return redirect()->route('admin.manage.permissions.index');
     }
 
@@ -78,7 +78,7 @@ class PermissionController extends Controller
     public function destroy(Permission $permission)
     {
         $permission->delete();
-        flash()->success(trans('admin.permissions.delete.successMessage'));
+        flash()->success(trans('admin.manage.permissions.delete.successMessage'));
         return redirect()->route('admin.manage.permissions.index');
     }
 }

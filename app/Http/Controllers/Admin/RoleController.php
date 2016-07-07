@@ -59,7 +59,7 @@ class RoleController extends Controller
     public function store(RoleRequest $request)
     {
         $role = $this->createRole($request);
-        flash()->success(trans('admin.roles.create.successMessage'));
+        flash()->success(trans('admin.manage.roles.create.successMessage'));
         return redirect()->route('admin.manage.roles.index');
     }
 
@@ -87,7 +87,7 @@ class RoleController extends Controller
         $role->update($request->all());
         $this->syncPermissions($role, $request->input('perm_list', []));
 
-        flash()->success(trans('admin.roles.edit.successMessage'));
+        flash()->success(trans('admin.manage.roles.edit.successMessage'));
         return redirect()->route('admin.manage.roles.index');
     }
 
@@ -107,7 +107,7 @@ class RoleController extends Controller
         $tableName = config('entrust.roles_table');
         \DB::delete('delete from '.$tableName.' where id = ?', [$role->id]);
 
-        flash()->success(trans('admin.roles.delete.successMessage'));
+        flash()->success(trans('admin.manage.roles.delete.successMessage'));
         return redirect()->route('admin.manage.roles.index');
     }
 }
