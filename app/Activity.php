@@ -58,9 +58,19 @@ class Activity extends Model
         return $this->belongsToMany('App\MbMember')->withTimestamps();
     }
 
+    public function getOrganizerListAttribute()
+    {
+        return $this->organizers()->pluck('id')->toArray();
+    }
+
     public function tags()
     {
         return $this->belongsToMany('App\ActivityTag')->withTimestamps();
+    }
+
+    public function getTagListAttribute()
+    {
+        return $this->tags()->pluck('id')->toArray();
     }
 
     public function subscribers()
@@ -97,7 +107,7 @@ class Activity extends Model
         if ($this->end < $now) return false;
         if (!$this->subscriptionPeriodHasStarted($now)) return false;
         if ($this->subscriptionPeriodIsOver($now)) return false;
-        return ! $this->tasks()->filter(function($task) {
+        return ! $this->tasks->filter(function($task) {
             return $task->is_available;
         })->isEmpty();
     }

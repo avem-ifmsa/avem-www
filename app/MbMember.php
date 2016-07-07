@@ -27,6 +27,15 @@ class MbMember extends Model
         return $this->hasMany('App\MbMemberPeriod');
     }
 
+    public function scopeActive($query)
+    {
+        $now = Carbon::now();
+        $query->join('mb_member_periods', 'mb_members.id', '=', 'mb_member_id')
+              ->where('mb_member_periods.start', '<=', $now)
+              ->where('mb_member_periods.end', '>', $now)
+              ->select('mb_members.*');
+    }
+
     public function getIsActiveAttribute()
     {
         return $this->periods()->active()->count() > 0;

@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Activity;
 use App\MbMember;
+use App\ActivityTag;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ActivityRequest;
 
 class ActivityController extends Controller
 {
@@ -23,9 +25,16 @@ class ActivityController extends Controller
 
     private function organizerList()
     {
-        return MbMember::active()->reduce(function($list, $mbMember) {
-            
-        });
+        return MbMember::active()->get()->reduce(function($list, $mbMember) {
+            if ($member = $mbMember->member)
+                $list[$member->id] = $member->full_name.' ('.$member->id.')';
+            return $list;
+        }, []);
+    }
+
+    private function tagList()
+    {
+        return ActivityTag::all()->pluck('name', 'id')->toArray();
     }
 
     /**
@@ -35,7 +44,28 @@ class ActivityController extends Controller
      */
     public function create()
     {
-        //
+        $tags = $this->tagList();
+        $organizers = $this->organizerList();
+        return view('admin.manage.activities.create',
+                    compact('organizers', 'tags'));
+    }
+
+    private function createActivity(ActivityRequest $request)
+    {
+        $activity = Activity::create($request->all());
+        $this->syncTags($activity, $request->input('tag_list', []));
+        $this->syncOrganizers($activity, $request->input('organizer_list', []));
+        return $activity;
+    }
+
+    private function syncTags(Activity $activity, array $tagList)
+    {
+        $activity->tags()->sync($tagList);
+    }
+
+    private function syncOrganizers(Activity $activity, array $organizerList)
+    {
+        $activity->organizers()->sync($organizerList);
     }
 
     /**
@@ -44,20 +74,11 @@ class ActivityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ActivityRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        $activity = $this->createActivity($request);
+        flash()->success(trans('admin.manage.activities.create.successMessage'));
+        return redirect()->route('admin.manage.activities.index');
     }
 
     /**
@@ -66,9 +87,12 @@ class ActivityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Activity $activity)
     {
-        //
+        $tags = $this->tagList();
+        $organizers = $this->organizerList();
+        return view('admin.manage.activities.edit',
+                    compact('activity', 'organizers', 'tags'));
     }
 
     /**
@@ -78,9 +102,14 @@ class ActivityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Activity $activity, ActivityRequest $request)
     {
-        //
+        $activity->update($request->all());
+        $this->syncTags($activity, $request->input('tag_list', []));
+        $this->syncOrganizers($activity, $request->input('organizer_list', []));
+
+        flash()->success(trans('admin.manage.activities.edit.successMessage'));
+        return redirect()->route('admin.manage.activities.index');
     }
 
     /**
@@ -89,8 +118,10 @@ class ActivityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Activity $activity)
     {
-        //
+        $activity->delete();
+        flash()->success(trans('admin.manage.activities.delete.successMessage'));
+        return redirect()->route('admin.manage.activities.index');
     }
 }

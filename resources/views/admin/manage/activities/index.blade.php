@@ -10,10 +10,11 @@
 			<th>{{ trans('admin.manage.activities.index.end') }}</th>
 			<th>
 				@include('admin.manage.actions.global', [
-					'createUrl' => route('admin.manage.mb_charges.create'),
+					'createUrl' => route('admin.manage.activities.create'),
 				])
 			</th>
 		</tr>
+
 		@foreach($activities as $activity)
 			<tr>
 				<td>{{ $activity->name }}</td>
@@ -23,8 +24,8 @@
 				<td>{{ $activity->end }}</td>
 				<td>
 					@include('admin.manage.actions.local', [
-						'editUrl' => route('admin.manage.activities.edit', [$activities]),
-						'deleteUrl' => route('admin.manage.activities.destroy', [$activities]),
+						'editUrl' => route('admin.manage.activities.edit', [$activity]),
+						'deleteUrl' => route('admin.manage.activities.destroy', [$activity]),
 					])
 				</td>
 			</tr>

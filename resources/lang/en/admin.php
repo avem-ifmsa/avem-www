@@ -260,6 +260,7 @@ return [
 				'subscriptionStartLabel' => 'Subscription starts on',
 				'subscriptionEndLabel' => 'Subscription ends on',
 				'organizersLabel' => 'Organizers',
+				'tagsLabel' => 'Tags',
 			],
 
 			'create' => [

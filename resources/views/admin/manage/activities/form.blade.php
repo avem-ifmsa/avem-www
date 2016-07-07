@@ -1,12 +1,14 @@
-<div class="form-group">
-	{{ Form::label('name', trans('admin.manage.activities.form.nameLabel')) }}
-	{{ Form::text('name', null, [ 'class' => 'form-control' ]) }}
-</div>
+<div class="row">
+	<div class="form-group col-xs-1">
+		{{ Form::hidden('is_public', false) }}
+		{{ Form::label('is_public', trans('admin.manage.activities.form.isPublicLabel')) }}
+		{{ Form::checkbox('is_public', null) }}
+	</div>
 
-<div class="form-group">
-	{{ Form::hidden('is_public', false) }}
-	{{ Form::label('is_public', trans('admin.manage.activities.form.isPublicLabel')) }}
-	{{ Form::checkbox('is_public', null) }}
+	<div class="form-group col-xs-11">
+		{{ Form::label('name', trans('admin.manage.activities.form.nameLabel')) }}
+		{{ Form::text('name', null, [ 'class' => 'form-control' ]) }}
+	</div>
 </div>
 
 <div class="form-group">
@@ -14,7 +16,7 @@
 	{{ Form::textarea('description', null, [ 'class' => 'form-control' ]) }}
 </div>
 
-<div class="form-control">
+<div class="form-group">
 	{{ Form::label('location', trans('admin.manage.activities.form.locationLabel')) }}
 	{{ Form::text('location', null, [ 'class' => 'form-control' ]) }}
 </div>
@@ -22,16 +24,12 @@
 <div class="row">
 	<div class="form-group col-md-6">
 		{{ Form::label('start', trans('admin.manage.activities.form.startLabel')) }}
-		{{ Form::text('start', null, [
-				'type' => 'datetime-local', 'class' => 'form-control'
-		]) }}
+		{{ Form::input('datetime-local', 'start', null, [ 'class' => 'form-control' ]) }}
 	</div>
 
 	<div class="form-group col-md-6">
 		{{ Form::label('end', trans('admin.manage.activities.form.endLabel')) }}
-		{{ Form::text('end', null, [
-				'type' => 'datetime-local', 'class' => 'form-control'
-		]) }}
+		{{ Form::input('datetime-local', 'end', null, [ 'class' => 'form-control' ]) }}
 	</div>
 </div>
 
@@ -39,17 +37,13 @@
 	<div class="form-group col-md-6">
 		{{ Form::label('subscription_start',
 		               trans('admin.manage.activities.form.subscriptionStartLabel')) }}
-		{{ Form::text('subscription_start', null, [
-				'type' => 'datetime-local', 'class' => 'form-control'
-		]) }}
+		{{ Form::input('datetime-local', 'subscription_start', null, [ 'class' => 'form-control' ]) }}
 	</div>
 
 	<div class="form-group col-md-6">
 		{{ Form::label('subscription_end',
 		               trans('admin.manage.activities.form.subscriptionEndLabel')) }}
-		{{ Form::text('subscription_end', null, [
-				'type' => 'datetime-local', 'class' => 'form-control'
-		]) }}
+		{{ Form::input('datetime-local', 'subscription_end', null, [ 'class' => 'form-control' ]) }}
 	</div>
 </div>
 
@@ -61,11 +55,19 @@
 </div>
 
 <div class="form-group">
+	{{ Form::label('tag_list', trans('admin.manage.activities.form.tagsLabel')) }}
+	{{ Form::select('tag_list[]', $tags, null, [
+			'multiple', 'id' => 'tag_list', 'class' => 'form-control'
+	])}}
+</div>
+
+<div class="form-group">
 	{{ Form::submit($submitLabel, [ 'class' => 'btn btn-primary btn-block' ]) }}
 </div>
 
 @push('scripts')
 	<script>
-		$('#organizer_list').chosen({ width: '100%' });
+		$('#tag_list').select2();
+		$('#organizer_list').select2();
 	</script>
 @endpush
