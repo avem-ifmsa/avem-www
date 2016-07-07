@@ -33,10 +33,10 @@ class Member extends Model
 
     public function setBirthdayAttribute($date)
     {
-        $this->attributes['birthday'] = $date ?: Carbon::parse($date);
+        $this->attributes['birthday'] = Carbon::parse($date);
     }
 
-    public function users()
+    public function user()
     {
         return $this->belongsTo('App\User');
     }

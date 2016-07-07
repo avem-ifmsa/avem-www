@@ -10,18 +10,21 @@
 	</div>
 </div>
 
-<div class="form-group">
-	{{ Form::label('gender', trans('admin.manage.members.form.genderLabel')) }}
-	{{ Form::select('gender', [ null,
-			'male' =>  trans('admin.manage.members.form.genderOptions.male'),
-			'female' =>  trans('admin.manage.members.form.genderOptions.female'),
-			'other' => trans('admin.manage.members.form.genderOptions.other'),
-		], [ 'id' => 'gender', 'class' => 'form-control']) }}
-</div>
+<div class="row">
+	<div class="form-group col-md-6">
+		{{ Form::label('gender', trans('admin.manage.members.form.genderLabel')) }}
+		{{ Form::select('gender', [
+				null => trans('admin.manage.members.form.genderOptions.notApplicable'),
+				'male' =>  trans('admin.manage.members.form.genderOptions.male'),
+				'female' =>  trans('admin.manage.members.form.genderOptions.female'),
+				'other' => trans('admin.manage.members.form.genderOptions.other'),
+			], null, [ 'id' => 'gender', 'class' => 'form-control']) }}
+	</div>
 
-<div class="form-group">
-	{{ Form::label('birthday', trans('admin.manage.members.form.birthdayLabel')) }}
-	{{ Form::date('birthday', null, [ 'class' => 'form-control' ]) }}
+	<div class="form-group col-md-6">
+		{{ Form::label('birthday', trans('admin.manage.members.form.birthdayLabel')) }}
+		{{ Form::date('birthday', null, [ 'class' => 'form-control' ]) }}
+	</div>
 </div>
 
 <div class="form-group">
@@ -30,7 +33,6 @@
 
 @push('scripts')
 	<script>
-		$('#user').chosen({ width: '100%' });
-		$('#gender').chosen({ width: '100%' })
+		$('#gender').select2();
 	</script>
 @endpush

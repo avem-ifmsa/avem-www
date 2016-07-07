@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\User;
 use App\Member;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -29,8 +28,7 @@ class MemberController extends Controller
      */
     public function create()
     {
-        $users = User::all()->pluck('email', 'id');
-        return view('admin.manage.members.create', compact('users'));
+        return view('admin.manage.members.create');
     }
 
     /**
@@ -54,8 +52,7 @@ class MemberController extends Controller
      */
     public function edit(Member $member)
     {
-        $users = User::all()->pluck('email', 'id');
-        return view('admin.manage.members.edit', compact('member', 'users'));
+        return view('admin.manage.members.edit', compact('member'));
     }
 
     /**
