@@ -18,8 +18,18 @@
 		@foreach($activities as $activity)
 			<tr>
 				<td>{{ $activity->name }}</td>
-				<td>{{ $activity->is_public }}</td>
-				<td>{{ $activity->is_available }}</td>
+				<td>
+					{{ $activity->is_public
+							? trans('admin.manage.activities.index.yes')
+							: trans('admin.manage.activities.index.no')
+					}}
+				</td>
+				<td>
+					{{ $activity->is_available
+							? trans('admin.manage.activities.index.yes')
+							: trans('admin.manage.activities.index.no')
+					}}
+				</td>
 				<td>{{ $activity->start }}</td>
 				<td>{{ $activity->end }}</td>
 				<td>

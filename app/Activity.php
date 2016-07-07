@@ -14,7 +14,7 @@ class Activity extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'public', 'location',
+        'name', 'description', 'is_public', 'location',
         'start', 'end', 'subscription_start',
         'subscription_end',
     ];
@@ -30,22 +30,22 @@ class Activity extends Model
 
     public function setStartAttribute($datetime)
     {
-        $this->attributes['start'] = $datetime ?: Carbon::parse($datetime);
+        $this->attributes['start'] = Carbon::parse($datetime);
     }
 
     public function setEndAttribute($datetime)
     {
-        $this->attributes['end'] = $datetime ?: Carbon::parse($datetime);
+        $this->attributes['end'] = Carbon::parse($datetime);
     }
 
     public function setSubscriptionStartAttribute($datetime)
     {
-        $this->attributes['subscription_start'] = $datetime ?: Carbon::parse($datetime);
+        $this->attributes['subscription_start'] = Carbon::parse($datetime);
     }
 
     public function setSubscriptionEndAttribute($datetime)
     {
-        $this->attributes['subscription_end'] = $datetime ?: Carbon::parse($datetime);
+        $this->attributes['subscription_end'] = Carbon::parse($datetime);
     }
 
     public function tasks()

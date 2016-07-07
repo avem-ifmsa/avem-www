@@ -19,7 +19,7 @@ class CreateActivitiesTable extends Migration
             $table->string('location')->nullable();
             $table->dateTime('start')->nullable();
             $table->dateTime('end')->nullable();
-            $table->boolean('public')->default(true);
+            $table->boolean('is_public')->default(true);
             $table->dateTime('subscription_start')->nullable();
             $table->dateTime('subscription_end')->nullable();
             $table->timestamps();
