@@ -2,15 +2,19 @@
 
 @section('main')
 	<table class="table table-hover table-compact">
-		<tr>
-			<th>{{ trans('admin.manage.mbCharges.index.name') }}</th>
-			<th>{{ trans('admin.manage.mbCharges.index.email') }}</th>
-			<th>
-				@include('admin.manage.actions.global', [
-					'createUrl' => route('admin.manage.mb_charges.create'),
-				])
-			</th>
-		</tr>
+		<thead>
+			<tr>
+				<th>{{ trans('admin.manage.mbCharges.index.name') }}</th>
+				<th>{{ trans('admin.manage.mbCharges.index.email') }}</th>
+				<th>
+					@include('admin.manage.actions.global', [
+						'createUrl' => route('admin.manage.mb_charges.create'),
+					])
+				</th>
+			</tr>
+		</thead>
+
+		<tbody>
 		@foreach($mbCharges as $mbCharge)
 			<tr>
 				<td>{{ $mbCharge->name }}</td>
@@ -23,5 +27,6 @@
 				</td>
 			</tr>
 		@endforeach
+		</tbody>
 	</table>
 @endsection

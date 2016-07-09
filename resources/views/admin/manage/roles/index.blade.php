@@ -2,16 +2,20 @@
 
 @section('main')
 	<table class="table table-hover table-compact">
-		<tr>
-			<th>{{ trans('admin.manage.roles.index.name') }}</th>
-			<th>{{ trans('admin.manage.roles.index.displayName') }}</th>
-			<th>{{ trans('admin.manage.roles.index.description') }}</th>
-			<th>
-				@include('admin.manage.actions.global', [
-					'createUrl' => route('admin.manage.roles.create'),
-				])
-			</th>
-		</tr>
+		<thead>
+			<tr>
+				<th>{{ trans('admin.manage.roles.index.name') }}</th>
+				<th>{{ trans('admin.manage.roles.index.displayName') }}</th>
+				<th>{{ trans('admin.manage.roles.index.description') }}</th>
+				<th>
+					@include('admin.manage.actions.global', [
+						'createUrl' => route('admin.manage.roles.create'),
+					])
+				</th>
+			</tr>
+		</thead>
+
+		<tbody>
 		@foreach($roles as $role)
 			<tr>
 				<td>{{ $role->name }}</td>
@@ -25,5 +29,6 @@
 				</td>
 			</tr>
 		@endforeach
+		</tbody>
 	</table>
 @endsection

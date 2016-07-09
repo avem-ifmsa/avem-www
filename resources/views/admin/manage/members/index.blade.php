@@ -2,17 +2,21 @@
 
 @section('main')
 	<table class="table table-hover table-compact">
-		<tr>
-			<th>{{ trans('admin.manage.members.index.id') }}</th>
-			<th>{{ trans('admin.manage.members.index.fullName') }}</th>
-			<th>{{ trans('admin.manage.members.index.points') }}</th>
-			<th>{{ trans('admin.manage.members.index.isActive') }}</th>
-			<th>
-				@include('admin.manage.actions.global', [
-					'createUrl' => route('admin.manage.members.create'),
-				])
-			</th>
-		</tr>
+		<thead>
+			<tr>
+				<th>{{ trans('admin.manage.members.index.id') }}</th>
+				<th>{{ trans('admin.manage.members.index.fullName') }}</th>
+				<th>{{ trans('admin.manage.members.index.points') }}</th>
+				<th>{{ trans('admin.manage.members.index.isActive') }}</th>
+				<th>
+					@include('admin.manage.actions.global', [
+						'createUrl' => route('admin.manage.members.create'),
+					])
+				</th>
+			</tr>
+		</thead>
+
+		<tbody>
 		@foreach($members as $member)
 			<tr>
 				<td>{{ $member->id }}</td>
@@ -31,5 +35,6 @@
 				</td>
 			</tr>
 		@endforeach
+		</tbody>
 	</table>
 @endsection

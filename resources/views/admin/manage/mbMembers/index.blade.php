@@ -2,18 +2,21 @@
 
 @section('main')
 	<table class="table table-hover table-compact">
-		<tr>
-			<th>{{ trans('admin.manage.mbMembers.index.member') }}</th>
-			<th>{{ trans('admin.manage.mbMembers.index.dniNif') }}</th>
-			<th>{{ trans('admin.manage.mbMembers.index.phone') }}</th>
-			<th>{{ trans('admin.manage.mbMembers.index.isActive')}}</th>
-			<th>
-				@include('admin.manage.actions.global', [
-					'createUrl' => route('admin.manage.mb_members.create'),
-				])
-			</th>
-		</tr>
+		<thead>
+			<tr>
+				<th>{{ trans('admin.manage.mbMembers.index.member') }}</th>
+				<th>{{ trans('admin.manage.mbMembers.index.dniNif') }}</th>
+				<th>{{ trans('admin.manage.mbMembers.index.phone') }}</th>
+				<th>{{ trans('admin.manage.mbMembers.index.isActive')}}</th>
+				<th>
+					@include('admin.manage.actions.global', [
+						'createUrl' => route('admin.manage.mb_members.create'),
+					])
+				</th>
+			</tr>
+		</thead>
 
+		<tbody>
 		@foreach($mbMembers as $mbMember)
 			<tr>
 				<td>
@@ -38,5 +41,6 @@
 				</td>
 			</tr>
 		@endforeach
+		</tbody>
 	</table>
 @endsection
