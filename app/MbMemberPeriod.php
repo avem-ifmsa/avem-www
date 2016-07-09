@@ -36,16 +36,6 @@ class MbMemberPeriod extends Model
         return $this->belongsTo('App\MbMember');
     }
 
-    public function setStartAttribute($datetime)
-    {
-        $this->attributes['start'] = $datetime ?: Carbon::parse($datetime);
-    }
-
-    public function setEndAttribute($datetime)
-    {
-        $this->attributes['end'] = $datetime ?: Carbon::parse($datetime);
-    }
-
     public function scopeActive($query)
     {
         $now = Carbon::now();

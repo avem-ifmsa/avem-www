@@ -247,6 +247,7 @@ return [
 				'start' => 'Start',
 				'isPublic' => 'Is Public?',
 				'isAvailable' => 'Is Available?',
+				'notApplicable' => 'n/a',
 				'yes' => 'yes',
 				'no' => 'no',
 			],

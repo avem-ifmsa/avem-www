@@ -33,7 +33,7 @@ class Member extends Model
 
     public function setBirthdayAttribute($date)
     {
-        $this->attributes['birthday'] = Carbon::parse($date);
+        $this->attributes['birtday'] = $date ? Carbon::parse($date) : null;
     }
 
     public function user()

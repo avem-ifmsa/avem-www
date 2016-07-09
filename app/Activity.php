@@ -28,24 +28,24 @@ class Activity extends Model
         'start', 'end', 'subscription_start', 'subscription_end'
     ];
 
-    public function setStartAttribute($datetime)
+    public function setStartAttribute($dt)
     {
-        $this->attributes['start'] = Carbon::parse($datetime);
+        $this->attributes['start'] = $dt ? Carbon::parse($dt) : null;
     }
 
-    public function setEndAttribute($datetime)
+    public function setEndAttribute($dt)
     {
-        $this->attributes['end'] = Carbon::parse($datetime);
+        $this->attributes['end'] = $dt ? Carbon::parse($dt) : null;
     }
 
-    public function setSubscriptionStartAttribute($datetime)
+    public function setSubscriptionStartAttribute($dt)
     {
-        $this->attributes['subscription_start'] = Carbon::parse($datetime);
+        $this->attributes['subscription_start'] = $dt ? Carbon::parse($dt) : null;
     }
 
-    public function setSubscriptionEndAttribute($datetime)
+    public function setSubscriptionEndAttribute($dt)
     {
-        $this->attributes['subscription_end'] = Carbon::parse($datetime);
+        $this->attributes['subscription_end'] = $dt ? Carbon::parse($dt) : null;
     }
 
     public function tasks()
@@ -86,7 +86,13 @@ class Activity extends Model
 
     public function scopePublic($query)
     {
-        $query->where('public', true);
+        $query->where('is_public', true);
+    }
+
+    private function activityIsOver($now)
+    {
+        if (is_null($this->end)) return false;
+        return $this->end < $now;
     }
 
     private function subscriptionPeriodHasStarted($now)
@@ -101,15 +107,18 @@ class Activity extends Model
         return $this->subscription_end < $now;
     }
 
+    private function availableTasks()
+    {
+        return $this->tasks->where('is_available', true);
+    }
+
     public function getIsAvailableAttribute()
     {
         $now = Carbon::now();
-        if ($this->end < $now) return false;
+        if ($this->activityIsOver($now)) return false;
         if (!$this->subscriptionPeriodHasStarted($now)) return false;
         if ($this->subscriptionPeriodIsOver($now)) return false;
-        return ! $this->tasks->filter(function($task) {
-            return $task->is_available;
-        })->isEmpty();
+        return !$this->availableTasks()->isEmpty();
     }
 
 }

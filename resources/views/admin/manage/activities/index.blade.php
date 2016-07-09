@@ -21,17 +21,21 @@
 				<td>
 					{{ $activity->is_public
 							? trans('admin.manage.activities.index.yes')
-							: trans('admin.manage.activities.index.no')
-					}}
+							: trans('admin.manage.activities.index.no') }}
 				</td>
 				<td>
 					{{ $activity->is_available
 							? trans('admin.manage.activities.index.yes')
-							: trans('admin.manage.activities.index.no')
-					}}
+							: trans('admin.manage.activities.index.no') }}
 				</td>
-				<td>{{ $activity->start }}</td>
-				<td>{{ $activity->end }}</td>
+				<td>
+					{{ $activity->start ?:
+						trans('admin.manage.activities.index.notApplicable') }}
+				</td>
+				<td>
+					{{ $activity->end ?:
+						trans('admin.manage.activities.index.notApplicable') }}
+				</td>
 				<td>
 					@include('admin.manage.actions.local', [
 						'editUrl' => route('admin.manage.activities.edit', [$activity]),

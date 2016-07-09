@@ -30,11 +30,6 @@ class NotificationTicket extends Model
         return !is_null($this->read_at);
     }
 
-    public function setReadAtAttribute($time)
-    {
-        $this->attributes['read_at'] = Carbon::parse($time);
-    }
-
     public function member()
     {
         return $this->belongsTo('App\Member');
