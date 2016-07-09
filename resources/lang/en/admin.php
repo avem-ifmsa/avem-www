@@ -2,7 +2,7 @@
 
 return [
 
-	'title' => 'Avem / Admin',
+	'title' => 'AVEM / Admin',
 	'header' => 'AVEM Administration Panel',
 
 	'nav' => [
