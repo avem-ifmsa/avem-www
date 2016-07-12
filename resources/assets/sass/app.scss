@@ -1,4 +1,7 @@
-// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+@import "node_modules/select2/src/scss/core";
+@import "node_modules/select2-bootstrap-theme/src/select2-bootstrap";
 
 .table > tbody > tr > th {
 	vertical-align: middle;

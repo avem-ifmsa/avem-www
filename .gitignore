@@ -2,10 +2,6 @@
 /node_modules
 /bower_components
 /public/storage
-/public/build
-/public/css
-/public/js
-/public/fonts
 /database/database.sqlite
 Homestead.yaml
 Homestead.json

@@ -12,22 +12,17 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.sass('app.scss').styles([
-        '../../../bower_components/bootstrap/dist/css/bootstrap.css',
-        '../../../bower_components/select2/dist/css/select2.css',
-        '../../../bower_components/select2-bootstrap-theme/dist/select2-bootstrap.css',
-    ], 'public/css/vendor.css');
+    mix.sass('app.scss');
 
     mix.scripts('app.js', 'public/js/app.js').scripts([
-        '../../../bower_components/jquery/dist/jquery.js',
-        '../../../bower_components/bootstrap/dist/js/bootstrap.js',
-        '../../../bower_components/select2/dist/js/select2.js',
+        '../../../node_modules/jquery/dist/jquery.js',
+        '../../../node_modules/bootstrap-sass/assets/javascripts/bootstrap.js',
+        '../../../node_modules/select2/dist/js/select2.js',
     ], 'public/js/vendor.js');
 
-    mix.copy('bower_components/bootstrap/fonts', 'public/build/fonts');
+    mix.copy('node_modules/bootstrap-sass/assets/fonts', 'public/build/fonts');
 
     mix.version([
-        'public/css/vendor.css',
         'public/css/app.css',
         'public/js/vendor.js',
         'public/js/app.js'
