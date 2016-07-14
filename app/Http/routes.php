@@ -11,36 +11,19 @@
 |
 */
 
-Route::group(['prefix' => 'admin'], function() {
-    Route::get('/', 'Admin\AdminController@index');
+Route::get('/admin', 'AdminController@index');
 
-    Route::get('manage', [ 'as' => 'admin.manage',
-        'uses' => 'Admin\AdminController@manage'
-    ]);
+Route::get('/admin/manage', 'AdminController@manage');
+Route::resource('/admin/manage/users', 'Admin\UserController');
+Route::resource('/admin/manage/roles', 'Admin\RoleController');
+Route::resource('/admin/manage/members', 'Admin\MemberController');
+Route::resource('/admin/manage/activities', 'Admin\ActivityController');
+Route::resource('/admin/manage/mb_members', 'Admin\MbMemberController');
+Route::resource('/admin/manage/mb_charges', 'Admin\MbChargeController');
+Route::resource('/admin/manage/permissions', 'Admin\PermissionController');
 
-    Route::get('activities', [ 'as' => 'admin.activities',
-        'uses' => 'Admin\AdminController@activities',
-    ]);
+Route::get('/admin/renewals', 'AdminController@renewals');
+Route::post('/admin/renewals/{members}/renew', 'Admin\MemberController@renew');
 
-    Route::get('renewals', [ 'as' => 'admin.renewals',
-        'uses' => 'Admin\AdminController@renewals'
-    ]);
-
-    Route::get('exchanges', [ 'as' => 'admin.exchanges',
-        'uses' => 'Admin\AdminController@exchanges'
-    ]);
-
-    Route::get('analytics', [ 'as' => 'admin.analytics',
-        'uses' => 'Admin\AdminController@analytics'
-    ]);
-
-    Route::group(['prefix' => 'manage'], function() {
-        Route::resource('users', 'Admin\UserController');
-        Route::resource('roles', 'Admin\RoleController');
-        Route::resource('members', 'Admin\MemberController');
-        Route::resource('activities', 'Admin\ActivityController');
-        Route::resource('mb_members', 'Admin\MbMemberController');
-        Route::resource('mb_charges', 'Admin\MbChargeController');
-        Route::resource('permissions', 'Admin\PermissionController');
-    });
-});
+Route::get('/admin/exchanges', 'AdminController@exchanges');
+Route::get('/admin/activities', 'AdminController@activities');

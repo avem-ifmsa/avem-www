@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Auth;
 use App\Member;
+use Carbon\Carbon;
+use App\MemberRenewal;
 use App\Http\Requests;
 use Illuminate\Http\Request;
-use App\Http\Requests\MemberRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\MemberRequest;
+use App\Http\Requests\Admin\RenewMemberRequest;
 
 class MemberController extends Controller
 {
@@ -67,6 +71,39 @@ class MemberController extends Controller
         $member->update($request->all());
         flash()->success(trans('admin.manage.members.edit.successMessage'));
         return redirect()->route('admin.manage.members.index');
+    }
+
+    private function selfMember() {
+        if ($user = Auth::user())
+            return $user->member;
+        return null;
+    }
+
+    private function renewalEndDate()
+    {
+        return config('avem.period_start')->copy()->addYear();
+    }
+
+    private function createMemberRenewal(Member $member, RenewMemberRequest $request)
+    {
+        $self = $this->selfMember();
+        $renewal = new MemberRenewal;
+        $renewal->until = $this->renewalEndDate();
+        $renewal->applier()->associate($self->mbMember);
+        $renewal->member()->associate($member);
+        $renewal->save();
+        return $renewal;
+    }
+
+    public function renew(Member $member, RenewMemberRequest $request)
+    {
+        $renewal = $this->createMemberRenewal($member, $request);
+
+        $years = $request->input('duration_in_years');
+        $message = 'admin.renewals.renew.successMessage';
+        flash()->success(trans_choice($message, compact('years')));
+
+        return redirect('/admin/renewals');
     }
 
     /**

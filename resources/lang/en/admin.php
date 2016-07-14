@@ -12,10 +12,10 @@ return [
 		'members' => 'Members',
 		'renewals' => 'Renewals',
 		'exchanges' => 'Exchanges',
-		'analytics' => 'Analytics',
 		'mbCharges' => 'MB Charges',
 		'mbMembers' => 'MB Members',
 		'activities' => 'Activities',
+		'statistics' => 'Statistics',
 		'permissions' => 'Permissions',
 	],
 
@@ -29,9 +29,9 @@ return [
 		'members' => 'Members',
 		'renewals' => 'Renewals',
 		'exchanges' => 'Exchanges',
-		'analytics' => 'Analytics',
 		'mbMembers' => 'MB Members',
 		'mbCharges' => 'MB Charges',
+		'statistics' => 'Statistics',
 		'activities' => 'Activities',
 		'permissions' => 'Permissions',
 	],
@@ -281,6 +281,23 @@ return [
 
 		],
 
+	],
+
+	'renewals' => [
+		'actions' => [
+			'renewButton' => 'Renew',
+			'yearsLabel' => 'year/s',
+		],
+
+		'memberId' => 'ID',
+		'fullName' => 'Full Name',
+		'activeUntil' => 'Active Until',
+		'notApplicable' => 'n/a',
+
+		'renew' => [
+			'successMessage' => 'Member renewed for a year'.'|'.
+			                    'Member renewed for :years years',
+		],
 	],
 
 ];
