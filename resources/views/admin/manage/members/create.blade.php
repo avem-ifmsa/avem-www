@@ -7,7 +7,7 @@
 	</li>
 @endpush
 
-@section('main')
+@section('panel')
 	{{ Form::open(['route' => 'admin.manage.members.store']) }}
 		@include('admin.manage.members.form', [
 			'submitLabel' => trans('admin.manage.members.create.submitButton')

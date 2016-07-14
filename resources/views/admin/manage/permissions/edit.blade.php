@@ -8,7 +8,7 @@
 	</li>
 @endpush
 
-@section('main')
+@section('panel')
 	{{ Form::model($permission, [ 'method' => 'put',
 			'route' => ['admin.manage.permissions.update', $permission]
 	]) }}

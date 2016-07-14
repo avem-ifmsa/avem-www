@@ -2,8 +2,7 @@
 
 @push('breadcrumb')
 	<li>
-		{{ link_to_route('admin.manage',
-				trans('admin.breadcrumb.manage'), []) }}
+		{{ link_to('/admin/manage', trans('admin.breadcrumb.manage')) }}
 	</li>
 @endpush
 

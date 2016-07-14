@@ -7,7 +7,7 @@ use App\MbMember;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MbMemberRequest;
+use App\Http\Requests\Admin\MbMemberRequest;
 
 class MbMemberController extends Controller
 {

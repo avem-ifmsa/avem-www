@@ -1,6 +1,6 @@
 @extends('admin.manage.mbCharges.panel')
 
-@section('main')
+@section('panel')
 	<table class="table table-hover table-compact">
 		<thead>
 			<tr>
@@ -10,8 +10,8 @@
 				<th>{{ trans('admin.manage.activities.index.start') }}</th>
 				<th>{{ trans('admin.manage.activities.index.end') }}</th>
 				<th>
-					@include('admin.manage.actions.global', [
-						'createUrl' => route('admin.manage.activities.create'),
+					@include('admin.actions.manageGlobal', [
+						'createUrl' => url('/admin/manage/activities/create'),
 					])
 				</th>
 			</tr>
@@ -32,15 +32,17 @@
 							: trans('admin.manage.activities.index.no') }}
 				</td>
 				<td>
-					{{ $activity->start ?:
-						trans('admin.manage.activities.index.notApplicable') }}
+					{{ $activity->start
+						?: trans('admin.manage.activities.index.notApplicable')
+					}}
 				</td>
 				<td>
-					{{ $activity->end ?:
-						trans('admin.manage.activities.index.notApplicable') }}
+					{{ $activity->end
+						?: trans('admin.manage.activities.index.notApplicable')
+					}}
 				</td>
 				<td>
-					@include('admin.manage.actions.local', [
+					@include('admin.actions.manageLocal', [
 						'editUrl' => route('admin.manage.activities.edit', [$activity]),
 						'deleteUrl' => route('admin.manage.activities.destroy', [$activity]),
 					])

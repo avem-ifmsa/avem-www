@@ -1,14 +1,14 @@
 @extends('admin.manage.users.panel')
 
-@section('main')
+@section('panel')
 	<table class="table table-hover table-compact">
 		<thead>
 			<tr>
 				<th>{{ trans('admin.manage.users.index.email') }}</th>
 				<th>{{ trans('admin.manage.users.index.member') }}</th>
 				<th>
-					@include('admin.manage.actions.global', [
-						'createUrl' => route('admin.manage.users.create'),
+					@include('admin.actions.manageGlobal', [
+						'createUrl' => url('/admin/manage/users/create'),
 					])
 				</th>
 			</tr>
@@ -26,7 +26,7 @@
 					@endif
 				</td>
 				<td>
-					@include('admin.manage.actions.local', [
+					@include('admin.actions.manageLocal', [
 						'editUrl' => route('admin.manage.users.edit', [$user]),
 						'deleteUrl' => route('admin.manage.users.destroy', [$user]),
 					])

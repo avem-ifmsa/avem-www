@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin;
 
 use App\Http\Requests\Request;
 
-class UserRequest extends Request
+class RoleRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,9 @@ class UserRequest extends Request
     public function rules()
     {
         return [
-            'email' => [ 'required', 'email', 'unique:users,id' ],
-            'password' => 'min:' . config('security.min_password_length'),
+            'name' => ['required', 'unique:roles,id'],
+            'display_name' => ['required', 'unique:roles,id'],
+            'description' => 'required',
         ];
     }
 }

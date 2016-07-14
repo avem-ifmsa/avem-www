@@ -6,8 +6,8 @@ use App\Role;
 use App\Permission;
 use App\Http\Requests;
 use Illuminate\Http\Request;
-use App\Http\Requests\RoleRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\RoleRequest;
 
 class RoleController extends Controller
 {

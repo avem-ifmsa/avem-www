@@ -19,38 +19,46 @@
 					</a>
 					<ul id="manage" class="nav collapse">
 						<li>
-							{{ link_to_route('admin.manage.activities.index',
-									trans('admin.nav.activities')) }}
+							{{ link_to('/admin/manage/activities',
+							           trans('admin.nav.activities'))
+							}}
 						</li>
 						<li>
-							{{ link_to_route('admin.manage.members.index',
-									trans('admin.nav.members')) }}
+							{{ link_to('/admin/manage/members',
+							           trans('admin.nav.members'))
+							}}
 						</li>
 						<li>
-							{{ link_to_route('admin.manage.users.index',
-									trans('admin.nav.users')) }}
+							{{ link_to('/admin/manage/users',
+							           trans('admin.nav.users'))
+							}}
 						</li>
 						<li>
-							{{ link_to_route('admin.manage.roles.index',
-								trans('admin.nav.roles')) }}
+							{{ link_to('/admin/manage/roles',
+							           trans('admin.nav.roles'))
+							}}
 						</li>
 						<li>
-							{{ link_to_route('admin.manage.permissions.index',
-									trans('admin.nav.permissions')) }}
+							{{ link_to('/admin/manage/permissions',
+							           trans('admin.nav.permissions'))
+							}}
 						</li>
 						<li>
-							{{ link_to_route('admin.manage.mb_members.index',
-								trans('admin.nav.mbMembers')) }}
+							{{ link_to('/admin/manage/mb_members',
+							           trans('admin.nav.mbMembers'))
+							}}
 						</li>
 						<li>
-							{{ link_to_route('admin.manage.mb_charges.index',
-									trans('admin.nav.mbCharges')) }}
+							{{ link_to('/admin/manage/mb_charges',
+							           trans('admin.nav.mbCharges'))
+							}}
 						</li>
 					</ul>
 				</li>
-				<li>{{ link_to_route('admin.renewals', trans('admin.nav.renewals')) }}</li>
-				<li>{{ link_to_route('admin.exchanges', trans('admin.nav.exchanges')) }}</li>
-				<li>{{ link_to_route('admin.analytics', trans('admin.nav.analytics')) }}</li>
+
+				<li>{{ link_to('/admin/renewals', trans('admin.nav.renewals')) }}</li>
+				<li>{{ link_to('/admin/exchanges', trans('admin.nav.exchanges')) }}</li>
+				<li>{{ link_to('/admin/statistics', trans('admin.nav.statistics')) }}</li>
 			</ul>
 		</nav>
 
@@ -60,7 +68,7 @@
 			</ol>
 
 			@include('flash::message')
-			@yield('main')
+			@yield('panel')
 		</main>
 	</div>
 @endsection

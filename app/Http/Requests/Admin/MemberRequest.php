@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin;
 
 use App\Http\Requests\Request;
 
-class MbChargeRequest extends Request
+class MemberRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,9 @@ class MbChargeRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required',
-            'description' => 'required',
-            'email' => [ 'required', 'email' ],
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'birthday' => 'date',
         ];
     }
 }

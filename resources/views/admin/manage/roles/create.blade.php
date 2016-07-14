@@ -7,7 +7,7 @@
 	</li>
 @endpush
 
-@section('main')
+@section('panel')
 	{{ Form::open(['route' => 'admin.manage.roles.store']) }}
 		@include('admin.manage.roles.form', [
 			'submitLabel' => trans('admin.manage.roles.create.submitButton')

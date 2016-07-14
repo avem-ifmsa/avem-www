@@ -1,6 +1,6 @@
 @extends('admin.manage.permissions.panel')
 
-@section('main')
+@section('panel')
 	<table class="table table-hover table-compact">
 		<thead>
 			<tr>
@@ -8,8 +8,8 @@
 				<th>{{ trans('admin.manage.permissions.index.displayName') }}</th>
 				<th>{{ trans('admin.manage.permissions.index.description') }}</th>
 				<th>
-					@include('admin.manage.actions.global', [
-						'createUrl' => route('admin.manage.permissions.create'),
+					@include('admin.actions.manageGlobal', [
+						'createUrl' => url('/admin/manage/permissions/create'),
 					])
 				</th>
 			</tr>
@@ -22,7 +22,7 @@
 				<td>{{ $permission->display_name }}</td>
 				<td>{{ $permission->description }}</td>
 				<td>
-					@include('admin.manage.actions.local', [
+					@include('admin.actions.manageLocal', [
 						'editUrl' => route('admin.manage.permissions.edit', [$permission]),
 						'deleteUrl' => route('admin.manage.permissions.destroy', [$permission]),
 					])

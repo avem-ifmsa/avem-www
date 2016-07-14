@@ -8,7 +8,7 @@
 	</li>
 @endpush
 
-@section('main')
+@section('panel')
 	{{ Form::model($role, [ 'method' => 'put',
 			'route' => ['admin.manage.roles.update', $role]
 	]) }}

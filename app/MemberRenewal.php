@@ -32,7 +32,7 @@ class MemberRenewal extends Model
 
     public function applier()
     {
-        return $this->belongsTo('App\MbMember', 'mb_member_id');
+        return $this->belongsTo('App\MbMember', 'applied_by');
     }
 
 }

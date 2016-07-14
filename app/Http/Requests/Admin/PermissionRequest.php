@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin;
 
 use App\Http\Requests\Request;
 
-class MemberRequest extends Request
+class PermissionRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,9 @@ class MemberRequest extends Request
     public function rules()
     {
         return [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'birthday' => 'date',
+            'name' => ['required', 'unique:permissions,id'],
+            'display_name' => ['required', 'unique:permissions,id'],
+            'description' => 'required',
         ];
     }
 }

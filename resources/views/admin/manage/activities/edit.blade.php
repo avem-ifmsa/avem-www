@@ -8,7 +8,7 @@
 	</li>
 @endpush
 
-@section('main')
+@section('panel')
 	{{ Form::model($activity, [ 'method' => 'put',
 			'route' => ['admin.manage.activities.update', $activity]
 	]) }}

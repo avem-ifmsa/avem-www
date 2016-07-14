@@ -8,7 +8,7 @@
 	</li>
 @endpush
 
-@section('main')
+@section('panel')
 	{{ Form::model($mbCharge, [ 'method' => 'put',
 			'route' => ['admin.manage.mb_charges.update', $mbCharge]
 	]) }}

@@ -7,7 +7,7 @@
 	</li>
 @endpush
 
-@section('main')
+@section('panel')
 	{{ Form::open(['route' => 'admin.manage.permissions.store']) }}
 		@include('admin.manage.permissions.form', [
 			'submitLabel' => trans('admin.manage.permissions.create.submitButton')

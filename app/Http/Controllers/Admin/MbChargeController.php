@@ -6,7 +6,7 @@ use App\MbCharge;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MbChargeRequest;
+use App\Http\Requests\Admin\MbChargeRequest;
 
 class MbChargeController extends Controller
 {

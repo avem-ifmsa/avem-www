@@ -6,7 +6,7 @@ use App\Permission;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PermissionRequest;
+use App\Http\Requests\Admin\PermissionRequest;
 
 class PermissionController extends Controller
 {

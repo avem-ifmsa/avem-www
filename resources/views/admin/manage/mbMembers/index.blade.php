@@ -1,6 +1,6 @@
 @extends('admin.manage.mbMembers.panel')
 
-@section('main')
+@section('panel')
 	<table class="table table-hover table-compact">
 		<thead>
 			<tr>
@@ -9,8 +9,8 @@
 				<th>{{ trans('admin.manage.mbMembers.index.phone') }}</th>
 				<th>{{ trans('admin.manage.mbMembers.index.isActive')}}</th>
 				<th>
-					@include('admin.manage.actions.global', [
-						'createUrl' => route('admin.manage.mb_members.create'),
+					@include('admin.actions.manageGlobal', [
+						'createUrl' => url('/admin/manage/mb_members/create'),
 					])
 				</th>
 			</tr>
@@ -34,7 +34,7 @@
 							: trans('admin.manage.mbMembers.index.no') }}
 				</td>
 				<td>
-					@include('admin.manage.actions.local', [
+					@include('admin.actions.manageLocal', [
 						'editUrl' => route('admin.manage.mb_members.edit', [$mbMember]),
 						'deleteUrl' => route('admin.manage.mb_members.destroy', [$mbMember]),
 					])
