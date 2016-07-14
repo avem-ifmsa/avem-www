@@ -23,7 +23,7 @@ Route::resource('/admin/manage/mb_charges', 'Admin\MbChargeController');
 Route::resource('/admin/manage/permissions', 'Admin\PermissionController');
 
 Route::get('/admin/renewals', 'AdminController@renewals');
-Route::post('/admin/renewals/{members}/renew', 'Admin\MemberController@renew');
+Route::post('/admin/members/{members}/renew', 'Admin\MemberController@renew');
 
 Route::get('/admin/exchanges', 'AdminController@exchanges');
 Route::get('/admin/activities', 'AdminController@activities');

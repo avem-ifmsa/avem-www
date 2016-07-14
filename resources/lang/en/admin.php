@@ -295,8 +295,7 @@ return [
 		'notApplicable' => 'n/a',
 
 		'renew' => [
-			'successMessage' => 'Member renewed for a year'.'|'.
-			                    'Member renewed for :years years',
+			'successMessage' => 'Member «:name» renewed until :until',
 		],
 	],
 

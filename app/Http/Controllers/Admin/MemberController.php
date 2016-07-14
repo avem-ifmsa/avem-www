@@ -81,7 +81,10 @@ class MemberController extends Controller
 
     private function renewalEndDate()
     {
-        return config('avem.period_start')->copy()->addYear();
+        $now = Carbon::now();
+        $date = config('avem.period_start')->copy();
+        if ($date < $now) $date->addYear();
+        return $date;
     }
 
     private function createMemberRenewal(Member $member, RenewMemberRequest $request)
@@ -98,11 +101,9 @@ class MemberController extends Controller
     public function renew(Member $member, RenewMemberRequest $request)
     {
         $renewal = $this->createMemberRenewal($member, $request);
-
-        $years = $request->input('duration_in_years');
-        $message = 'admin.renewals.renew.successMessage';
-        flash()->success(trans_choice($message, compact('years')));
-
+        flash()->success(trans('admin.renewals.renew.successMessage', [
+            'name' => $member->full_name, 'until' => $renewal->until
+        ]));
         return redirect('/admin/renewals');
     }
 
