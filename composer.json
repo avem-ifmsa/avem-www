@@ -11,7 +11,8 @@
         "laravelcollective/html": "^5.2",
         "laracasts/flash": "^2.0",
         "zizaco/entrust": "5.2.x-dev",
-        "barryvdh/laravel-debugbar": "^2.2"
+        "barryvdh/laravel-debugbar": "^2.2",
+        "pacely/mailchimp-apiv3": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
