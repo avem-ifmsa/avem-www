@@ -23,14 +23,6 @@ class UserController extends Controller
         return view('admin.manage.users.index', compact('users'));
     }
 
-    private function memberList()
-    {
-        return Member::all()->reduce(function($list, $member) {
-            $list[$member->id] = $member->full_name.' ('.$member->id.')';
-            return $list;
-        }, [ null ]);
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -38,34 +30,16 @@ class UserController extends Controller
      */
     public function create()
     {
-        $members = $this->memberList();
         $roles = Role::all()->pluck('display_name', 'id')->toArray();
-
-        return view('admin.manage.users.create',
-                    compact('roles', 'members'));
+        return view('admin.manage.users.create', compact('roles'));
     }
 
     private function createUser(UserRequest $request)
     {
         $user = new User($request->all());
-        $this->setMember($user, $request);
-        $this->setPassword($user, $request->input('password'));
         $this->syncRoles($user, $request->input('role_list', []));
         $user->save();
         return $user;
-    }
-
-    private function setMember(User $user, UserRequest $request)
-    {
-        if ($memberId = $request->input('member'))
-            $user->member()->save(Member::findOrFail($memberId));
-        else
-            $user->member()->delete();
-    }
-
-    private function setPassword(User $user, $password)
-    {
-        $user->password = bcrypt($password);
     }
 
     private function syncRoles(User $user, array $roles)
@@ -81,11 +55,9 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $this->validate($request, [
-            'password' => 'required'
-        ]);
-
+        $this->validate($request, [ 'password' => 'required' ]);
         $this->createUser($request);
+
         flash()->success(trans('admin.manage.users.create.successMessage'));
         return redirect()->route('admin.manage.users.index');
     }
@@ -98,11 +70,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $members = $this->memberList();
         $roles = Role::all()->pluck('display_name', 'id')->toArray();
-
-        return view('admin.manage.users.edit',
-                    compact('user', 'roles', 'members'));
+        return view('admin.manage.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -115,10 +84,7 @@ class UserController extends Controller
     public function update(User $user, UserRequest $request)
     {
         $user->update($request->all());
-        if ($password = $request->input('password'))
-            $this->setPassword($user, $password);
         $this->syncRoles($user, $request->input('role_list', []));
-        $this->setMember($user, $request);
         $user->save();
 
         flash()->success(trans('admin.manage.users.edit.successMessage'));

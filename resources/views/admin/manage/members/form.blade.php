@@ -12,13 +12,10 @@
 
 <div class="row">
 	<div class="form-group col-md-6">
-		{{ Form::label('gender', trans('admin.manage.members.form.genderLabel')) }}
-		{{ Form::select('gender', [
-				null => trans('admin.manage.members.form.genderOptions.notApplicable'),
-				'male' =>  trans('admin.manage.members.form.genderOptions.male'),
-				'female' =>  trans('admin.manage.members.form.genderOptions.female'),
-				'other' => trans('admin.manage.members.form.genderOptions.other'),
-			], null, [ 'id' => 'gender', 'class' => 'form-control']) }}
+		{{ Form::label('user', trans('admin.manage.members.form.userLabel')) }}
+		{{ Form::select('user', $users, null, [
+				'id' => 'user', 'class' => 'form-control'
+		]) }}
 	</div>
 
 	<div class="form-group col-md-6">
@@ -33,6 +30,6 @@
 
 @push('scripts')
 	<script>
-		$('#gender').select2();
+		$('#user').select2();
 	</script>
 @endpush

@@ -16,7 +16,6 @@ class CreateMembersTable extends Migration
             $table->increments('id');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('gender')->nullable();
             $table->date('birthday')->nullable();
             $table->integer('notification_inbox_id')->unsigned()->nullable();
             $table->integer('user_id')->unsigned()->nullable();

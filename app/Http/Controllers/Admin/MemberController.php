@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Auth;
+use App\User;
 use App\Member;
 use Carbon\Carbon;
 use App\MemberRenewal;
@@ -32,7 +33,25 @@ class MemberController extends Controller
      */
     public function create()
     {
-        return view('admin.manage.members.create');
+        $users = User::all()->pluck('email', 'id')->toArray();
+        return view('admin.manage.members.create', compact('users'));
+    }
+
+    private function createMember(MemberRequest $request)
+    {
+        $member = new Member($request->all());
+        $this->setMemberUser($member, $request);
+        $member->save();
+        return $member;
+    }
+
+    private function setMemberUser(Member $member, MemberRequest $request)
+    {
+        if ($userId = $request->input('user')) {
+            $member->user()->associate(User::findOrFail($userId));
+        } else {
+            $member->user()->dissociate();
+        }
     }
 
     /**
@@ -43,7 +62,7 @@ class MemberController extends Controller
      */
     public function store(MemberRequest $request)
     {
-        Member::create($request->all());
+        $member = $this->createMember($request);
         flash()->success(trans('admin.manage.members.create.successMessage'));
         return redirect()->route('admin.manage.members.index');
     }
@@ -56,7 +75,8 @@ class MemberController extends Controller
      */
     public function edit(Member $member)
     {
-        return view('admin.manage.members.edit', compact('member'));
+        $users = User::all()->pluck('email', 'id')->toArray();
+        return view('admin.manage.members.edit', compact('member', 'users'));
     }
 
     /**
@@ -69,6 +89,9 @@ class MemberController extends Controller
     public function update(Member $member, MemberRequest $request)
     {
         $member->update($request->all());
+        $this->setMemberUser($member, $request);
+        $member->save();
+
         flash()->success(trans('admin.manage.members.edit.successMessage'));
         return redirect()->route('admin.manage.members.index');
     }

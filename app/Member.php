@@ -14,7 +14,7 @@ class Member extends Model
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'gender', 'birthday'
+        'first_name', 'last_name', 'birthday'
     ];
 
     /**
@@ -39,6 +39,13 @@ class Member extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function getEmailAttribute()
+    {
+        if ($user = $this->user)
+            return $user->email;
+        return null;
     }
 
     public function mbMember()

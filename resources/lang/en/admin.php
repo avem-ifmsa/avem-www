@@ -117,7 +117,6 @@ return [
 				'emailLabel' => 'Email',
 				'passwordLabel' => 'Password',
 				'rolesLabel' => 'Roles',
-				'memberLabel' => 'Member',
 			],
 
 			'create' => [
@@ -139,25 +138,22 @@ return [
 		'members' => [
 
 			'index' => [
-				'fullName' => 'Full Name',
-				'isActive' => 'Is Active?',
-				'points' => 'Points',
-				'yes' => 'yes',
 				'no' => 'no',
 				'id' => 'ID',
+				'yes' => 'yes',
+				'email' => 'Email',
+				'points' => 'Points',
+				'notApplicable' => 'n/a',
+				'fullName' => 'Full Name',
+				'isActive' => 'Is Active?',
 			],
 
 			'form' => [
-				'firstNameLabel' => 'First Name',
-				'lastNameLabel' => 'Last Name',
-				'genderLabel' => 'Gender',
+				'userLabel' => 'User',
+				'notApplicable' => 'n/a',
 				'birthdayLabel' => 'Birthday',
-				'genderOptions' => [
-					'notApplicable' => 'n/a',
-					'male' => 'Male',
-					'female' => 'Female',
-					'other' => 'Other',
-				],
+				'lastNameLabel' => 'Last Name',
+				'firstNameLabel' => 'First Name',
 			],
 
 			'create' => [

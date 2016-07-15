@@ -6,6 +6,7 @@
 			<tr>
 				<th>{{ trans('admin.manage.members.index.id') }}</th>
 				<th>{{ trans('admin.manage.members.index.fullName') }}</th>
+				<th>{{ trans('admin.manage.members.index.email') }}</th>
 				<th>{{ trans('admin.manage.members.index.points') }}</th>
 				<th>{{ trans('admin.manage.members.index.isActive') }}</th>
 				<th>
@@ -21,6 +22,11 @@
 			<tr>
 				<td>{{ $member->id }}</td>
 				<td>{{ $member->full_name }}</td>
+				<td>
+					{{ $member->email ?:
+							trans('admin.manage.members.index.notApplicable')
+					}}
+				</td>
 				<td>{{ $member->points }}</td>
 				<td>
 					{{ $member->is_active
