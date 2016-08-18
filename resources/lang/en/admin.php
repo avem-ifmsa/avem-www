@@ -3,20 +3,14 @@
 return [
 
 	'title' => 'AVEM / Admin',
-	'header' => 'AVEM Administration Panel',
 
 	'nav' => [
-		'users' => 'Users',
-		'roles' => 'Roles',
 		'manage' => 'Manage',
-		'members' => 'Members',
 		'renewals' => 'Renewals',
 		'exchanges' => 'Exchanges',
-		'mbCharges' => 'MB Charges',
 		'mbMembers' => 'MB Members',
 		'activities' => 'Activities',
 		'statistics' => 'Statistics',
-		'permissions' => 'Permissions',
 	],
 
 	'breadcrumb' => [
@@ -37,6 +31,16 @@ return [
 	],
 
 	'manage' => [
+
+		'nav' => [
+			'users' => 'Users',
+			'roles' => 'Roles',
+			'members' => 'Members',
+			'mbCharges' => 'MB Charges',
+			'mbMembers' => 'MB Members',
+			'activities' => 'Activities',
+			'permissions' => 'Permissions',
+		],
 
 		'actions' => [
 			'editButton' => 'Edit',
@@ -293,6 +297,15 @@ return [
 		'renew' => [
 			'successMessage' => 'Member «:name» renewed until :until',
 		],
+	],
+
+	'mbMembers' => [
+
+		'memberId' => 'ID',
+		'fullName' => 'Full Name',
+		'activeCharge' => 'Current Charge',
+		'notApplicable' => 'n/a',
+
 	],
 
 ];

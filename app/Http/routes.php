@@ -11,19 +11,28 @@
 |
 */
 
-Route::get('/admin', 'AdminController@index');
+Route::auth();
 
-Route::get('/admin/manage', 'AdminController@manage');
-Route::resource('/admin/manage/users', 'Admin\UserController');
-Route::resource('/admin/manage/roles', 'Admin\RoleController');
-Route::resource('/admin/manage/members', 'Admin\MemberController');
-Route::resource('/admin/manage/activities', 'Admin\ActivityController');
-Route::resource('/admin/manage/mb_members', 'Admin\MbMemberController');
-Route::resource('/admin/manage/mb_charges', 'Admin\MbChargeController');
-Route::resource('/admin/manage/permissions', 'Admin\PermissionController');
+Route::get('/home', 'HomeController@index');
 
-Route::get('/admin/renewals', 'AdminController@renewals');
-Route::post('/admin/members/{members}/renew', 'Admin\MemberController@renew');
+Route::group(['middleware' => 'auth'], function() {
 
-Route::get('/admin/exchanges', 'AdminController@exchanges');
-Route::get('/admin/activities', 'AdminController@activities');
+	Route::get('/admin', 'AdminController@index');
+
+	Route::get('/admin/manage', 'AdminController@manage');
+	Route::resource('/admin/manage/users', 'Admin\UserController');
+	Route::resource('/admin/manage/roles', 'Admin\RoleController');
+	Route::resource('/admin/manage/members', 'Admin\MemberController');
+	Route::resource('/admin/manage/activities', 'Admin\ActivityController');
+	Route::resource('/admin/manage/mb-members', 'Admin\MbMemberController');
+	Route::resource('/admin/manage/mb-charges', 'Admin\MbChargeController');
+	Route::resource('/admin/manage/permissions', 'Admin\PermissionController');
+
+	Route::get('/admin/renewals', 'AdminController@renewals');
+	Route::post('/admin/members/{members}/renew', 'Admin\MemberController@renew');
+
+	Route::get('/admin/exchanges', 'AdminController@exchanges');
+	Route::get('/admin/mb-members', 'AdminController@mbMembers');
+	Route::get('/admin/activities', 'AdminController@activities');
+
+});

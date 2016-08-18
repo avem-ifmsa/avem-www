@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use Validator;
+use App\Member;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -49,10 +50,29 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'first_name' => [ 'required', 'max:255' ],
+            'last_name' => [ 'required', 'max:255' ],
+            'birthday' => [ 'date', 'before:today' ],
+            'email' => [ 'required', 'email', 'max:255', 'unique:users'],
+            'password' => [
+                'required', 'confirmed',
+                'min:'.config('security.min_password_length')
+            ],
         ]);
+    }
+
+    private function createUser(array $data) {
+        $user = User::create($data);
+        $member = $this->createMember($user, $data);
+        $user->save();
+        return $user;
+    }
+
+    private function createMember(User $user, array $data) {
+        $member = new Member($data);
+        $member->user()->associate($user);
+        $member->save();
+        return $member;
     }
 
     /**
@@ -63,10 +83,6 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        return $this->createUser($data);
     }
 }
