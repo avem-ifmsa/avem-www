@@ -26,7 +26,7 @@ class MemberRequest extends Request
         return [
             'first_name' => 'required',
             'last_name' => 'required',
-            'birthday' => 'date',
+            'birthday' => [ 'date', 'before:now' ],
         ];
     }
 }

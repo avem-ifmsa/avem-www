@@ -26,10 +26,10 @@ class ActivityRequest extends Request
         return [
             'name' => 'required',
             'description' => 'required',
-            'start' => [ 'date', 'before:end' ],
+            'start' => [ 'date' ],
             'end' => [ 'date', 'after:start' ],
             'is_public' => [ 'required', 'boolean' ],
-            'subscription_start' => [ 'date', 'after:subscription_end' ],
+            'subscription_start' => [ 'date', 'before:start' ],
             'subscription_end' => [ 'date', 'before:subscription_start' ],
         ];
     }
