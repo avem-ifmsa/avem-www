@@ -23,6 +23,6 @@
 
 @push('scripts')
 	<script>
-		$('#member').chosen({ width: '100%' });
+		$('#member').select2();
 	</script>
 @endpush
