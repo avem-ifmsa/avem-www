@@ -21,8 +21,8 @@
 						<li>{{ link_to('/admin/manage/users'      , trans('admin.manage.nav.users'      )) }}</li>
 						<li>{{ link_to('/admin/manage/roles'      , trans('admin.manage.nav.roles'      )) }}</li>
 						<li>{{ link_to('/admin/manage/permissions', trans('admin.manage.nav.permissions')) }}</li>
-						<li>{{ link_to('/admin/manage/mb_members' , trans('admin.manage.nav.mbMembers'  )) }}</li>
-						<li>{{ link_to('/admin/manage/mb_charges' , trans('admin.manage.nav.mbCharges'  )) }}</li>
+						<li>{{ link_to('/admin/manage/mb-members' , trans('admin.manage.nav.mbMembers'  )) }}</li>
+						<li>{{ link_to('/admin/manage/mb-charges' , trans('admin.manage.nav.mbCharges'  )) }}</li>
 					</ul>
 				</li>
 

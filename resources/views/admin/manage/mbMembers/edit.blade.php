@@ -2,7 +2,7 @@
 
 @push('breadcrumb')
 	<li>
-		{{ link_to_route('admin.manage.mb_members.edit',
+		{{ link_to_route('admin.manage.mb-members.edit',
 				trans('admin.breadcrumb.edit'),
 				[$mbMember]) }}
 	</li>
@@ -10,7 +10,7 @@
 
 @section('panel')
 	{{ Form::model($mbMember, [ 'method' => 'put',
-			'route' => ['admin.manage.mb_members.update', $mbMember]
+			'route' => ['admin.manage.mb-members.update', $mbMember]
 	]) }}
 
 		@include('admin.manage.mbMembers.form', [

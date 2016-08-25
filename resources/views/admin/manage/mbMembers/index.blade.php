@@ -4,13 +4,14 @@
 	<table class="table table-hover table-compact">
 		<thead>
 			<tr>
-				<th>{{ trans('admin.manage.mbMembers.index.member') }}</th>
-				<th>{{ trans('admin.manage.mbMembers.index.dniNif') }}</th>
-				<th>{{ trans('admin.manage.mbMembers.index.phone') }}</th>
-				<th>{{ trans('admin.manage.mbMembers.index.isActive')}}</th>
+				<th>{{ trans('admin.manage.mbMembers.index.id')       }}</th>
+				<th>{{ trans('admin.manage.mbMembers.index.member')   }}</th>
+				<th>{{ trans('admin.manage.mbMembers.index.dniNif')   }}</th>
+				<th>{{ trans('admin.manage.mbMembers.index.phone')    }}</th>
+				<th>{{ trans('admin.manage.mbMembers.index.isActive') }}</th>
 				<th>
 					@include('admin.actions.manageGlobal', [
-						'createUrl' => url('/admin/manage/mb_members/create'),
+						'createUrl' => url('/admin/manage/mb-members/create'),
 					])
 				</th>
 			</tr>
@@ -19,12 +20,12 @@
 		<tbody>
 		@foreach($mbMembers as $mbMember)
 			<tr>
+				<td>{{ $mbMember->id }}</td>
 				<td>
-					@if ($member = $mbMember->member)
-						{{ $member->full_name }} ({{ $member->id}})
-					@else
-						{{ trans('admin.manage.mbMembers.index.notApplicable') }}
-					@endif
+					{{ $mbMember->member
+						? $mbMember->member->full_name
+						: trans('admin.manage.mbMembers.index.notApplicable')
+					}}
 				</td>
 				<td>{{ $mbMember->dni_nif }}</td>
 				<td>{{ $mbMember->phone }}</td>
@@ -35,8 +36,8 @@
 				</td>
 				<td>
 					@include('admin.actions.manageLocal', [
-						'editUrl' => route('admin.manage.mb_members.edit', [$mbMember]),
-						'deleteUrl' => route('admin.manage.mb_members.destroy', [$mbMember]),
+						'editUrl' => route('admin.manage.mb-members.edit', [$mbMember]),
+						'deleteUrl' => route('admin.manage.mb-members.destroy', [$mbMember]),
 					])
 				</td>
 			</tr>

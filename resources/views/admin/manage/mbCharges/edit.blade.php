@@ -10,7 +10,7 @@
 
 @section('panel')
 	{{ Form::model($mbCharge, [ 'method' => 'put',
-			'route' => ['admin.manage.mb_charges.update', $mbCharge]
+			'route' => ['admin.manage.mb-charges.update', $mbCharge]
 	]) }}
 
 		@include('admin.manage.mbCharges.form', [

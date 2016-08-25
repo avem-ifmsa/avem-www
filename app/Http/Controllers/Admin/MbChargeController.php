@@ -41,7 +41,7 @@ class MbChargeController extends Controller
     {
         MbCharge::create($request->all());
         flash()->success(trans('admin.manage.mbCharges.create.successMessage'));
-        return redirect()->route('admin.manage.mb_charges.index');
+        return redirect()->route('admin.manage.mb-charges.index');
     }
 
     /**
@@ -66,7 +66,7 @@ class MbChargeController extends Controller
     {
         $mbCharge->update($request->all());
         flash()->success(trans('admin.manage.mbCharges.edit.successMessage'));
-        return redirect()->route('admin.manage.mb_charges.index');
+        return redirect()->route('admin.manage.mb-charges.index');
     }
 
     /**
@@ -79,6 +79,6 @@ class MbChargeController extends Controller
     {
         $mbCharge->delete();
         flash()->success(trans('admin.manage.mbCharges.delete.successMessage'));
-        return redirect()->route('admin.manage.mb_charges.index');
+        return redirect()->route('admin.manage.mb-charges.index');
     }
 }

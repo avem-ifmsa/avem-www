@@ -2,7 +2,7 @@
 
 @push('breadcrumb')
 	<li>
-		{{ link_to_route('admin.manage.mb_charges.index',
+		{{ link_to_route('admin.manage.mb-charges.index',
 				trans('admin.breadcrumb.mbCharges'), []) }}
 	</li>
 @endpush

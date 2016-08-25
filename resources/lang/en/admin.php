@@ -208,6 +208,7 @@ return [
 		'mbMembers' => [
 
 			'index' => [
+				'id' => 'ID',
 				'phone' => 'Phone',
 				'member' => 'Member',
 				'dniNif' => 'DNI/NIF',

@@ -8,7 +8,7 @@
 				<th>{{ trans('admin.manage.mbCharges.index.email') }}</th>
 				<th>
 					@include('admin.actions.manageGlobal', [
-						'createUrl' => url('/admin/manage/mb_charges/create'),
+						'createUrl' => url('/admin/manage/mb-charges/create'),
 					])
 				</th>
 			</tr>
@@ -21,8 +21,8 @@
 				<td>{{ $mbCharge->email }}</td>
 				<td>
 					@include('admin.actions.manageLocal', [
-						'editUrl' => route('admin.manage.mb_charges.edit', [$mbCharge]),
-						'deleteUrl' => route('admin.manage.mb_charges.destroy', [$mbCharge]),
+						'editUrl' => route('admin.manage.mb-charges.edit', [$mbCharge]),
+						'deleteUrl' => route('admin.manage.mb-charges.destroy', [$mbCharge]),
 					])
 				</td>
 			</tr>

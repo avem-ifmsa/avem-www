@@ -67,7 +67,7 @@ class MbMemberController extends Controller
     {
         $this->createMember($request);
         flash()->success(trans('admin.manage.mbMembers.create.successMessage'));
-        return redirect()->route('admin.manage.mb_members.index');
+        return redirect()->route('admin.manage.mb-members.index');
     }
 
     /**
@@ -79,8 +79,7 @@ class MbMemberController extends Controller
     public function edit(MbMember $mbMember)
     {
         $members = $this->memberList();
-        return view('admin.manage.mbMembers.edit',
-                    compact('mbMember', 'members'));
+        return view('admin.manage.mbMembers.edit', compact('mbMember', 'members'));
     }
 
     /**
@@ -109,6 +108,6 @@ class MbMemberController extends Controller
     {
         $mbMember->delete();
         flash()->success(trans('admin.manage.mbMembers.delete.successMessage'));
-        return redirect()->route('admin.manage.mb_members.index');
+        return redirect()->route('admin.manage.mb-members.index');
     }
 }
