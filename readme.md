@@ -1,27 +1,75 @@
-# Laravel PHP Framework
+# avem-www
+Este es el repositorio oficial de la web de [AVEM](http://avem.es).
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+`avem-www` es un proyecto de código abierto, lo que significa que todo el código está a disposición del público. Cualquiera puede examinarlo, reutilizarlo, así como colaborar con nosotros. Si eres un desarrollador, tal vez quieras echarle un vistazo a nuestras [instrucciones para desarrolladores](#instrucciones-para-desarrolladores).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+Si estás a cargo de la página web, aquí tienes las [instrucciones para el administrador](#instrucciones-para-el-administrador).
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+## Instrucciones para el administrador
+Antes de configurar el proyecto, debe asegurarse de que todo esté configurado correctamente (parámetros de acceso a la base de datos, claves de acceso a las APIs de terceros, etc). Para ello, revise el fichero `.env`.
 
-## Official Documentation
+Una vez hecho esto, acceda a la carpeta del proyecto desde la línea de comandos y ejecute lo siguiente:
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+```sh
+composer install
+npm install
+gulp
+php artisan key:generate
+php artisan migrate
+```
 
-## Contributing
+## Instrucciones para desarrolladores
+La forma de colaborar en el desarrollo de la nueva web es a través de GitHub. Las siguientes instrucciones asumen que el usuario tiene al menos cierta familiaridad con Git, el sistema de control de versiones.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+Para poder compartir sus cambios, deberá realizar un *fork* del proyecto desde su cuenta de GitHub. Una vez hecho esto, ejecute lo siguiente:
 
-## Security Vulnerabilities
+```sh
+git clone https://github.com/<su nombre de usuario>/avem-www.git
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+Si todo ha salido bien, debería tener una nueva carpeta llamada `avem-www` en su carpeta personal. Es en esta carpeta en la que debe realizar sus cambios.
 
-## License
+Para facilitar el mantenimiento de la nueva web a largo plazo, hemos optado por utilizar, en la medida de lo posible, servicios de terceros. Un ejemplo de esto es MailChimp, un servicio de envío masivo de emails que utilizamos para el envío de correos a nuestros socios.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+Cada vez que un usuario se registra en la nueva web, nuestros servicios se encargan de darle de alta en MailChimp de forma automática. Aunque esto es muy útil en producción, durante el desarrollo esto no es necesario y puede dar lugar a errores que pueden ser difíciles de diagnosticar. Por todo esto, edite el archivo `config/app.php` y comente la siguiente línea:
+
+```php
+App\Providers\MailchimpServiceProvider::class,
+```
+
+El resultado debe ser este:
+
+```php
+// App\Providers\MailchimpServiceProvider::class,
+```
+
+Guarde el archivo y recuerde: **nunca debe añadir este archivo al sistema de control de versiones**. (Si en algún momento necesita modificar este archivo, deberá primero restaurarlo a su estado original, realizar las modificaciones, ejecutar un *git commit* seguido de *git push* y volver a comentar esta línea).
+
+Opcionalmente, puede añadir `config/app.php` a su fichero `.gitignore`, situado en la carpeta raíz del proyecto. De esta forma, Git ignorará este archivo y podrá seguir trabajando sin peligro.
+
+Este proyecto está configurado para trabajar con una base de datos remota por defecto. No obstante, durante el desarrollo resulta más sencillo trabajar con una base de datos local (p ej. SQLite3). Así que copie el archivo `.env.example` con el nombre `.env` y cree un archivo vacío en la ruta `database/database.sqlite`.
+
+Ahora ejecute lo siguiente para instalar las dependencias necesarias:
+
+```sh
+composer install
+npm install
+```
+
+También debe ejecutar lo siguiente:
+
+```sh
+php artisan key:generate
+php artisan migrate
+```
+
+Algunos de los archivos de este proyecto requieren un preprocesado previo (p ej, las hojas de estilos SCSS). Por esta razón, es posible que los cambios que lleve a cabo no se reflejen en la web. Si esto le ocurre, acuérdese de ejecutar `gulp` desde la carpeta raíz del proyecto.
+
+## Uso de Homestead
+Durante el desarrollo, es vital que todos los desarrolladores trabajen con las mismas versiones de las herramientas. *Homestead* (parte del proyecto Laravel) es una máquina virtual que incluye todas las herramientas que vamos a necesitar.
+
+Homestead necesita de VirtualBox para funcionar, así que asegúrese de tenerlo instalado antes de continuar. Una vez homestead está instalado, puede editar su fichero de configuración con `homestead edit`. Asegúrese de que las carpetas estén configuradas correctamente.
+
+Una vez configurado, puede poner en marcha la máquina virtual con `homestead up`. Si todo está bien, visite el siguiente enlace desde el navegador para acceder a una versión en pruebas de la nueva web: http://192.168.10.10
+
+![Homestead Index HTML Page](https://www.googledrive.com/host/0BzZnU4OoaaKbU18tX1FuMTc3d2c)
