@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cb0b43b22b0c7207e2efa0bcee6b30bc",
-    "content-hash": "cee8f58bbf6b91c9c0e2ddaab7cbddfa",
+    "hash": "298aa73bc1c81831ad94cb954f2045d3",
+    "content-hash": "476d5b63c80490130329b4d8cdc83ea9",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -618,6 +618,59 @@
             "time": "2014-09-09 13:34:57"
         },
         {
+            "name": "edvinaskrucas/laravel-user-email-verification",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/edvinaskrucas/laravel-user-email-verification.git",
+                "reference": "75f7139543c2be5bb3c71f87fa016cc14be9d733"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/edvinaskrucas/laravel-user-email-verification/zipball/75f7139543c2be5bb3c71f87fa016cc14be9d733",
+                "reference": "75f7139543c2be5bb3c71f87fa016cc14be9d733",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^5.2",
+                "illuminate/database": "^5.2",
+                "illuminate/filesystem": "^5.2",
+                "illuminate/http": "^5.2",
+                "illuminate/mail": "^5.2",
+                "illuminate/support": "^5.2",
+                "php": "^5.5|^7.0"
+            },
+            "require-dev": {
+                "laravel/framework": "^5.2",
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "^4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Krucas\\LaravelUserEmailVerification": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Edvinas Kručas",
+                    "email": "edv.krucas@gmail.com"
+                }
+            ],
+            "description": "Laravel Package for easier user email verification.",
+            "keywords": [
+                "email verification",
+                "laravel",
+                "user email verification",
+                "user verification"
+            ],
+            "time": "2016-04-14 08:03:48"
+        },
+        {
             "name": "guzzlehttp/guzzle",
             "version": "6.2.1",
             "source": {
@@ -978,16 +1031,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.2.44",
+            "version": "v5.2.45",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "f24b7acfb494437ef00bdd062bed61eb21535546"
+                "reference": "2a79f920d5584ec6df7cf996d922a742d11095d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/f24b7acfb494437ef00bdd062bed61eb21535546",
-                "reference": "f24b7acfb494437ef00bdd062bed61eb21535546",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/2a79f920d5584ec6df7cf996d922a742d11095d1",
+                "reference": "2a79f920d5584ec6df7cf996d922a742d11095d1",
                 "shasum": ""
             },
             "require": {
@@ -1104,7 +1157,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2016-08-23 13:03:29"
+            "time": "2016-08-26 11:44:52"
         },
         {
             "name": "laravelcollective/html",

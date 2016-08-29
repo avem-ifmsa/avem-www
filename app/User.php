@@ -2,13 +2,15 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Krucas\LaravelUserEmailVerification\RequiresEmailVerification;
+use Krucas\LaravelUserEmailVerification\Contracts\RequiresEmailVerification as RequiresEmailVerificationContract;
 
-class User extends Authenticatable
+class User extends Authenticatable implements RequiresEmailVerificationContract
 {
 
-    use EntrustUserTrait;
+    use EntrustUserTrait, RequiresEmailVerification;
 
     /**
      * The attributes that are mass assignable.

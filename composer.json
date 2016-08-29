@@ -12,7 +12,9 @@
         "laracasts/flash": "^2.0",
         "zizaco/entrust": "5.2.x-dev",
         "barryvdh/laravel-debugbar": "^2.2",
-        "pacely/mailchimp-apiv3": "dev-master"
+        "pacely/mailchimp-apiv3": "dev-master",
+        "edvinaskrucas/laravel-user-email-verification": "^1.0",
+        "guzzlehttp/guzzle": "~5.3|~6.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

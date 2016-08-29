@@ -11,17 +11,34 @@
 |
 */
 
-Route::auth();
-
 Route::get('/', function() {
 	return view('welcome');
 });
 
-Route::get('/home', 'HomeController@index');
+Route::auth();
+
+// verification token resend form
+Route::get('verify/resend', [
+    'uses' => 'Auth\VerifyController@showResendForm',
+    'as' => 'verification.resend',
+]);
+
+// verification token resend action
+Route::post('verify/resend', [
+    'uses' => 'Auth\VerifyController@sendVerificationLinkEmail',
+    'as' => 'verification.resend.post',
+]);
+
+// verification message / user verification
+Route::get('verify/{token?}', [
+    'uses' => 'Auth\VerifyController@verify',
+    'as' => 'verification.verify',
+]);
 
 Route::group(['middleware' => 'auth'], function() {
 
-	Route::get('/admin', 'AdminController@index');
+	Route::get('/home', 'HomeController@index')->name('home');
+	Route::get('/admin', 'AdminController@index')->name('admin');
 
 	Route::get('/admin/manage', 'AdminController@manage');
 	Route::resource('/admin/manage/users', 'Admin\UserController');

@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use Validator;
 use App\Member;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Krucas\LaravelUserEmailVerification\AuthenticatesAndRegistersUsers as VerificationAuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
 {
@@ -22,7 +24,11 @@ class AuthController extends Controller
     |
     */
 
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+    use AuthenticatesAndRegistersUsers, ThrottlesLogins, VerificationAuthenticatesAndRegistersUsers {
+            AuthenticatesAndRegistersUsers::redirectPath insteadof VerificationAuthenticatesAndRegistersUsers;
+            AuthenticatesAndRegistersUsers::getGuard insteadof VerificationAuthenticatesAndRegistersUsers;
+            VerificationAuthenticatesAndRegistersUsers::register insteadof AuthenticatesAndRegistersUsers;
+    }
 
     /**
      * Where to redirect users after login / registration.
@@ -50,29 +56,15 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'first_name' => [ 'required', 'max:255' ],
-            'last_name' => [ 'required', 'max:255' ],
+            'first_name' => 'required',
+            'last_name' => 'required',
             'birthday' => [ 'date', 'before:today' ],
-            'email' => [ 'required', 'email', 'max:255', 'unique:users'],
+            'email' => [ 'required', 'email', 'max:255', 'unique:users' ],
             'password' => [
                 'required', 'confirmed',
                 'min:'.config('security.min_password_length')
             ],
         ]);
-    }
-
-    private function createUser(array $data) {
-        $user = User::create($data);
-        $member = $this->createMember($user, $data);
-        $user->save();
-        return $user;
-    }
-
-    private function createMember(User $user, array $data) {
-        $member = new Member($data);
-        $member->user()->associate($user);
-        $member->save();
-        return $member;
     }
 
     /**
@@ -83,6 +75,10 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return $this->createUser($data);
+        $user = User::create($data);
+        $member = Member::create($data);
+        $user->member()->save($member);
+        return $user;
     }
+
 }

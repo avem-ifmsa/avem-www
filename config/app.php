@@ -155,6 +155,7 @@ return [
         Zizaco\Entrust\EntrustServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Mailchimp\MailchimpServiceProvider::class,
+        Krucas\LaravelUserEmailVerification\UserEmailVerificationServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -163,7 +164,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\MailchimpServiceProvider::class,
+        // App\Providers\MailchimpServiceProvider::class,
 
     ],
 
