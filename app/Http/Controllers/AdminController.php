@@ -28,8 +28,7 @@ class AdminController extends Controller
     public function renewals()
     {
         $members = Member::all();
-        return view('admin.renewals',
-                    compact('members'));
+        return view('admin.renewals', compact('members'));
     }
 
     public function activities()
