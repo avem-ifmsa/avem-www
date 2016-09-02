@@ -56,6 +56,8 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('/admin/mb-members', 'Admin\MbMembersController@index');
 	Route::post('/admin/mb-members/{mb_members}/activate', 'Admin\MbMembersController@activate')
 		->name('admin.mbMembers.activate');
+	Route::post('/admin/mb-members/{mb_members}/deactivate', 'Admin\MbMembersController@deactivate')
+		->name('admin.mbMembers.deactivate');
 
 	Route::get('/admin/activities', 'AdminController@activities');
 	Route::get('/admin/exchanges', 'AdminController@exchanges');

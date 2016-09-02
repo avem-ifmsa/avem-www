@@ -301,9 +301,16 @@ return [
 		'notApplicable' => 'n/a',
 		'activateButton' => 'Activate',
 		'activeUntil' => 'Active Until',
+		'deactivateButton' => 'Deactivate',
 		'currentCharge' => 'Current Charge',
-		'successMessage' => 'Member «:name» activated as «:charge» until :until',
 
+		'activate' => [
+			'successMessage' => 'Member «:name» activated as «:charge» until :until',
+		],
+
+		'deactivate' => [
+			'successMessage' => 'Member «:name» with charge «:charge» deactivated',
+		],
 	],
 
 ];

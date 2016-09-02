@@ -18,8 +18,8 @@
 
 	<tbody>
 	@foreach ($mbMembers as $mbMember)
-	@if ($mbMember->member)
-		<tr class="{{ $mbMember->is_active ? '' : 'danger' }}">
+	@if ($mbMember->member != null)
+		<tr>
 			<td>{{ $mbMember->id }}</td>
 			<td>{{ $mbMember->member->full_name }}</td>
 			<td>
@@ -33,19 +33,23 @@
 					: trans('admin.mbMembers.notApplicable') }}
 			</td>
 			<td>
-				{{ Form::open([ 'route' => [ 'admin.mbMembers.activate', $mbMember]]) }}
-					<div class="input-group input-group-sm">
-						@if ($period = $mbMember->current_period)
-							{{ Form::select('mb_charge', $mbCharges, $period->mbCharge->id, [ 'class' => 'form-control' ]) }}
-						@else
-							{{ Form::select('mb_charge', $mbCharges, old('mb_charge'), [ 'class' => 'form-control' ]) }}
-						@endif
-						<div class="input-group-btn">
-							{{ Form::submit(trans('admin.mbMembers.activateButton'), [
-									'class' => 'btn btn-sm btn-primary' ]) }}
+				@if (!$mbMember->is_active)
+					{{ Form::open([ 'route' => [ 'admin.mbMembers.activate', $mbMember ]]) }}
+						<div class="input-group input-group-sm">
+							{{ Form::select('mb_charge', $mbCharges, old('mb_charge'),
+									[ 'class' => 'form-control' ]) }}
+							<div class="input-group-btn">
+								{{ Form::submit(trans('admin.mbMembers.activateButton'),
+										[ 'class' => 'btn btn-sm btn-primary' ]) }}
+							</div>
 						</div>
-					</div>
-				{{ Form::close() }}
+					{{ Form::close() }}
+				@else
+					{{ Form::open([ 'route' => [ 'admin.mbMembers.deactivate', $mbMember ]]) }}
+						{{ Form::submit(trans('admin.mbMembers.deactivateButton'),
+								[ 'class' => 'btn btn-sm btn-danger' ]) }}
+					{{ Form::close() }}
+				@endif
 			</td>
 		</tr>
 	@endif
