@@ -285,27 +285,23 @@ return [
 	],
 
 	'renewals' => [
-		'actions' => [
-			'renewButton' => 'Renew',
-			'yearsLabel' => 'year/s',
-		],
-
 		'memberId' => 'ID',
 		'fullName' => 'Full Name',
 		'activeUntil' => 'Active Until',
 		'notApplicable' => 'n/a',
-
-		'renew' => [
-			'successMessage' => 'Member «:name» renewed until :until',
-		],
+		'renewButton' => 'Renew',
+		'yearsLabel' => 'year/s',
+		'successMessage' => 'Member «:name» renewed until :until',
 	],
 
 	'mbMembers' => [
 
 		'memberId' => 'ID',
 		'fullName' => 'Full Name',
-		'activeCharge' => 'Current Charge',
 		'notApplicable' => 'n/a',
+		'activateButton' => 'Activate',
+		'currentCharge' => 'Current Charge',
+		'successMessage' => 'Member «:name» activated as «:charge» until :until',
 
 	],
 

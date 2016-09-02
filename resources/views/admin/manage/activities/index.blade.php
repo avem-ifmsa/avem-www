@@ -10,7 +10,7 @@
 				<th>{{ trans('admin.manage.activities.index.start') }}</th>
 				<th>{{ trans('admin.manage.activities.index.end') }}</th>
 				<th>
-					@include('admin.actions.manageGlobal', [
+					@include('admin.manage._globalActions', [
 						'createUrl' => url('/admin/manage/activities/create'),
 					])
 				</th>
@@ -42,7 +42,7 @@
 					}}
 				</td>
 				<td>
-					@include('admin.actions.manageLocal', [
+					@include('admin.manage._singleActions', [
 						'editUrl' => route('admin.manage.activities.edit', [$activity]),
 						'deleteUrl' => route('admin.manage.activities.destroy', [$activity]),
 					])

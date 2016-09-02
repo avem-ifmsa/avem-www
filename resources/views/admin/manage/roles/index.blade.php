@@ -8,7 +8,7 @@
 				<th>{{ trans('admin.manage.roles.index.displayName') }}</th>
 				<th>{{ trans('admin.manage.roles.index.description') }}</th>
 				<th>
-					@include('admin.actions.manageGlobal', [
+					@include('admin.manage._globalActions', [
 						'createUrl' => url('/admin/manage/roles/create'),
 					])
 				</th>
@@ -22,7 +22,7 @@
 				<td>{{ $role->display_name }}</td>
 				<td>{{ $role->description }}</td>
 				<td>
-					@include('admin.actions.manageLocal', [
+					@include('admin.manage._singleActions', [
 						'editUrl' => route('admin.manage.roles.edit', [$role]),
 						'deleteUrl' => route('admin.manage.roles.destroy', [$role]),
 					])

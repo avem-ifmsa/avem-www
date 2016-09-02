@@ -10,7 +10,7 @@
 				<th>{{ trans('admin.manage.members.index.points') }}</th>
 				<th>{{ trans('admin.manage.members.index.isActive') }}</th>
 				<th>
-					@include('admin.actions.manageGlobal', [
+					@include('admin.manage._globalActions', [
 						'createUrl' => url('/admin/manage/members/create'),
 					])
 				</th>
@@ -34,7 +34,7 @@
 							: trans('admin.manage.members.index.no') }}
 				</td>
 				<td>
-					@include('admin.actions.manageLocal', [
+					@include('admin.manage._singleActions', [
 						'editUrl' => route('admin.manage.members.edit', [$member]),
 						'deleteUrl' => route('admin.manage.members.destroy', [$member]),
 					])

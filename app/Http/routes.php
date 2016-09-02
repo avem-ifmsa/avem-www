@@ -41,19 +41,23 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('/admin', 'AdminController@index')->name('admin');
 
 	Route::get('/admin/manage', 'AdminController@manage');
-	Route::resource('/admin/manage/users', 'Admin\UserController');
-	Route::resource('/admin/manage/roles', 'Admin\RoleController');
-	Route::resource('/admin/manage/members', 'Admin\MemberController');
-	Route::resource('/admin/manage/activities', 'Admin\ActivityController');
-	Route::resource('/admin/manage/mb-members', 'Admin\MbMemberController');
-	Route::resource('/admin/manage/mb-charges', 'Admin\MbChargeController');
-	Route::resource('/admin/manage/permissions', 'Admin\PermissionController');
+	Route::resource('/admin/manage/users', 'Admin\Manage\UserController');
+	Route::resource('/admin/manage/roles', 'Admin\Manage\RoleController');
+	Route::resource('/admin/manage/members', 'Admin\Manage\MemberController');
+	Route::resource('/admin/manage/activities', 'Admin\Manage\ActivityController');
+	Route::resource('/admin/manage/mb-members', 'Admin\Manage\MbMemberController');
+	Route::resource('/admin/manage/mb-charges', 'Admin\Manage\MbChargeController');
+	Route::resource('/admin/manage/permissions', 'Admin\Manage\PermissionController');
 
-	Route::get('/admin/renewals', 'AdminController@renewals');
-	Route::post('/admin/members/{members}/renew', 'Admin\MemberController@renew');
+	Route::get('/admin/renewals', 'Admin\RenewalsController@index');
+	Route::post('/admin/renewals/{members}/renew', 'Admin\RenewalsController@renew')
+		->name('admin.renewals.renew');
 
-	Route::get('/admin/exchanges', 'AdminController@exchanges');
-	Route::get('/admin/mb-members', 'AdminController@mbMembers');
+	Route::get('/admin/mb-members', 'Admin\MbMembersController@index');
+	Route::post('/admin/mb-members/{mb_members}/activate', 'Admin\MbMembersController@activate')
+		->name('admin.mbMembers.activate');
+
 	Route::get('/admin/activities', 'AdminController@activities');
+	Route::get('/admin/exchanges', 'AdminController@exchanges');
 
 });

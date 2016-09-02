@@ -10,7 +10,7 @@
 				<th>{{ trans('admin.manage.mbMembers.index.phone')    }}</th>
 				<th>{{ trans('admin.manage.mbMembers.index.isActive') }}</th>
 				<th>
-					@include('admin.actions.manageGlobal', [
+					@include('admin.manage._globalActions', [
 						'createUrl' => url('/admin/manage/mb-members/create'),
 					])
 				</th>
@@ -35,7 +35,7 @@
 							: trans('admin.manage.mbMembers.index.no') }}
 				</td>
 				<td>
-					@include('admin.actions.manageLocal', [
+					@include('admin.manage._singleActions', [
 						'editUrl' => route('admin.manage.mb-members.edit', [$mbMember]),
 						'deleteUrl' => route('admin.manage.mb-members.destroy', [$mbMember]),
 					])

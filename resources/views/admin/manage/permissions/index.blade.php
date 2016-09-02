@@ -8,7 +8,7 @@
 				<th>{{ trans('admin.manage.permissions.index.displayName') }}</th>
 				<th>{{ trans('admin.manage.permissions.index.description') }}</th>
 				<th>
-					@include('admin.actions.manageGlobal', [
+					@include('admin.manage._globalActions', [
 						'createUrl' => url('/admin/manage/permissions/create'),
 					])
 				</th>
@@ -22,7 +22,7 @@
 				<td>{{ $permission->display_name }}</td>
 				<td>{{ $permission->description }}</td>
 				<td>
-					@include('admin.actions.manageLocal', [
+					@include('admin.manage._singleActions', [
 						'editUrl' => route('admin.manage.permissions.edit', [$permission]),
 						'deleteUrl' => route('admin.manage.permissions.destroy', [$permission]),
 					])

@@ -10,10 +10,9 @@
 
 <div class="form-group">
 	{{ Form::label('role_list', trans('admin.manage.users.form.rolesLabel')) }}
-	{{ Form::select('role_list[]', $roles, null, [
+	{{ Form::select('role_list[]', $roles, old('role_list'), [
+			'id' => 'role_list', 'multiple',
 			'class' => 'form-control',
-			'id' => 'role_list',
-			'multiple',
 	]) }}
 </div>
 

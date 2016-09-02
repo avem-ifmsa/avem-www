@@ -56,4 +56,15 @@ class MbMember extends Model
         return $this->hasMany('App\MemberRenewal');
     }
 
+    public function getCurrentPeriodAttribute()
+    {
+        return $this->periods()->active()->orderBy('start', 'desc')->first();
+    }
+
+    public function getCurrentChargeAttribute()
+    {
+        $period = $this->current_period;
+        return $period ? $period->mbCharge : null;
+    }
+
 }

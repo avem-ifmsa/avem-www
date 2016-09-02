@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Member;
+use App\MbMember;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -25,12 +26,6 @@ class AdminController extends Controller
         return view('admin.statistics');
     }
 
-    public function renewals()
-    {
-        $members = Member::all();
-        return view('admin.renewals', compact('members'));
-    }
-
     public function activities()
     {
         return view('admin.activities');
@@ -39,6 +34,13 @@ class AdminController extends Controller
     public function exchanges()
     {
         return view('admin.exchanges');
+    }
+
+    public function mbMembers()
+    {
+        return view('admin.mbMembers', [
+            'mbMembers' => MbMember::all()
+        ]);
     }
 
 }

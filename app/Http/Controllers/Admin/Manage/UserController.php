@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Manage;
 
 use App\User;
 use App\Role;
@@ -19,8 +19,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return view('admin.manage.users.index', compact('users'));
+        return view('admin.manage.users.index', [
+            'users' => User::all()
+        ]);
     }
 
     /**
@@ -30,8 +31,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::all()->pluck('display_name', 'id')->toArray();
-        return view('admin.manage.users.create', compact('roles'));
+        return view('admin.manage.users.create', [
+            'roles' => Role::all()->pluck('display_name', 'id')->toArray()
+        ]);
     }
 
     private function createUser(UserRequest $request)

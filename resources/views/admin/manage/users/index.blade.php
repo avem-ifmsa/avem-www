@@ -7,7 +7,7 @@
 				<th>{{ trans('admin.manage.users.index.email') }}</th>
 				<th>{{ trans('admin.manage.users.index.member') }}</th>
 				<th>
-					@include('admin.actions.manageGlobal', [
+					@include('admin.manage._globalActions', [
 						'createUrl' => url('/admin/manage/users/create'),
 					])
 				</th>
@@ -26,7 +26,7 @@
 					@endif
 				</td>
 				<td>
-					@include('admin.actions.manageLocal', [
+					@include('admin.manage._singleActions', [
 						'editUrl' => route('admin.manage.users.edit', [$user]),
 						'deleteUrl' => route('admin.manage.users.destroy', [$user]),
 					])
