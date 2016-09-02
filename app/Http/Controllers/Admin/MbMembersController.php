@@ -51,6 +51,8 @@ class MbMembersController extends Controller
     public function activate(MbMember $mbMember, ActivateMbMemberRequest $request)
     {
         $charge = MbCharge::findOrFail($request->input('mb_charge'));
+        if ($current = $mbMember->current_period)
+            $current->update([ 'end' => Carbon::now() ]);
         $period = $this->createMbMemberPeriod($mbMember, $charge, $request);
         flash()->success(trans('admin.mbMembers.successMessage', [
             'charge' => $charge->name, 'until' => $period->end,

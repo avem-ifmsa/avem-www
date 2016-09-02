@@ -300,6 +300,7 @@ return [
 		'fullName' => 'Full Name',
 		'notApplicable' => 'n/a',
 		'activateButton' => 'Activate',
+		'activeUntil' => 'Active Until',
 		'currentCharge' => 'Current Charge',
 		'successMessage' => 'Member «:name» activated as «:charge» until :until',
 

@@ -11,6 +11,7 @@
 			<th>{{ trans('admin.mbMembers.memberId') }}</th>
 			<th>{{ trans('admin.mbMembers.fullName') }}</th>
 			<th>{{ trans('admin.mbMembers.currentCharge') }}</th>
+			<th>{{ trans('admin.mbMembers.activeUntil') }}</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -18,12 +19,17 @@
 	<tbody>
 	@foreach ($mbMembers as $mbMember)
 	@if ($mbMember->member)
-		<tr>
+		<tr class="{{ $mbMember->is_active ? '' : 'danger' }}">
 			<td>{{ $mbMember->id }}</td>
 			<td>{{ $mbMember->member->full_name }}</td>
 			<td>
 				{{ $mbMember->is_active
 					? $mbMember->current_charge->name
+					: trans('admin.mbMembers.notApplicable') }}
+			</td>
+			<td>
+				{{ $mbMember->is_active
+					? $mbMember->current_period->end
 					: trans('admin.mbMembers.notApplicable') }}
 			</td>
 			<td>
