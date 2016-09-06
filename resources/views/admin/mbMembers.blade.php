@@ -12,7 +12,20 @@
 			<th>{{ trans('admin.mbMembers.fullName') }}</th>
 			<th>{{ trans('admin.mbMembers.currentCharge') }}</th>
 			<th>{{ trans('admin.mbMembers.activeUntil') }}</th>
-			<th></th>
+			<th>
+				<div class="btn-group">
+					<a class="btn btn-default btn-sm"
+					   href="{{ route('admin.manage.mb-charges.create') }}">
+						<span class="glyphicon glyphicon-plus"></span>
+						{{ trans('admin.mbMembers.createMbChargeButton') }}
+					</a>
+					<a class="btn btn-default btn-sm"
+					   href="{{ route('admin.manage.mb-members.create') }}">
+						<span class="glyphicon glyphicon-plus"></span>
+						{{ trans('admin.mbMembers.createMbMemberButton') }}
+					</a>
+				</div>
+			</th>
 		</tr>
 	</thead>
 

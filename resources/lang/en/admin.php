@@ -297,12 +297,14 @@ return [
 	'mbMembers' => [
 
 		'memberId' => 'ID',
-		'fullName' => 'Full Name',
 		'notApplicable' => 'n/a',
-		'activateButton' => 'Activate',
+		'fullName' => 'Full Name',
 		'activeUntil' => 'Active Until',
+		'activateButton' => 'Activate',
 		'deactivateButton' => 'Deactivate',
 		'currentCharge' => 'Current Charge',
+		'createMbChargeButton' => 'Create new charge',
+		'createMbMemberButton' => 'Create new MB member',
 
 		'activate' => [
 			'successMessage' => 'Member «:name» activated as «:charge» until :until',
