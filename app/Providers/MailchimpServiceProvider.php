@@ -59,31 +59,54 @@ class MailchimpServiceProvider extends ServiceProvider
     public function boot(Mailchimp $mc)
     {
         Member::created(function($member) use ($mc) {
-            if (!$member->email) return;
-            $this->addMemberToList($mc, $member);
+            $user = $member->user;
+            if ($user && $user->verified)
+                $this->addMemberToList($mc, $member);
         });
 
-        Member::updated(function($member) use ($mc){
-            if ($email = $member->email)
-                $this->updateMemberInfo($mc, $email, $member);
-        });
-
-        User::updated(function($user) use ($mc) {
-            if (!$user->member) return;
-            if (!$user->isDirty('email')) return;
-            $email = $user->getOriginal('email');
-            $this->removeMemberFromList($mc, $email);
-            $this->addMemberToList($mc, $user->member);
+        Member::updated(function($member) use ($mc) {
+            $user = $member->user;
+            if ($user && $user->verified)
+                $this->updateMemberInfo($mc, $user->email, $member);
         });
 
         Member::deleted(function($member) use ($mc) {
-            if (!$member->email) return;
-            $this->removeMemberFromList($mc, $member->email);
+            $user = $member->user;
+            if ($user && $user->verified)
+                $this->removeMemberFromList($mc, $user->email);
+        });
+
+        User::created(function($user) use ($mc) {
+            $member = $user->member;
+            if ($member && $user->verified)
+                $this->addMemberToList($mc, $member);
+        });
+
+        User::updated(function($user) use ($mc) {
+            $wasVerified = $user->getOriginal('verified');
+            if ($user->isDirty('verified')) {
+                if ($wasVerified && !$user->verified) {
+                    $oldEmail = $user->getOriginal('email');
+                    $this->removeMemberFromList($mc, $oldEmail);
+                } else if (!$wasVerified && $user->verified) {
+                    if ($member = $user->member)
+                        $this->addMemberToList($mc, $member);
+                }
+            } else if ($user->isDirty('email')) {
+                $oldEmail = $user->getOriginal('email');
+                if ($member = $user->member) {
+                    if ($wasVerified)
+                        $this->removeMemberFromList($mc, $oldEmail);
+                    if ($user->verified)
+                        $this->addMemberToList($mc, $member);
+                }
+            }
         });
 
         User::deleted(function($user) use ($mc) {
-            if (!$user->member) return;
-            $this->removeMemberFromList($mc, $user->email);
+            $member = $user->member;
+            if ($member && $user->verified)
+                $this->removeMemberFromList($mc, $member);
         });
     }
 
