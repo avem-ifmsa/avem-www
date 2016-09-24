@@ -7,7 +7,7 @@ use App\Member;
 use Mailchimp\Mailchimp;
 use Illuminate\Support\ServiceProvider;
 
-class MailchimpServiceProvider extends ServiceProvider
+class MassMailServiceProvider extends ServiceProvider
 {
     public function __construct()
     {
