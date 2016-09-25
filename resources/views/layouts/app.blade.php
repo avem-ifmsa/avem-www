@@ -1,27 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>@yield('title')</title>
+		<title>@yield('title')</title>
 
-        <!-- Fonts -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
+		<!-- Styles -->
+		<link rel="stylesheet" href="{{ elixir('css/vendor.css') }}">
+		<link rel="stylesheet" href="{{ elixir('css/app.css') }}">
+		@stack('styles')
+	</head>
 
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{ elixir('css/app.css') }}">
-        @stack('styles')
-    </head>
+	<body>
+		<header>
+			<nav class="navbar navbar-dark bg-primary">
+				<button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapseEx2">
+					<i class="fa fa-bars"></i>
+				</button>
 
-    <body id="app-layout">
-        @yield('body')
+				<div class="container">
+					<div class="collapse navbar-toggleable-xs" id="collapseEx2">
+						<a class="navbar-brand" href="#">AVEM</a>
+						<ul class="nav navbar-nav">
+							<li class="nav-item active">
+								<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Features</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Pricing</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">About</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</header>
 
-        <!-- JavaScripts -->
-        <script src="{{ elixir('js/vendor.js') }}"></script>
-        <script src="{{ elixir('js/app.js') }}"></script>
-        @stack('scripts')
-    </body>
+		<main class="m-t-2">
+			<div class="container">
+				@yield('content')
+			</div>
+		</main>
+
+		<footer class="page-footer center-on-small-only">
+			<div class="call-to-action">
+				<ul>
+					<li>
+						<h5>Register for free</h5>
+					</li>
+					<li><a href="{{ url('register') }}" class="btn btn-danger">Register!</a></li>
+				</ul>
+			</div>
+			<div class="footer-copyright">
+				<div class="container-fluid">
+					© 2016 Copyright: <a href="http://avem.es"> AVEM </a>
+				</div>
+			</div>
+		</footer>
+
+		<!-- JavaScripts -->
+		<script src="{{ elixir('js/vendor.js') }}"></script>
+		<script src="{{ elixir('js/app.js') }}"></script>
+		@stack('scripts')
+	</body>
 </html>

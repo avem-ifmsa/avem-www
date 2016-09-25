@@ -153,9 +153,9 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
         Mailchimp\MailchimpServiceProvider::class,
         Krucas\LaravelUserEmailVerification\UserEmailVerificationServiceProvider::class,
+        // Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -216,8 +216,8 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Flash' => Laracasts\Flash\Flash::class,
         'Entrust' => Zizaco\Entrust\EntrustFacade::class,
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'MC' => Mailchimp\MailchimpFacade::class,
+        // 'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 

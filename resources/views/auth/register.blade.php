@@ -1,103 +1,59 @@
-@extends('layouts.main')
+@extends('layouts.app')
 
 @section('title')
-    {{ trans('auth.register.title') }}
+	{{ trans('auth.register.title') }}
 @endsection
 
 @section('content')
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    {{ trans('auth.register.header') }}
-                </div>
+	<div class="col-md-6 offset-md-3">
+		<div class="card-block">
+			{{ Form::open([ 'url' => '/register' ]) }}
+				<!--Header-->
+				<div class="text-xs-center p-b-1">
+					<h3><i class="fa fa-user"></i> {{ trans('auth.register.header') }}</h3>
+					<hr class="m-t-2 m-b-2">
+				</div>
 
-                <div class="panel-body">
-                    {{ Form::open([ 'url' => '/register', 'class' => 'form-horizontal' ]) }}
+				<!--Body-->
+				<div class="row">
+					<div class="col-md-5">
+						<div class="md-form">
+							<i class="fa fa-user prefix"></i>
+							{{ Form::text('first_name', old('first_name'), [ 'class' => 'form-control' ]) }}
+							{{ Form::label('first_name', trans('auth.registerMember.firstName')) }}
+						</div>
+					</div>
 
-                        <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
-                            {{ Form::label('first_name', trans('auth.registerMember.firstName'), [ 'class' => 'col-md-4 control-label' ]) }}
-                            <div class="col-md-6">
-                                {{ Form::text('first_name', old('first_name'), [ 'class' => 'form-control' ]) }}
-                                @if ($errors->has('first_name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('first_name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+					<div class="col-md-7">
+						<div class="md-form">
+							{{ Form::text('last_name', old('last_name'), [ 'class' => 'form-control' ]) }}
+							{{ Form::label('last_name', trans('auth.registerMember.lastName')) }}
+						</div>
+					</div>
+				</div>
 
-                        <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                            {{ Form::label('last_name', trans('auth.registerMember.lastName'), [ 'class' => 'col-md-4 control-label' ]) }}
-                            <div class="col-md-6">
-                                {{ Form::text('last_name', old('last_name'), [ 'class' => 'form-control']) }}
-                                @if ($errors->has('last_name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('last_name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+				<div class="md-form">
+					<i class="fa fa-envelope prefix"></i>
+					{{ Form::email('email', old('email'), [ 'class' => 'form-control' ]) }}
+					{{ Form::label('email', trans('auth.register.email')) }}
+				</div>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            {{ Form::label('email', trans('auth.register.email'), [ 'class' => 'col-md-4 control-label' ]) }}
-                            <div class="col-md-6">
-                                {{ Form::email('email', old('email'), [ 'class' => 'form-control' ]) }}
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+				<div class="md-form">
+					<i class="fa fa-lock prefix"></i>
+					{{ Form::password('password', [ 'class' => 'form-control' ]) }}
+					{{ Form::label('password', trans('auth.register.password')) }}
+				</div>
 
-                        <div class="form-group{{ $errors->has('birthday') ? ' has-error' : '' }}">
-                            {{ Form::label('birthday', trans('auth.registerMember.birthday'), [ 'class' => 'col-md-4 control-label' ]) }}
-                            <div class="col-md-6">
-                                {{ Form::date('birthday', old('birthday'), [ 'class' => 'form-control' ]) }}
-                                @if ($errors->has('birthday'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('birthday') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+				<div class="md-form">
+					<i class="fa fa-check prefix"></i>
+					{{ Form::password('password_confirmation', [ 'class' => 'form-control' ]) }}
+					{{ Form::label('password_confirmation', trans('auth.register.passwordConfirm')) }}
+				</div>
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            {{ Form::label('password', trans('auth.register.password'), [ 'class' => 'col-md-4 control-label' ]) }}
-                            <div class="col-md-6">
-                                {{ Form::password('password', [ 'class' => 'form-control' ]) }}
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            {{ Form::label('password_confirmation', trans('auth.register.passwordConfirm'), [ 'class' => 'col-md-4 control-label' ]) }}
-                            <div class="col-md-6">
-                                {{ Form::password('password_confirmation', [ 'class' => 'form-control' ])}}
-                                @if ($errors->has('password_confirmation'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-6">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-user"></i>
-                                    {{ trans('auth.register.registerButton') }}
-                                </button>
-                            </div>
-                        </div>
-                    {{ Form::close() }}
-                </div>
-            </div>
-        </div>
-    </div>
+				<div class="text-xs-center">
+					<button class="btn btn-indigo">{{ trans('auth.register.registerButton') }}</button>
+				</div>
+			{{ Form::close() }}
+		</div>
+	</div>
 @endsection

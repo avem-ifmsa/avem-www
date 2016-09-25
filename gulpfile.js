@@ -12,18 +12,25 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.sass('app.scss');
+    mix.sass('app.scss').styles([
+        '../../../node_modules/font-awesome/css/font-awesome.css',
+        '../../../node_modules/mdbootstrap/css/bootstrap.css',
+        '../../../node_modules/mdbootstrap/css/mdb.css',
+    ], 'public/css/vendor.css');
 
     mix.scripts('app.js', 'public/js/app.js').scripts([
-        '../../../node_modules/jquery/dist/jquery.js',
-        '../../../node_modules/bootstrap-sass/assets/javascripts/bootstrap.js',
-        '../../../node_modules/select2/dist/js/select2.js',
-        '../../../node_modules/bootstrap-sidebar/dist/js/sidebar.js',
+        '../../../node_modules/mdbootstrap/js/jquery-2.2.3.js',
+        '../../../node_modules/mdbootstrap/js/tether.js',
+        '../../../node_modules/mdbootstrap/js/bootstrap.js',
+        '../../../node_modules/mdbootstrap/js/mdb.js',
     ], 'public/js/vendor.js');
 
-    mix.copy('node_modules/bootstrap-sass/assets/fonts', 'public/build/fonts');
+    mix.copy('node_modules/font-awesome/fonts', 'public/build/fonts');
+    mix.copy('node_modules/mdbootstrap/font', 'public/build/font');
+    mix.copy('node_modules/mdbootstrap/img', 'public/build/img');
 
     mix.version([
+        'public/css/vendor.css',
         'public/css/app.css',
         'public/js/vendor.js',
         'public/js/app.js'
