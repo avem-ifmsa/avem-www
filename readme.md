@@ -34,13 +34,13 @@ Para facilitar el mantenimiento de la nueva web a largo plazo, hemos optado por 
 Cada vez que un usuario se registra en la nueva web, nuestros servicios se encargan de darle de alta en MailChimp de forma automática. Aunque esto es muy útil en producción, durante el desarrollo esto no es necesario y puede dar lugar a errores que pueden ser difíciles de diagnosticar. Por todo esto, edite el archivo `config/app.php` y comente la siguiente línea:
 
 ```php
-App\Providers\MailchimpServiceProvider::class,
+App\Providers\MassMailServiceProvider::class,
 ```
 
 El resultado debe ser este:
 
 ```php
-// App\Providers\MailchimpServiceProvider::class,
+// App\Providers\MassMailServiceProvider::class,
 ```
 
 Guarde el archivo y recuerde: **nunca debe añadir este archivo al sistema de control de versiones**. (Si en algún momento necesita modificar este archivo, deberá primero restaurarlo a su estado original, realizar las modificaciones, ejecutar un *git commit* seguido de *git push* y volver a comentar esta línea).

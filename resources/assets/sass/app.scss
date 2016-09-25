@@ -3,6 +3,15 @@
 @import "node_modules/select2/src/scss/core";
 @import "node_modules/select2-bootstrap-theme/src/select2-bootstrap";
 
+@import "node_modules/bootstrap-sidebar/dist/css/sidebar";
+/* @import "node_modules/bootstrap-sidebar/style"; */
+
+.sidebar {
+	@extend .navbar-default;
+	border-right: 1px solid #eee;
+	padding: 20px;
+}
+
 .table > tbody > tr > th {
 	vertical-align: middle;
 }

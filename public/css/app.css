@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*!
- * Bootstrap v3.3.6 (http://getbootstrap.com)
- * Copyright 2011-2015 Twitter, Inc.
+ * Bootstrap v3.3.7 (http://getbootstrap.com)
+ * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
@@ -1072,7 +1072,6 @@ a {
     color: #23527c;
     text-decoration: underline; }
   a:focus {
-    outline: thin dotted;
     outline: 5px auto -webkit-focus-ring-color;
     outline-offset: -2px; }
 
@@ -2285,7 +2284,6 @@ select[size] {
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px; }
 
@@ -2790,7 +2788,6 @@ select[multiple].input-lg,
   -ms-user-select: none;
   user-select: none; }
   .btn:focus, .btn.focus, .btn:active:focus, .btn:active.focus, .btn.active:focus, .btn.active.focus {
-    outline: thin dotted;
     outline: 5px auto -webkit-focus-ring-color;
     outline-offset: -2px; }
   .btn:hover, .btn:focus, .btn.focus {
@@ -3910,62 +3907,64 @@ tbody.collapse.in {
     .navbar-right ~ .navbar-right {
       margin-right: 0; } }
 
-.navbar-default {
+.navbar-default, .sidebar {
   background-color: #f8f8f8;
   border-color: #e7e7e7; }
-  .navbar-default .navbar-brand {
+  .navbar-default .navbar-brand, .sidebar .navbar-brand {
     color: #777; }
-    .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+    .navbar-default .navbar-brand:hover, .sidebar .navbar-brand:hover, .navbar-default .navbar-brand:focus, .sidebar .navbar-brand:focus {
       color: #5e5e5e;
       background-color: transparent; }
-  .navbar-default .navbar-text {
+  .navbar-default .navbar-text, .sidebar .navbar-text {
     color: #777; }
-  .navbar-default .navbar-nav > li > a {
+  .navbar-default .navbar-nav > li > a, .sidebar .navbar-nav > li > a {
     color: #777; }
-    .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    .navbar-default .navbar-nav > li > a:hover, .sidebar .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus, .sidebar .navbar-nav > li > a:focus {
       color: #333;
       background-color: transparent; }
-  .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+  .navbar-default .navbar-nav > .active > a, .sidebar .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .sidebar .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus, .sidebar .navbar-nav > .active > a:focus {
     color: #555;
     background-color: #e7e7e7; }
-  .navbar-default .navbar-nav > .disabled > a, .navbar-default .navbar-nav > .disabled > a:hover, .navbar-default .navbar-nav > .disabled > a:focus {
+  .navbar-default .navbar-nav > .disabled > a, .sidebar .navbar-nav > .disabled > a, .navbar-default .navbar-nav > .disabled > a:hover, .sidebar .navbar-nav > .disabled > a:hover, .navbar-default .navbar-nav > .disabled > a:focus, .sidebar .navbar-nav > .disabled > a:focus {
     color: #ccc;
     background-color: transparent; }
-  .navbar-default .navbar-toggle {
+  .navbar-default .navbar-toggle, .sidebar .navbar-toggle {
     border-color: #ddd; }
-    .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+    .navbar-default .navbar-toggle:hover, .sidebar .navbar-toggle:hover, .navbar-default .navbar-toggle:focus, .sidebar .navbar-toggle:focus {
       background-color: #ddd; }
-    .navbar-default .navbar-toggle .icon-bar {
+    .navbar-default .navbar-toggle .icon-bar, .sidebar .navbar-toggle .icon-bar {
       background-color: #888; }
-  .navbar-default .navbar-collapse,
-  .navbar-default .navbar-form {
+  .navbar-default .navbar-collapse, .sidebar .navbar-collapse,
+  .navbar-default .navbar-form, .sidebar .navbar-form {
     border-color: #e7e7e7; }
-  .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+  .navbar-default .navbar-nav > .open > a, .sidebar .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .sidebar .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus, .sidebar .navbar-nav > .open > a:focus {
     background-color: #e7e7e7;
     color: #555; }
   @media (max-width: 767px) {
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a, .sidebar .navbar-nav .open .dropdown-menu > li > a {
       color: #777; }
-      .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+      .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .sidebar .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus, .sidebar .navbar-nav .open .dropdown-menu > li > a:focus {
         color: #333;
         background-color: transparent; }
-    .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .sidebar .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .sidebar .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus, .sidebar .navbar-nav .open .dropdown-menu > .active > a:focus {
       color: #555;
       background-color: #e7e7e7; }
-    .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+    .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a, .sidebar .navbar-nav .open .dropdown-menu > .disabled > a, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover, .sidebar .navbar-nav .open .dropdown-menu > .disabled > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus, .sidebar .navbar-nav .open .dropdown-menu > .disabled > a:focus {
       color: #ccc;
       background-color: transparent; } }
-  .navbar-default .navbar-link {
+  .navbar-default .navbar-link, .sidebar .navbar-link {
     color: #777; }
-    .navbar-default .navbar-link:hover {
+    .navbar-default .navbar-link:hover, .sidebar .navbar-link:hover {
       color: #333; }
-  .navbar-default .btn-link {
+  .navbar-default .btn-link, .sidebar .btn-link {
     color: #777; }
-    .navbar-default .btn-link:hover, .navbar-default .btn-link:focus {
+    .navbar-default .btn-link:hover, .sidebar .btn-link:hover, .navbar-default .btn-link:focus, .sidebar .btn-link:focus {
       color: #333; }
-    .navbar-default .btn-link[disabled]:hover, .navbar-default .btn-link[disabled]:focus,
+    .navbar-default .btn-link[disabled]:hover, .sidebar .btn-link[disabled]:hover, .navbar-default .btn-link[disabled]:focus, .sidebar .btn-link[disabled]:focus,
     fieldset[disabled] .navbar-default .btn-link:hover,
-    fieldset[disabled] .navbar-default .btn-link:focus {
+    fieldset[disabled] .sidebar .btn-link:hover,
+    fieldset[disabled] .navbar-default .btn-link:focus,
+    fieldset[disabled] .sidebar .btn-link:focus {
       color: #ccc; }
 
 .navbar-inverse {
@@ -6255,63 +6254,62 @@ button.close {
 .select2-container--classic.select2-container--open .select2-dropdown {
   border-color: #5897fb; }
 
-/*! Select2 Bootstrap Theme v0.1.0-beta.8 | MIT License | github.com/select2/select2-bootstrap-theme */
+/*! Select2 Bootstrap Theme v0.1.0-beta.9 | MIT License | github.com/select2/select2-bootstrap-theme */
 .select2-container--bootstrap {
   display: block;
-  /*------------------------------------*            #COMMON STYLES
-    \*------------------------------------*/
+  /*------------------------------------*      #COMMON STYLES
+  \*------------------------------------*/
   /**
-     * Search field in the Select2 dropdown.
-     */
+   * Search field in the Select2 dropdown.
+   */
   /**
-     * No outline for all search fields - in the dropdown
-     * and inline in multi Select2s.
-     */
+   * No outline for all search fields - in the dropdown
+   * and inline in multi Select2s.
+   */
   /**
-     * Adjust Select2's choices hover and selected styles to match
-     * Bootstrap 3's default dropdown styles.
-     *
-     * @see http://getbootstrap.com/components/#dropdowns
-     */
+   * Adjust Select2's choices hover and selected styles to match
+   * Bootstrap 3's default dropdown styles.
+   *
+   * @see http://getbootstrap.com/components/#dropdowns
+   */
   /**
-     * Clear the selection.
-     */
+   * Clear the selection.
+   */
   /**
-     * Address disabled Select2 styles.
-     *
-     * @see https://select2.github.io/examples.html#disabled
-     * @see http://getbootstrap.com/css/#forms-control-disabled
-     */
-  /*------------------------------------*            #DROPDOWN
-    \*------------------------------------*/
+   * Address disabled Select2 styles.
+   *
+   * @see https://select2.github.io/examples.html#disabled
+   * @see http://getbootstrap.com/css/#forms-control-disabled
+   */
+  /*------------------------------------*      #DROPDOWN
+  \*------------------------------------*/
   /**
-     * Dropdown border color and box-shadow.
-     */
+   * Dropdown border color and box-shadow.
+   */
   /**
-     * Limit the dropdown height.
-     */
-  /*------------------------------------*            #SINGLE SELECT2
-    \*------------------------------------*/
-  /*------------------------------------*        #MULTIPLE SELECT2
-    \*------------------------------------*/
+   * Limit the dropdown height.
+   */
+  /*------------------------------------*      #SINGLE SELECT2
+  \*------------------------------------*/
+  /*------------------------------------*    #MULTIPLE SELECT2
+  \*------------------------------------*/
   /**
-     * Address Bootstrap control sizing classes
-     *
-     * 1. Reset Bootstrap defaults.
-     * 2. Adjust the dropdown arrow button icon position.
-     *
-     * @see http://getbootstrap.com/css/#forms-control-sizes
-     */
+   * Address Bootstrap control sizing classes
+   *
+   * 1. Reset Bootstrap defaults.
+   * 2. Adjust the dropdown arrow button icon position.
+   *
+   * @see http://getbootstrap.com/css/#forms-control-sizes
+   */
   /* 1 */
-  /*------------------------------------*        #RTL SUPPORT
-    \*------------------------------------*/ }
+  /*------------------------------------*    #RTL SUPPORT
+  \*------------------------------------*/ }
   .select2-container--bootstrap .select2-selection {
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 4px;
     color: #555555;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
     outline: 0; }
     .select2-container--bootstrap .select2-selection.form-control {
@@ -6322,16 +6320,15 @@ button.close {
     border: 1px solid #ccc;
     border-radius: 4px;
     color: #555555;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px; }
   .select2-container--bootstrap .select2-search__field {
     outline: 0;
     /* Firefox 18- */
     /**
-         * Firefox 19+
-         *
-         * @see http://stackoverflow.com/questions/24236240/color-for-styled-placeholder-text-is-muted-in-firefox
-         */ }
+     * Firefox 19+
+     *
+     * @see http://stackoverflow.com/questions/24236240/color-for-styled-placeholder-text-is-muted-in-firefox
+     */ }
     .select2-container--bootstrap .select2-search__field::-webkit-input-placeholder {
       color: #999; }
     .select2-container--bootstrap .select2-search__field:-moz-placeholder {
@@ -6342,17 +6339,18 @@ button.close {
     .select2-container--bootstrap .select2-search__field:-ms-input-placeholder {
       color: #999; }
   .select2-container--bootstrap .select2-results__option {
+    padding: 6px 12px;
     /**
-         * Disabled results.
-         *
-         * @see https://select2.github.io/examples.html#disabled-results
-         */
+     * Disabled results.
+     *
+     * @see https://select2.github.io/examples.html#disabled-results
+     */
     /**
-         * Hover state.
-         */
+     * Hover state.
+     */
     /**
-         * Selected state.
-         */ }
+     * Selected state.
+     */ }
     .select2-container--bootstrap .select2-results__option[role=group] {
       padding: 0; }
     .select2-container--bootstrap .select2-results__option[aria-disabled=true] {
@@ -6397,11 +6395,11 @@ button.close {
     border-color: #66afe9; }
   .select2-container--bootstrap.select2-container--open {
     /**
-         * Make the dropdown arrow point up while the dropdown is visible.
-         */
+     * Make the dropdown arrow point up while the dropdown is visible.
+     */
     /**
-         * Handle border radii of the container when the dropdown is showing.
-         */ }
+     * Handle border radii of the container when the dropdown is showing.
+     */ }
     .select2-container--bootstrap.select2-container--open .select2-selection .select2-selection__arrow b {
       border-color: transparent transparent #999 transparent;
       border-width: 0 4px 4px 4px; }
@@ -6439,6 +6437,7 @@ button.close {
     overflow-x: hidden;
     margin-top: -1px; }
     .select2-container--bootstrap .select2-dropdown--above {
+      box-shadow: 0px -6px 12px rgba(0, 0, 0, 0.175);
       margin-top: 1px; }
   .select2-container--bootstrap .select2-results > .select2-results__options {
     max-height: 200px;
@@ -6448,8 +6447,8 @@ button.close {
     line-height: 1.428571429;
     padding: 6px 24px 6px 12px;
     /**
-         * Adjust the single Select2's dropdown arrow button appearance.
-         */ }
+     * Adjust the single Select2's dropdown arrow button appearance.
+     */ }
     .select2-container--bootstrap .select2-selection--single .select2-selection__arrow {
       position: absolute;
       bottom: 0;
@@ -6477,14 +6476,14 @@ button.close {
     padding: 0;
     height: auto;
     /**
-         * Make Multi Select2's choices match Bootstrap 3's default button styles.
-         */
+     * Make Multi Select2's choices match Bootstrap 3's default button styles.
+     */
     /**
-         * Minus 2px borders.
-         */
+     * Minus 2px borders.
+     */
     /**
-         * Clear the selection.
-         */ }
+     * Clear the selection.
+     */ }
     .select2-container--bootstrap .select2-selection--multiple .select2-selection__rendered {
       box-sizing: border-box;
       display: block;
@@ -6636,8 +6635,8 @@ button.close {
   .input-group-lg > .select2-selection.select2-container--open.input-group-addon .select2-selection--single, .select2-container--bootstrap
   .input-group-lg > .input-group-btn > .select2-selection.select2-container--open.btn .select2-selection--single {
     /**
-         * Make the dropdown arrow point up while the dropdown is visible.
-         */ }
+     * Make the dropdown arrow point up while the dropdown is visible.
+     */ }
     .select2-container--bootstrap .select2-selection.input-lg.select2-container--open .select2-selection--single .select2-selection__arrow b, .select2-container--bootstrap .input-group-lg > .select2-selection.select2-container--open.form-control .select2-selection--single .select2-selection__arrow b, .select2-container--bootstrap
     .input-group-lg > .select2-selection.select2-container--open.input-group-addon .select2-selection--single .select2-selection__arrow b, .select2-container--bootstrap
     .input-group-lg > .input-group-btn > .select2-selection.select2-container--open.btn .select2-selection--single .select2-selection__arrow b {
@@ -6645,21 +6644,21 @@ button.close {
       border-width: 0 5px 5px 5px; }
   .input-group-lg .select2-container--bootstrap .select2-selection.select2-container--open .select2-selection--single {
     /**
-         * Make the dropdown arrow point up while the dropdown is visible.
-         */ }
+     * Make the dropdown arrow point up while the dropdown is visible.
+     */ }
     .input-group-lg .select2-container--bootstrap .select2-selection.select2-container--open .select2-selection--single .select2-selection__arrow b {
       border-color: transparent transparent #999 transparent;
       border-width: 0 5px 5px 5px; }
   .select2-container--bootstrap[dir="rtl"] {
     /**
-         * Single Select2
-         *
-         * 1. Makes sure that .select2-selection__placeholder is positioned
-         *    correctly.
-         */
+     * Single Select2
+     *
+     * 1. Makes sure that .select2-selection__placeholder is positioned
+     *    correctly.
+     */
     /**
-         * Multiple Select2
-         */ }
+     * Multiple Select2
+     */ }
     .select2-container--bootstrap[dir="rtl"] .select2-selection--single {
       padding-left: 24px;
       padding-right: 12px; }
@@ -6685,7 +6684,7 @@ button.close {
       margin-left: 2px;
       margin-right: auto; }
 
-/*------------------------------------*    #ADDITIONAL GOODIES
+/*------------------------------------*  #ADDITIONAL GOODIES
 \*------------------------------------*/
 /**
  * Address Bootstrap's validation states
@@ -6766,9 +6765,9 @@ button.close {
   width: 100%;
   margin-bottom: 0;
   /**
-     * Adjust z-index like Bootstrap does to show the focus-box-shadow
-     * above appended buttons in .input-group and .form-group.
-     */ }
+   * Adjust z-index like Bootstrap does to show the focus-box-shadow
+   * above appended buttons in .input-group and .form-group.
+   */ }
   .input-group .select2-container--bootstrap.select2-container--open, .input-group .select2-container--bootstrap.select2-container--focus {
     z-index: 3; }
 
@@ -6810,9 +6809,116 @@ button.close {
 
 /**
  * Display override for inline forms
-*/
+ */
 .form-inline .select2-container--bootstrap {
   display: inline-block; }
+
+/* All the default sidebar styles */
+/* toggle button settings */
+/* Note: this disables the navbar-toggle class's hide function. set visibility with the boostrap visible/hidden classes */
+/* Note: this also disables the navbar-header class positioning settings in small screens. */
+.navbar.navbar-static .navbar-header {
+  float: left; }
+
+.navbar .navbar-toggle.toggle-left {
+  float: left;
+  margin-left: 15px; }
+
+.navbar .navbar-toggle.toggle-right {
+  float: right;
+  margin-right: 15px; }
+
+.navbar .navbar-toggle.toggle-sidebar, [data-toggle="sidebar"] {
+  display: block; }
+
+/* sidebar settings */
+.sidebar {
+  position: fixed;
+  display: block;
+  top: 51px;
+  bottom: 0;
+  z-index: 1000;
+  min-height: 100%;
+  max-height: none;
+  overflow: auto; }
+
+.sidebar-left {
+  left: 0; }
+
+.sidebar-right {
+  right: 0; }
+
+/* css to override hiding the sidebar according to different screen sizes */
+.row .sidebar.sidebar-left.sidebar-xs-show {
+  left: 0;
+  -webkit-transform: translate(0, 0);
+  transform: translate(0, 0); }
+
+/*right sidebar is untested */
+.row .sidebar.sidebar-right.sidebar-xs-show {
+  right: 0;
+  -webkit-transform: translate(0, 0);
+  transform: translate(0, 0); }
+
+@media (min-width: 768px) {
+  .row .sidebar.sidebar-left.sidebar-sm-show {
+    left: 0;
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0); }
+  /*right sidebar is untested */
+  .row .sidebar.sidebar-right.sidebar-sm-show {
+    right: 0;
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0); } }
+
+@media (min-width: 992px) {
+  .row .sidebar.sidebar-left.sidebar-md-show {
+    left: 0;
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0); }
+  .row .sidebar.sidebar-right.sidebar-md-show {
+    right: 0;
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0); } }
+
+@media (min-width: 1170px) {
+  .row .sidebar.sidebar-left.sidebar-lg-show {
+    left: 0;
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0); }
+  .row .sidebar.sidebar-right.sidebar-lg-show {
+    right: 0;
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0); } }
+
+/* animation class - optional: without it the sidebar would just pop in and out*/
+.sidebar-animate {
+  -webkit-transition: -webkit-transform 300ms ease;
+  transition: -webkit-transform 300ms ease;
+  transition: transform 300ms ease;
+  transition: transform 300ms ease, -webkit-transform 300ms ease; }
+
+/* Left panel positioning classes */
+.sidebar.sidebar-left {
+  -webkit-transform: translate(-100%, 0);
+  transform: translate(-100%, 0); }
+
+.sidebar.sidebar-left.sidebar-open {
+  -webkit-transform: translate(0, 0);
+  transform: translate(0, 0); }
+
+.sidebar.sidebar-right {
+  -webkit-transform: translate(100%, 0);
+  transform: translate(100%, 0); }
+
+.sidebar.sidebar-right.sidebar-open {
+  -webkit-transform: translate(0, 0);
+  transform: translate(0, 0); }
+
+/* @import "node_modules/bootstrap-sidebar/style"; */
+.sidebar {
+  border-right: 1px solid #eee;
+  padding: 20px; }
 
 .table > tbody > tr > th {
   vertical-align: middle; }

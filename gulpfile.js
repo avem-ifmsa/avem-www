@@ -18,6 +18,7 @@ elixir(function(mix) {
         '../../../node_modules/jquery/dist/jquery.js',
         '../../../node_modules/bootstrap-sass/assets/javascripts/bootstrap.js',
         '../../../node_modules/select2/dist/js/select2.js',
+        '../../../node_modules/bootstrap-sidebar/dist/js/sidebar.js',
     ], 'public/js/vendor.js');
 
     mix.copy('node_modules/bootstrap-sass/assets/fonts', 'public/build/fonts');
