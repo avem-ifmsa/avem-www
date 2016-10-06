@@ -1,5 +1,3 @@
-<a class="btn btn-default btn-sm"
-   href="{{ $createUrl }}">
-	<span class="glyphicon glyphicon-plus"></span>
-	{{ trans('admin.manage.actions.createButton') }}
+<a class="btn btn-primary btn-sm" href="{{ $createUrl }}">
+	<i class="fa fa-plus"></i> {{ trans('admin.manage.actions.createButton') }}
 </a>

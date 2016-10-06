@@ -19,7 +19,7 @@
 			<tr>
 				<td>{{ $mbCharge->name }}</td>
 				<td>{{ $mbCharge->email }}</td>
-				<td>
+				<td class="text-xs-center">
 					@include('admin.manage._singleActions', [
 						'editUrl' => route('admin.manage.mb-charges.edit', [$mbCharge]),
 						'deleteUrl' => route('admin.manage.mb-charges.destroy', [$mbCharge]),

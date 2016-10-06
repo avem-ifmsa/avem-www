@@ -1,11 +1,7 @@
 @extends('admin.manage.activities.panel')
 
 @push('breadcrumb')
-	<li>
-		{{ link_to_route('admin.manage.activities.edit',
-				trans('admin.breadcrumb.edit'),
-				[$activity]) }}
-	</li>
+	<li class="breadcrumb-item">{{ link_to_route('admin.manage.activities.edit', trans('admin.breadcrumb.edit'), [$activity]) }}</li>
 @endpush
 
 @section('panel')

@@ -1,7 +1,7 @@
 @extends('admin.panel')
 
 @push('breadcrumb')
-	<li>{{ link_to('/admin/renewals', trans('admin.breadcrumb.renewals')) }}</li>
+	<li class="breadcrumb-item">{{ link_to('/admin/renewals', trans('admin.breadcrumb.renewals')) }}</li>
 @endpush
 
 @section('panel')
@@ -21,15 +21,15 @@
 			<td>{{ $member->id }}</td>
 			<td>{{ $member->full_name }}</td>
 			<td>
-				{{ $member->activeUntil
-					?: trans('admin.renewals.notApplicable')
-				}}
+				{{ $member->activeUntil ?: trans('admin.renewals.notApplicable') }}
 			</td>
-			<td>
+			<td class="text-xs-center">
 				@unless ($member->is_active)
-					{{ Form::open([ 'route' => [ 'admin.renewals.renew', $member ]]) }}
-						{{ Form::submit(trans('admin.renewals.renewButton'),
-								[ 'class' => 'btn btn-primary' ]) }}
+					{{ Form::open([ 'route' => [ 'admin.renewals.renew', $member ], 'class' => 'form-inline' ]) }}
+						<button type="submit" class="btn btn-default btn-sm">
+							<i class="fa fa-refresh"></i>
+							{{ trans('admin.renewals.renewButton') }}
+						</button>
 					{{ Form::close() }}
 				@endif
 			</td>

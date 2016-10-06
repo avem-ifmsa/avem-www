@@ -42,11 +42,9 @@
 			</nav>
 		</header>
 
-		<main class="m-t-2">
-			<div class="container">
-				@yield('content')
-			</div>
-		</main>
+		<div class="container m-t-2 m-b-2">
+			@yield('content')
+		</div>
 
 		<footer class="page-footer center-on-small-only">
 			<div class="call-to-action">
@@ -67,6 +65,13 @@
 		<!-- JavaScripts -->
 		<script src="{{ elixir('js/vendor.js') }}"></script>
 		<script src="{{ elixir('js/app.js') }}"></script>
+
+		<script>
+			$(document).ready(function() {
+				$('.mdb-select').material_select();
+			});
+		</script>
+
 		@stack('scripts')
 	</body>
 </html>

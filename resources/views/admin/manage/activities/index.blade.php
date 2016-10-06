@@ -41,7 +41,7 @@
 						?: trans('admin.manage.activities.index.notApplicable')
 					}}
 				</td>
-				<td>
+				<td class="text-xs-center">
 					@include('admin.manage._singleActions', [
 						'editUrl' => route('admin.manage.activities.edit', [$activity]),
 						'deleteUrl' => route('admin.manage.activities.destroy', [$activity]),

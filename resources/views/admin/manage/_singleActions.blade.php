@@ -1,6 +1,6 @@
-{{ Form::open(['url' => $deleteUrl, 'method' => 'delete']) }}
+{{ Form::open(['url' => $deleteUrl, 'method' => 'delete', 'class' => 'form-inline' ]) }}
 	<div class="form-group btn-group">
-		<a href="{{ $editUrl }}" class="btn btn-default btn-sm">
+		<a href="{{ $editUrl }}" class="btn btn-primary btn-sm">
 			<span class="glyphicon glyphicon-edit"></span>
 			{{ trans('admin.manage.actions.editButton') }}
 		</a>

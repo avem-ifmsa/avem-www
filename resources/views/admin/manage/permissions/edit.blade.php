@@ -1,11 +1,7 @@
 @extends('admin.manage.permissions.panel')
 
 @push('breadcrumb')
-	<li>
-		{{ link_to_route('admin.manage.permissions.edit',
-				trans('admin.breadcrumb.edit'),
-				[$permission]) }}
-	</li>
+	<li class="breadcrumb-item">{{ link_to_route('admin.manage.permissions.edit', trans('admin.breadcrumb.edit'), [$permission]) }}</li>
 @endpush
 
 @section('panel')

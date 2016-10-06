@@ -1,11 +1,7 @@
 @extends('admin.manage.members.panel')
 
 @push('breadcrumb')
-	<li>
-		{{ link_to_route('admin.manage.members.edit',
-				trans('admin.breadcrumb.edit'),
-				[$member]) }}
-	</li>
+	<li class="breadcrumb-item">{{ link_to_route('admin.manage.members.edit', trans('admin.breadcrumb.edit'), [$member]) }}</li>
 @endpush
 
 @section('panel')

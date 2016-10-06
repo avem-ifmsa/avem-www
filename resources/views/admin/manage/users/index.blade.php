@@ -25,7 +25,7 @@
 						{{ trans('admin.manage.users.index.notApplicable') }}
 					@endif
 				</td>
-				<td>
+				<td class="text-xs-center">
 					@include('admin.manage._singleActions', [
 						'editUrl' => route('admin.manage.users.edit', [$user]),
 						'deleteUrl' => route('admin.manage.users.destroy', [$user]),

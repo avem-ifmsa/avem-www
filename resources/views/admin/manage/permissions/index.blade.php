@@ -21,7 +21,7 @@
 				<td>{{ $permission->name }}</td>
 				<td>{{ $permission->display_name }}</td>
 				<td>{{ $permission->description }}</td>
-				<td>
+				<td class="text-xs-center">
 					@include('admin.manage._singleActions', [
 						'editUrl' => route('admin.manage.permissions.edit', [$permission]),
 						'deleteUrl' => route('admin.manage.permissions.destroy', [$permission]),

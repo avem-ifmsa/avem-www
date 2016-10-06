@@ -33,7 +33,7 @@
 							? trans('admin.manage.members.index.yes')
 							: trans('admin.manage.members.index.no') }}
 				</td>
-				<td>
+				<td class="text-xs-center">
 					@include('admin.manage._singleActions', [
 						'editUrl' => route('admin.manage.members.edit', [$member]),
 						'deleteUrl' => route('admin.manage.members.destroy', [$member]),

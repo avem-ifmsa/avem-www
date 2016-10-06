@@ -1,11 +1,7 @@
 @extends('admin.manage.roles.panel')
 
 @push('breadcrumb')
-	<li>
-		{{ link_to_route('admin.manage.roles.edit',
-				trans('admin.breadcrumb.edit'),
-				[$role]) }}
-	</li>
+	<li class="breadcrumb-item">{{ link_to_route('admin.manage.roles.edit', trans('admin.breadcrumb.edit'), [$role]) }}</li>
 @endpush
 
 @section('panel')

@@ -21,7 +21,7 @@
 				<td>{{ $role->name }}</td>
 				<td>{{ $role->display_name }}</td>
 				<td>{{ $role->description }}</td>
-				<td>
+				<td class="text-xs-center">
 					@include('admin.manage._singleActions', [
 						'editUrl' => route('admin.manage.roles.edit', [$role]),
 						'deleteUrl' => route('admin.manage.roles.destroy', [$role]),
