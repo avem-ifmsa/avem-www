@@ -70,6 +70,4 @@ Durante el desarrollo, es vital que todos los desarrolladores trabajen con las m
 
 Homestead necesita de VirtualBox para funcionar, así que asegúrese de tenerlo instalado antes de continuar. Una vez homestead está instalado, puede editar su fichero de configuración con `homestead edit`. Asegúrese de que las carpetas estén configuradas correctamente.
 
-Una vez configurado, puede poner en marcha la máquina virtual con `homestead up`. Si todo está bien, visite el siguiente enlace desde el navegador para acceder a una versión en pruebas de la nueva web: http://192.168.10.10
-
-![Homestead Index HTML Page](https://www.googledrive.com/host/0BzZnU4OoaaKbU18tX1FuMTc3d2c)
+Una vez configurado, puede poner en marcha la máquina virtual con `homestead up`. Si todo está bien, visite el siguiente enlace desde el navegador para acceder a una versión en pruebas de la nueva web: <http://192.168.10.10>.
