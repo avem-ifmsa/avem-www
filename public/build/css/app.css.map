@@ -1,1 +1,0 @@
-{"version":3,"sources":["app.scss"],"names":[],"mappings":"AAAA;EACC,kCAAkC,EAClC","file":"app.css","sourcesContent":[".table tr th, .table tr td {\n\tvertical-align: middle !important;\n}\n"],"sourceRoot":"/source/"}

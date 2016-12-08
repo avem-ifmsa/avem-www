@@ -2,59 +2,106 @@
 
 namespace App;
 
-use Zizaco\Entrust\Traits\EntrustUserTrait;
+use App\Notifiable as AppNotifiable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Krucas\LaravelUserEmailVerification\RequiresEmailVerification;
-use Krucas\LaravelUserEmailVerification\Contracts\RequiresEmailVerification as RequiresEmailVerificationContract;
 
-class User extends Authenticatable implements RequiresEmailVerificationContract
+class User extends Authenticatable implements AppNotifiable
 {
+	use Notifiable;
 
-    use EntrustUserTrait, RequiresEmailVerification;
+	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array
+	 */
+	protected $fillable = [
+		'name', 'surname', 'email',
+	];
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'email', 'password',
-    ];
+	/**
+	 * The attributes that should be mutated to dates.
+	 *
+	 * @var array
+	 */
+	protected $dates = [
+		'created_at', 'updated_at',
+	];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+	public function directNotifications()
+	{
+		return $this->morphMany('App\Notification', 'notifiable');
+	}
 
-    public function setPasswordAttribute($password)
-    {
-        $this->attributes['password'] = bcrypt($password);
-    }
+	public function filedClaims()
+	{
+		return $this->hasMany('App\Claim');
+	}
 
-    public function getRoleListAttribute()
-    {
-        return $this->roles()->pluck('id')->toArray();
-    }
+	public function getIsActiveAttribute()
+	{
+		return $this->renewals()->active()->exists();
+	}
 
-    public function member()
-    {
-        return $this->hasOne('App\Member');
-    }
+	public function getNotifiableReceiversAttribute()
+	{
+		return [$this];
+	}
 
-    public function subscribedActivities()
-    {
-        return $this->belongsToMany('App\Activity', 'activity_subscribers')
-                    ->withTimestamps();
-    }
+	public function hasPermission($name)
+	{
+		$this->load('ownRoles.permissions');
+		foreach ($this->ownRoles as $role) {
+			if ($role->permissions->contains('name', $name))
+				return true;
+		}
+		if ($mbMember = $this->mbMember) {
+			$mbMember->load('roles.permissions');
+			foreach ($mbMember->roles as $role) {
+				if ($role->permissions->contains('name', $name))
+					return true;
+			}
+		}
+		return false;
+	}
 
-    public function assistedActivities()
-    {
-        return $this->belongsToMany('App\Activity', 'activity_assistants')
-                    ->withTimestamps();
-    }
+	public function inscribedActivityTasks()
+	{
+		return $this->belongsToMany('App\ActivityTask', 'activity_task_all_users');
+	}
 
+	public function mbMember()
+	{
+		return $this->hasOne('App\MbMember', 'id');
+	}
+
+	public function notificationReceipts()
+	{
+		return $this->hasMany('App\NotificationReceipt');
+	}
+
+	public function ownRoles()
+	{
+		return $this->belongsToMany('App\Role');
+	}
+
+	public function renewals()
+	{
+		return $this->hasMany('App\Renewal');
+	}
+
+	public function selfInscribedActivityTasks()
+	{
+		return $this->belongsToMany('App\ActivityTask');
+	}
+
+	public function subscribables()
+	{
+		return $this->morphedByMany('subscribables');
+	}
+
+	public function transactions()
+	{
+		return $this->hasMany('App\Transaction');
+	}
 }

@@ -2,23 +2,36 @@
 
 namespace App;
 
-use Zizaco\Entrust\EntrustRole;
+use Illuminate\Database\Eloquent\Model;
 
-class Role extends EntrustRole
+class Role extends Model
 {
+	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array
+	 */
+	protected $fillable = [
+		'name', 'description',
+	];
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'display_name', 'description'
-    ];
+	public function charges()
+	{
+		return $this->belongsToMany('App\Charge');
+	}
 
-    public function getPermListAttribute()
-    {
-        return $this->perms->pluck('id')->toArray();
-    }
+	public function mbMembers()
+	{
+		return $this->belongsToMany('App\MbMember');
+	}
 
+	public function permissions()
+	{
+		return $this->belongsToMany('App\Permission');
+	}
+
+	public function users()
+	{
+		return $this->belongsToMany('App\User');
+	}
 }
