@@ -15,8 +15,7 @@ class CreateSubscribablesTable extends Migration
 	{
 		Schema::create('subscribables', function (Blueprint $table) {
 			$table->integer('user_id')->unsigned();
-			$table->integer('subscribable_id')->unsigned();
-			$table->string('subscribable_type');
+			$table->morphs('subscribable');
 			$table->timestamps();
 
 			$table->primary(['user_id', 'subscribable_id', 'subscribable_type']);

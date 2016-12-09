@@ -17,8 +17,7 @@ class CreateTransactionsTable extends Migration
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
 			$table->integer('mb_member_period_id')->unsigned();
-			$table->integer('transactionable_id')->unsigned();
-			$table->string('transactionable_type');
+			$table->morphs('transactionable');
 			$table->timestamp('applied_at');
 			$table->timestamps();
 

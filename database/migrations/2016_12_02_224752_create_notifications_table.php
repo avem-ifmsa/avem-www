@@ -18,8 +18,7 @@ class CreateNotificationsTable extends Migration
 			$table->string('title');
 			$table->text('message');
 			$table->integer('mb_member_period_id')->unsigned();
-			$table->integer('notifiable_id')->unsigned();
-			$table->string('notifiable_type');
+			$table->morphs('notifiable');
 			$table->timestamps();
 
 			$table->foreign('mb_member_period_id')
