@@ -30,7 +30,6 @@ class CreateActivitiesTable extends Migration
 			$table->enum('inscription_policy', [
 				'inscribed', 'all', 'board',
 			])->default('inscribed');
-			$table->integer('points')->unsigned();
 			$table->timestamps();
 		});
 	}

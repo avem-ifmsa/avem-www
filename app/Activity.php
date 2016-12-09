@@ -14,7 +14,7 @@ class Activity extends Model implements Notifiable
 	protected $fillable = [
 		'name', 'image', 'description', 'visibility', 'location',
 		'start', 'end', 'subscription_start', 'subscription_end',
-		'member_limit', 'inscription_policy', 'points',
+		'member_limit', 'inscription_policy',
 	];
 
 	/**
@@ -70,10 +70,5 @@ class Activity extends Model implements Notifiable
 	public function tasks()
 	{
 		return $this->hasMany('App\ActivityTask');
-	}
-
-	public function transactions()
-	{
-		return $this->morphMany('App\Transaction', 'transactionable');
 	}
 }

@@ -50,6 +50,11 @@ class MbMemberPeriod extends Model
 		return $this->belongsToMany('App\Activity');
 	}
 
+	public function ratedActivityTasks()
+	{
+		return $this->hasMany('App\ActivityTaskRating');
+	}
+
 	public function receivedClaims()
 	{
 		return $this->belongsToMany('App\Claim');

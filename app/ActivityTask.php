@@ -29,6 +29,11 @@ class ActivityTask extends Model
 		return $this->belongsTo('App\Activity');
 	}
 
+	public function performedTaskRecords()
+	{
+		return $this->hasMany('App\PerformedTaskRecord');
+	}
+
 	public function transactions()
 	{
 		return $this->morphMany('App\Transaction', 'transactionable');
