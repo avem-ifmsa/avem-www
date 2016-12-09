@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class WorkingGroup extends Model implements Notifiable
+class WorkingGroup extends Model
 {
 	/**
 	 * The attributes that are mass assignable.
@@ -20,13 +20,9 @@ class WorkingGroup extends Model implements Notifiable
 		return $this->hasMany('App\Charge');
 	}
 
-	public function getNotifiableReceiversAttribute()
+	public function mbMembers()
 	{
-		return User::hydrate($this->charges()
-			->join('mb_member_periods', 'mb_member_periods.charge_id', '=', 'charges.id')
-			->join('users', 'users.id', '=', 'mb_member_periods.mb_member_id')
-			->select('users.*')->get()->toArray()
-		);
+		return $this->belongsToMany('App\MbMember');
 	}
 
 	public function tags()
