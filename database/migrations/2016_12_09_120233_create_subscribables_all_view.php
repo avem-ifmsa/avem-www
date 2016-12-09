@@ -16,9 +16,7 @@ class CreateSubscribablesAllView extends Migration
 		DB::statement('CREATE VIEW subscribables_all AS
 			SELECT user_id, subscribable_id, subscribable_type FROM subscribables
 			UNION SELECT user_id, "App\Activity" AS subscribable_type,
-			             activity_id AS subscribable_id FROM activity_user
-			UNION SELECT user_id, "App\ActivityTask" AS subscribable_type,
-			             activity_task_id AS subscribable_id FROM activity_task_user_all
+			             activity_id AS subscribable_id FROM activity_user_all
 		');
 	}
 

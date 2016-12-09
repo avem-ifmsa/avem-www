@@ -12,7 +12,19 @@ class Activity extends Model implements Notifiable
 	 * @var array
 	 */
 	protected $fillable = [
-		'name', 'image', 'description', 'visibility',
+		'name', 'image', 'description', 'visibility', 'location',
+		'start', 'end', 'subscription_start', 'subscription_end',
+		'member_limit', 'inscription_policy', 'points',
+	];
+
+	/**
+	 * The attributes that should be mutated to dates.
+	 *
+	 * @var array
+	 */
+	protected $dates = [
+		'created_at', 'updated_at', 'start', 'end',
+		'inscription_start', 'inscription_end',
 	];
 
 	public function getNotifiableReceiversAttribute()
@@ -22,7 +34,7 @@ class Activity extends Model implements Notifiable
 
 	public function inscribedUsers()
 	{
-		return $this->belongsToMany('App\User');
+		return $this->belongsToMany('App\User', 'activity_user_all');
 	}
 
 	public function notifications()
@@ -33,6 +45,11 @@ class Activity extends Model implements Notifiable
 	public function organizerPeriods()
 	{
 		return $this->belongsToMany('App\MbMemberPeriod');
+	}
+
+	public function selfInscribedUsers()
+	{
+		return $this->belongsToMany('App\User');
 	}
 
 	public function selfSubscribedUsers()
@@ -53,5 +70,10 @@ class Activity extends Model implements Notifiable
 	public function tasks()
 	{
 		return $this->hasMany('App\ActivityTask');
+	}
+
+	public function transactions()
+	{
+		return $this->morphMany('App\Transaction', 'transactionable');
 	}
 }

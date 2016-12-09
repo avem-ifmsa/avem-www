@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ActivityTask extends Model implements Notifiable
+class ActivityTask extends Model
 {
 	/**
 	 * The attributes that are mass assignable.
@@ -12,19 +12,7 @@ class ActivityTask extends Model implements Notifiable
 	 * @var array
 	 */
 	protected $fillable = [
-		'name', 'description', 'location', 'start', 'end',
-		'inscription_start', 'inscription_end', 'member_limit',
-		'is_mandatory', 'inscription_policy', 'points',
-	];
-
-	/**
-	 * The attributes that should be mutated to dates.
-	 *
-	 * @var array
-	 */
-	protected $dates = [
-		'created_at', 'updated_at', 'start', 'end',
-		'inscription_start', 'inscription_end',
+		'name', 'description', 'is_mandatory', 'points',
 	];
 
 	/**
@@ -39,31 +27,6 @@ class ActivityTask extends Model implements Notifiable
 	public function activity()
 	{
 		return $this->belongsTo('App\Activity');
-	}
-
-	public function getNotifiableReceiversAttribute()
-	{
-		return $this->inscribedUsers;
-	}
-
-	public function inscribedUsers()
-	{
-		return $this->belongsToMany('App\User', 'activity_task_user_all');
-	}
-
-	public function notifications()
-	{
-		return $this->morphMany('App\Notification', 'notifiable');
-	}
-
-	public function selfInscribedUsers()
-	{
-		return $this->belongsToMany('App\User');
-	}
-
-	public function subscribedUsers()
-	{
-		return $this->morphToMany('App\User', 'subscribable', 'subscribables_all');
 	}
 
 	public function transactions()

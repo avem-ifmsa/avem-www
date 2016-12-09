@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateActivityTaskUserTable extends Migration
+class CreateActivityUserTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -13,14 +13,14 @@ class CreateActivityTaskUserTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('activity_task_user', function (Blueprint $table) {
-			$table->integer('activity_task_id')->unsigned();
+		Schema::create('activity_user', function (Blueprint $table) {
+			$table->integer('activity_id')->unsigned();
 			$table->integer('user_id')->unsigned();
 			$table->timestamps();
 
-			$table->primary(['activity_task_id', 'user_id']);
-			$table->foreign('activity_task_id')
-			      ->references('id')->on('activity_tasks')
+			$table->primary(['activity_id', 'user_id']);
+			$table->foreign('activity_id')
+			      ->references('id')->on('activities')
 			      ->onDelete('cascade');
 			$table->foreign('user_id')
 			      ->references('id')->on('users')
@@ -35,6 +35,6 @@ class CreateActivityTaskUserTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('activity_task_user');
+		Schema::dropIfExists('activity_user');
 	}
 }

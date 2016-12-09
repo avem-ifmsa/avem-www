@@ -18,17 +18,8 @@ class CreateActivityTasksTable extends Migration
 			$table->string('name');
 			$table->text('description');
 			$table->integer('activity_id')->unsigned();
-			$table->string('location');
-			$table->datetime('start');
-			$table->datetime('end');
-			$table->datetime('inscription_start')->nullable();
-			$table->datetime('inscription_end')->nullable();
-			$table->integer('member_limit')->nullable();
 			$table->boolean('is_mandatory')->default(0);
 			$table->integer('points')->unsigned();
-			$table->enum('inscription_policy', [
-				'inscribed', 'all', 'board',
-			])->default('inscribed');
 			$table->timestamps();
 
 			$table->foreign('activity_id')
