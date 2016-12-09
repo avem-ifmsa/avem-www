@@ -20,6 +20,11 @@ class Activity extends Model implements Notifiable
 		return $this->subscribedUsers;
 	}
 
+	public function inscribedUsers()
+	{
+		return $this->belongsToMany('App\User');
+	}
+
 	public function notifications()
 	{
 		return $this->morphMany('App\Notification', 'notifiable');
@@ -30,9 +35,14 @@ class Activity extends Model implements Notifiable
 		return $this->belongsToMany('App\MbMemberPeriod');
 	}
 
-	public function subscribedUsers()
+	public function selfSubscribedUsers()
 	{
 		return $this->morphToMany('App\User', 'subscribable');
+	}
+
+	public function subscribedUsers()
+	{
+		return $this->morphToMany('App\User', 'subscribable', 'subscribables_all');
 	}
 
 	public function tags()

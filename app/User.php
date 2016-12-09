@@ -65,9 +65,14 @@ class User extends Authenticatable implements AppNotifiable
 		return false;
 	}
 
+	public function inscribedActivities()
+	{
+		return $this->belongsToMany('App\Activity');
+	}
+
 	public function inscribedActivityTasks()
 	{
-		return $this->belongsToMany('App\ActivityTask', 'activity_task_all_users');
+		return $this->belongsToMany('App\ActivityTask', 'activity_task_user_all');
 	}
 
 	public function mbMember()
@@ -95,9 +100,14 @@ class User extends Authenticatable implements AppNotifiable
 		return $this->belongsToMany('App\ActivityTask');
 	}
 
-	public function subscribables()
+	public function subscribedActivities()
 	{
-		return $this->morphedByMany('subscribables');
+		return $this->morphedByMany('App\Activity', 'subscribable', 'subscribables_all');
+	}
+
+	public function subscribedActivityTasks()
+	{
+		return $this->morphedByMany('App\ActivityTask', 'subscribable', 'subscribables_all');
 	}
 
 	public function transactions()

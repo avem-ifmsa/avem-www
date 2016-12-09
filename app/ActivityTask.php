@@ -48,7 +48,7 @@ class ActivityTask extends Model implements Notifiable
 
 	public function inscribedUsers()
 	{
-		return $this->belongsToMany('App\User', 'activity_task_all_users');
+		return $this->belongsToMany('App\User', 'activity_task_user_all');
 	}
 
 	public function notifications()
@@ -59,6 +59,11 @@ class ActivityTask extends Model implements Notifiable
 	public function selfInscribedUsers()
 	{
 		return $this->belongsToMany('App\User');
+	}
+
+	public function subscribedUsers()
+	{
+		return $this->morphToMany('App\User', 'subscribable', 'subscribables_all');
 	}
 
 	public function transactions()

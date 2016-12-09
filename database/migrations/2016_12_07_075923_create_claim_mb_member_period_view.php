@@ -15,9 +15,8 @@ class CreateClaimMbMemberPeriodView extends Migration
 	{
 		DB::statement('CREATE VIEW claim_mb_member_period AS
 			SELECT activity_mb_member_period.mb_member_period_id, claims.id AS claim_id FROM claims
-				INNER JOIN activity_tasks ON activity_tasks.id=claims.activity_task_id
-				INNER JOIN activity_mb_member_period
-					ON activity_mb_member_period.activity_id=activity_tasks.activity_id
+				INNER JOIN activity_tasks ON activity_tasks.id = claims.activity_task_id
+				INNER JOIN activity_mb_member_period ON activity_id
 		');
 	}
 
