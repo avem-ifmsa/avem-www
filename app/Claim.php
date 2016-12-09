@@ -23,7 +23,7 @@ class Claim extends Model implements Notifiable
 
 	public function resolution()
 	{
-		return $this->hasOne('App\Resolution');
+		return $this->hasOne('App\ClaimResolution');
 	}
 
 	public function user()

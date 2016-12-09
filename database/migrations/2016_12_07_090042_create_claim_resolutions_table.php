@@ -14,14 +14,15 @@ class CreateClaimResolutionsTable extends Migration
 	public function up()
 	{
 		Schema::create('claim_resolutions', function (Blueprint $table) {
-			$table->integer('id')->unsigned();
+			$table->increments('id');
+			$table->integer('claim_id')->unsigned();
 			$table->integer('mb_member_period_id')->unsigned();
 			$table->enum('status', [
 				'accepted', 'declined'
 			]);
 			$table->timestamps();
 
-			$table->foreign('id')
+			$table->foreign('claim_id')
 			      ->references('id')->on('claims')
 			      ->onDelete('cascade');
 			$table->foreign('mb_member_period_id')

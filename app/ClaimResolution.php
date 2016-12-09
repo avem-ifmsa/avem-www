@@ -17,7 +17,7 @@ class ClaimResolution extends Model
 
 	public function claim()
 	{
-		return $this->belongsTo('App\Claim', 'id');
+		return $this->belongsTo('App\Claim');
 	}
 
 	public function resolverPeriod()
