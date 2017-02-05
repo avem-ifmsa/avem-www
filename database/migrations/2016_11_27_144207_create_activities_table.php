@@ -24,12 +24,9 @@ class CreateActivitiesTable extends Migration
 			$table->datetime('inscription_end')->nullable();
 			$table->integer('member_limit')->nullable();
 			$table->string('image')->nullable();
-			$table->enum('visibility', [
-				'all', 'board', 'none',
-			]);
-			$table->enum('inscription_policy', [
-				'inscribed', 'all', 'board',
-			])->default('inscribed');
+			$table->enum('visibility', [ 'all', 'board', 'none' ]);
+			$table->enum('inscription_policy', [ 'inscribed', 'all', 'board' ])
+			      ->default('inscribed');
 			$table->timestamps();
 		});
 	}

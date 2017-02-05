@@ -17,9 +17,7 @@ class CreateClaimResolutionsTable extends Migration
 			$table->increments('id');
 			$table->integer('claim_id')->unsigned();
 			$table->integer('mb_member_period_id')->unsigned();
-			$table->enum('status', [
-				'accepted', 'declined'
-			]);
+			$table->enum('status', [ 'accepted', 'declined' ]);
 			$table->timestamps();
 
 			$table->foreign('claim_id')
