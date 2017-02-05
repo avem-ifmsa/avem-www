@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Avem;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,23 +15,33 @@ class MbMember extends Model
 		'dni_nif', 'phone',
 	];
 
-	public function mbMemberPeriods()
-	{
-		return $this->hasMany('App\MbMemberPeriod');
-	}
-
 	public function getHasActiveChargeAttribute()
 	{
 		return $this->mbMemberPeriods()->active()->exists();
 	}
 
-	public function roles()
+	public function issuedRenewals()
 	{
-		return $this->belongsToMany('App\Role');
+		return $this->hasManyThrough('Avem\Renewal', 'Avem\MbMemberPeriod');
+	}
+
+	public function mbMemberPeriods()
+	{
+		return $this->hasMany('Avem\MbMemberPeriod');
+	}
+
+	public function resolvedClaims()
+	{
+		return $this->hasManyThrough('Avem\ClaimResolution', 'Avem\MbMemberPeriod');
+	}
+
+	public function sentNotifications()
+	{
+		return $this->hasManyThrough('Avem\Notification', 'Avem\MbMemberPeriod');
 	}
 
 	public function user()
 	{
-		return $this->belongsTo('App\User', 'id');
+		return $this->belongsTo('Avem\User', 'id');
 	}
 }

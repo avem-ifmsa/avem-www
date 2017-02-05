@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Avem;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,16 +19,16 @@ class Tag extends Model
 
 	public function activities()
 	{
-		return $this->morphedByMany('App\Activity', 'taggable');
+		return $this->morphedByMany('Avem\Activity', 'taggable');
 	}
 
 	public function subscribedUsers()
 	{
-		return $this->morphMany('App\User', 'subscribable');
+		return $this->morphMany('Avem\User', 'subscribable');
 	}
 
 	public function workingGroups()
 	{
-		return $this->morphedByMany('App\WorkingGroup', 'taggable');
+		return $this->morphedByMany('Avem\WorkingGroup', 'taggable');
 	}
 }

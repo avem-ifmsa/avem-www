@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Avem;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,7 +26,7 @@ class Transaction extends Model
 
 	public function applierPeriod()
 	{
-		return $this->belongsTo('App\MbMemberPeriod');
+		return $this->belongsTo('Avem\MbMemberPeriod');
 	}
 
 	public function transactionable()
@@ -36,6 +36,6 @@ class Transaction extends Model
 
 	public function user()
 	{
-		return $this->belongsTo('App\User');
+		return $this->belongsTo('Avem\User');
 	}
 }

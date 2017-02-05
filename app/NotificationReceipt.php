@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Avem;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,7 +31,7 @@ class NotificationReceipt extends Model
 
 	public function notification()
 	{
-		return $this->belongsTo('App\Notification');
+		return $this->belongsTo('Avem\Notification');
 	}
 
 	public function scopeUnread($query)
@@ -41,6 +41,6 @@ class NotificationReceipt extends Model
 
 	public function user()
 	{
-		return $this->belongsTo('App\User');
+		return $this->belongsTo('Avem\User');
 	}
 }

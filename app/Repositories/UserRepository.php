@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repositories;
+namespace Avem\Repositories;
 
-use App\User;
+use Avem\User;
 use Auth0\Login\Contract\Auth0UserRepository;
 
 class UserRepository implements Auth0UserRepository

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Avem;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,13 +15,13 @@ class Charge extends Model
 		'name', 'email',
 	];
 
-	public function roles()
+	public function chargeRoles()
 	{
-		return $this->belongsToMany('App\Role');
+		return $this->belongsToMany('Avem\Role');
 	}
-	
+
 	public function workingGroup()
 	{
-		return $this->belongsTo('App\WorkingGroup');
+		return $this->belongsTo('Avem\WorkingGroup');
 	}
 }

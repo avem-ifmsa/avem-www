@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Avem;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,11 +22,11 @@ class Notification extends Model
 
 	public function receipts()
 	{
-		return $this->hasMany('App\NotificationReceipt');
+		return $this->hasMany('Avem\NotificationReceipt');
 	}
 
 	public function senderPeriod()
 	{
-		return $this->belongsTo('App\MbMemberPeriod');
+		return $this->belongsTo('Avem\MbMemberPeriod');
 	}
 }

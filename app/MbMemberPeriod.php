@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Avem;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -27,42 +27,42 @@ class MbMemberPeriod extends Model
 
 	public function appliedTransactions()
 	{
-		return $this->hasMany('App\Transaction');
+		return $this->hasMany('Avem\Transaction');
 	}
 
 	public function charge()
 	{
-		return $this->belongsTo('App\Charge');
+		return $this->belongsTo('Avem\Charge');
 	}
 
 	public function issuedRenewals()
 	{
-		return $this->hasMany('App\Renewal');
+		return $this->hasMany('Avem\Renewal');
 	}
 
 	public function mbMember()
 	{
-		return $this->belongsTo('App\MbMember');
+		return $this->belongsTo('Avem\MbMember');
 	}
 
 	public function organizedActivities()
 	{
-		return $this->belongsToMany('App\Activity');
+		return $this->belongsToMany('Avem\Activity');
 	}
 
 	public function ratedActivityTasks()
 	{
-		return $this->hasMany('App\ActivityTaskRating');
+		return $this->hasMany('Avem\ActivityTaskRating');
 	}
 
 	public function receivedClaims()
 	{
-		return $this->belongsToMany('App\Claim');
+		return $this->belongsToMany('Avem\Claim');
 	}
 
 	public function resolvedClaims()
 	{
-		return $this->hasMany('App\ClaimResolution');
+		return $this->hasMany('Avem\ClaimResolution');
 	}
 
 	public function scopeActive($query)
@@ -74,6 +74,6 @@ class MbMemberPeriod extends Model
 
 	public function sentNotifications()
 	{
-		return $this->hasMany('App\Notification');
+		return $this->hasMany('Avem\Notification');
 	}
 }

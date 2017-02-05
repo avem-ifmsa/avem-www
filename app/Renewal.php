@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Avem;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -27,7 +27,7 @@ class Renewal extends Model
 
 	public function issuerPeriod()
 	{
-		return $this->belongsTo('App\MbMemberPeriod');
+		return $this->belongsTo('Avem\MbMemberPeriod');
 	}
 
 	public function scopeActive($query)
@@ -37,6 +37,6 @@ class Renewal extends Model
 
 	public function user()
 	{
-		return $this->belongsTo('App\User');
+		return $this->belongsTo('Avem\User');
 	}
 }

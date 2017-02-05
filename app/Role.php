@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Avem;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,21 +17,16 @@ class Role extends Model
 
 	public function charges()
 	{
-		return $this->belongsToMany('App\Charge');
-	}
-
-	public function mbMembers()
-	{
-		return $this->belongsToMany('App\MbMember');
+		return $this->belongsToMany('Avem\Charge');
 	}
 
 	public function permissions()
 	{
-		return $this->belongsToMany('App\Permission');
+		return $this->belongsToMany('Avem\Permission');
 	}
 
 	public function users()
 	{
-		return $this->belongsToMany('App\User');
+		return $this->belongsToMany('Avem\User');
 	}
 }

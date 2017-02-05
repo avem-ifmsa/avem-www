@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Avem;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,16 +17,16 @@ class WorkingGroup extends Model
 
 	public function charges()
 	{
-		return $this->hasMany('App\Charge');
+		return $this->hasMany('Avem\Charge');
 	}
 
 	public function mbMembers()
 	{
-		return $this->belongsToMany('App\MbMember');
+		return $this->belongsToMany('Avem\MbMember');
 	}
 
 	public function tags()
 	{
-		return $this->morphToMany('App\Tag');
+		return $this->morphToMany('Avem\Tag');
 	}
 }

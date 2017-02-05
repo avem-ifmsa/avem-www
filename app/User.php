@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+namespace Avem;
 
-use App\Notifiable as AppNotifiable;
+use Avem\Notifiable as AppNotifiable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -30,12 +30,12 @@ class User extends Authenticatable implements AppNotifiable
 
 	public function directNotifications()
 	{
-		return $this->morphMany('App\Notification', 'notifiable');
+		return $this->morphMany('Avem\Notification', 'notifiable');
 	}
 
 	public function filedClaims()
 	{
-		return $this->hasMany('App\Claim');
+		return $this->hasMany('Avem\Claim');
 	}
 
 	public function getIsActiveAttribute()
@@ -50,68 +50,66 @@ class User extends Authenticatable implements AppNotifiable
 
 	public function hasPermission($name)
 	{
-		$this->load('ownRoles.permissions');
-		foreach ($this->ownRoles as $role) {
+		$this->load('roles.permissions');
+		foreach ($this->roles as $role) {
 			if ($role->permissions->contains('name', $name))
 				return true;
-		}
-		if ($mbMember = $this->mbMember) {
-			$mbMember->load('roles.permissions');
-			foreach ($mbMember->roles as $role) {
-				if ($role->permissions->contains('name', $name))
-					return true;
-			}
 		}
 		return false;
 	}
 
 	public function inscribedActivities()
 	{
-		return $this->belongsToMany('App\Activity');
+		return $this->belongsToMany('Avem\Activity');
 	}
 
 	public function inscribedActivityTasks()
 	{
-		return $this->belongsToMany('App\ActivityTask', 'activity_task_user_all');
+		return $this->belongsToMany('Avem\ActivityTask', 'activity_task_user_all');
 	}
 
 	public function mbMember()
 	{
-		return $this->hasOne('App\MbMember', 'id');
+		return $this->hasOne('Avem\MbMember', 'id');
 	}
 
 	public function notificationReceipts()
 	{
-		return $this->hasMany('App\NotificationReceipt');
+		return $this->hasMany('Avem\NotificationReceipt');
 	}
 
 	public function ownRoles()
 	{
-		return $this->belongsToMany('App\Role');
+		return $this->belongsToMany('Avem\Role');
 	}
 
 	public function renewals()
 	{
-		return $this->hasMany('App\Renewal');
+		return $this->hasMany('Avem\Renewal');
+	}
+
+	public function roles()
+	{
+		return $this->belongsToMany('Avem\Role', 'all_user_roles');
 	}
 
 	public function selfInscribedActivityTasks()
 	{
-		return $this->belongsToMany('App\ActivityTask');
+		return $this->belongsToMany('Avem\ActivityTask');
 	}
 
 	public function subscribedActivities()
 	{
-		return $this->morphedByMany('App\Activity', 'subscribable', 'subscribables_all');
+		return $this->morphedByMany('Avem\Activity', 'subscribable', 'all_subscribables');
 	}
 
 	public function subscribedActivityTasks()
 	{
-		return $this->morphedByMany('App\ActivityTask', 'subscribable', 'subscribables_all');
+		return $this->morphedByMany('Avem\ActivityTask', 'subscribable', 'all_subscribables');
 	}
 
 	public function transactions()
 	{
-		return $this->hasMany('App\Transaction');
+		return $this->hasMany('Avem\Transaction');
 	}
 }

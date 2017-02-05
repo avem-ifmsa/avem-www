@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Avem;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,11 +17,11 @@ class ClaimResolution extends Model
 
 	public function claim()
 	{
-		return $this->belongsTo('App\Claim');
+		return $this->belongsTo('Avem\Claim');
 	}
 
 	public function resolverPeriod()
 	{
-		return $this->belongsTo('App\MbMemberPeriod');
+		return $this->belongsTo('Avem\MbMemberPeriod');
 	}
 }

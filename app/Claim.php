@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Avem;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -8,7 +8,7 @@ class Claim extends Model implements Notifiable
 {
 	public function activityTask()
 	{
-		return $this->belongsTo('App\ActivityTask');
+		return $this->belongsTo('Avem\ActivityTask');
 	}
 
 	public function getNotifiableReceiversAttribute()
@@ -18,16 +18,16 @@ class Claim extends Model implements Notifiable
 
 	public function notifications()
 	{
-		return $this->morphMany('App\Notification', 'notifiable');
+		return $this->morphMany('Avem\Notification', 'notifiable');
 	}
 
 	public function resolution()
 	{
-		return $this->hasOne('App\ClaimResolution');
+		return $this->hasOne('Avem\ClaimResolution');
 	}
 
 	public function user()
 	{
-		return $this->belongsTo('App\User');
+		return $this->belongsTo('Avem\User');
 	}
 }

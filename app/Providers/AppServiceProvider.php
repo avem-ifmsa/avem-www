@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace Avem\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -24,6 +24,6 @@ class AppServiceProvider extends ServiceProvider
 	public function register()
 	{
 		$this->app->bind('\Auth0\Login\Contract\Auth0UserRepository',
-		                 '\App\Repositories\UserRepository');
+		                 '\Avem\Repositories\UserRepository');
 	}
 }

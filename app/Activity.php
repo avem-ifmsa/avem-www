@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Avem;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -34,41 +34,41 @@ class Activity extends Model implements Notifiable
 
 	public function inscribedUsers()
 	{
-		return $this->belongsToMany('App\User', 'activity_user_all');
+		return $this->belongsToMany('Avem\User', 'all_activity_users');
 	}
 
 	public function notifications()
 	{
-		return $this->morphMany('App\Notification', 'notifiable');
+		return $this->morphMany('Avem\Notification', 'notifiable');
 	}
 
 	public function organizerPeriods()
 	{
-		return $this->belongsToMany('App\MbMemberPeriod');
+		return $this->belongsToMany('Avem\MbMemberPeriod');
 	}
 
 	public function selfInscribedUsers()
 	{
-		return $this->belongsToMany('App\User');
+		return $this->belongsToMany('Avem\User');
 	}
 
 	public function selfSubscribedUsers()
 	{
-		return $this->morphToMany('App\User', 'subscribable');
+		return $this->morphToMany('Avem\User', 'subscribable');
 	}
 
 	public function subscribedUsers()
 	{
-		return $this->morphToMany('App\User', 'subscribable', 'subscribables_all');
+		return $this->morphToMany('Avem\User', 'subscribable', 'all_subscribables');
 	}
 
 	public function tags()
 	{
-		return $this->morphToMany('App\Tag', 'taggable');
+		return $this->morphToMany('Avem\Tag', 'taggable');
 	}
 
 	public function tasks()
 	{
-		return $this->hasMany('App\ActivityTask');
+		return $this->hasMany('Avem\ActivityTask');
 	}
 }

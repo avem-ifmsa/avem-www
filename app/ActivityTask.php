@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Avem;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,16 +26,16 @@ class ActivityTask extends Model
 
 	public function activity()
 	{
-		return $this->belongsTo('App\Activity');
+		return $this->belongsTo('Avem\Activity');
 	}
 
 	public function performedTaskRecords()
 	{
-		return $this->hasMany('App\PerformedTaskRecord');
+		return $this->hasMany('Avem\PerformedTaskRecord');
 	}
 
 	public function transactions()
 	{
-		return $this->morphMany('App\Transaction', 'transactionable');
+		return $this->morphMany('Avem\Transaction', 'transactionable');
 	}
 }
