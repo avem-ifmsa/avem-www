@@ -4,7 +4,7 @@ namespace Avem;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PerformedTaskRecord extends Model
+class PerformedTask extends Model
 {
 	public function activityTask()
 	{

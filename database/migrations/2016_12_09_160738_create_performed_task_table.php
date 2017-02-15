@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePerformedTaskRecordsTable extends Migration
+class CreatePerformedTaskTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePerformedTaskRecordsTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('performed_task_records', function (Blueprint $table) {
+		Schema::create('performed_tasks', function (Blueprint $table) {
 			$table->increments('id');
 			$table->integer('activity_task_id')->unsigned();
 			$table->integer('mb_member_period_id')->unsigned();
@@ -29,6 +29,6 @@ class CreatePerformedTaskRecordsTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('performed_task_records');
+		Schema::dropIfExists('performed_tasks');
 	}
 }

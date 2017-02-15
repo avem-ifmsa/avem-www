@@ -31,7 +31,7 @@ class ActivityTask extends Model
 
 	public function performedTaskRecords()
 	{
-		return $this->hasMany('Avem\PerformedTaskRecord');
+		return $this->hasMany('Avem\PerformedTask');
 	}
 
 	public function transactions()
