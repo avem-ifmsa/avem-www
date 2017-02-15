@@ -18,7 +18,7 @@ class CreateChargesTable extends Migration
 			$table->string('name');
 			$table->string('email')->unique();
 			$table->integer('order')->default(0);
-			$table->integer('working_group_id')->unsigned();
+			$table->integer('working_group_id')->unsigned()->nullable();
 			$table->timestamps();
 
 			$table->foreign('working_group_id')
