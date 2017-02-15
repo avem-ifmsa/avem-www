@@ -15,15 +15,15 @@ class CreateMbMemberPeriodsTable extends Migration
 	{
 		Schema::create('mb_member_periods', function (Blueprint $table) {
 			$table->increments('id');
-			$table->integer('mb_member_id')->unsigned();
 			$table->integer('charge_id')->unsigned();
+			$table->integer('mb_member_id')->unsigned()->nullable();
 			$table->dateTime('start');
 			$table->dateTime('end');
 			$table->timestamps();
 
 			$table->foreign('mb_member_id')
 			      ->references('user_id')->on('mb_members')
-			      ->onDelete('cascade');
+			      ->onDelete('set null');
 			$table->foreign('charge_id')
 			      ->references('id')->on('charges')
 			      ->onDelete('cascade');

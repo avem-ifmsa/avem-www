@@ -50,9 +50,9 @@ class MbMemberPeriod extends Model
 		return $this->belongsToMany('Avem\Activity');
 	}
 
-	public function ratedActivityTasks()
+	public function publishedExchanges()
 	{
-		return $this->hasMany('Avem\ActivityTaskRating');
+		return $this->hasMany('Avem\Exchange');
 	}
 
 	public function receivedClaims()

@@ -26,7 +26,7 @@ class CreateRenewalsTable extends Migration
 			      ->onDelete('cascade');
 			$table->foreign('mb_member_period_id')
 			      ->references('id')->on('mb_member_periods')
-			      ->onDelete('set null');
+			      ->onDelete('cascade');
 		});
 	}
 

@@ -30,6 +30,11 @@ class MbMember extends Model
 		return $this->hasMany('Avem\MbMemberPeriod');
 	}
 
+	public function publishedExchanges()
+	{
+		return $this->hasManyThrough('Avem\Exchange', 'Avem\MbMemberPeriod');
+	}
+
 	public function resolvedClaims()
 	{
 		return $this->hasManyThrough('Avem\ClaimResolution', 'Avem\MbMemberPeriod');
