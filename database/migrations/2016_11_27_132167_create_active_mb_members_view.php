@@ -14,14 +14,9 @@ class CreateActiveMbMembersView extends Migration
 	public function up()
 	{
 		DB::statement('CREATE VIEW active_mb_members AS
-			SELECT mb_members.id AS user_id, activities.id AS activity_id FROM mb_members
-			INNER JOIN mb_member_periods ON mb_members.id = mb_member_periods.mb_member_id
-			CROSS JOIN activities
-			WHERE activities.inscription_policy = "board" AND
-			    ( activities.start        BETWEEN mb_member_periods.start AND mb_member_periods.end
-			   OR activities.end          BETWEEN mb_member_periods.start AND mb_member_periods.end
-			   OR mb_member_periods.start BETWEEN activities.start        AND activities.end
-			   OR mb_member_periods.end   BETWEEN activities.start        AND activities.end        )
+			SELECT mb_members.* FROM mb_members INNER JOIN mb_member_periods ON mb_member_periods.mb_member_id = mb_members.id
+			WHERE CURRENT_TIMESTAMP BETWEEN mb_member_periods.start AND mb_member_periods.end
+			GROUP BY mb_members.id LIMIT 1
 		');
 	}
 
