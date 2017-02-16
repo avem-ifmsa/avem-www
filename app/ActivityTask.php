@@ -34,6 +34,11 @@ class ActivityTask extends Model
 		return $this->hasMany('Avem\PerformedTask');
 	}
 
+	public function subscribedUsers()
+	{
+		return $this->morphToMany('Avem\User', 'subscribable', 'all_subscribables');
+	}
+
 	public function transactions()
 	{
 		return $this->morphMany('Avem\Transaction', 'transactionable');

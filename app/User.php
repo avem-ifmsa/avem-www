@@ -63,11 +63,6 @@ class User extends Authenticatable implements AppNotifiable
 		return $this->belongsToMany('Avem\Activity');
 	}
 
-	public function inscribedActivityTasks()
-	{
-		return $this->belongsToMany('Avem\ActivityTask', 'activity_task_user_all');
-	}
-
 	public function mbMember()
 	{
 		return $this->hasOne('Avem\MbMember', 'id');
@@ -93,9 +88,9 @@ class User extends Authenticatable implements AppNotifiable
 		return $this->belongsToMany('Avem\Role');
 	}
 
-	public function selfInscribedActivityTasks()
+	public function selfInscribedActivities()
 	{
-		return $this->belongsToMany('Avem\ActivityTask');
+		return $this->belongsToMany('Avem\Activity', 'self_inscribed_activity_users');
 	}
 
 	public function subscribedActivities()

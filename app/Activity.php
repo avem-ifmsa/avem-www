@@ -12,7 +12,7 @@ class Activity extends Model implements Notifiable
 	 * @var array
 	 */
 	protected $fillable = [
-		'name', 'image', 'description', 'visibility', 'location',
+		'name', 'image_url', 'description', 'visibility', 'location',
 		'start', 'end', 'subscription_start', 'subscription_end',
 		'member_limit', 'inscription_policy',
 	];
@@ -34,7 +34,7 @@ class Activity extends Model implements Notifiable
 
 	public function inscribedUsers()
 	{
-		return $this->belongsToMany('Avem\User', 'all_activity_users');
+		return $this->belongsToMany('Avem\User');
 	}
 
 	public function notifications()
@@ -49,7 +49,7 @@ class Activity extends Model implements Notifiable
 
 	public function selfInscribedUsers()
 	{
-		return $this->belongsToMany('Avem\User');
+		return $this->belongsToMany('Avem\User', 'self_inscribed_activity_users');
 	}
 
 	public function selfSubscribedUsers()

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateActivityUserTable extends Migration
+class CreateSelfInscribedActivityUsersTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -13,7 +13,7 @@ class CreateActivityUserTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('activity_user', function (Blueprint $table) {
+		Schema::create('self_inscribed_activity_users', function (Blueprint $table) {
 			$table->integer('activity_id')->unsigned();
 			$table->integer('user_id')->unsigned();
 			$table->timestamps();
@@ -35,6 +35,6 @@ class CreateActivityUserTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('activity_user');
+		Schema::dropIfExists('self_inscribed_activity_users');
 	}
 }
