@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Exchange extends Model
 {
-
 	/**
 	 * The attributes that are mass assignable.
 	 *
@@ -34,5 +33,4 @@ class Exchange extends Model
 	{
 		return $this->belongsTo('Avem\MbMemberPeriod');
 	}
-
 }

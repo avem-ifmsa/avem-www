@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class MbMember extends Model
 {
 	/**
+	 * Primary key is not autoincrement.
+	 *
+	 * @var bool
+	 */
+	protected $incrementing = false;
+
+	/**
 	 * The attributes that are mass assignable.
 	 *
 	 * @var array

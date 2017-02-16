@@ -27,6 +27,6 @@ class WorkingGroup extends Model
 
 	public function tags()
 	{
-		return $this->morphToMany('Avem\Tag');
+		return $this->morphToMany('Avem\Tag', 'taggable');
 	}
 }
