@@ -80,7 +80,7 @@ class User extends Authenticatable implements AppNotifiable
 
 	public function ownRoles()
 	{
-		return $this->belongsToMany('Avem\Role');
+		return $this->belongsToMany('Avem\Role', 'own_user_roles');
 	}
 
 	public function renewals()
@@ -90,7 +90,7 @@ class User extends Authenticatable implements AppNotifiable
 
 	public function roles()
 	{
-		return $this->belongsToMany('Avem\Role', 'all_user_roles');
+		return $this->belongsToMany('Avem\Role');
 	}
 
 	public function selfInscribedActivityTasks()

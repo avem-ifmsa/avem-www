@@ -20,6 +20,11 @@ class Role extends Model
 		return $this->belongsToMany('Avem\Charge');
 	}
 
+	public function ownUsers()
+	{
+		return $this->belongsToMany('Avem\User', 'own_user_roles');
+	}
+
 	public function permissions()
 	{
 		return $this->belongsToMany('Avem\Permission');
