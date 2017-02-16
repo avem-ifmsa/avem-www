@@ -3,7 +3,7 @@
 @section('content')
 	<div id="login-form"></div>
 
-	@include('auth0LockWidget', [
+	@include('widgets.auth0Lock', [
 		'container'     => 'login-form',
 		'initialScreen' => 'login',
 	])
