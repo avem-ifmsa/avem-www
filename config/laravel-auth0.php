@@ -41,7 +41,7 @@ return array(
 	|
 	*/
 
-	'redirect_uri' => 'http://localhost:8000/auth0/callback',
+	'redirect_uri' => 'http://avem.es.local/auth/callback',
 
 	/*
 	|--------------------------------------------------------------------------

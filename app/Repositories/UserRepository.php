@@ -51,7 +51,7 @@ class UserRepository implements Auth0UserRepository
 		$user = $this->getUserByUserInfo($user);
 
 		// it is not the same user as logged in, it is not valid
-		if ($user && $user['auth0_id'] == $identifier) {
+		if ($user && $user->id == $identifier) {
 			return $user;
 		}
 	}
