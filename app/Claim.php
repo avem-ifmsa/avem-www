@@ -6,6 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Claim extends Model implements Notifiable
 {
+	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array
+	 */
+	protected $fillable = [
+		'info',
+	];
+
 	public function activityTask()
 	{
 		return $this->belongsTo('Avem\ActivityTask');
