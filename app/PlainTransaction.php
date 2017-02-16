@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PlainTransaction extends Model implements Transactionable
 {
+
 	/**
 	 * The attributes that are mass assignable.
 	 *
@@ -15,13 +16,14 @@ class PlainTransaction extends Model implements Transactionable
 		'concept', 'points'
 	];
 
-	public function transactionConcept()
+	public function getTransactionConceptAttribute()
 	{
 		return $this->concept;
 	}
 
-	public function transactionPoints()
+	public function getTransactionPointsAttribute()
 	{
 		return $this->points;
 	}
+
 }
