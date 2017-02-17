@@ -15,30 +15,10 @@ Route::get('/', function () {
 	return view('welcome');
 });
 
+Route::get('/home', 'HomeController@index');
+
 Route::group([ 'as' => 'auth.' ], function() {
-
-	Route::get('register', [ 'as' => 'register', function() {
-		return view('register')->with([
-			'title' => 'Registrarse',
-		]);
-	}]);
-
-	Route::get('login', [ 'as' => 'login', function() {
-		return view('login')->with([
-			'title' => 'Iniciar sesión',
-		]);
-	}]);
-
-	Route::get('auth/callback', [
-		'as'   => 'callback',
-		'uses' => '\Auth0\Login\Auth0Controller@callback',
-	]);
-
-	Route::post('logout', [ 'as' => 'logout', function() {
-		Auth::logout();
-		return Redirect::home();
-	}]);
-
+	Auth::routes();
 });
 
 Route::group([ 'as'         => 'admin.',
@@ -46,11 +26,9 @@ Route::group([ 'as'         => 'admin.',
                'namespace'  => 'Admin' ,
                'prefix'     => 'admin' ], function() {
 
-	Route::get('/', function() {
-		return view('admin')->with([
-			'title' => 'Panel de administración',
-		]);
-	});
+	Route::get('/', [ 'as' => 'index', function() {
+		return view('admin');
+	}]);
 
 	Route::resource('activities'   , 'ActivityController');
 	Route::resource('exchanges'    , 'ExchangeController');
@@ -58,15 +36,11 @@ Route::group([ 'as'         => 'admin.',
 	Route::resource('users'        , 'UserController');
 
 	Route::get('mboard', [ 'as' => 'mboard', function() {
-		return view('admin.mboard')->with([
-			'title' => 'Gestión de junta directiva',
-		]);
+		return view('admin.mboard');
 	}]);
 
 	Route::get('analytics', [ 'as' => 'analytics', function() {
-		return view('admin.analytics')->with([
-			'title' => 'Analíticas',
-		]);
+		return view('admin.analytics');
 	}]);
 
 });

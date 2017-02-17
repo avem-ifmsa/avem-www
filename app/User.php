@@ -16,7 +16,7 @@ class User extends Authenticatable implements AppNotifiable
 	 * @var array
 	 */
 	protected $fillable = [
-		'name', 'surname', 'email',
+		'name', 'surname', 'email', 'password',
 	];
 
 	/**
@@ -27,6 +27,11 @@ class User extends Authenticatable implements AppNotifiable
 	protected $dates = [
 		'created_at', 'updated_at',
 	];
+
+	public function authMethods()
+	{
+		return $this->morphMany('auth_method');
+	}
 
 	public function directNotifications()
 	{
@@ -78,6 +83,21 @@ class User extends Authenticatable implements AppNotifiable
 		return $this->belongsToMany('Avem\Role', 'own_user_roles');
 	}
 
+	public function setPasswordAttribute(string $password)
+	{
+		$this->attributes['password'] = bcrypt($password);
+	}
+
+	public function subscribedActivities()
+	{
+		return $this->morphedByMany('Avem\Activity', 'subscribable');
+	}
+
+	public function subscribedActivityTasks()
+	{
+		return $this->morphedByMany('Avem\ActivityTask', 'subscribable');
+	}
+
 	public function renewals()
 	{
 		return $this->hasMany('Avem\Renewal');
@@ -93,14 +113,14 @@ class User extends Authenticatable implements AppNotifiable
 		return $this->belongsToMany('Avem\Activity', 'self_inscribed_activity_users');
 	}
 
-	public function subscribedActivities()
+	public function selfSubscribedActivities()
 	{
-		return $this->morphedByMany('Avem\Activity', 'subscribable', 'all_subscribables');
+		return $this->morphedByMany('Avem\Activity', 'subscribable', 'own_subscribables');
 	}
 
-	public function subscribedActivityTasks()
+	public function selfSubscribedActivityTasks()
 	{
-		return $this->morphedByMany('Avem\ActivityTask', 'subscribable', 'all_subscribables');
+		return $this->morphedByMany('Avem\ActivityTask', 'subscribable', 'own_subscribables');
 	}
 
 	public function transactions()

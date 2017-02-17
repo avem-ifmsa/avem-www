@@ -66,7 +66,7 @@ return [
 
 	'providers' => [
 		'users' => [
-			'driver' => 'auth0',
+			'driver' => 'eloquent',
 			'model' => Avem\User::class,
 		],
 	],

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSubscribablesTable extends Migration
+class CreateOwnSubscribablesTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSubscribablesTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('subscribables', function (Blueprint $table) {
+		Schema::create('own_subscribables', function (Blueprint $table) {
 			$table->integer('user_id')->unsigned();
 			$table->morphs('subscribable');
 			$table->timestamps();
@@ -32,6 +32,6 @@ class CreateSubscribablesTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('subscribables');
+		Schema::dropIfExists('own_subscribables');
 	}
 }

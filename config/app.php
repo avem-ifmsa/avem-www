@@ -77,7 +77,7 @@ return [
 	|
 	*/
 
-	'locale' => 'en',
+	'locale' => 'es',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -90,7 +90,7 @@ return [
 	|
 	*/
 
-	'fallback_locale' => 'en',
+	'fallback_locale' => 'es',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -162,12 +162,12 @@ return [
 		Illuminate\Translation\TranslationServiceProvider::class,
 		Illuminate\Validation\ValidationServiceProvider::class,
 		Illuminate\View\ViewServiceProvider::class,
-		Laravel\Tinker\TinkerServiceProvider::class,
 
 		/*
 		 * Package Service Providers...
 		 */
-		 Auth0\Login\LoginServiceProvider::class,
+ 		Laravel\Tinker\TinkerServiceProvider::class,
+ 		Laravel\Socialite\SocialiteServiceProvider::class,
 
 		/*
 		 * Application Service Providers...
@@ -196,7 +196,6 @@ return [
 		'App' => Illuminate\Support\Facades\App::class,
 		'Artisan' => Illuminate\Support\Facades\Artisan::class,
 		'Auth' => Illuminate\Support\Facades\Auth::class,
-		'Auth0' => Auth0\Login\Facade\Auth0::class,
 		'Blade' => Illuminate\Support\Facades\Blade::class,
 		'Bus' => Illuminate\Support\Facades\Bus::class,
 		'Cache' => Illuminate\Support\Facades\Cache::class,
@@ -222,6 +221,7 @@ return [
 		'Route' => Illuminate\Support\Facades\Route::class,
 		'Schema' => Illuminate\Support\Facades\Schema::class,
 		'Session' => Illuminate\Support\Facades\Session::class,
+		'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 		'Storage' => Illuminate\Support\Facades\Storage::class,
 		'URL' => Illuminate\Support\Facades\URL::class,
 		'Validator' => Illuminate\Support\Facades\Validator::class,

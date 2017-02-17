@@ -47,9 +47,6 @@ class Kernel extends HttpKernel
 	 */
 	protected $routeMiddleware = [
 		'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
-		'auth0.jwt' => \Auth0\Login\Middleware\Auth0JWTMiddleware::class,
-		'auth0.jwt_verification' => \Auth0\Login\Middleware\Auth0OptionalJWTMiddleware::class,
-		'auth0.jwt_force' => \Auth0\Login\Middleware\ForceAuthMiddleware::class,
 		'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
 		'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
 		'can' => \Illuminate\Auth\Middleware\Authorize::class,
