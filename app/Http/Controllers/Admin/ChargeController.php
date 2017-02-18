@@ -31,7 +31,15 @@ class ChargeController extends Controller
 	{
 		return view('admin.charges.create', [
 			'workingGroups' => WorkingGroup::all(),
+			'allCharges'    => Charge::orderBy('order')->get(),
 		]);
+	}
+
+	private function updateChargeOrdering($orderedChargeIds)
+	{
+		foreach ($orderedChargeIds as $index => $chargeId) {
+			Charge::where('id', $chargeId)->update([ 'order' => $index ]);
+		}
 	}
 
 	/**
@@ -42,7 +50,14 @@ class ChargeController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		Charge::create($request->all());
+		$ordered = $request->input('order');
+		$newCharge = new Charge($request->except('order'));
+		$newCharge->order = array_search('new', $ordered);
+		$newCharge->save();
+
+		unset($ordered[$newCharge->order]);
+		$this->updateChargeOrdering($ordered);
+
 		return redirect()->route('admin.charges.index');
 	}
 
@@ -68,6 +83,7 @@ class ChargeController extends Controller
 		return view('admin.charges.edit', [
 			'charge'        => $charge,
 			'workingGroups' => WorkingGroup::all(),
+			'allCharges'    => Charge::orderBy('order')->get(),
 		]);
 	}
 
@@ -80,7 +96,11 @@ class ChargeController extends Controller
 	 */
 	public function update(Request $request, Charge $charge)
 	{
-		$charge->update($request->all());
+		$ordered = $request->input('order');
+		$charge->update($request->except('order'));
+
+		$this->updateChargeOrdering($ordered);
+
 		return redirect()->route('admin.charges.index');
 	}
 
