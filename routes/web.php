@@ -27,13 +27,8 @@ Route::group([ 'as'         => 'admin.',
                'prefix'     => 'admin' ], function() {
 
 	Route::get('/', [ 'as' => 'index', function() {
-		return view('admin');
+		return view('admin.index');
 	}]);
-
-	Route::resource('activities'   , 'ActivityController');
-	Route::resource('exchanges'    , 'ExchangeController');
-	Route::resource('notifications', 'NotificationController');
-	Route::resource('users'        , 'UserController');
 
 	Route::get('mboard', [ 'as' => 'mboard', function() {
 		return view('admin.mboard');
@@ -42,5 +37,13 @@ Route::group([ 'as'         => 'admin.',
 	Route::get('analytics', [ 'as' => 'analytics', function() {
 		return view('admin.analytics');
 	}]);
+
+	Route::resource('activities'    , 'ActivityController'    );
+	Route::resource('charges'       , 'ChargeController'      );
+	Route::resource('exchanges'     , 'ExchangeController'    );
+	Route::resource('notifications' , 'NotificationController');
+	Route::resource('users'         , 'UserController'        );
+	Route::resource('mb-members'    , 'MbMemberController'    );
+	Route::resource('working-groups', 'WorkingGroupController');
 
 });
