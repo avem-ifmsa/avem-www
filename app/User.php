@@ -83,11 +83,6 @@ class User extends Authenticatable implements AppNotifiable
 		return $this->belongsToMany('Avem\Role', 'own_user_roles');
 	}
 
-	public function setPasswordAttribute(string $password)
-	{
-		$this->attributes['password'] = bcrypt($password);
-	}
-
 	public function subscribedActivities()
 	{
 		return $this->morphedByMany('Avem\Activity', 'subscribable');
