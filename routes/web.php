@@ -11,15 +11,13 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
 	return view('welcome');
 });
 
 Route::get('/home', 'HomeController@index');
-
-Route::group([ 'as' => 'auth.' ], function() {
-	Auth::routes();
-});
 
 Route::group([ 'as'         => 'admin.',
                'middleware' => ['auth'],

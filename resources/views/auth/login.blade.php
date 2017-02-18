@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-	<form method="post" action="{{ route('auth.login') }}">
+	<form method="post" action="{{ route('login') }}">
 		{{ csrf_field() }}
 
 		<div>
@@ -32,7 +32,7 @@
 
 		<div>
 			<button type="submit">Iniciar sesión</button>
-			<a href="{{ route('auth.password.request') }}">
+			<a href="{{ route('password.request') }}">
 				¿Has olvidado tu contraseña?
 			</a>
 		</div>

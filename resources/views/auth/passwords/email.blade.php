@@ -7,7 +7,7 @@
 		</div>
 	@endif
 
-	<form method="post" action="{{ route('auth.password.email') }}">
+	<form method="post" action="{{ route('password.email') }}">
 		{{ csrf_field() }}
 
 		<div>
