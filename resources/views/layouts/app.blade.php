@@ -25,7 +25,7 @@
 	</head>
 
 	<body>
-		<div id="avem-es">
+		<div id="app">
 			@yield('content')
 		</div>
 	</body>

@@ -7,17 +7,8 @@ window._ = require('lodash');
  * code may be modified to fit the specific needs of your application.
  */
 
-window.$ = window.jQuery = require('jquery');
-require('bootstrap-sass');
-
-/**
- * Auth0 is an authentication broker that supports social identity providers
- * as well as enterprise identity providers such as Active Directory, LDAP,
- * Google Apps, Salesforce.
- */
-
-import Auth0Lock from 'auth0-lock';
-window.Auth0Lock = Auth0Lock;
+// window.$ = window.jQuery = require('jquery');
+// require('bootstrap-sass');
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces

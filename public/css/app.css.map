@@ -1,1 +1,1 @@
-{"version":3,"sources":["app.css"],"names":[],"mappings":"AAAA","file":"app.css","sourcesContent":[]}
+{"version":3,"sources":["app.scss"],"names":[],"mappings":"AAEA,iCAAiC","file":"app.css","sourcesContent":["@import 'base/reset';\n\n/* @import 'vendor/bootstrap'; */\n"]}
