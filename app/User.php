@@ -16,7 +16,7 @@ class User extends Authenticatable implements AppNotifiable
 	 * @var array
 	 */
 	protected $fillable = [
-		'name', 'surname', 'email', 'password',
+		'name', 'surname', 'birthday', 'email', 'password',
 	];
 
 	/**
@@ -25,7 +25,7 @@ class User extends Authenticatable implements AppNotifiable
 	 * @var array
 	 */
 	protected $dates = [
-		'created_at', 'updated_at',
+		'created_at', 'updated_at', 'birthday',
 	];
 
 	public function authMethods()
@@ -41,6 +41,13 @@ class User extends Authenticatable implements AppNotifiable
 	public function filedClaims()
 	{
 		return $this->hasMany('Avem\Claim');
+	}
+
+	public function getFullNameAttribute()
+	{
+		$name = $this->attributes['name'];
+		$surname = $this->attributes['surname'];
+		return "$name $surname";
 	}
 
 	public function getIsActiveAttribute()

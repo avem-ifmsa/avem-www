@@ -41,7 +41,7 @@ Route::group([ 'as'         => 'admin.',
 	Route::resource('exchanges'     , 'ExchangeController'    );
 	Route::resource('notifications' , 'NotificationController');
 	Route::resource('users'         , 'UserController'        );
-	Route::resource('mb-members'    , 'MbMemberController'    );
-	Route::resource('working-groups', 'WorkingGroupController');
+	Route::resource('mb_members'    , 'MbMemberController'    );
+	Route::resource('working_groups', 'WorkingGroupController');
 
 });

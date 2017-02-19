@@ -2,7 +2,7 @@
 
 @section('content')
 	<h1>Editar cargo</h1>
-	<form action="{{ route('admin.charges.update', [$charge]) }}" method="post">
+	<form method="post" action="{{ route('admin.charges.update', [$charge]) }}">
 		{{ csrf_field() }}
 		{{ method_field('patch') }}
 
