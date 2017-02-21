@@ -5,7 +5,6 @@
  */
 
 require('./bootstrap');
-require('./sortable');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -18,3 +17,5 @@ document.addEventListener('DOMContentLoaded', function() {
 		el: '#app'
 	});
 });
+
+require('./sortable');
