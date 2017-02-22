@@ -2,7 +2,7 @@
 
 @section('content')
 	@if (session('status'))
-		<div>
+		<div class="alert alert-success">
 			{{ session('status') }}
 		</div>
 	@endif
@@ -10,18 +10,18 @@
 	<form method="post" action="{{ route('password.email') }}">
 		{{ csrf_field() }}
 
-		<div>
+		<div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
 			<label for="email">Dirección de correo-e</label>
-			<input name="email" type="email" value="{{ old('email') }}" required>
+			<input class="form-control" name="email" type="email" value="{{ old('email') }}" required>
 			@if ($errors->has('email'))
-				<span>
+				<span class="form-text">
 					<strong>{{ $errors->first('email') }}</strong>
 				</span>
 			@endif
 		</div>
 
 		<div>
-			<button type="submit">Enviar enlace de restablecimiento de contraseña</button>
+			<button class="btn btn-primary" type="submit">Enviar enlace de restablecimiento de contraseña</button>
 		</div>
 	</form>
 @stop
