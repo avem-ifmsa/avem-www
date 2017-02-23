@@ -24,12 +24,6 @@
 			@endif
 		</p>
 
-		<p class="form-inline">
-			<label>
-				<input class="mr-2 form-control" name="remember" type="checkbox" {{ old('remember') ? 'checked' : '' }}> Recuérdame
-			</label>
-		</p>
-
 		<p>
 			<button class="btn btn-primary" type="submit">Iniciar sesión</button>
 			<a href="{{ route('password.request') }}">¿Has olvidado tu contraseña?</a>

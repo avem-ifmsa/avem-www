@@ -6,11 +6,11 @@
 	</header>
 
 	<nav>
-		<ul>
+		<ul class="list-unstyled">
 			<li>
 				<a href="{{ route('admin.charges.index') }}"
-				{ Gate::denies('view', Avem\Charge::class)
-				  ? 'class=disabled aria-disabled=true' : '' }}>
+				{{ Gate::denies('view', Avem\Charge::class)
+				   ? 'class=disabled aria-disabled=true' : '' }}>
 					<img class="item-icon" src="{{ asset('img/admin-charges.png') }}">
 					<span class="item-text">Cargos</span>
 				</a>

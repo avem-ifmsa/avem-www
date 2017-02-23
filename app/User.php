@@ -16,7 +16,7 @@ class User extends Authenticatable implements AppNotifiable
 	 * @var array
 	 */
 	protected $fillable = [
-		'name', 'surname', 'birthday', 'email', 'password',
+		'name', 'surname', 'birthday', 'email', 'password', 'image_url',
 	];
 
 	/**
@@ -48,6 +48,11 @@ class User extends Authenticatable implements AppNotifiable
 		$name = $this->attributes['name'];
 		$surname = $this->attributes['surname'];
 		return "$name $surname";
+	}
+
+	public function getImageUrlAttribute()
+	{
+		return $this->attributes['image_url'] ?: 'img/user-default-image.png';
 	}
 
 	public function getIsActiveAttribute()

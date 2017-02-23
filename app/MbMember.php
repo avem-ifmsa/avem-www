@@ -37,6 +37,11 @@ class MbMember extends Model
 		return $this->hasMany('Avem\MbMemberPeriod');
 	}
 
+	public function organizedActivities()
+	{
+		return $this->hasManyThrough('Avem\Activity', 'Avem\MbMemberPeriod');
+	}
+
 	public function publishedExchanges()
 	{
 		return $this->hasManyThrough('Avem\Exchange', 'Avem\MbMemberPeriod');

@@ -6,7 +6,7 @@
 	</header>
 
 	<nav>
-		<ul>
+		<ul class="list-unstyled">
 			<div class="row">
 				<li class="col-md-4">
 					<a href="{{ route('admin.activities.index') }}">

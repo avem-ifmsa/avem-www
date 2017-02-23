@@ -20,7 +20,7 @@
 		@foreach($mbMembers as $mbMember)
 			<li>
 				<img src="{{ $mbMember->user->imageUrl }}">
-				<span >{{ $mbMember->user->fullName }}</span>
+				<span>{{ $mbMember->user->fullName }}</span>
 				<div>
 					<a class="btn btn-secondary{{ Gate::denies('update', $mbMember) ? ' disabled' : '' }}"
 					{{ Gate::denies('update', $mbMember) ? 'aria-disabled=true' : '' }}
