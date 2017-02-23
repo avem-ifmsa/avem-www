@@ -7,8 +7,8 @@
 
 		@include('admin.charges.form', compact('workingGroups'))
 
-		<div>
-			<button type="submit">Crear cargo</button>
-		</div>
+		<p>
+			<button class="btn btn-primary" type="submit">Crear cargo</button>
+		</p>
 	</form>
 @stop

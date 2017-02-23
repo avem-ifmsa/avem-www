@@ -2,38 +2,38 @@
 
 @section('content')
 	<h1>Gestión de miembros de junta</h1>
-	<div>
-		<input type="search">
-		<a href="{{ route('admin.mb_members.create') }}">
-			<img src="{{ asset('img/actions-create.png') }}">
-			<span>Crear nuevo miembro de junta</span>
-		</a>
-	</div>
 
-	<div class="gallery">
-		<ul class="gallery-items">
-			@foreach($mbMembers as $mbMember)
-				<li class="gallery-items">
-					<img class="item-image" src="{{ $mbMember->user->imageUrl }}">
-					<span class="item-text">{{ $mbMember->user->fullName }}</span>
-					<ul class="item-actions">
-						<li class="item-action">
-							<a href="{{ route('admin.mb_members.edit', [$mbMember]) }}">
-								<img src="{{ asset('img/action-edit.png') }}">
-							</a>
-						</li>
+	<form class="col-lg-8 offset-lg-2">
+		<p class="input-group">
+			<input name="q" class="form-control" type="search" />
+			<button class="btn btn-secondary input-group-addon" type="submit">Buscar</button>
+		</p>
+	</form>
 
-						<li class="item-action">
-							@component('components.action', [
-								'method' => 'delete',
-								'url'    => route('admin.mb_members.destroy', [$mbMember]),
-							])
-								<img src="{{ asset('img/action-delete.png') }}">
-							@endcomponent
-						</li>
-					</ul>
-				</li>
-			@endforeach
-		</ul
-	</div>
+	<p>
+		<a {{ Gate::denies('create', MbMember::class) ? 'aria-disabled=true' : '' }}
+		   class="btn btn-secondary{{ Gate::denies('create', MbMember::class) ? ' disabled' : '' }}"
+		   href="{{ route('admin.mb_members.create') }}">Crear nuevo miembro de junta</a>
+	</p>
+
+	<ul class="list-unstyled">
+		@foreach($mbMembers as $mbMember)
+			<li>
+				<img src="{{ $mbMember->user->imageUrl }}">
+				<span >{{ $mbMember->user->fullName }}</span>
+				<div>
+					<a class="btn btn-secondary{{ Gate::denies('update', $mbMember) ? ' disabled' : '' }}"
+					{{ Gate::denies('update', $mbMember) ? 'aria-disabled=true' : '' }}
+					    href="{{ route('admin.mb_members.edit', [$mbMember]) }}">Editar</a>
+
+					<form action="{{ route('admin.mb_members.destroy', [$mbMember]) }}" method="post">
+						{{ csrf_field() }}
+						{{ method_field('delete') }}
+						<button {{ Gate::denies('destroy', $mbMember) ? 'disabled' : '' }}
+						        type="submit" class="btn btn-danger">Eliminar</button>
+					</form>
+				</div>
+			</li>
+		@endforeach
+	</ul>
 @stop

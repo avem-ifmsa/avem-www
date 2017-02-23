@@ -2,16 +2,15 @@
 
 @section('content')
 	<h1>Gestión de cargos</h1>
-	<table>
-		<thead>
+	<table class="table table-hover">
+		<thead class="thead-inverse">
 			<tr>
-				<th>Nombre</th>
-				<th>Dirección de correo-e</th>
-				<th>Grupo de trabajo</th>
-				<th>
-					<a href="{{ route('admin.charges.create') }}">
-						<img src="{{ asset('img/action-create.png') }}">
-					</a>
+				<th class="align-middle">Nombre</th>
+				<th class="align-middle">Dirección de correo-e</th>
+				<th class="align-middle">Grupo de trabajo</th>
+				<th class="align-middle">
+					<a class="btn btn-sm btn-secondary{{ Gate::denies('create', Charge::class) ? ' disabled' : '' }}"
+					   href="{{ route('admin.charges.create') }}">Crear nuevo cargo de junta</a>
 				</th>
 			</tr>
 		</thead>
@@ -23,22 +22,17 @@
 					<td>{{ $charge->email }}</td>
 					<td>{{ $charge->workingGroup ?? 'Ninguno' }}</td>
 					<td>
-						<ul>
-							<li>
-								<a href="{{ route('admin.charges.edit', [$charge]) }}">
-									<img src="{{ asset('img/action-edit.png') }}">
-								</a>
-							</li>
+						<form action="{{ route('admin.charges.destroy', $charge) }}" method="post" class="btn-group">
+							{{ csrf_field() }}
+							{{ method_field('delete' )}}
 
-							<li>
-								@component('components.action', [
-									'method'   => 'delete',
-									'url'      => route('admin.charges.destroy', [$charge]),
-								])
-									<img src="{{ asset('img/action-delete.png') }}">
-								@endcomponent
-							</li>
-						</ul>
+							<a class="btn btn-sm btn-secondary{{ Gate::denies('update', $charge) ? ' disabled' : ''}}"
+							{{ Gate::denies('update', $charge) ? 'aria-disabled=true' : ''}}
+							   href="{{ route('admin.charges.edit', [$charge]) }}" >Editar</a>
+
+							<button {{ Gate::denies('destroy', $charge) ? 'disabled' : '' }}
+							        type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+						</form>
 					</td>
 				</tr>
 			@endforeach

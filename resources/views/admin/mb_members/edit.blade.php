@@ -6,12 +6,10 @@
 		{{ csrf_field() }}
 		{{ method_field('put') }}
 
-		<!-- {!! print_r($mbMember) !!} -->
-
 		@include('admin.mb_members.form', compact('users', 'mbMember'))
 
-		<div>
-			<button type="submit">Guardar miembro</button>
-		</div>
+		<p>
+			<button class="btn btn-primary" type="submit">Guardar miembro</button>
+		</p>
 	</form>
 @stop

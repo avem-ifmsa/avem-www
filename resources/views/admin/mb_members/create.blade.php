@@ -7,8 +7,8 @@
 
 		@include('admin.mb_members.form', compact('users'))
 
-		<div>
-			<button type="submit">Crear miembro de junta</button>
-		</div>
+		<p>
+			<button class="btn btn-primary" type="submit">Crear miembro de junta</button>
+		</p>
 	</form>
 @stop
