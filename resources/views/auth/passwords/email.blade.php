@@ -10,7 +10,7 @@
 	<form method="post" action="{{ route('password.email') }}">
 		{{ csrf_field() }}
 
-		<div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
+		<p class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
 			<label for="email">Dirección de correo-e</label>
 			<input class="form-control" name="email" type="email" value="{{ old('email') }}" required>
 			@if ($errors->has('email'))
@@ -18,10 +18,10 @@
 					<strong>{{ $errors->first('email') }}</strong>
 				</span>
 			@endif
-		</div>
+		</p>
 
-		<div>
+		<p>
 			<button class="btn btn-primary" type="submit">Enviar enlace de restablecimiento de contraseña</button>
 		</div>
-	</form>
+	</p>
 @stop

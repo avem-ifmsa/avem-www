@@ -12,7 +12,7 @@
 
 		<input type="hidden" name="token" value="{{ $token }}">
 
-		<div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
+		<p class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
 			<label for="email">Dirección de correo-e</label>
 			<input class="form-control" name="email" type="email" value="{{ $email or old('email') }}" required autofocus>
 			@if ($errors->has('email'))
@@ -20,9 +20,9 @@
 					<strong>{{ $errors->first('email') }}</strong>
 				</span>
 			@endif
-		</div>
+		</p>
 
-		<div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
+		<p class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
 			<label for="password">Contraseña</label>
 			<input class="form-control" name="password" type="password" required>
 			@if ($errors->has('password'))
@@ -30,9 +30,9 @@
 					<strong>{{ $errors->first('password') }}</strong>
 				</span>
 			@endif
-		</div>
+		</p>
 
-		<div class="form-group{{ $errors->has('password_confirmation') ? ' has-danger' : '' }}">
+		<p class="form-group{{ $errors->has('password_confirmation') ? ' has-danger' : '' }}">
 			<label for="password_confirmation">Repita la contraseña</label>
 			<input class="form-control" name="password_confirmation" type="password" required>
 			@if ($errors->has('password_confirmation'))
@@ -40,10 +40,10 @@
 					<strong>{{ $errors->first('password_confirmation') }}</strong>
 				</span>
 			@endif
-		</div>
+		</p>
 
-		<div>
+		<p>
 			<button class="btn btn-primary" type="submit">Restablecer contraseña</label>
-		</div>
+		</p>
 	</form>
 @stop
