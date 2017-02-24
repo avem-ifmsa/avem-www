@@ -7,8 +7,8 @@
 		<h2>Actividades organizadas por tí</h2>
 
 		<div>
-			<a class="btn btn-secondary{{ Gate::denies('create', Activity::class) ? ' disabled' : ''}}"
-			{{ Gate::denies('create', Activity::class) ? 'aria-disabled=true' : '' }}
+			<a class="btn btn-secondary{{ Gate::denies('create', Avem\Activity::class) ? ' disabled' : ''}}"
+			{{ Gate::denies('create', Avem\Activity::class) ? 'aria-disabled=true' : '' }}
 			   href="{{ route('admin.activities.create') }}">Crear nueva actividad</a>
 		</div>
 

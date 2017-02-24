@@ -11,8 +11,8 @@
 	</form>
 
 	<p>
-		<a {{ Gate::denies('create', MbMember::class) ? 'aria-disabled=true' : '' }}
-		   class="btn btn-secondary{{ Gate::denies('create', MbMember::class) ? ' disabled' : '' }}"
+		<a {{ Gate::denies('create', Avem\MbMember::class) ? 'aria-disabled=true' : '' }}
+		   class="btn btn-secondary{{ Gate::denies('create', Avem\MbMember::class) ? ' disabled' : '' }}"
 		   href="{{ route('admin.mb_members.create') }}">Crear nuevo miembro de junta</a>
 	</p>
 
