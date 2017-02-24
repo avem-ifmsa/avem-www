@@ -29,12 +29,33 @@ class User extends Authenticatable implements AppNotifiable
 		'created_at', 'updated_at', 'birthday',
 	];
 
+	private $updatedImage = null;
+
+	private function applyProfileImageChanges()
+	{
+		if ($this->photo)
+			Storage::delete($this->photo);
+
+		if ($this->updatedImage) {
+			$path = $user->updatedImage->store('profiles', 'public');
+			$this->photo = $path;
+		} else {
+			$this->photo = null;
+		}
+	}
+
 	public static function boot()
 	{
 		parent::boot();
 
+		User::saving(function($user) {
+			if ($user->updatedImage)
+				$user->applyProfileImageChanges();
+		});
+
 		User::deleting(function($user) {
-			$user->setProfileImage(null);
+			if ($user->photo)
+				Storage::delete($user->photo);
 		});
 	}
 
@@ -109,13 +130,7 @@ class User extends Authenticatable implements AppNotifiable
 
 	public function setProfileImage($file)
 	{
-		if ($this->photo) {
-			Storage::delete($this->photo);
-		}
-		if ($file) {
-			$this->photo = $file->store('profile', 'public');
-			$this->save();
-		}
+		$this->updatedImage = $file;
 	}
 
 	public function subscribedActivities()
