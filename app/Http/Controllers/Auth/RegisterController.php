@@ -3,6 +3,7 @@
 namespace Avem\Http\Controllers\Auth;
 
 use Avem\User;
+use Illuminate\Http\Request;
 use Avem\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -64,11 +65,25 @@ class RegisterController extends Controller
 	protected function create(array $data)
 	{
 		return User::create([
-			'name' => $data['name'],
-			'surname' => $data['surname'],
-			'email' => $data['email'],
+			'name'     => $data['name'],
+			'surname'  => $data['surname'],
 			'birthday' => $data['birthday'],
+			'email'    => $data['email'],
 			'password' => bcrypt($data['password']),
 		]);
+	}
+
+	/**
+	 * The user has been registered.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  mixed  $user
+	 * @return mixed
+	 */
+	protected function registered(Request $request, User $user)
+	{
+		if ($request->hasFile('photo')) {
+			$user->setProfileImage($request->file('photo'));
+		}
 	}
 }

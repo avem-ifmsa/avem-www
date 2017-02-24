@@ -12107,6 +12107,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
 	props: ['alt', 'name', 'required', 'placeholder'],
@@ -15813,7 +15815,7 @@ var Popover = function ($) {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(36)();
-exports.push([module.i, "\n.input-image[data-v-2188b7ac] {\n  border: none;\n  display: block;\n  position: relative;\n}\n.input-image img[data-v-2188b7ac] {\n    width: 100%;\n    height: 100%;\n    -o-object-fit: cover;\n       object-fit: cover;\n    border-radius: inherit;\n}\n.input-image[data-v-2188b7ac]:hover::before {\n    color: #fff;\n    padding: 15px;\n    cursor: pointer;\n    box-sizing: border-box;\n    border-radius: inherit;\n    background-color: rgba(150, 150, 150, 0.5);\n    z-index: 10;\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    text-align: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    font-size: 1.5em;\n    font-family: sans-serif;\n    content: 'Cargar imagen';\n    text-transform: uppercase;\n}\n", ""]);
+exports.push([module.i, "\n.input-image[data-v-2188b7ac] {\n  width: 100%;\n  height: 100%;\n  display: block;\n  position: relative;\n}\n.input-image img[data-v-2188b7ac] {\n    width: 100%;\n    height: 100%;\n    -o-object-fit: cover;\n       object-fit: cover;\n    border-radius: inherit;\n}\n.input-image[data-v-2188b7ac]:hover::before {\n    color: #fff;\n    padding: 15px;\n    cursor: pointer;\n    box-sizing: border-box;\n    border-radius: inherit;\n    background-color: rgba(150, 150, 150, 0.5);\n    z-index: 10;\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    text-align: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    font-size: 1.5em;\n    font-weight: bold;\n    font-family: sans-serif;\n    content: 'Cargar imagen';\n    text-transform: uppercase;\n}\n", ""]);
 
 /***/ }),
 /* 36 */

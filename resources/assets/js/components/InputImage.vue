@@ -9,7 +9,8 @@
 
 <style lang="scss" scoped>
 	.input-image {
-		border: none;
+		width: 100%;
+		height: 100%;
 		display: block;
 		position: relative;
 
@@ -39,6 +40,7 @@
 			justify-content: center;
 
 			font-size: 1.5em;
+			font-weight: bold;
 			font-family: sans-serif;
 			content: 'Cargar imagen';
 			text-transform: uppercase;

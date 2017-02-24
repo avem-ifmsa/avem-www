@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-	<form method="post" action="{{ route('login') }}">
+	<form class="mt-3 col-md-8 offset-md-2" method="post" action="{{ route('login') }}">
 		{{ csrf_field() }}
 
 		<p class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
@@ -24,8 +24,12 @@
 			@endif
 		</p>
 
-		<p>
+		<p class="mt-4 mb-3 text-center">
 			<button class="btn btn-primary" type="submit">Iniciar sesión</button>
+		</p>
+
+		<p class="text-center">
+			<a class="mx-1" href="{{ route('register') }}">¿Todavía no eres socio?</a>
 			<a href="{{ route('password.request') }}">¿Has olvidado tu contraseña?</a>
 		</p>
 	</form>

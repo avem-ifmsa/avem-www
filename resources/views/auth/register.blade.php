@@ -1,8 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-	<form method="post" action="{{ route('register') }}">
+	<form class="mt-3 col-md-8 offset-md-2" action="{{ route('register') }}"
+	      enctype="multipart/form-data" method="post">
+
 		{{ csrf_field() }}
+
+		<div class="mx-auto mb-3" style="width: 200px; height: 200px">
+			<input-image name="photo" class="rounded-circle" placeholder="img/user-default-image.svg">
+		</div>
 
 		<div class="row">
 			<p class="col-md-4 form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
@@ -70,7 +76,7 @@
 			</p>
 		</div>
 
-		<p>
+		<p class="mt-4 text-center">
 			<button class="btn btn-primary" type="submit">Registrarse</button>
 		</p>
 	</form>

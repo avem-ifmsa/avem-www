@@ -2,6 +2,7 @@
 
 namespace Avem;
 
+use Storage;
 use Avem\Notifiable as AppNotifiable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -16,7 +17,7 @@ class User extends Authenticatable implements AppNotifiable
 	 * @var array
 	 */
 	protected $fillable = [
-		'name', 'surname', 'birthday', 'email', 'password', 'image_url',
+		'name', 'surname', 'birthday', 'email', 'password',
 	];
 
 	/**
@@ -27,6 +28,15 @@ class User extends Authenticatable implements AppNotifiable
 	protected $dates = [
 		'created_at', 'updated_at', 'birthday',
 	];
+
+	public static function boot()
+	{
+		parent::boot();
+
+		User::deleting(function($user) {
+			$user->setProfileImage(null);
+		});
+	}
 
 	public function authMethods()
 	{
@@ -52,7 +62,9 @@ class User extends Authenticatable implements AppNotifiable
 
 	public function getImageUrlAttribute()
 	{
-		return $this->attributes['image_url'] ?: 'img/user-default-image.png';
+		if (!$this->photo)
+			return asset('img/user-default-image.svg');
+		return Storage::url($this->photo);
 	}
 
 	public function getIsActiveAttribute()
@@ -93,6 +105,17 @@ class User extends Authenticatable implements AppNotifiable
 	public function ownRoles()
 	{
 		return $this->belongsToMany('Avem\Role', 'own_user_roles');
+	}
+
+	public function setProfileImage($file)
+	{
+		if ($this->photo) {
+			Storage::delete($this->photo);
+		}
+		if ($file) {
+			$this->photo = $file->store('profile', 'public');
+			$this->save();
+		}
 	}
 
 	public function subscribedActivities()
