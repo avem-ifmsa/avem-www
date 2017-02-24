@@ -2,6 +2,7 @@
 
 namespace Avem\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use Avem\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -21,6 +22,13 @@ class LoginController extends Controller
 	use AuthenticatesUsers;
 
 	/**
+	 * Where to redirect users after login.
+	 *
+	 * @var string
+	 */
+	protected $redirectTo = '/home';
+
+	/**
 	 * Create a new controller instance.
 	 *
 	 * @return void
@@ -30,13 +38,16 @@ class LoginController extends Controller
 		$this->middleware('guest', ['except' => 'logout']);
 	}
 
+
 	/**
-	 * Where to redirect users after login.
+	 * The user has been authenticated.
 	 *
-	 * @return string
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  mixed  $user
+	 * @return mixed
 	 */
-	public function redirectTo()
+	protected function authenticated (Request $request, $user)
 	{
-		return $this->intended('/home');
+		return redirect()->intended($this->redirectTo);
 	}
 }
