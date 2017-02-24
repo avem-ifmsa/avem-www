@@ -84,6 +84,7 @@ class RegisterController extends Controller
 	{
 		if ($request->hasFile('photo')) {
 			$user->setProfileImage($request->file('photo'));
+			$user->save();
 		}
 	}
 }
