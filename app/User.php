@@ -17,7 +17,7 @@ class User extends Authenticatable implements AppNotifiable
 	 * @var array
 	 */
 	protected $fillable = [
-		'name', 'surname', 'birthday', 'email', 'password',
+		'name', 'surname', 'gender', 'birthday', 'email', 'password',
 	];
 
 	/**
@@ -37,7 +37,7 @@ class User extends Authenticatable implements AppNotifiable
 			Storage::delete($this->photo);
 
 		if ($this->updatedImage) {
-			$path = $user->updatedImage->store('profiles', 'public');
+			$path = $this->updatedImage->store('profiles', 'public');
 			$this->photo = $path;
 		} else {
 			$this->photo = null;
@@ -131,6 +131,13 @@ class User extends Authenticatable implements AppNotifiable
 	public function setProfileImage($file)
 	{
 		$this->updatedImage = $file;
+	}
+
+	public function setGenderAttribute($gender)
+	{
+		if ($gender)
+			$gender = strtolower(trim($gender));
+		$this->attributes['gender'] = $gender;
 	}
 
 	public function subscribedActivities()

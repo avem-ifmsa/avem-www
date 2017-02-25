@@ -13,6 +13,7 @@ require('./bootstrap');
  */
 
 Vue.component('input-image', require('./components/InputImage.vue'));
+Vue.component('open-select', require('./components/OpenSelect.vue'));
 
 document.addEventListener('DOMContentLoaded', function() {
 	const app = new Vue({

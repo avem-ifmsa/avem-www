@@ -1,13 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-	<form class="mt-3 col-md-8 offset-md-2" action="{{ route('register') }}"
-	      enctype="multipart/form-data" method="post">
+	<form class="mt-3 col-md-10 offset-md-1 col-lg-8 offset-lg-2"
+	      action="{{ route('register') }}" method="post" enctype="multipart/form-data">
 
 		{{ csrf_field() }}
 
-		<div class="mx-auto mb-3" style="width: 200px; height: 200px">
-			<input-image name="photo" class="rounded-circle" placeholder="img/user-default-image.svg">
+		<div class="mx-auto mb-3 profile-photo">
+			<input type="file" is="input-image" name="photo"
+			       placeholder="img/user-default-image.svg"
+			       class="rounded-circle">
 		</div>
 
 		<div class="row">
@@ -31,6 +33,16 @@
 				@endif
 			</p>
 		</div>
+
+		<p class="form-group">
+			<label for="gender">Género</label>
+			<select is="open-select" name="gender">
+				<option value="">Prefiero no decirlo</option>
+				<option value="male"   {{ old('gender') == 'male'   ? 'selected' : '' }}>Hombre</option>
+				<option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Mujer</option>
+				<option value="other"  {{ old('gender') == 'other'  ? 'selected' : '' }}>Otro</option>
+			</select>
+		</p>
 
 		<div class="row">
 			<p class="col-md-4 form-group{{ $errors->has('birthday') ? ' has-danger' : '' }}">
