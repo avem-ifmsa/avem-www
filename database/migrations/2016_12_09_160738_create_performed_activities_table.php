@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateActivityTasksTable extends Migration
+class CreatePerformedActivitiesTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -13,17 +13,15 @@ class CreateActivityTasksTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('activity_tasks', function (Blueprint $table) {
+		Schema::create('performed_activities', function (Blueprint $table) {
 			$table->increments('id');
-			$table->string('name');
-			$table->text('description');
 			$table->integer('activity_id')->unsigned();
-			$table->boolean('is_mandatory')->default(0);
-			$table->integer('points')->unsigned();
+			$table->integer('mb_member_period_id')->unsigned();
+			$table->integer('user_id')->unsigned();
 			$table->timestamps();
 
-			$table->foreign('activity_id')
-			      ->references('id')->on('activities')
+			$table->foreign('mb_member_period_id')
+			      ->references('id')->on('mb_member_periods')
 			      ->onDelete('cascade');
 		});
 	}
@@ -35,6 +33,6 @@ class CreateActivityTasksTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('activity_tasks');
+		Schema::dropIfExists('performed_activities');
 	}
 }

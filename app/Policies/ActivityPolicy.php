@@ -28,7 +28,7 @@ class ActivityPolicy
 	 */
 	public function view(User $user, Activity $activity)
 	{
-		return $this->isActivityOrganizer($activity, $user))
+		return $this->isActivityOrganizer($activity, $user)
 		    || $user->hasPermission('activity:view');
 	}
 
@@ -52,7 +52,7 @@ class ActivityPolicy
 	 */
 	public function update(User $user, Activity $activity)
 	{
-		return $this->isActivityOrganizer($activity, $user))
+		return $this->isActivityOrganizer($activity, $user)
 		    || $user->hasPermission('activity:update');
 	}
 
@@ -65,7 +65,7 @@ class ActivityPolicy
 	 */
 	public function delete(User $user, Activity $activity)
 	{
-		return $this->isActivityOrganizer($activity, $user))
+		return $this->isActivityOrganizer($activity, $user)
 		    || $user->hasPermission('activity:delete');
 	}
 }

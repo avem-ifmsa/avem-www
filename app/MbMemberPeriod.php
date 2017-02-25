@@ -25,11 +25,6 @@ class MbMemberPeriod extends Model
 		'created_at', 'updated_at', 'start', 'end',
 	];
 
-	public function appliedTransactions()
-	{
-		return $this->hasMany('Avem\Transaction');
-	}
-
 	public function charge()
 	{
 		return $this->belongsTo('Avem\Charge');
@@ -75,5 +70,10 @@ class MbMemberPeriod extends Model
 	public function sentNotifications()
 	{
 		return $this->hasMany('Avem\Notification');
+	}
+
+	public function witnessedActivities()
+	{
+		return $this->hasManyThrough('Avem\Activity', 'Avem\MbMemberPeriod');
 	}
 }

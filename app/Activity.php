@@ -12,9 +12,9 @@ class Activity extends Model implements Notifiable
 	 * @var array
 	 */
 	protected $fillable = [
-		'name', 'image_url', 'description', 'visibility', 'location',
-		'start', 'end', 'subscription_start', 'subscription_end',
-		'member_limit', 'inscription_policy',
+		'name', 'description', 'location', 'start', 'end', 'visibility',
+		'inscription_policy', 'inscription_start', 'inscription_end',
+		'member_limit', 'points', 'image',
 	];
 
 	/**
@@ -47,6 +47,11 @@ class Activity extends Model implements Notifiable
 		return $this->belongsToMany('Avem\MbMemberPeriod');
 	}
 
+	public function performedActivityRecords()
+	{
+		return $this->hasMany('Avem\PerformedActivity');
+	}
+
 	public function selfInscribedUsers()
 	{
 		return $this->belongsToMany('Avem\User', 'self_inscribed_activity_users');
@@ -67,8 +72,8 @@ class Activity extends Model implements Notifiable
 		return $this->morphToMany('Avem\Tag', 'taggable');
 	}
 
-	public function tasks()
+	public function transactions()
 	{
-		return $this->hasMany('Avem\ActivityTask');
+		return $this->morphMany('Avem\Transaction', 'transactionable');
 	}
 }

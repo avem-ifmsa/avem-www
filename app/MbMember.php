@@ -52,13 +52,21 @@ class MbMember extends Model
 		return $this->hasManyThrough('Avem\ClaimResolution', 'Avem\MbMemberPeriod');
 	}
 
-	public function sentNotifications()
+	public function scopeActive($query)
 	{
-		return $this->hasManyThrough('Avem\Notification', 'Avem\MbMemberPeriod');
+		$now = Carbon::now();
+		return $query->join('mb_member_periods', 'mb_member_periods.id', '=', 'mb_members.id')
+		             ->where('start', '<=', $now)->where('end', '>', $now)
+		             ->select('mb_members.*');
 	}
 
 	public function user()
 	{
 		return $this->belongsTo('Avem\User', 'id');
+	}
+
+	public function witnessedActivities()
+	{
+		return $this->hasManyThrough('Avem\PerformedActivity', 'Avem\MbMemberPeriod');
 	}
 }

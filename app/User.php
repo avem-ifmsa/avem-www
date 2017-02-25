@@ -128,6 +128,11 @@ class User extends Authenticatable implements AppNotifiable
 		return $this->belongsToMany('Avem\Role', 'own_user_roles');
 	}
 
+	public function performedActivities()
+	{
+		return $this->hasMany('Avem\PerformedActivity');
+	}
+
 	public function setProfileImage($file)
 	{
 		$this->updatedImage = $file;
@@ -143,11 +148,6 @@ class User extends Authenticatable implements AppNotifiable
 	public function subscribedActivities()
 	{
 		return $this->morphedByMany('Avem\Activity', 'subscribable');
-	}
-
-	public function subscribedActivityTasks()
-	{
-		return $this->morphedByMany('Avem\ActivityTask', 'subscribable');
 	}
 
 	public function renewals()

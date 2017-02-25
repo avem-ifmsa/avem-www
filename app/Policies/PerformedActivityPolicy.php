@@ -4,10 +4,10 @@ namespace Avem\Policies;
 
 use Avem\User;
 use Avem\Activity;
-use Avem\PerformedTask;
+use Avem\PerformedActivity;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class PerformedTaskPolicy
+class PerformedActivityPolicy
 {
 	use HandlesAuthorization;
 
@@ -21,20 +21,20 @@ class PerformedTaskPolicy
 	}
 
 	/**
-	 * Determine whether the user can view the performedTask.
+	 * Determine whether the user can view the performedActivity.
 	 *
 	 * @param  \Avem\User  $user
-	 * @param  \Avem\PerformedTask  $performedTask
+	 * @param  \Avem\PerformedActivity  $performedActivity
 	 * @return mixed
 	 */
-	public function view(User $user, PerformedTask $performedTask)
+	public function view(User $user, PerformedActivity $performedActivity)
 	{
-		$activity = $performedTask->activityTask->activity;
+		$activity = $performedActivity->activity;
 		return Gate::forUser($user)->allows('view', $activity);
 	}
 
 	/**
-	 * Determine whether the user can create performedTasks.
+	 * Determine whether the user can create performedActivitys.
 	 *
 	 * @param  \Avem\User  $user
 	 * @return mixed
@@ -46,28 +46,28 @@ class PerformedTaskPolicy
 	}
 
 	/**
-	 * Determine whether the user can update the performedTask.
+	 * Determine whether the user can update the performedActivity.
 	 *
 	 * @param  \Avem\User  $user
-	 * @param  \Avem\PerformedTask  $performedTask
+	 * @param  \Avem\PerformedActivity  $performedActivity
 	 * @return mixed
 	 */
-	public function update(User $user, PerformedTask $performedTask)
+	public function update(User $user, PerformedActivity $performedActivity)
 	{
-		$activity = $performedTask->activityTask->activity;
+		$activity = $performedActivity->activityTask->activity;
 		return Gate::forUser($user)->allows('update', $activity);
 	}
 
 	/**
-	 * Determine whether the user can delete the performedTask.
+	 * Determine whether the user can delete the performedActivity.
 	 *
 	 * @param  \Avem\User  $user
-	 * @param  \Avem\PerformedTask  $performedTask
+	 * @param  \Avem\PerformedActivity  $performedActivity
 	 * @return mixed
 	 */
-	public function delete(User $user, PerformedTask $performedTask)
+	public function delete(User $user, PerformedActivity $performedActivity)
 	{
-		$activity = $performedTask->activityTask->activity;
+		$activity = $performedActivity->activityTask->activity;
 		return Gate::forUser($user)->allows('delete', $activity);
 	}
 }

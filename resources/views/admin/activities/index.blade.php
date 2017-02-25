@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
 @section('content')
-	<h1>Gestión de actividades</h1>
+	<h1 class="my-4">Gestión de actividades</h1>
 
 	<section>
-		<h2>Actividades organizadas por tí</h2>
+		<h2 class="mb-3 text-center">Actividades organizadas por tí</h2>
 
 		<div>
 			<a class="btn btn-secondary{{ Gate::denies('create', Avem\Activity::class) ? ' disabled' : ''}}"
@@ -34,8 +34,8 @@
 	</section>
 
 	<section>
-		<h2>Resto de actividades</h2>
-		<ul>
+		<h2 class="text-center">Resto de actividades</h2>
+		<ul class="mb-3 list-unstyled">
 			@foreach ($otherActivities as $activity)
 				<li>
 					<span>{{ $activity->name }}</span>

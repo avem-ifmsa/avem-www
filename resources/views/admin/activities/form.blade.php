@@ -10,6 +10,65 @@
 </p>
 
 <div class="row">
+	<p class="col-md-4 form-group{{ $errors->has('start') ? ' has-danger' : '' }}">
+		<label for="form-start">Inicio de la actividad</label>
+		<input id="form-start" class="form-control" name="start" type="datetime-local"
+		       value="{{ old('start') ?? (isset($activity) ? $activity->start : '') }}">
+		@if ($errors->has('start'))
+			<span class="form-text">
+				<strong>{{ $errors->first('start') }}</strong>
+			</span>
+		@endif
+	</p>
+
+	<p class="col-md-4 form-group{{ $errors->has('end') ? ' has-danger' : '' }}">
+		<label for="form-end">Fín de la actividad</label>
+		<input id="form-end" class="form-control" name="end" type="datetime-local"
+		       value="{{ old('end') ?? (isset($activity) ? $activity->end : '' ) }}">
+		@if ($errors->has('end'))
+			<span class="form-text">
+				<strong>{{ $errors->first('end') }}</strong>
+			</span>
+		@endif
+	</p>
+
+	<p class="col-md-4 form-group{{ $errors->has('location') ? ' has-danger' : '' }}">
+		<label for="form-location">Lugar</label>
+		<input id="form-location" class="form-control" type="text"
+		       value="{{ old('location') ?? (isset($activity) ? $activity->location : '') }}">
+		@if ($errors->has('location'))
+			<span class="form-text">
+				<strong>{{ $errors->first('location') }}</strong>
+			</span>
+		@endif
+	</p>
+</div>
+
+<div class="row">
+	<p class="col-md-6 form-group{{ $errors->has('points') ? ' has-danger' : '' }}">
+		<label for="form-points">Puntos</label>
+		<input id="form-points" class="form-control" type="number" min="0"
+		       value="{{ old('points') ?? (isset($activity) ? $activity->points : '') }}">
+		@if ($errors->has('points'))
+			<span class="form-text">
+				<strong>{{ $errors->first('points') }}</strong>
+			</span>
+		@endif
+	</p>
+
+	<p class="col-md-6 form-group{{ $errors->has('member_limit') ? ' has-danger' : '' }}">
+		<label for="form-member-limit">Límite de socios</label>
+		<input id="form-member-limit" class="form-control" type="number"
+			   value="{{ old('member_limit') ?? (isset($activity) ? $activity->memberLimit : '') }}">
+		@if ($errors->has('member_limit'))
+			<span class="form-text">
+				<strong>{{ $errors->first('member_limit') }}</strong>
+			</span>
+		@endif
+	</p>
+</div>
+
+<div class="row">
 	<p class="col-md-6 form-group{{ $errors->has('visibility') ? ' has-danger' : '' }}">
 		<label for="form-visibility">Visible para</label>
 		<select id="form-visibility" class="form-control" name="visibility" required>
@@ -73,18 +132,6 @@
 		@endif
 	</p>
 </div>
-
-<p class="form-group{{ $errors->has('member_limit') ? ' has-danger' : '' }}">
-	<label>Límite de socios
-		<input class="form-control" type="number" value="{{ old('member_limit')
-		       ?? (isset($activity) ? $activity->memberLimit : '-1') }}">
-	</label>
-	@if ($errors->has('member_limit'))
-		<span class="form-text">
-			<strong>{{ $errors->first('member_limit') }}</strong>
-		</span>
-	@endif
-</p>
 
 <p class="form-group{{ $errors->has('description') ? ' has-danger' : '' }}">
 	<label for="form-description">Descripción</label>

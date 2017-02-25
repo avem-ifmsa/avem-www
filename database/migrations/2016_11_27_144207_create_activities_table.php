@@ -17,13 +17,11 @@ class CreateActivitiesTable extends Migration
 			$table->increments('id');
 			$table->string('name');
 			$table->text('description');
-			$table->string('location')->nullable();
-			$table->string('image_url')->nullable();
-			$table->datetime('start');
-			$table->datetime('end');
+			$table->string('image')->nullable();
+			$table->integer('points')->unsigned();
+			$table->integer('member_limit')->nullable();
 			$table->datetime('inscription_start')->nullable();
 			$table->datetime('inscription_end')->nullable();
-			$table->integer('member_limit')->nullable();
 			$table->enum('visibility', [ 'all', 'board', 'none' ]);
 			$table->enum('inscription_policy', [ 'inscribed', 'all', 'board' ])
 			      ->default('inscribed');
