@@ -11,8 +11,9 @@
 		{{ csrf_field() }}
 
 		<p class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
-			<label for="email">Dirección de correo-e</label>
-			<input class="form-control" name="email" type="email" value="{{ old('email') }}" required>
+			<label for="email-email">Dirección de correo-e</label>
+			<input id="email-email" class="form-control" name="email"
+			       type="email" value="{{ old('email') }}" required>
 			@if ($errors->has('email'))
 				<span class="form-text">
 					<strong>{{ $errors->first('email') }}</strong>
