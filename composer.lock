@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9bb15f67a84f3351104b8314471bda08",
+    "content-hash": "dec258cf6caf2f4455f3c12437b4ff0b",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -147,6 +147,57 @@
                 "parser"
             ],
             "time": "2016-11-02T15:56:58+00:00"
+        },
+        {
+            "name": "fideloper/proxy",
+            "version": "3.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fideloper/TrustedProxy.git",
+                "reference": "b270bfa52915e55cfb67faa0f16863a479c36121"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fideloper/TrustedProxy/zipball/b270bfa52915e55cfb67faa0f16863a479c36121",
+                "reference": "b270bfa52915e55cfb67faa0f16863a479c36121",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "~5.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "illuminate/http": "~5.0",
+                "mockery/mockery": "~0.9.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Fideloper\\Proxy\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Fidao",
+                    "email": "fideloper@gmail.com"
+                }
+            ],
+            "description": "Set trusted proxies for Laravel",
+            "keywords": [
+                "load balancing",
+                "proxy",
+                "trusted proxy"
+            ],
+            "time": "2016-12-20T14:23:22+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1018,58 +1069,6 @@
                 "php"
             ],
             "time": "2017-02-10T20:20:03+00:00"
-        },
-        {
-            "name": "pacely/mailchimp-apiv3",
-            "version": "v1.0.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pacely/mailchimp-api-v3.git",
-                "reference": "859943e93fef53e93af1882faee5c1338a654c88"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pacely/mailchimp-api-v3/zipball/859943e93fef53e93af1882faee5c1338a654c88",
-                "reference": "859943e93fef53e93af1882faee5c1338a654c88",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "~5.0|~6.0",
-                "illuminate/support": "~5.0",
-                "php": ">=5.5.0"
-            },
-            "require-dev": {
-                "phpspec/phpspec": "~2.2"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Mailchimp\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Chris Magnussen",
-                    "email": "chris@hirvi.no"
-                }
-            ],
-            "description": "Simple API wrapper for Mailchimp API V3",
-            "keywords": [
-                "api",
-                "mailchimp",
-                "php",
-                "v3"
-            ],
-            "time": "2016-08-02T12:04:20+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -2504,6 +2503,58 @@
                 "object graph"
             ],
             "time": "2017-01-26T22:05:40+00:00"
+        },
+        {
+            "name": "pacely/mailchimp-apiv3",
+            "version": "v1.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pacely/mailchimp-api-v3.git",
+                "reference": "859943e93fef53e93af1882faee5c1338a654c88"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pacely/mailchimp-api-v3/zipball/859943e93fef53e93af1882faee5c1338a654c88",
+                "reference": "859943e93fef53e93af1882faee5c1338a654c88",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "~5.0|~6.0",
+                "illuminate/support": "~5.0",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "~2.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mailchimp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Magnussen",
+                    "email": "chris@hirvi.no"
+                }
+            ],
+            "description": "Simple API wrapper for Mailchimp API V3",
+            "keywords": [
+                "api",
+                "mailchimp",
+                "php",
+                "v3"
+            ],
+            "time": "2016-08-02T12:04:20+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
