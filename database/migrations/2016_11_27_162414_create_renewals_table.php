@@ -17,7 +17,6 @@ class CreateRenewalsTable extends Migration
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
 			$table->integer('mb_member_period_id')->unsigned();
-			$table->timestamp('issued_at');
 			$table->datetime('until');
 			$table->timestamps();
 

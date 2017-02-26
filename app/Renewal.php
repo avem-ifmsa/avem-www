@@ -13,7 +13,7 @@ class Renewal extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'issued_at', 'until',
+		'until',
 	];
 
 	/**
@@ -22,12 +22,12 @@ class Renewal extends Model
 	 * @var array
 	 */
 	protected $dates = [
-		'created_at', 'updated_at', 'issued_at', 'until',
+		'created_at', 'updated_at', 'until',
 	];
 
 	public function issuerPeriod()
 	{
-		return $this->belongsTo('Avem\MbMemberPeriod');
+		return $this->belongsTo('Avem\MbMemberPeriod', 'mb_member_period_id');
 	}
 
 	public function scopeActive($query)

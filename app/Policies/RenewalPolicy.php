@@ -19,7 +19,7 @@ class RenewalPolicy
 	 */
 	public function view(User $user, Renewal $renewal)
 	{
-		return $user->hasPermission('renewal:view');
+		return Gate::forUser($user)->allows('view', $renewal->user);
 	}
 
 	/**
@@ -30,7 +30,7 @@ class RenewalPolicy
 	 */
 	public function create(User $user)
 	{
-		return $user->hasPermission('renewal:create');
+		return $user->hasPermission('user:renew');
 	}
 
 	/**
@@ -42,7 +42,7 @@ class RenewalPolicy
 	 */
 	public function update(User $user, Renewal $renewal)
 	{
-		return $user->hasPermission('renewal:update');
+		return $user->hasPermission('user:renew');
 	}
 
 	/**
@@ -54,6 +54,6 @@ class RenewalPolicy
 	 */
 	public function delete(User $user, Renewal $renewal)
 	{
-		return $user->hasPermission('renewal:delete');
+		return $user->hasPermission('user:renew');
 	}
 }
