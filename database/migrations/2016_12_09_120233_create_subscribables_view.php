@@ -17,9 +17,6 @@ class CreateSubscribablesView extends Migration
 			SELECT user_id, subscribable_id, subscribable_type FROM own_subscribables
 			UNION SELECT user_id, "App\Activity" AS subscribable_type,
 			             activity_id AS subscribable_id FROM activity_user
-			UNION SELECT user_id, "App\ActivityTask" AS subscribable_type,
-			             activity_task_id AS subscribable_id FROM activity_user
-				INNER JOIN activity_tasks USING (activity_id)
 		');
 	}
 
