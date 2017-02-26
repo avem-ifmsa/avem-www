@@ -9,7 +9,6 @@ use Avem\Exchange;
 use Avem\MbMember;
 use Avem\MbMemberPeriod;
 use Avem\PerformedActivity;
-use Avem\PlainTransaction;
 use Avem\Renewal;
 use Avem\User;
 use Avem\WorkingGroup;
@@ -21,7 +20,6 @@ use Avem\Policies\ExchangePolicy;
 use Avem\Policies\MbMemberPolicy;
 use Avem\Policies\MbMemberPeriodPolicy;
 use Avem\Policies\PerformedActivityPolicy;
-use Avem\Policies\PlainTransactionPolicy;
 use Avem\Policies\RenewalPolicy;
 use Avem\Policies\UserPolicy;
 use Avem\Policies\WorkingGroupPolicy;
@@ -44,7 +42,6 @@ class AuthServiceProvider extends ServiceProvider
 		MbMember::class          => MbMemberPolicy::class,
 		MbMemberPeriod::class    => MbMemberPeriodPolicy::class,
 		PerformedActivity::class => PerformedTaskPolicy::class,
-		PlainTransaction::class  => PlainTransactionPolicy::class,
 		Renewal::class           => RenewalPolicy::class,
 		User::class              => UserPolicy::class,
 		WorkingGroup::class      => WorkingGroupPolicy::class,
