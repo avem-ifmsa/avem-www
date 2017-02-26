@@ -4,26 +4,35 @@ namespace Avem;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PerformedActivity extends Model implements Transactionable
+class PlainTransaction extends Model implements Transactionable
 {
-	public function activity()
+	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array
+	 */
+	protected $fillable = [
+		'concept', 'points',
+	];
+
+	public function applierPeriod()
 	{
-		return $this->belongsTo('Avem\Activity');
+		return $this->belongsTo('Avem\MbMemberPeriod');
 	}
 
 	public function getTransactionConceptAttribute()
 	{
-		return $this->activity->name;
+		return $this->attributes['concept'];
 	}
 
 	public function getTransactionPeriodAttribute()
 	{
-		return $this->witnesserPeriod;
+		return $this->applierPeriod;
 	}
 
 	public function getTransactionPointsAttribute()
 	{
-		return $this->activity->points;
+		return $this->attributes['points'];
 	}
 
 	public function transaction()
@@ -34,10 +43,5 @@ class PerformedActivity extends Model implements Transactionable
 	public function user()
 	{
 		return $this->belongsTo('Avem\User');
-	}
-
-	public function witnesserPeriod()
-	{
-		return $this->belongsTo('Avem\MbMemberPeriod');
 	}
 }
