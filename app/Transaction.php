@@ -6,23 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
+	public function applierPeriod()
+	{
+		return $this->belongsTo('Avem\MbMemberPeriod', 'mb_member_period_id');
+	}
+
 	public function transactionable()
 	{
 		return $this->morphTo();
 	}
 
-	public function getApplierPeriodAttribute()
+	public function user()
 	{
-		return $this->transactionable->transactionPeriod;
-	}
-
-	public function getConceptAttribute()
-	{
-		return $this->transactionable->transactionConcept;
-	}
-
-	public function getPointsAttribute()
-	{
-		return $this->transactionable->transactionPoints;
+		return $this->belongsTo('Avem\User');
 	}
 }

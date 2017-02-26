@@ -4,7 +4,7 @@ namespace Avem;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PlainTransaction extends Model implements Transactionable
+class PlainTransaction extends Model
 {
 	/**
 	 * The attributes that are mass assignable.
@@ -17,22 +17,7 @@ class PlainTransaction extends Model implements Transactionable
 
 	public function applierPeriod()
 	{
-		return $this->belongsTo('Avem\MbMemberPeriod');
-	}
-
-	public function getTransactionConceptAttribute()
-	{
-		return $this->attributes['concept'];
-	}
-
-	public function getTransactionPeriodAttribute()
-	{
-		return $this->applierPeriod;
-	}
-
-	public function getTransactionPointsAttribute()
-	{
-		return $this->attributes['points'];
+		return $this->belongsTo('Avem\MbMemberPeriod', 'mb_member_period_id');
 	}
 
 	public function transaction()

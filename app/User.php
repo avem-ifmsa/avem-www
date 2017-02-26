@@ -3,11 +3,10 @@
 namespace Avem;
 
 use Storage;
-use Avem\Notifiable as AppNotifiable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable implements AppNotifiable
+class User extends Authenticatable
 {
 	use Notifiable;
 
@@ -59,16 +58,6 @@ class User extends Authenticatable implements AppNotifiable
 		});
 	}
 
-	public function authMethods()
-	{
-		return $this->morphMany('auth_method');
-	}
-
-	public function directNotifications()
-	{
-		return $this->morphMany('Avem\Notification', 'notifiable');
-	}
-
 	public function filedClaims()
 	{
 		return $this->hasMany('Avem\Claim');
@@ -93,9 +82,12 @@ class User extends Authenticatable implements AppNotifiable
 		return $this->renewals()->active()->exists();
 	}
 
-	public function getNotifiableReceiversAttribute()
+	public function getPointsAttribute()
 	{
-		return [$this];
+		$transactions = $this->transactions()->oldest()->get();
+		return $transactions->reduce(function($result, $t) {
+			return max($result + $t->points, 0);
+		}, 0);
 	}
 
 	public function hasPermission($name)

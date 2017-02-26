@@ -4,26 +4,11 @@ namespace Avem;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PerformedActivity extends Model implements Transactionable
+class PerformedActivity extends Model
 {
 	public function activity()
 	{
 		return $this->belongsTo('Avem\Activity');
-	}
-
-	public function getTransactionConceptAttribute()
-	{
-		return $this->activity->name;
-	}
-
-	public function getTransactionPeriodAttribute()
-	{
-		return $this->witnesserPeriod;
-	}
-
-	public function getTransactionPointsAttribute()
-	{
-		return $this->activity->points;
 	}
 
 	public function transaction()
@@ -38,6 +23,6 @@ class PerformedActivity extends Model implements Transactionable
 
 	public function witnesserPeriod()
 	{
-		return $this->belongsTo('Avem\MbMemberPeriod');
+		return $this->belongsTo('Avem\MbMemberPeriod', 'mb_member_period_id');
 	}
 }
