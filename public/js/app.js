@@ -12238,6 +12238,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	mounted: function mounted() {
 		this.setSubmitValue(this.$refs.select.value);
 	},
+	updated: function updated() {
+		if (this.otherSelected) this.$refs.input.focus();
+	},
 	methods: {
 		setSubmitValue: function setSubmitValue(value) {
 			if (value === this.other) {
@@ -35009,8 +35012,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "name": _vm.name,
       "type": "text",
-      "required": _vm.required,
-      "autofocus": ""
+      "required": _vm.required
     },
     domProps: {
       "value": _vm._s(_vm.submitValue)

@@ -5,7 +5,7 @@
 		</select>
 		<input ref="input" v-show="otherSelected" class="form-control"
 			   :name="name" type="text" :required="required"
-			   v-model:value="submitValue" autofocus>
+			   v-model:value="submitValue">
 	</span>
 </template>
 
@@ -41,6 +41,10 @@
 		},
 		mounted: function() {
 			this.setSubmitValue(this.$refs.select.value);
+		},
+		updated: function() {
+			if (this.otherSelected)
+				this.$refs.input.focus();
 		},
 		methods: {
 			setSubmitValue: function(value) {
