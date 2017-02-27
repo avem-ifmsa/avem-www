@@ -2,6 +2,7 @@
 
 namespace Avem\Http\Controllers\Auth;
 
+use Avem\User;
 use Avem\Charge;
 use Illuminate\Http\Request;
 use Avem\Http\Controllers\Controller;
@@ -30,6 +31,13 @@ class LoginController extends Controller
 	protected $redirectTo = '/home';
 
 	/**
+	 * Indicates current request is charge login.
+	 *
+	 * @var boolean
+	 */
+	private $isChargeLogin = false;
+
+	/**
 	 * Create a new controller instance.
 	 *
 	 * @return void
@@ -39,31 +47,17 @@ class LoginController extends Controller
 		$this->middleware('guest', ['except' => 'logout']);
 	}
 
-
 	/**
 	 * The user has been authenticated.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
-	 * @param  mixed  $user
+	 * @param  User  $user
 	 * @return mixed
 	 */
-	protected function authenticated (Request $request, $user)
+	protected function authenticated(Request $request, User $user)
 	{
-		return redirect()->intended($this->redirectTo);
-	}
-
-	private function attemptChargeLogin(Request $request)
-	{
-		$username = $this->username();
-		$email = $request->input($username);
-		$charge = Charge::where('email', $email)->first();
-		if ($charge == null) return;
-
-		$activePeriods = $charge->mbMemberPeriods()->active();
-		if ($activePeriods->count() != 1) return;
-
-		if ($mbMember = $activePeriods->first()->mbMember)
-			$request->merge([ $username => $mbMember->user->email ]);
+		if ($this->isChargeLogin)
+			return redirect()->intended('/admin');
 	}
 
 	/**
@@ -74,8 +68,39 @@ class LoginController extends Controller
 	 */
 	protected function credentials(Request $request)
 	{
-		$this->attemptChargeLogin($request);
+		if ($creds = $this->tryChargeLogin($request)) {
+			$this->isChargeLogin = true;
+			return $creds;
+		}
 
 		return $request->only($this->username(), 'password');
+	}
+
+	/**
+	 * Check if login is done with charge credentials.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return mixed
+	 */
+	private function tryChargeLogin(Request $request)
+	{
+		$username = $this->username();
+		$chargeEmail = $request->input($username);
+		$charge = Charge::where('email', $chargeEmail)->first();
+		if ($charge == null)
+			return false;
+
+		$activePeriods = $charge->mbMemberPeriods()->active();
+		if ($activePeriods->count() != 1)
+			return false;
+
+		$mbMember = $activePeriods->first()->mbMember;
+		if (!$mbMember)
+			return false;
+
+		return [
+			$username  => $mbMember->user->email,
+			'password' => $request->input('password'),
+		];
 	}
 }
