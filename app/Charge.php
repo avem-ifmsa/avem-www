@@ -20,6 +20,11 @@ class Charge extends Model
 		return $this->belongsToMany('Avem\Role');
 	}
 
+	public function mbMemberPeriods()
+	{
+		return $this->hasMany('Avem\MbMemberPeriod');
+	}
+
 	public function workingGroup()
 	{
 		return $this->belongsTo('Avem\WorkingGroup');

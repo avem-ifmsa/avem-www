@@ -2,6 +2,7 @@
 
 namespace Avem\Http\Controllers\Auth;
 
+use Avem\Charge;
 use Illuminate\Http\Request;
 use Avem\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -49,5 +50,32 @@ class LoginController extends Controller
 	protected function authenticated (Request $request, $user)
 	{
 		return redirect()->intended($this->redirectTo);
+	}
+
+	private function attemptChargeLogin(Request $request)
+	{
+		$username = $this->username();
+		$email = $request->input($username);
+		$charge = Charge::where('email', $email)->first();
+		if ($charge == null) return;
+
+		$activePeriods = $charge->mbMemberPeriods()->active();
+		if ($activePeriods->count() != 1) return;
+
+		if ($mbMember = $activePeriods->first()->mbMember)
+			$request->merge([ $username => $mbMember->user->email ]);
+	}
+
+	/**
+	 * Get the needed authorization credentials from the request.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return array
+	 */
+	protected function credentials(Request $request)
+	{
+		$this->attemptChargeLogin($request);
+
+		return $request->only($this->username(), 'password');
 	}
 }
