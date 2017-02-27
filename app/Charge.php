@@ -12,7 +12,7 @@ class Charge extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'name', 'email', 'order',
+		'name', 'description', 'email', 'order',
 	];
 
 	public function chargeRoles()

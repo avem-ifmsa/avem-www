@@ -4,7 +4,7 @@ namespace Avem;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Activity extends Model implements Notifiable
+class Activity extends Model
 {
 	/**
 	 * The attributes that are mass assignable.

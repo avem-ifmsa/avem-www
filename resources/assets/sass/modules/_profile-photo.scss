@@ -1,0 +1,12 @@
+.profile-photo {
+	@include media-breakpoint-down('sm') {
+		width: 140px;
+		height: 140px;
+		font-size: 0.8em;
+	}
+
+	@include media-breakpoint-up('md') {
+		width: 200px;
+		height: 200px;
+	}
+}

@@ -1,25 +1,9 @@
+@import 'variables';
 
-// Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import 'vendor/bootstrap';
+@import 'vendor/font-awesome';
+@import 'vendor/raleway-font';
 
-// Variables
-@import "variables";
-
-// Bootstrap v4
-@import "node_modules/bootstrap/scss/bootstrap";
-
-// FontAwesome
-@import "node_modules/font-awesome/scss/font-awesome";
-
-.profile-photo {
-	@include media-breakpoint-down('sm') {
-		width: 140px;
-		height: 140px;
-		font-size: 0.8em;
-	}
-
-	@include media-breakpoint-up('md') {
-		width: 200px;
-		height: 200px;
-	}
-}
+@import 'modules/dashboard';
+@import 'modules/form-group';
+@import 'modules/profile-photo';

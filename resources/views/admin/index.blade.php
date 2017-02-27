@@ -1,57 +1,51 @@
 @extends('layouts.admin')
 
 @section('content')
-	<header>
+	<header class="mb-4 text-center">
 		<h1>Panel de administración</h1>
 	</header>
 
-	<nav>
-		<ul class="list-unstyled">
-			<div class="row">
-				<li class="col-md-4">
-					<a href="{{ route('admin.activities.index') }}">
-						<img class="item-icon" src="/img/admin-activities.png">
-						<span class="item-text">Gestión de actividades</span>
-					</a>
-				</li>
-
-				<li class="col-md-4">
-					<a href="{{ route('admin.exchanges.index') }}">
-						<img class="item-icon" src="/img/admin-exchanges.png">
-						<span class="item-text">Gestión de intercambios</span>
-					</a>
-				</li>
-
-				<li class="col-md-4">
-					<a href="{{ route('admin.notifications.index') }}">
-						<img class="item-icon" src="/img/admin-notifications.png">
-						<span class="item-text">Gestión de notificaciones</span>
-					</a>
-				</li>
+	<nav class="mb-5 dashboard dashboard--admin">
+		<a class="dashboard-item" href="{{ route('admin.activities.index') }}">
+			<div class="item-icon">
+				{!! file_get_contents(public_path('img/admin-activities.svg')) !!}
 			</div>
+			<span class="item-text">Gestión de actividades</span>
+		</a>
 
-			<div class="row">
-				<li class="col-md-4">
-					<a href="{{ route('admin.users.index') }}">
-						<img class="item-icon" src="/img/admin-users.png">
-						<span class="item-text">Gestión de usuarios</span>
-					</a>
-				</li>
-
-				<li class="col-md-4">
-					<a href="{{ route('admin.mboard') }}">
-						<img class="item-icon" src="/img/admin-mboard.png">
-						<span class="item-text">Gestión de junta directiva</span>
-					</a>
-				</li>
-
-				<li class="col-md-4">
-					<a href="{{ route('admin.analytics') }}">
-						<img class="item-icon" src="/img/admin-analytics.png">
-						<span class="item-text">Analíticas</span>
-					</a>
-				</li>
+		<a class="dashboard-item" href="{{ route('admin.exchanges.index') }}">
+			<div class="item-icon">
+				{!! file_get_contents(public_path('img/admin-exchanges.svg')) !!}
 			</div>
-		</ul>
+			<span class="item-text">Gestión de intercambios</span>
+		</a>
+
+		<a class="dashboard-item" href="{{ route('admin.notifications.index') }}">
+			<div class="item-icon">
+				{!! file_get_contents(public_path('img/admin-notifications.svg')) !!}
+			</div>
+			<span class="item-text">Gestión de notificaciones</span>
+		</a>
+
+		<a class="dashboard-item" href="{{ route('admin.users.index') }}">
+			<div class="item-icon">
+				{!! file_get_contents(public_path('img/admin-users.svg')) !!}
+			</div>
+			<span class="item-text">Gestión de usuarios</span>
+		</a>
+
+		<a class="dashboard-item" href="{{ route('admin.board') }}">
+			<div class="item-icon">
+				{!! file_get_contents(public_path('img/admin-board.svg')) !!}
+			</div>
+			<span class="item-text">Gestión de junta directiva</span>
+		</a>
+
+		<a class="dashboard-item" href="{{ route('admin.analytics') }}">
+			<div class="item-icon">
+				{!! file_get_contents(public_path('img/admin-analytics.svg')) !!}
+			</div>
+			<span class="item-text">Analíticas</span>
+		</a>
 	</nav>
 @stop

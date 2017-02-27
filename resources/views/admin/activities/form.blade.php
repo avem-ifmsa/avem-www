@@ -1,4 +1,4 @@
-<p class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
+<p class="form-group form-group--required{{ $errors->has('name') ? ' has-danger' : '' }}">
 	<label for="form-name">Nombre</label>
 	<input id="form-name" class="form-control" name="name" type="text" required
 	       value="{{ old('name') ?? (isset($activity) ? $activity->name : '') }}">
@@ -48,7 +48,7 @@
 	<p class="col-md-6 form-group{{ $errors->has('points') ? ' has-danger' : '' }}">
 		<label for="form-points">Puntos</label>
 		<input id="form-points" class="form-control" type="number" min="0"
-		       value="{{ old('points') ?? (isset($activity) ? $activity->points : '') }}">
+		       value="{{ old('points') ?? (isset($activity) ? $activity->points : '0') }}">
 		@if ($errors->has('points'))
 			<span class="form-text">
 				<strong>{{ $errors->first('points') }}</strong>
@@ -133,7 +133,7 @@
 	</p>
 </div>
 
-<p class="form-group{{ $errors->has('description') ? ' has-danger' : '' }}">
+<p class="form-group form-group--required{{ $errors->has('description') ? ' has-danger' : '' }}">
 	<label for="form-description">Descripción</label>
 	<textarea id="form-description" class="form-control" name="description" required>
 		{{ old('description') ?? (isset($activity) ? $activity->description : '') }}

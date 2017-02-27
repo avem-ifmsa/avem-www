@@ -28,8 +28,8 @@ Route::group([ 'as'         => 'admin.',
 		return view('admin.index');
 	}]);
 
-	Route::get('mboard', [ 'as' => 'mboard', function() {
-		return view('admin.mboard');
+	Route::get('board', [ 'as' => 'board', function() {
+		return view('admin.board');
 	}]);
 
 	Route::get('analytics', [ 'as' => 'analytics', function() {

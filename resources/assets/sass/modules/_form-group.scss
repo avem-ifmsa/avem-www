@@ -1,0 +1,14 @@
+.form-group--required {
+	label {
+		position: relative;
+
+		&::after {
+			color: #f00;
+			position: absolute;
+			content: $fa-var-asterisk;
+
+			font-size: 0.5em;
+			font-family: FontAwesome;
+		}
+	}
+}

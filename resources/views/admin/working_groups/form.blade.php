@@ -1,4 +1,4 @@
-<p class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
+<p class="form-group form-group--required{{ $errors->has('name') ? ' has-danger' : '' }}">
 	<label for="form-name">Nombre</label>
 	<input id="form-name" class="form-control" name="name" type="text"
 	       value="{{ old('name') ?? (isset($workingGroup) ? $workingGroup->name : '') }}">
@@ -9,7 +9,7 @@
 	@endif
 </p>
 
-<p class="form-group{{ $errors->has('description') ? ' has-danger' : '' }}">
+<p class="form-group form-group--required {{ $errors->has('description') ? ' has-danger' : '' }}">
 	<label for="form-description">Descripción</label>
 	<textarea id="form-description" class="form-control" name="description" required>
 		{{ old('description') ?? (isset($workingGroup) ? $workingGroup->description : '') }}

@@ -8,27 +8,21 @@
 	<nav>
 		<ul class="list-unstyled">
 			<li>
-				<a href="{{ route('admin.charges.index') }}"
-				{{ Gate::denies('view', Avem\Charge::class)
-				   ? 'class=disabled aria-disabled=true' : '' }}>
+				<a href="{{ route('admin.charges.index') }}">
 					<img class="item-icon" src="{{ asset('img/admin-charges.png') }}">
 					<span class="item-text">Cargos</span>
 				</a>
 			</li>
 
 			<li>
-				<a href="{{ route('admin.working_groups.index') }}"
-				{{ Gate::denies('view', Avem\WorkingGroup::class)
-				   ? 'class=disabled aria-disabled=true' : '' }}>
+				<a href="{{ route('admin.working_groups.index') }}">
 					<img class="item-icon" src="{{ asset('img/admin-working_groups.png') }}">
 					<span class="item-text">Grupos de trabajo</span>
 				</a>
 			</li>
 
 			<li>
-				<a href="{{ route('admin.mb_members.index') }}"
-				{{ Gate::denies('view', Avem\MbMember::class)
-				   ? 'class=disabled aria-disabled=true' : '' }}>
+				<a href="{{ route('admin.mb_members.index') }}">
 					<img class="item-icon" src="{{ asset('img/admin-mb_members.png') }}">
 					<span class="item-text">Miembros de junta</span>
 				</a>
