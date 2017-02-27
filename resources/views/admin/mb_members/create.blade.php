@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-	<h1 class="my-5">Crear nuevo miembro de junta</h1>
+	<h1 class="my-4">Crear nuevo miembro de junta</h1>
 	<form method="post" action="{{ route('admin.mb_members.store') }}">
 		{{ csrf_field() }}
 

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-	<h1 class="my-5">Editar cargo</h1>
+	<h1 class="my-4">Editar cargo</h1>
 	<form method="post" action="{{ route('admin.charges.update', [$charge]) }}">
 		{{ csrf_field() }}
 		{{ method_field('patch') }}

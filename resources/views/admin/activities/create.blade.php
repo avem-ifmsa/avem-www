@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-	<h1 class="my-5">Crear nueva actividad</h1>
+	<h1 class="my-4">Crear nueva actividad</h1>
 	<form method="post" action="{{ route('admin.activities.store') }}">
 		{{ csrf_field() }}
 

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-	<h1 class="my-5">Editar grupo de trabajo</h1>
+	<h1 class="my-4">Editar grupo de trabajo</h1>
 	<form method="post" action="{{ route('admin.working_groups.update', [$workingGroup]) }}">
 		{{ csrf_field() }}
 		{{ method_field('put') }}
