@@ -6,15 +6,12 @@
 	align-content: stretch;
 	justify-content: center;
 
-	border: 1px solid;
-	padding: 10px 20px;
+	padding: 10px;
 	box-sizing: border-box;
 
 	&-item {
 		margin: 10px;
-		padding: 15px;
-
-		flex-basis: 20em;
+		padding: 10px;
 
 		text-align: center;
 		color: initial !important;
@@ -36,9 +33,9 @@
 }
 
 .dashboard--admin {
-	background-color: #3e3b36;
-
 	.dashboard-item {
+		flex-basis: 30%;
+
 		cursor: pointer;
 		color: #fff !important;
 		border: 1px solid #000;

@@ -1,11 +1,9 @@
 @extends('layouts.admin')
 
 @section('content')
-	<header class="mb-4 text-center">
-		<h1>Panel de administración</h1>
-	</header>
+	<h1 class="mt-3 text-center">Panel de administración</h1>
 
-	<nav class="mb-5 dashboard dashboard--admin">
+	<nav class="my-4 dashboard dashboard--admin">
 		<a class="dashboard-item" href="{{ route('admin.activities.index') }}">
 			<div class="item-icon">
 				{!! file_get_contents(public_path('img/admin-activities.svg')) !!}
