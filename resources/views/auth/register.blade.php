@@ -38,11 +38,13 @@
 
 		<p class="form-group">
 			<label for="register-gender">Género</label>
-			<select input-id="register-gender" is="open-select" name="gender">
+			<select input-id="register-gender" is="open-select" name="gender" value="{{ old('gender') }}">
 				<option value="">Prefiero no decirlo</option>
-				<option value="male"   {{ old('gender') == 'male'   ? 'selected' : '' }}>Hombre</option>
-				<option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Mujer</option>
-				<option value="other"  {{ old('gender') == 'other'  ? 'selected' : '' }}>Otro</option>
+				<option value="male"   {{  old('gender') == 'male'    ? 'selected' : '' }}>Hombre</option>
+				<option value="female" {{  old('gender') == 'female'  ? 'selected' : '' }}>Mujer</option>
+				<option value="other"  {{ (old('gender') != null
+				                       &&  old('gender') != 'male'
+				                       &&  old('gender') != 'female') ? 'selected' : '' }}>Otro</option>
 			</select>
 		</p>
 
