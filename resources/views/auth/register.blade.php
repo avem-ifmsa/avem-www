@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
 @section('content')
 	<form class="mt-3 col-md-10 offset-md-1 col-lg-8 offset-lg-2"
@@ -13,7 +13,8 @@
 		</div>
 
 		<div class="row">
-			<p class="col-md-4 form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
+			<p class="col-md-4 form-group form-group--required
+			          {{ $errors->has('name') ? ' has-danger' : '' }}">
 				<label for="register-name">Nombre</label>
 				<input id="register-name" class="form-control" name="name"
 				       type="text" value="{{ old('name') }}" required>
@@ -24,7 +25,8 @@
 				@endif
 			</p>
 
-			<p class="col-md-8 form-group{{ $errors->has('surname') ? ' has-danger' : '' }}">
+			<p class="col-md-8 form-group form-group--required
+			          {{ $errors->has('surname') ? ' has-danger' : '' }}">
 				<label for="register-surname">Apellidos</label>
 				<input id="register-surname" class="form-control" name="surname"
 				       type="text" value="{{ old('surname') }}" required>
@@ -60,7 +62,8 @@
 				@endif
 			</p>
 
-			<p class="col-md-8 form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
+			<p class="col-md-8 form-group form-group--required
+			          {{ $errors->has('email') ? ' has-danger' : '' }}">
 				<label for="register-email">Dirección de correo-e</label>
 				<input id="register-email" class="form-control" name="email"
 				       type="email" value="{{ old('email') }}" required>
@@ -73,7 +76,8 @@
 		</div>
 
 		<div class="row">
-			<p class="col-md-6 form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
+			<p class="col-md-6 form-group form-group--required
+			          {{ $errors->has('password') ? ' has-danger' : '' }}">
 				<label for="register-password">Contraseña</label>
 				<input id="register-password" class="form-control"
 				       name="password" type="password" required>
@@ -84,7 +88,8 @@
 				@endif
 			</p>
 
-			<p class="col-md-6 form-group{{ $errors->has('password_confirmation') ? ' has-danger' : '' }}">
+			<p class="col-md-6 form-group form-group--required
+			          {{ $errors->has('password_confirmation') ? ' has-danger' : '' }}">
 				<label for="register-password-confirmation">Repita la contraseña</label>
 				<input id="register-password-confirmation" class="form-control"
 				       name="password_confirmation" type="password" required>

@@ -32,11 +32,6 @@
 		@stack('scripts')
 	</head>
 
-	<body>
-		<div id="app">
-			<div class="container">
-				@yield('content')
-			</div>
-		</div>
-	</body>
+	@yield('body')
+
 </html>
