@@ -1,3 +1,4 @@
+$dashboard-admin-max-items: 3;
 
 .dashboard {
 	display: flex;
@@ -34,12 +35,19 @@
 
 .dashboard--admin {
 	.dashboard-item {
-		flex-basis: 30%;
-
 		cursor: pointer;
 		color: #fff !important;
 		border: 1px solid #000;
 		background-color: #7e776f;
+
+		@include media-breakpoint-down('md') {
+			flex-basis: 90% / ($dashboard-admin-max-items - 1);
+			flex-grow: 1;
+		}
+
+		@include media-breakpoint-up('md') {
+			flex-basis: 90% / $dashboard-admin-max-items;
+		}
 
 		&:hover {
 			color: #000 !important;
