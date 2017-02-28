@@ -2,14 +2,30 @@
 
 namespace Avem\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use Avem\Http\Controllers\Controller;
-
 use Avem\Charge;
 use Avem\WorkingGroup;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Avem\Http\Controllers\Controller;
+
 
 class ChargeController extends Controller
 {
+	/**
+	 * Validation rules against a given charge.
+	 *
+	 * @param mixed  $charge
+	 * @return mixed
+	 */
+	private function rules($charge = null) {
+		return [
+			'email' => [
+				'required', 'email', 'unique:users',
+				Rule::unique('charges')->ignore($charge ? $charge->id : null),
+			],
+		];
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -50,6 +66,8 @@ class ChargeController extends Controller
 	 */
 	public function store(Request $request)
 	{
+		$this->validate($request, $this->rules());
+
 		$ordered = $request->input('order');
 		$newCharge = new Charge($request->except('order'));
 		$newCharge->order = array_search('new', $ordered);
@@ -96,6 +114,8 @@ class ChargeController extends Controller
 	 */
 	public function update(Request $request, Charge $charge)
 	{
+		$this->validate($request, $this->rules($charge));
+
 		$ordered = $request->input('order');
 		$charge->update($request->except('order'));
 

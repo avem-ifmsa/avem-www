@@ -16,7 +16,6 @@ class CreateChargesTable extends Migration
 		Schema::create('charges', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('name');
-			$table->string('password');
 			$table->text('description');
 			$table->string('email')->unique();
 			$table->integer('order')->default(0);

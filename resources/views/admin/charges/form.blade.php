@@ -21,27 +21,17 @@
 		@endif
 	</p>
 
-	<p class="col-md-6 form-group form-group--required {{ $errors->has('password') ? ' has-danger' : '' }}">
-		<label for="form-password">Contraseña de cargo</label>
-		<input id="form-password" class="form-control" name="email" type="password" required>
-		@if ($errors->has('password'))
-			<span class="form-text">
-				<strong>{{ $errors->first('password') }}</strong>
-			</span>
-		@endif
+	<p class="col-md-6 form-group{{ $errors->has('working_group') ? ' has-danger' : '' }}">
+		<label for="form-working-group">Grupo de trabajo</label>
+		<select id="form-working-group" class="form-control" name="working_group"
+		        value="{{ old('working_group') ?? (isset($charge) ? $charge->workingGroup : 0) }}">
+			<option value="">Ninguno</option>
+			@foreach ($workingGroups as $workingGroup)
+				<option value="{{ $workingGroup->id }}">{{ $workingGroup->name }}</option>
+			@endforeach
+		</select>
 	</p>
 </div>
-
-<p class="form-group{{ $errors->has('working_group') ? ' has-danger' : '' }}">
-	<label for="form-working-group">Grupo de trabajo</label>
-	<select id="form-working-group" class="form-control" name="working_group"
-	        value="{{ old('working_group') ?? (isset($charge) ? $charge->workingGroup : 0) }}">
-		<option value="">Ninguno</option>
-		@foreach ($workingGroups as $workingGroup)
-			<option value="{{ $workingGroup->id }}">{{ $workingGroup->name }}</option>
-		@endforeach
-	</select>
-</p>
 
 <p class="form-group form-group--required {{ $errors->has('description') ? ' has-danger' : '' }}">
 	<label for="form-description">Descripción</label>

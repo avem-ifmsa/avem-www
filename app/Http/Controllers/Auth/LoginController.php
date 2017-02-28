@@ -61,6 +61,34 @@ class LoginController extends Controller
 	}
 
 	/**
+	 * Check if login is done with charge credentials.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return mixed
+	 */
+	private function checkChargeLogin(Request $request)
+	{
+		$username = $this->username();
+		$chargeEmail = $request->input($username);
+		$charge = Charge::where('email', $chargeEmail)->first();
+		if ($charge == null)
+			return null;
+
+		$activePeriods = $charge->mbMemberPeriods()->active();
+		if ($activePeriods->count() != 1)
+			return null;
+
+		$mbMember = $activePeriods->first()->mbMember;
+		if (!$mbMember)
+			return null;
+
+		return [
+			$username  => $mbMember->user->email,
+			'password' => $request->input('password'),
+		];
+	}
+
+	/**
 	 * Get the needed authorization credentials from the request.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
@@ -68,39 +96,11 @@ class LoginController extends Controller
 	 */
 	protected function credentials(Request $request)
 	{
-		if ($creds = $this->tryChargeLogin($request)) {
+		if ($creds = $this->checkChargeLogin($request)) {
 			$this->isChargeLogin = true;
 			return $creds;
 		}
 
 		return $request->only($this->username(), 'password');
-	}
-
-	/**
-	 * Check if login is done with charge credentials.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return mixed
-	 */
-	private function tryChargeLogin(Request $request)
-	{
-		$username = $this->username();
-		$chargeEmail = $request->input($username);
-		$charge = Charge::where('email', $chargeEmail)->first();
-		if ($charge == null)
-			return false;
-
-		$activePeriods = $charge->mbMemberPeriods()->active();
-		if ($activePeriods->count() != 1)
-			return false;
-
-		$mbMember = $activePeriods->first()->mbMember;
-		if (!$mbMember)
-			return false;
-
-		return [
-			$username  => $mbMember->user->email,
-			'password' => $request->input('password'),
-		];
 	}
 }

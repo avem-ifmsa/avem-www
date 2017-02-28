@@ -15,6 +15,11 @@ class Charge extends Model
 		'name', 'description', 'email', 'order',
 	];
 
+	public static function boot()
+	{
+		parent::boot();
+	}
+
 	public function chargeRoles()
 	{
 		return $this->belongsToMany('Avem\Role');
