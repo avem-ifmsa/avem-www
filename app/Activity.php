@@ -2,6 +2,7 @@
 
 namespace Avem;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Activity extends Model
@@ -60,6 +61,22 @@ class Activity extends Model
 	public function selfSubscribedUsers()
 	{
 		return $this->morphToMany('Avem\User', 'subscribable');
+	}
+
+	public function setEndAttribute($date) {
+		$this->attributes['end'] = Carbon::parse($date);
+	}
+
+	public function setInscriptionEndAttribute($date) {
+		$this->attributes['inscription_end'] = Carbon::parse($date);
+	}
+
+	public function setInscriptionStartAttribute($date) {
+		$this->attributes['inscription_start'] = Carbon::parse($date);
+	}
+
+	public function setStartAttribute($date) {
+		$this->attributes['start'] = Carbon::parse($date);
 	}
 
 	public function subscribedUsers()

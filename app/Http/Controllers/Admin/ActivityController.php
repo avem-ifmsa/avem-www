@@ -30,6 +30,7 @@ class ActivityController extends Controller
 	 */
 	public function create()
 	{
+		$this->authorize('create', Activity::class);
 		$mbMember = Auth::user()->mbMember;
 		return view('admin.activities.create', [
 			'mbMemberPeriods'  => MbMemberPeriod::active(),
@@ -48,6 +49,7 @@ class ActivityController extends Controller
 	 */
 	public function store(Request $request)
 	{
+		$this->authorize('create', Activity::class);
 		$activity = Activity::create($request->all());
 		$activity->organizerPeriods()->sync($request->input('organizers', []));
 		return redirect()->route('admin.activities.show', [$activity]);
@@ -61,6 +63,7 @@ class ActivityController extends Controller
 	 */
 	public function show(Activity $activity)
 	{
+		$this->authorize('view', $activity);
 		return view('admin.activities.show', [
 			'activity'      => $activity,
 			'activityTasks' => $activity->activityTasks,
@@ -75,6 +78,7 @@ class ActivityController extends Controller
 	 */
 	public function edit(Activity $activity)
 	{
+		$this->authorize('update', $activity);
 		return view('admin.activities.edit', [
 			'activity'         => $activity,
 			'mbMemberPeriods'  => MbMemberPeriod::active(),
@@ -91,6 +95,7 @@ class ActivityController extends Controller
 	 */
 	public function update(Request $request, Activity $activity)
 	{
+		$this->authorize('update', $activity);
 		$activity->update($request->all());
 		$activity->organizerPeriods()->sync($request->input('organizers', []));
 		return redirect()->route('admin.activities.show', [$activity]);
@@ -104,6 +109,7 @@ class ActivityController extends Controller
 	 */
 	public function destroy(Activity $activity)
 	{
+		$this->authorize('delete', $activity);
 		$activity->delete();
 		return redirect()->route('admin.activities.index');
 	}

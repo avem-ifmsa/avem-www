@@ -19,7 +19,7 @@ class CreateActivitiesTable extends Migration
 			$table->text('description');
 			$table->string('image')->nullable();
 			$table->text('location')->nullable();
-			$table->integer('points')->unsigned();
+			$table->integer('points')->unsigned()->default(0);
 			$table->integer('member_limit')->nullable();
 			$table->datetime('start')->nullable();
 			$table->datetime('end')->nullable();

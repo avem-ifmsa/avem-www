@@ -13,7 +13,7 @@
 	<p class="col-md-4 form-group{{ $errors->has('start') ? ' has-danger' : '' }}">
 		<label for="form-start">Inicio de la actividad</label>
 		<input id="form-start" class="form-control" name="start" type="datetime-local"
-		       value="{{ old('start') ?? (isset($activity) ? $activity->start : '') }}">
+		       value="{{ old('start') ?? (isset($activity) ? $activity->start->format('Y-m-d\TH:i') : '') }}">
 		@if ($errors->has('start'))
 			<span class="form-text">
 				<strong>{{ $errors->first('start') }}</strong>
@@ -24,7 +24,7 @@
 	<p class="col-md-4 form-group{{ $errors->has('end') ? ' has-danger' : '' }}">
 		<label for="form-end">Fín de la actividad</label>
 		<input id="form-end" class="form-control" name="end" type="datetime-local"
-		       value="{{ old('end') ?? (isset($activity) ? $activity->end : '' ) }}">
+		       value="{{ old('end') ?? (isset($activity) ? $activity->end->format('Y-m-d\TH:i') : '' ) }}">
 		@if ($errors->has('end'))
 			<span class="form-text">
 				<strong>{{ $errors->first('end') }}</strong>
@@ -34,7 +34,7 @@
 
 	<p class="col-md-4 form-group{{ $errors->has('location') ? ' has-danger' : '' }}">
 		<label for="form-location">Lugar</label>
-		<input id="form-location" class="form-control" type="text"
+		<input name="location" id="form-location" class="form-control" type="text"
 		       value="{{ old('location') ?? (isset($activity) ? $activity->location : '') }}">
 		@if ($errors->has('location'))
 			<span class="form-text">
@@ -58,8 +58,8 @@
 
 	<p class="col-md-6 form-group{{ $errors->has('member_limit') ? ' has-danger' : '' }}">
 		<label for="form-member-limit">Límite de socios</label>
-		<input id="form-member-limit" class="form-control" type="number"
-			   value="{{ old('member_limit') ?? (isset($activity) ? $activity->memberLimit : '') }}">
+		<input name="member_limit" id="form-member-limit" class="form-control" type="number"
+		       value="{{ old('member_limit') ?? (isset($activity) ? $activity->member_limit : '') }}">
 		@if ($errors->has('member_limit'))
 			<span class="form-text">
 				<strong>{{ $errors->first('member_limit') }}</strong>
@@ -112,7 +112,8 @@
 		<label for="form-inscription-start">Inicio del periodo de inscripción</label>
 		<input id="form-inscription-start" class="form-control" name="inscription_start"
 		       type="datetime-local" value="{{ old('inscription_start')
-		       ?? (isset($activity) ? $activity->inscriptionStart : '') }}">
+		       ?? (isset($activity) && $activity->inscriptionStart
+		       ? $activity->inscriptionStart->format('Y-m-d\TH:i') : '') }}">
 		@if ($errors->has('inscription_start'))
 			<span class="form-text">
 				<strong>{{ $errors->first('inscription_start') }}</strong>
@@ -124,7 +125,8 @@
 		<label for="form-inscription-end">Fín del periodo de inscripción</label>
 		<input id="form-inscription-end" class="form-control" name="inscription_end"
 		       type="datetime-local" value="{{ old('inscription_end')
-		       ?? (isset($activity) ? $activity->inscriptionEnd : '' ) }}">
+		       ?? (isset($activity) && $activity->inscriptionEnd
+		       ? $activity->inscriptionEnd->format('Y-m-d\TH:i') : '' ) }}">
 		@if ($errors->has('inscription_end'))
 			<span class="form-text">
 				<strong>{{ $errors->first('inscription_end') }}</strong>
@@ -135,9 +137,9 @@
 
 <p class="form-group form-group--required{{ $errors->has('description') ? ' has-danger' : '' }}">
 	<label for="form-description">Descripción</label>
-	<textarea id="form-description" class="form-control" name="description" required>
-		{{ old('description') ?? (isset($activity) ? $activity->description : '') }}
-	</textarea>
+	<textarea id="form-description" class="form-control" name="description" required>{{
+		old('description') ?? (isset($activity) ? $activity->description : '')
+	}}</textarea>
 	@if ($errors->has('description'))
 		<span class="form-text">
 			<strong>{{ $errors->first('description') }}</strong>
