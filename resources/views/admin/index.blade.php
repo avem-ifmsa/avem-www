@@ -18,7 +18,7 @@
 			<span class="item-text">Gestión de intercambios</span>
 		</a>
 
-		<a class="dashboard-item" href="{{ route('admin.notifications.index') }}">
+		<a class="dashboard-item dashboard-item--disabled" href="{{ route('admin.notifications.index') }}">
 			<div class="item-icon">
 				{!! file_get_contents(public_path('img/admin-notifications.svg')) !!}
 			</div>
@@ -39,7 +39,7 @@
 			<span class="item-text">Gestión de junta directiva</span>
 		</a>
 
-		<a class="dashboard-item" href="{{ route('admin.analytics') }}">
+		<a class="dashboard-item dashboard-item--disabled" href="{{ route('admin.analytics') }}">
 			<div class="item-icon">
 				{!! file_get_contents(public_path('img/admin-analytics.svg')) !!}
 			</div>
