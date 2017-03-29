@@ -3,7 +3,6 @@
 namespace Avem\Policies;
 
 use Avem\User;
-use Avem\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserPolicy
