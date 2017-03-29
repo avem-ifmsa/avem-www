@@ -17,10 +17,15 @@ class ActivityController extends Controller
 	 */
 	public function index()
 	{
-		$mbMember = Auth::user()->mbMember;
-		$organizedActivities = $mbMember ? $mbMember->organizedActivities() : collect([]);
-		$otherActivities = Activity::whereNotIn('id', $organizedActivities->pluck('id'))->get();
-		return view('admin.activities.index', compact('organizedActivities', 'otherActivities'));
+		$mbMemberPeriods = Auth::user()->mbMember->mbMemberPeriods();
+		$activePeriod = $mbMemberPeriods->active()->first();
+		$organizedActivities = $activePeriod->organizedActivities ?? collect();
+		$organizedActivityIds = $organizedActivities->pluck('id');
+		$otherActivities = Activity::whereNotIn('id', $organizedActivityIds)->get();
+		return view('admin.activities.index', [
+			'organizedActivities' => $organizedActivities,
+			'otherActivities'     => $otherActivities,
+		]);
 	}
 
 	/**
@@ -31,13 +36,11 @@ class ActivityController extends Controller
 	public function create()
 	{
 		$this->authorize('create', Activity::class);
-		$mbMember = Auth::user()->mbMember;
+		$mbMemberPeriods = Auth::user()->mbMember->mbMemberPeriods();
+		$activePeriod = $mbMemberPeriods->active()->first();
 		return view('admin.activities.create', [
 			'mbMemberPeriods'  => MbMemberPeriod::active(),
-			'organizerPeriods' => collect($mbMember
-				? [$mbMember->mbMemberPeriods->active()->first()]
-				: []
-			),
+			'organizerPeriods' => [$activePeriod],
 		]);
 	}
 
@@ -97,7 +100,7 @@ class ActivityController extends Controller
 	{
 		$this->authorize('update', $activity);
 		$activity->update($request->all());
-		$activity->organizerPeriods()->sync($request->input('organizers', []));
+		$activity->organizerPeriods()->sync($request->input('organizer_periods', []));
 		return redirect()->route('admin.activities.show', [$activity]);
 	}
 
