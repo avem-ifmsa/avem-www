@@ -5,10 +5,9 @@ namespace Avem\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Avem\Http\Controllers\Controller;
 
-use Avem\Role;
-use Avem\User;
+use Avem\WorkingGroup;
 
-class UserController extends Controller
+class WorkingGroupController extends Controller
 {
 	/**
 	 * Display a listing of the resource.
@@ -17,8 +16,8 @@ class UserController extends Controller
 	 */
 	public function index()
 	{
-		return view('admin.users.index', [
-			'users' => User::all(),
+		return view('admin.working_groups.index', [
+			'workingGroups' => WorkingGroup::all(),
 		]);
 	}
 
@@ -29,9 +28,7 @@ class UserController extends Controller
 	 */
 	public function create()
 	{
-		return view('admin.users.create', [
-			'roles' => Role::all(),
-		]);
+		return view('admin.working_groups.create');
 	}
 
 	/**
@@ -42,34 +39,31 @@ class UserController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		User::create($request->all());
-		return redirect()->route('admin.users.index');
+		WorkingGroup::create($request->all());
+		return redirect()->route('admin.working_groups.index');
 	}
 
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  \Avem\User  $user
+	 * @param  \Avem\WorkingGroup  $workingGroup
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show(User $user)
+	public function show(WorkingGroup $workingGroup)
 	{
-		return view('admin.users.show', [
-			'user' => $user,
-		]);
+		//
 	}
 
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  \Avem\User  $user
+	 * @param  \Avem\WorkingGroup  $workingGroup
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit(User $user)
+	public function edit(WorkingGroup $workingGroup)
 	{
-		return view('admin.users.edit', [
-			'user'  => $user,
-			'roles' => Role::all(),
+		return view('admin.working_groups.edit', [
+			'workingGroup' => $workingGroup,
 		]);
 	}
 
@@ -77,24 +71,24 @@ class UserController extends Controller
 	 * Update the specified resource in storage.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
-	 * @param  \Avem\User  $user
+	 * @param  \Avem\WorkingGroup  $workingGroup
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, User $user)
+	public function update(Request $request, WorkingGroup $workingGroup)
 	{
-		$user->update($request->all());
-		return redirect()->route('admin.users.index');
+		$workingGroup->update($request->all());
+		return redirect()->route('admin.working_group.index');
 	}
 
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  \Avem\User  $user
+	 * @param  \Avem\WorkingGroup  $workingGroup
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(User $user)
+	public function destroy(WorkingGroup $workingGroup)
 	{
-		$user->delete();
-		return redirect()->route('admin.users.index');
+		$workingGroup->delete();
+		return redirect()->route('admin.working_group.index');
 	}
 }
