@@ -3,56 +3,74 @@
 @section('content')
 	<h1 class="my-4">Gestión de actividades</h1>
 
+	<form class="my-4 col-lg-8 offset-lg-2">
+		<p class="input-group">
+			<input name="q" class="form-control" type="search" />
+			<button class="btn btn-secondary input-group-addon"
+			        type="submit" role="button">Buscar</button>
+		</p>
+	</form>
+
 	<section>
 		<h2 class="mb-3 text-center">Actividades organizadas por tí</h2>
+		<table class="table table-hover">
+			<thead class="thead-inverse">
+				<tr>
+					<th class="align-middle">Nombre</th>
+					<th class="align-middle">Inicio de la actividad</th>
+					<th class="align-middle">Fin de la actividad</th>
+					<th class="align-middle">
+						<a class="btn btn-sm btn-secondary{{ Gate::denies('create', Avem\Activity::class) ? ' disabled' : ''}}"
+						{{ Gate::denies('create', Avem\Activity::class) ? 'aria-disabled=true' : '' }} role="button"
+						   href="{{ route('admin.activities.create') }}">Crear nueva actividad</a>
+					</th>
+				</tr>
+			</thead>
 
-		<div>
-			<a class="btn btn-secondary{{ Gate::denies('create', Avem\Activity::class) ? ' disabled' : ''}}"
-			{{ Gate::denies('create', Avem\Activity::class) ? 'aria-disabled=true' : '' }}
-			   href="{{ route('admin.activities.create') }}">Crear nueva actividad</a>
-		</div>
+			<tbody>
+				@foreach ($organizedActivities as $activity)
+					<td>{{ $activity->name  }}</td>
+					<td>{{ $activity->start }}</td>
+					<td>{{ $activity->end   }}</td>
+					<td>
+						<div class="form-inline text-nowrap">
+							<a class="mx-1 btn btn-secondary{{ Gate::denies('update', $activity) ? ' disabled' : '' }}"
+							{{ Gate::denies('update', $activity) ? 'aria-disabled=true' : '' }} role="button"
+							   href="{{ route('admin.activities.edit', [$activity]) }}">Editar</a>
 
-		<ul class="list-unstyled">
-			@foreach ($organizedActivities as $activity)
-				<li>
-					<span>{{ $activity->name }}</span>
-					<img src="{{ $activity->image_url }}">
-					<form class="btn-group" action="{{ route('admin.activities.destroy', [$activity]) }}" method="post">
-						{{ csrf_field() }}
-						{{ method_field('delete') }}
-
-						<a class="btn btn-secondary{{ Gate::denies('update', $activity) ? ' disabled' : '' }}"
-						{{ Gate::denies('update', $activity) ? 'aria-disabled=true' : '' }}
-						   href="{{ route('admin.activities.edit', [$activity]) }}">Editar</a>
-
-						<button {{ Gate::denies('destroy', $activity) ? 'disabled' : '' }}
-						           type="submit" class="btn btn-sm btn-danger">Eliminar</button>
-					</form>
-				</li>
-			@endforeach
-		</ul>
+							<form class="mx-1" action="{{ route('admin.activities.destroy', [$activity]) }}" method="post">
+								{{ csrf_field() }}
+								{{ method_field('delete') }}
+								<button {{ Gate::denies('destroy', $activity) ? 'disabled' : '' }} role="button"
+								           type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+							</form>
+						</div>
+					</td>
+				@endforeach
+			</tbody>
+		</table>
 	</section>
 
-	<section>
+	<section class="mt-5">
 		<h2 class="text-center">Resto de actividades</h2>
-		<ul class="mb-3 list-unstyled">
-			@foreach ($otherActivities as $activity)
-				<li>
-					<span>{{ $activity->name }}</span>
-					<img src="{{ $activity->image_url }}">
-					<form class="btn-group" action="{{ route('admin.activities.destroy', [$activity]) }}" method="post">
-						{{ csrf_field() }}
-						{{ method_field('delete') }}
+		<table class="table table-hover">
+			<thead class="thead-inverse">
+				<tr>
+					<th>Nombre</th>
+					<th>Inicio de la actividad</th>
+					<th>Fin de la actividad</th>
+				</tr>
+			</thead>
 
-						<a class="btn btn-secondary{{ Gate::denies('update', $activity) ? ' disabled' : '' }}"
-						{{ Gate::denies('update', $activity) ? 'aria-disabled=true' : '' }}
-						   href="{{ route('admin.activities.edit', [$activity]) }}">Editar</a>
-
-						<button {{ Gate::denies('destroy', $activity) ? 'disabled' : '' }}
-						           type="submit" class="btn btn-sm btn-danger">Eliminar</button>
-					</form>
-				</li>
-			@endforeach
-		</ul>
+			<tbody>
+				@foreach ($otherActivities as $activity)
+					<tr>
+						<td>{{ $activity->name  }}</td>
+						<td>{{ $activity->start }}</td>
+						<td>{{ $activity->end   }}</td>
+					</tr>
+				@endforeach
+			</tbody>
+		</table>
 	</section>
 @stop
