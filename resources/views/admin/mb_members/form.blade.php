@@ -1,12 +1,13 @@
 <p class="form-group form-group--required{{ $errors->has('user') ? ' has-danger' : '' }}">
 	<label for="form-user">Usuario</label>
-	<select id="form-user" class="form-control" name="user">
+	<select id="form-user" name="user" class="form-control">
 		@unless (isset($mbMember))
 			<option selected disabled>--</option>
 		@endunless
 		@foreach ($users as $user)
-			<option value="{{ $user->id }}" {{ (isset($mbMember) && $mbMember->id == $user->id) ? 'selected' : '' }}
-			>{{ $user->fullName }}</option>
+			<option value="{{ $user->id }}" {{ (isset($mbMember) &&
+				$mbMember->id == $user->id) ? 'selected' : ''
+			}}>{{ $user->fullName }}</option>
 		@endforeach
 	</select>
 	@if ($errors->has('user'))

@@ -35,9 +35,9 @@
 
 <p class="form-group form-group--required {{ $errors->has('description') ? ' has-danger' : '' }}">
 	<label for="form-description">Descripción</label>
-	<textarea id="form-description" class="form-control" name="description" required>
-		{{ old('description') ?? (isset($charge) ? $charge->description : '') }}
-	</textarea>
+	<textarea id="form-description" class="form-control" name="description" required>{{
+		old('description') ?? (isset($charge) ? $charge->description : '')
+	}}</textarea>
 	@if ($errors->has('description'))
 		<span class="form-text">
 			<strong>{{ $errors->first('description') }}</strong>
