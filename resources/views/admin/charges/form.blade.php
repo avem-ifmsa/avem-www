@@ -47,24 +47,20 @@
 
 <p class="form-group{{ $errors->has('order') ? ' has-danger' : '' }}">
 	<label>Orden</label>
-	<div class="sortable">
-		<ol class="sortable-items">
-			<div class="sortable-area sortable-area--before"></div>
-			@foreach ($allCharges as $existingCharge)
-			<li id="charge-{{$existingCharge->id}}" class="sortable-item" draggable="true">
+	<ol is="sortable-list">
+		@foreach($allCharges as $existingCharge)
+			<li draggable="true">
 				<input name="order[]" type="hidden" value="{{ $existingCharge->id }}">
 				<span>{{ $existingCharge->name }}</span>
 			</li>
-			@endforeach
-			@unless (isset($charge))
-				<li id="charge-new" class="sortable-item" draggable="true">
-					<input name="order[]" type="hidden" value="new">
-					<span>Nuevo cargo</span>
-				</li>
-			@endif
-			<div class="sortable-area sortable-area--after"></div>
-		</ol>
-	</div>
+		@endforeach
+		@unless (isset($charge))
+			<li draggable="true">
+				<input name="order[]" type="hidden" value="new">
+				<span>Nuevo cargo</span>
+			</li>
+		@endunless
+	</ol>
 	@if ($errors->has('order'))
 		<span class="form-text">
 			<strong>{{ $errors->first('order') }}</strong>

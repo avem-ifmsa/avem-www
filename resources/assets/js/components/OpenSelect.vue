@@ -1,11 +1,11 @@
 <template>
-	<span class="open-select input-group">
+	<span class="input-group">
 		<select ref="select" :class="selectClass" @change="onSelectChanged">
 			<slot></slot>
 		</select>
 		<input ref="input" v-show="otherSelected" class="form-control"
-			   :name="name" type="text" :required="required"
-			   v-model:value="submitValue">
+		       :name="name" type="text" :required="required"
+		       v-model:value="submitValue">
 	</span>
 </template>
 

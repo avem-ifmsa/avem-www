@@ -1,5 +1,5 @@
 <template>
-	<label class="input-image">
+	<label>
 		<img :src="imageUrl" @load="onImageLoad">
 		<input ref="fileInput" :alt="alt" :name="name" type="file"
 		       :required="required" accept="image/*" v-show="false"
