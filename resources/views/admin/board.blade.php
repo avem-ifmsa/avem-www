@@ -15,14 +15,14 @@
 			</li>
 
 			<li>
-				<a href="{{ route('admin.working_groups.index') }}">
+				<a href="{{ route('admin.workingGroups.index') }}">
 					<img class="item-icon" src="{{ asset('img/admin-working_groups.png') }}">
 					<span class="item-text">Grupos de trabajo</span>
 				</a>
 			</li>
 
 			<li>
-				<a href="{{ route('admin.mb_members.index') }}">
+				<a href="{{ route('admin.mbMembers.index') }}">
 					<img class="item-icon" src="{{ asset('img/admin-mb_members.png') }}">
 					<span class="item-text">Miembros de junta</span>
 				</a>

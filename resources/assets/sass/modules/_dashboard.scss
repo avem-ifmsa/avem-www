@@ -39,12 +39,10 @@ $dashboard-admin-max-items: 3;
 		}
 
 		.item-icon {
+			width: 60%;
+			height: auto;
 			margin: 0 auto;
-
-			svg {
-				width: 60%;
-				height: auto;
-			}
+			display: block;
 		}
 
 		.item-text {

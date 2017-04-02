@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 53);
+/******/ 	return __webpack_require__(__webpack_require__.s = 52);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -11280,7 +11280,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(50)
+var listToStyles = __webpack_require__(49)
 
 /*
 type StyleObject = {
@@ -11541,9 +11541,9 @@ __webpack_require__(36);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('input-image', __webpack_require__(43));
-Vue.component('open-select', __webpack_require__(44));
-Vue.component('sortable-list', __webpack_require__(45));
+Vue.component('input-image', __webpack_require__(42));
+Vue.component('open-select', __webpack_require__(43));
+Vue.component('sortable-list', __webpack_require__(44));
 
 document.addEventListener('DOMContentLoaded', function () {
   var app = new Vue({
@@ -12671,7 +12671,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(41);
+window._ = __webpack_require__(40);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -12680,9 +12680,9 @@ window._ = __webpack_require__(41);
  */
 
 window.$ = window.jQuery = __webpack_require__(10);
-window.Tether = __webpack_require__(42);
+window.Tether = __webpack_require__(41);
 
-__webpack_require__(38);
+__webpack_require__(37);
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -12690,7 +12690,7 @@ __webpack_require__(38);
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = __webpack_require__(51);
+window.Vue = __webpack_require__(50);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -12719,8 +12719,7 @@ window.axios.defaults.headers.common = {
 // });
 
 /***/ }),
-/* 37 */,
-/* 38 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -16262,21 +16261,21 @@ var Popover = function ($) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
 
 /***/ }),
-/* 39 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(9)();
 exports.push([module.i, "\n.input-image[data-v-2188b7ac] {\n  width: 100%;\n  height: 100%;\n  display: block;\n  position: relative;\n}\n.input-image img[data-v-2188b7ac] {\n    width: 100%;\n    height: 100%;\n    -o-object-fit: cover;\n       object-fit: cover;\n    border-radius: inherit;\n}\n.input-image[data-v-2188b7ac]:hover::before {\n    color: #fff;\n    padding: 15px;\n    cursor: pointer;\n    box-sizing: border-box;\n    border-radius: inherit;\n    background-color: rgba(150, 150, 150, 0.5);\n    z-index: 10;\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    text-align: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    font-size: 1.5em;\n    font-weight: bold;\n    font-family: sans-serif;\n    content: 'Cargar imagen';\n    text-transform: uppercase;\n}\n", ""]);
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(9)();
 exports.push([module.i, "\n[draggable=\"true\"][data-v-eb6bf51e] {\n\tcursor: move;\n}\n", ""]);
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -33365,10 +33364,10 @@ exports.push([module.i, "\n[draggable=\"true\"][data-v-eb6bf51e] {\n\tcursor: mo
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12), __webpack_require__(52)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12), __webpack_require__(51)(module)))
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! tether 1.4.0 */
@@ -35189,18 +35188,18 @@ return Tether;
 
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(48)
+__webpack_require__(47)
 
 var Component = __webpack_require__(3)(
   /* script */
   __webpack_require__(33),
   /* template */
-  __webpack_require__(47),
+  __webpack_require__(46),
   /* scopeId */
   "data-v-2188b7ac",
   /* cssModules */
@@ -35227,14 +35226,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(3)(
   /* script */
   __webpack_require__(34),
   /* template */
-  __webpack_require__(46),
+  __webpack_require__(45),
   /* scopeId */
   null,
   /* cssModules */
@@ -35261,12 +35260,12 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(49)
+__webpack_require__(48)
 
 var Component = __webpack_require__(3)(
   /* script */
@@ -35298,7 +35297,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -35350,7 +35349,7 @@ if (false) {
 }
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -35390,13 +35389,13 @@ if (false) {
 }
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(39);
+var content = __webpack_require__(38);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -35416,13 +35415,13 @@ if(false) {
 }
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(40);
+var content = __webpack_require__(39);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -35442,7 +35441,7 @@ if(false) {
 }
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, exports) {
 
 /**
@@ -35475,7 +35474,7 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44051,7 +44050,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(12)))
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -44079,7 +44078,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 53 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(13);
