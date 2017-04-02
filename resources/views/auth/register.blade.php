@@ -2,7 +2,8 @@
 
 @section('content')
 	<form class="mt-3 col-md-10 offset-md-1 col-lg-8 offset-lg-2"
-	      action="{{ route('register') }}" method="post" enctype="multipart/form-data">
+	      action="{{ route('register') }}" method="post"
+	      enctype="multipart/form-data">
 
 		{{ csrf_field() }}
 

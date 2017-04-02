@@ -7,19 +7,12 @@
 	</label>
 </template>
 
-<style lang="scss" scoped>
-	.input-image {
+<style scoped lang="scss">
+	label {
 		width: 100%;
 		height: 100%;
 		display: block;
 		position: relative;
-
-		img {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-			border-radius: inherit;
-		}
 
 		&:hover::before {
 			color: #fff;
@@ -45,6 +38,13 @@
 			content: 'Cargar imagen';
 			text-transform: uppercase;
 		}
+	}
+	
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		border-radius: inherit;
 	}
 </style>
 

@@ -1,4 +1,4 @@
-<style scoped>
+<style scoped lang="scss">
 	[draggable="true"] {
 		cursor: move;
 	}
