@@ -16,7 +16,7 @@ class WorkingGroupController extends Controller
 	 */
 	public function index()
 	{
-		return view('admin.working_groups.index', [
+		return view('admin.workingGroups.index', [
 			'workingGroups' => WorkingGroup::all(),
 		]);
 	}
@@ -28,7 +28,7 @@ class WorkingGroupController extends Controller
 	 */
 	public function create()
 	{
-		return view('admin.working_groups.create');
+		return view('admin.workingGroups.create');
 	}
 
 	/**
@@ -40,7 +40,7 @@ class WorkingGroupController extends Controller
 	public function store(Request $request)
 	{
 		WorkingGroup::create($request->all());
-		return redirect()->route('admin.working_groups.index');
+		return redirect()->route('admin.workingGroups.index');
 	}
 
 	/**
@@ -62,7 +62,7 @@ class WorkingGroupController extends Controller
 	 */
 	public function edit(WorkingGroup $workingGroup)
 	{
-		return view('admin.working_groups.edit', [
+		return view('admin.workingGroups.edit', [
 			'workingGroup' => $workingGroup,
 		]);
 	}
