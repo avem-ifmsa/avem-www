@@ -2,11 +2,14 @@
 
 namespace Avem\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Avem\Http\Controllers\Controller;
 
 use Avem\User;
+use Avem\Charge;
 use Avem\MbMember;
+use Avem\MbMemberPeriod;
 
 class MbMemberController extends Controller
 {
@@ -17,8 +20,9 @@ class MbMemberController extends Controller
 	 */
 	public function index()
 	{
-		return view('admin.mb_members.index', [
+		return view('admin.mbMembers.index', [
 			'mbMembers' => MbMember::all(),
+			'charges'   => Charge::all(),
 		]);
 	}
 
@@ -29,7 +33,7 @@ class MbMemberController extends Controller
 	 */
 	public function create()
 	{
-		return view('admin.mb_members.create', [
+		return view('admin.mbMembers.create', [
 			'users' => User::all(),
 		]);
 	}
@@ -44,7 +48,7 @@ class MbMemberController extends Controller
 	{
 		$user = User::findOrFail($request->input('user'));
 		$user->mbMember()->create($request->except('user'));
-		return redirect()->route('admin.mb_members.index');
+		return redirect()->route('admin.mbMembers.index');
 	}
 
 	/**
@@ -66,7 +70,7 @@ class MbMemberController extends Controller
 	 */
 	public function edit(MbMember $mb_member)
 	{
-		return view('admin.mb_members.edit', [
+		return view('admin.mbMembers.edit', [
 			'mbMember' => $mb_member,
 			'users'    => User::all(),
 		]);
@@ -85,7 +89,7 @@ class MbMemberController extends Controller
 		$mb_member->user()->associate($request->input('user'));
 		$mb_member->save();
 
-		return redirect()->route('admin.mb_members.index');
+		return redirect()->route('admin.mbMembers.index');
 	}
 
 	/**
@@ -97,6 +101,50 @@ class MbMemberController extends Controller
 	public function destroy(MbMember $mb_member)
 	{
 		$mb_member->delete();
-		return redirect()->route('admin.mb_members.index');
+		return redirect()->route('admin.mbMembers.index');
+	}
+
+	private function endAllActiveCharges(MbMember $mbMember)
+	{
+		$mbMember->mbMemberPeriods()->active()->update([ 'end' => Carbon::now() ]);
+	}
+
+	private function createMbMemberPeriod(Request $request)
+	{
+		$now = Carbon::now();
+		$charge = Charge::findOrFail($request->input('charge'));
+		$period = new MbMemberPeriod([
+			'start' => $now, 'end' => $this->nextPeriodDate($now),
+		]);
+
+		$period->charge()->associate($charge);
+		return $period;
+	}
+
+	private function nextPeriodDate($date)
+	{
+		$until = Carbon::createFromDate(null, 10, 1);
+		return $date < $until ? $until : $until->addYear();
+	}
+
+	/**
+	 * Renew specified MB member for given charge.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \Avem\MbMember  $mbMember
+	 * @return \Illuminate\Http\Response
+	 */
+	public function renew(Request $request, MbMember $mbMember)
+	{
+		if ($mbMember->hasActiveCharge)
+			$this->endAllActiveCharges($mbMember);
+
+		if ($request->has('charge')) {
+			$period = $this->createMbMemberPeriod($request);
+			$period->mbMember()->associate($mbMember);
+			$period->save();
+		}
+
+		return redirect()->route('admin.mbMembers.index');
 	}
 }
