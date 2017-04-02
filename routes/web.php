@@ -36,12 +36,17 @@ Route::group([ 'as'         => 'admin.',
 		return view('admin.analytics');
 	}]);
 
-	Route::resource('activities'    , 'ActivityController'    );
-	Route::resource('charges'       , 'ChargeController'      );
-	Route::resource('exchanges'     , 'ExchangeController'    );
-	Route::resource('notifications' , 'NotificationController');
-	Route::resource('users'         , 'UserController'        );
-	Route::resource('mb_members'    , 'MbMemberController'    );
-	Route::resource('working_groups', 'WorkingGroupController');
+	Route::resource('activities'   , 'ActivityController'    );
+	Route::resource('charges'      , 'ChargeController'      );
+	Route::resource('exchanges'    , 'ExchangeController'    );
+	Route::resource('notifications', 'NotificationController');
+	Route::resource('users'        , 'UserController'        );
+	Route::resource('mbMembers'    , 'MbMemberController'    );
+	Route::resource('workingGroups', 'WorkingGroupController');
+
+	Route::post('mbMembers/{mbMember}/renew', [
+		'as'   => 'mbMembers.renew',
+		'uses' => 'MbMemberController@renew',
+	]);
 
 });
