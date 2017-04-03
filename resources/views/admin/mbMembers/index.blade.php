@@ -44,7 +44,7 @@
 						<div class="form-inline text-nowrap">
 							<a class="mx-1 btn btn-sm btn-secondary{{ Gate::denies('update', $mbMember) ? ' disabled' : '' }}"
 							{{ Gate::denies('update', $mbMember) ? 'aria-disabled=true' : '' }} role="button"
-							    href="{{ route('admin.mbMembers.edit', [$mbMember]) }}">Editar</a>
+							   href="{{ route('admin.mbMembers.edit', [$mbMember]) }}">Editar</a>
 
 							<form class="mx-1 d-inline" action="{{ route('admin.mbMembers.renew', [$mbMember]) }}" method="post">
 								{{ csrf_field() }}
