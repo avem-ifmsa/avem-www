@@ -2,7 +2,7 @@
 
 @section('content')
 	<h1 class="my-4">Crear nuevo miembro de junta</h1>
-	<form method="post" action="{{ route('admin.mb_members.store') }}">
+	<form method="post" action="{{ route('admin.mbMembers.store') }}">
 		{{ csrf_field() }}
 
 		@include('admin.mb_members.form', compact('users'))

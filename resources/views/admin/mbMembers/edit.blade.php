@@ -2,7 +2,7 @@
 
 @section('content')
 	<h1 class="my-4">Editar miembro de junta</h1>
-	<form method="post" action="{{ route('admin.mb_members.update', [$mbMember]) }}">
+	<form method="post" action="{{ route('admin.mbMembers.update', [$mbMember]) }}">
 		{{ csrf_field() }}
 		{{ method_field('put') }}
 
