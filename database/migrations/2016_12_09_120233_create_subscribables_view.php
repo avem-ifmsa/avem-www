@@ -14,8 +14,8 @@ class CreateSubscribablesView extends Migration
 	public function up()
 	{
 		DB::statement('CREATE VIEW subscribables AS
-			SELECT user_id, subscribable_id, subscribable_type FROM own_subscribables
-			UNION SELECT user_id, "App\Activity" AS subscribable_type,
+			SELECT user_id, subscribable_type, subscribable_id FROM own_subscribables
+			UNION SELECT user_id, \'App\\Activity\' AS subscribable_type,
 			             activity_id AS subscribable_id FROM activity_user
 		');
 	}

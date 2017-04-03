@@ -16,15 +16,15 @@ class CreateClaimsTable extends Migration
 		Schema::create('claims', function (Blueprint $table) {
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
-			$table->integer('activity_task_id')->unsigned();
+			$table->integer('activity_id')->unsigned();
 			$table->text('info');
 			$table->timestamps();
 
 			$table->foreign('user_id')
 			      ->references('id')->on('users')
 			      ->onDelete('cascade');
-			$table->foreign('activity_task_id')
-			      ->references('id')->on('activity_tasks')
+			$table->foreign('activity_id')
+			      ->references('id')->on('activities')
 			      ->onDelete('cascade');
 		});
 	}

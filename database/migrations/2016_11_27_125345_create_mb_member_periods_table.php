@@ -22,7 +22,7 @@ class CreateMbMemberPeriodsTable extends Migration
 			$table->timestamps();
 
 			$table->foreign('mb_member_id')
-			      ->references('user_id')->on('mb_members')
+			      ->references('id')->on('mb_members')
 			      ->onDelete('set null');
 			$table->foreign('charge_id')
 			      ->references('id')->on('charges')
