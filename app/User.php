@@ -3,6 +3,7 @@
 namespace Avem;
 
 use Storage;
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -74,6 +75,7 @@ class User extends Authenticatable
 	{
 		if (!$this->photo)
 			return asset('img/user-default-image.svg');
+
 		return Storage::url($this->photo);
 	}
 
@@ -132,8 +134,8 @@ class User extends Authenticatable
 
 	public function setGenderAttribute($gender)
 	{
-		if ($gender)
-			$gender = strtolower(trim($gender));
+		if ($gender !== null)
+			$gender = strtolower($gender);
 		$this->attributes['gender'] = $gender;
 	}
 

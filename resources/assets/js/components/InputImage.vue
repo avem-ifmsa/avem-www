@@ -39,7 +39,7 @@
 			text-transform: uppercase;
 		}
 	}
-	
+
 	img {
 		width: 100%;
 		height: 100%;
@@ -50,25 +50,25 @@
 
 <script>
 	export default {
-		props: [ 'alt', 'name', 'required', 'placeholder' ],
+		props: [ 'alt', 'name', 'value', 'required', 'placeholder' ],
 		data: function() {
 			return {
-				image: null,
+				value: null,
 			};
 		},
 		computed: {
 			imageUrl: function() {
-				return this.image || this.placeholder;
+				return this.value || this.placeholder;
 			},
 		},
 		methods: {
 			onFileChange: function(event) {
 				const {files} = this.$refs.fileInput;
-				this.image = URL.createObjectURL(files[0]);
+				this.value = URL.createObjectURL(files[0]);
 			},
 			onImageLoad: function(event) {
-				if (this.image !== null)
-					URL.revokeObjectURL(this.image);
+				if (this.value !== null)
+					URL.revokeObjectURL(this.value);
 			},
 		},
 	};

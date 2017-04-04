@@ -12456,25 +12456,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = {
-	props: ['alt', 'name', 'required', 'placeholder'],
+	props: ['alt', 'name', 'value', 'required', 'placeholder'],
 	data: function data() {
 		return {
-			image: null
+			value: null
 		};
 	},
 	computed: {
 		imageUrl: function imageUrl() {
-			return this.image || this.placeholder;
+			return this.value || this.placeholder;
 		}
 	},
 	methods: {
 		onFileChange: function onFileChange(event) {
 			var files = this.$refs.fileInput.files;
 
-			this.image = URL.createObjectURL(files[0]);
+			this.value = URL.createObjectURL(files[0]);
 		},
 		onImageLoad: function onImageLoad(event) {
-			if (this.image !== null) URL.revokeObjectURL(this.image);
+			if (this.value !== null) URL.revokeObjectURL(this.value);
 		}
 	}
 };

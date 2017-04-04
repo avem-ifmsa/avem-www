@@ -23,43 +23,6 @@ class UserController extends Controller
 	}
 
 	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function create()
-	{
-		return view('admin.users.create', [
-			'roles' => Role::all(),
-		]);
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
-	public function store(Request $request)
-	{
-		User::create($request->all());
-		return redirect()->route('admin.users.index');
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  \Avem\User  $user
-	 * @return \Illuminate\Http\Response
-	 */
-	public function show(User $user)
-	{
-		return view('admin.users.show', [
-			'user' => $user,
-		]);
-	}
-
-	/**
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param  \Avem\User  $user
@@ -82,7 +45,16 @@ class UserController extends Controller
 	 */
 	public function update(Request $request, User $user)
 	{
-		$user->update($request->all());
+		$user->fill($request->except('password', 'photo'));
+
+		if ($password = $request->input('password'))
+			$user->password = bcrypt($password);
+
+		if ($photo = $request->file('photo'))
+			$user->setProfileImage($photo);
+
+		$user->save();
+
 		return redirect()->route('admin.users.index');
 	}
 

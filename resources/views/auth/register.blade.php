@@ -8,9 +8,8 @@
 		{{ csrf_field() }}
 
 		<div class="mx-auto mb-3 profile-photo">
-			<input type="file" is="input-image" name="photo"
-			       placeholder="img/user-default-image.svg"
-			       class="rounded-circle">
+			<input class="rounded-circle" type="file" name="photo" is="input-image" 
+			       placeholder="{{ asset('img/user-default-image.svg') }}">
 		</div>
 
 		<div class="row">
