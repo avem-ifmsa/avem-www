@@ -19,7 +19,7 @@ class MbMemberPeriodPolicy
 	 */
 	public function view(User $user, MbMemberPeriod $mbMemberPeriod)
 	{
-		return Gate::forUser($user)->allows('view', $mbMemberPeriod->mbMember);
+		return $user->can('view', $mbMemberPeriod->mbMember);
 	}
 
 	/**

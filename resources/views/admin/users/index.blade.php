@@ -16,6 +16,7 @@
 			<tr>
 				<th class="align-middle">Nombre</th>
 				<th class="align-middle">Dirección de correo-e</th>
+				<th class="align-middle">Activado</th>
 				<th class="align-middle"></th>
 			</tr>
 		</thead>
@@ -23,15 +24,32 @@
 		<tbody>
 			@foreach ($users as $user)
 				<tr>
-					<td>{{ $user->fullName }}</td>
-					<td>{{ $user->email }}</td>
+					<td>{{ $user->fullName                }}</td>
+					<td>{{ $user->email                   }}</td>
+
+					@if ($user->isActive)
+						<td>
+							Sí (hasta {{ $user->renewals()->active()->first()->until->diffForHumans() }})
+						</td>
+					@else
+						<td>No</td>
+					@endif
+
 					<td>
 						<div class="form-inline text-nowrap">
 							<a class="mx-1 btn btn-sm btn-secondary{{ Gate::denies('update', $user) ? ' disabled' : ''}}"
 							   {{ Gate::denies('update', $user) ? 'aria-disabled=true' : ''}} role="button"
 							   href="{{ route('admin.users.edit', [$user]) }}" >Editar</a>
 
-							<form class="mx-1" action="{{ route('admin.users.destroy', $user) }}" method="post">
+							@unless ($user->isActive)
+								<form class="mx-1" action="{{ route('admin.users.renew', [$user]) }}" method="post">
+									{{ csrf_field() }}
+									<button {{ Gate::denies('create', \Avem\Renewal::class) ? 'disabled' : '' }} role="button"
+									        type="submit" class="btn btn-sm btn-secondary">Renovar</button>
+								</form>
+							@endunless
+
+							<form class="mx-1" action="{{ route('admin.users.destroy', [$user]) }}" method="post">
 								{{ csrf_field() }}
 								{{ method_field('delete' )}}
 								<button {{ Gate::denies('delete', $user) ? 'disabled' : '' }} role="button"

@@ -19,7 +19,7 @@ class RenewalPolicy
 	 */
 	public function view(User $user, Renewal $renewal)
 	{
-		return Gate::forUser($user)->allows('view', $renewal->user);
+		return $user->can('view', $renewal->user);
 	}
 
 	/**

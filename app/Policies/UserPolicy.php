@@ -3,6 +3,7 @@
 namespace Avem\Policies;
 
 use Avem\User;
+use Avem\Renewal;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserPolicy
@@ -43,6 +44,11 @@ class UserPolicy
 	public function update(User $user, User $updatedUser)
 	{
 		return $user->hasPermission('user:update');
+	}
+
+	public function renew(User $user, User $renewedUser)
+	{
+		return $user->can('create', Renewal::class);
 	}
 
 	/**

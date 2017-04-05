@@ -44,6 +44,11 @@ Route::group([ 'as'         => 'admin.',
 	Route::resource('mbMembers'    , 'MbMemberController'    );
 	Route::resource('workingGroups', 'WorkingGroupController');
 
+	Route::post('users/{user}/renew', [
+		'as'   => 'users.renew',
+		'uses' => 'UserController@renew',
+	]);
+
 	Route::post('mbMembers/{mbMember}/renew', [
 		'as'   => 'mbMembers.renew',
 		'uses' => 'MbMemberController@renew',

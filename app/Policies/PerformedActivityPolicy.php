@@ -30,7 +30,7 @@ class PerformedActivityPolicy
 	public function view(User $user, PerformedActivity $performedActivity)
 	{
 		$activity = $performedActivity->activity;
-		return Gate::forUser($user)->allows('view', $activity);
+		return $user->can('view', $activity);
 	}
 
 	/**
@@ -55,7 +55,7 @@ class PerformedActivityPolicy
 	public function update(User $user, PerformedActivity $performedActivity)
 	{
 		$activity = $performedActivity->activityTask->activity;
-		return Gate::forUser($user)->allows('update', $activity);
+		return $user->can('update', $activity);
 	}
 
 	/**
@@ -68,6 +68,6 @@ class PerformedActivityPolicy
 	public function delete(User $user, PerformedActivity $performedActivity)
 	{
 		$activity = $performedActivity->activityTask->activity;
-		return Gate::forUser($user)->allows('delete', $activity);
+		return $user->can('delete', $activity);
 	}
 }
