@@ -57,7 +57,7 @@ class MbMemberController extends Controller
 	 * @param  \Avem\MbMember  $mbMember
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show(MbMember $mb_member)
+	public function show(MbMember $mbMember)
 	{
 		//
 	}
@@ -68,10 +68,10 @@ class MbMemberController extends Controller
 	 * @param  \Avem\MbMember  $mbMember
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit(MbMember $mb_member)
+	public function edit(MbMember $mbMember)
 	{
 		return view('admin.mbMembers.edit', [
-			'mbMember' => $mb_member,
+			'mbMember' => $mbMember,
 			'users'    => User::all(),
 		]);
 	}
@@ -83,11 +83,11 @@ class MbMemberController extends Controller
 	 * @param  \Avem\MbMember  $mbMember
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, MbMember $mb_member)
+	public function update(Request $request, MbMember $mbMember)
 	{
-		$mb_member->fill($request->all());
-		$mb_member->user()->associate($request->input('user'));
-		$mb_member->save();
+		$mbMember->fill($request->all());
+		$mbMember->user()->associate($request->input('user'));
+		$mbMember->save();
 
 		return redirect()->route('admin.mbMembers.index');
 	}
@@ -98,15 +98,16 @@ class MbMemberController extends Controller
 	 * @param  \Avem\MbMember  $mbMember
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(MbMember $mb_member)
+	public function destroy(MbMember $mbMember)
 	{
-		$mb_member->delete();
+		$mbMember->delete();
 		return redirect()->route('admin.mbMembers.index');
 	}
 
 	private function endAllActiveCharges(MbMember $mbMember)
 	{
-		$mbMember->mbMemberPeriods()->active()->update([ 'end' => Carbon::now() ]);
+		$activePeriods = $mbMember->mbMemberPeriods()->active();
+		$activePeriods->update([ 'end' => Carbon::now() ]);
 	}
 
 	private function createMbMemberPeriod(Request $request)
