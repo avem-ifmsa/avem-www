@@ -17,7 +17,7 @@
 				<th class="align-middle">Nombre</th>
 				<th class="align-middle">Dirección de correo-e</th>
 				<th class="align-middle">Activado</th>
-				<th class="align-middle"></th>
+				<th class="align-middle text-nowrap"></th>
 			</tr>
 		</thead>
 
@@ -36,7 +36,7 @@
 					@endif
 
 					<td>
-						<div class="form-inline text-nowrap">
+						<div class="form-inline">
 							<a class="mx-1 btn btn-sm btn-secondary{{ Gate::denies('update', $user) ? ' disabled' : ''}}"
 							   {{ Gate::denies('update', $user) ? 'aria-disabled=true' : ''}} role="button"
 							   href="{{ route('admin.users.edit', [$user]) }}" >Editar</a>

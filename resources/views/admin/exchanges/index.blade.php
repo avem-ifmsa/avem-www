@@ -10,7 +10,7 @@
 				<th class="align-middle">Tipo de destino</th>
 				<th class="align-middle">Modalidad</th>
 				<th class="align-middle">Activo</th>
-				<th class="align-middle">
+				<th class="align-middle text-nowrap">
 					<a class="btn btn-sm btn-secondary{{ Gate::denies('create', Avem\Exchange::class) ? ' disabled' : ''}}"
 					{{ Gate::denies('create', Avem\Exchange::class) ? 'aria-disabled=true' : '' }} role="button"
 					   href="{{ route('admin.exchanges.create') }}">Crear nuevo intercambio</a>
@@ -26,7 +26,7 @@
 					<td>{{ $exchange->modality          }}</td>
 					<td>{{ $exchange->isActive          }}</td>
 					<td>
-						<div class="form-inline text-nowrap">
+						<div class="form-inline">
 							<a class="mx-1 btn btn-sm btn-secondary{{ Gate::denies('update', $exchange) ? ' disabled' : ''}}"
 							   {{ Gate::denies('update', $exchange) ? 'aria-disabled=true' : ''}} role="button"
 							   href="{{ route('admin.exchanges.edit', [$exchange]) }}" >Editar</a>

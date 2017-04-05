@@ -19,7 +19,7 @@
 					<th class="align-middle">Nombre</th>
 					<th class="align-middle">Inicio de la actividad</th>
 					<th class="align-middle">Fin de la actividad</th>
-					<th class="align-middle">
+					<th class="align-middle text-nowrap">
 						<a class="btn btn-sm btn-secondary{{ Gate::denies('create', Avem\Activity::class) ? ' disabled' : ''}}"
 						{{ Gate::denies('create', Avem\Activity::class) ? 'aria-disabled=true' : '' }} role="button"
 						   href="{{ route('admin.activities.create') }}">Crear nueva actividad</a>
@@ -33,7 +33,7 @@
 					<td>{{ $activity->start }}</td>
 					<td>{{ $activity->end   }}</td>
 					<td>
-						<div class="form-inline text-nowrap">
+						<div class="form-inline">
 							<a class="mx-1 btn btn-secondary{{ Gate::denies('update', $activity) ? ' disabled' : '' }}"
 							{{ Gate::denies('update', $activity) ? 'aria-disabled=true' : '' }} role="button"
 							   href="{{ route('admin.activities.edit', [$activity]) }}">Editar</a>
@@ -56,9 +56,10 @@
 		<table class="table table-hover">
 			<thead class="thead-inverse">
 				<tr>
-					<th>Nombre</th>
-					<th>Inicio de la actividad</th>
-					<th>Fin de la actividad</th>
+					<th class="align-middle">Nombre</th>
+					<th class="align-middle">Inicio de la actividad</th>
+					<th class="align-middle">Fin de la actividad</th>
+					<th class="align-middle text-nowrap"></th>
 				</tr>
 			</thead>
 
@@ -68,6 +69,20 @@
 						<td>{{ $activity->name  }}</td>
 						<td>{{ $activity->start }}</td>
 						<td>{{ $activity->end   }}</td>
+						<td>
+							<div class="form-inline">
+								<a class="mx-1 btn btn-secondary{{ Gate::denies('update', $activity) ? ' disabled' : '' }}"
+								{{ Gate::denies('update', $activity) ? 'aria-disabled=true' : '' }} role="button"
+								   href="{{ route('admin.activities.edit', [$activity]) }}">Editar</a>
+
+								<form class="mx-1" action="{{ route('admin.activities.destroy', [$activity]) }}" method="post">
+									{{ csrf_field() }}
+									{{ method_field('delete') }}
+									<button {{ Gate::denies('destroy', $activity) ? 'disabled' : '' }} role="button"
+											   type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+								</form>
+							</div>
+						</td>
 					</tr>
 				@endforeach
 			</tbody>

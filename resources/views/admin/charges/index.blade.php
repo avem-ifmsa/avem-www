@@ -8,7 +8,7 @@
 				<th class="align-middle">Nombre</th>
 				<th class="align-middle">Dirección de correo-e</th>
 				<th class="align-middle">Grupo de trabajo</th>
-				<th class="align-middle">
+				<th class="align-middle text-nowrap">
 					<a class="btn btn-sm btn-secondary{{ Gate::denies('create', Avem\Charge::class) ? ' disabled' : '' }}"
 					{{ Gate::denies('create', Avem\Charge::class) ? 'aria-disabled=true' : '' }} role="button"
 					   href="{{ route('admin.charges.create') }}">Crear nuevo cargo de junta</a>
@@ -23,7 +23,7 @@
 					<td>{{ $charge->email }}</td>
 					<td>{{ $charge->workingGroup ?? 'Ninguno' }}</td>
 					<td>
-						<div class="form-inline text-nowrap">
+						<div class="form-inline">
 							<a class="mx-1 btn btn-sm btn-secondary{{ Gate::denies('update', $charge) ? ' disabled' : ''}}"
 							{{ Gate::denies('update', $charge) ? 'aria-disabled=true' : ''}} role="button"
 							   href="{{ route('admin.charges.edit', [$charge]) }}" >Editar</a>

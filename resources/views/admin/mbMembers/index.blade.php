@@ -18,7 +18,7 @@
 				<th class="align-middle">DNI/NIF</th>
 				<th class="align-middle">Teléfono</th>
 				<th class="align-middle">Cargo actual</th>
-				<th class="align-middle">
+				<th class="align-middle text-nowrap">
 					<a {{ Gate::denies('create', Avem\MbMember::class) ? 'aria-disabled=true' : '' }} role="button"
 					   class="btn btn-sm btn-secondary{{ Gate::denies('create', Avem\MbMember::class) ? ' disabled' : '' }}"
 					   href="{{ route('admin.mbMembers.create') }}">Crear nuevo miembro de junta</a>
@@ -41,7 +41,7 @@
 						@endif
 					</td>
 					<td>
-						<div class="form-inline text-nowrap">
+						<div class="form-inline">
 							<a class="mx-1 btn btn-sm btn-secondary{{ Gate::denies('update', $mbMember) ? ' disabled' : '' }}"
 							{{ Gate::denies('update', $mbMember) ? 'aria-disabled=true' : '' }} role="button"
 							   href="{{ route('admin.mbMembers.edit', [$mbMember]) }}">Editar</a>
