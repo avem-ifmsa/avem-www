@@ -16,8 +16,8 @@ class CreateExchangesTable extends Migration
 		Schema::create('exchanges', function (Blueprint $table) {
 			$table->increments('id');
 			$table->text('conditions');
-			$table->text('requirements');
 			$table->text('observations')->nullable();
+			$table->text('requirements')->default('');
 			$table->boolean('is_active')->default(true);
 			$table->integer('destination_id')->unsigned();
 			$table->integer('mb_member_period_id')->unsigned();
