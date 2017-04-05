@@ -6,9 +6,9 @@
 		<form method="post" action="{{ route('admin.activities.update', [$activity]) }}">
 
 			{{ csrf_field() }}
-			{{ method_field('put') }}
+			{{ method_field('patch') }}
 
-			@include('admin.activities.form', compact('mbMemberPeriods'))
+			@include('admin.activities.form', compact('activity', 'mbMemberPeriods'))
 
 			<p class="my-4 text-right">
 				<button type="submit" class="btn btn-primary" role="button">Guardar actividad</button>
