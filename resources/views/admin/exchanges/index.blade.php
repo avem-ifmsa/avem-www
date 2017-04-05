@@ -3,7 +3,7 @@
 @section('content')
 	<h1>Gestión de intercambios</h1>
 
-	<table class="table table-hover">
+	<table class="table table-hover table-responsive">
 		<thead class="thead-inverse">
 			<tr>
 				<th class="align-middle">Destino</th>

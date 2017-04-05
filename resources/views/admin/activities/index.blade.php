@@ -13,7 +13,7 @@
 
 	<section>
 		<h2 class="mb-3 text-center">Actividades organizadas por tí</h2>
-		<table class="table table-hover">
+		<table class="table table-hover table-responsive">
 			<thead class="thead-inverse">
 				<tr>
 					<th class="align-middle">Nombre</th>
@@ -53,7 +53,7 @@
 
 	<section class="mt-5">
 		<h2 class="text-center">Resto de actividades</h2>
-		<table class="table table-hover">
+		<table class="table table-hover table-responsive">
 			<thead class="thead-inverse">
 				<tr>
 					<th class="align-middle">Nombre</th>
