@@ -2,7 +2,7 @@
 
 @section('content')
 	<h1>Gestión de cargos</h1>
-	<table class="table table-hover table-responsive">
+	<table class="table table-hover">
 		<thead class="thead-inverse">
 			<tr>
 				<th class="align-middle">Nombre</th>

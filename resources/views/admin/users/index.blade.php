@@ -25,7 +25,7 @@
 
 		<tbody>
 			@foreach ($users as $user)
-				<tr>
+				<tr {{ $user->isActive ? '' : 'class=table-danger'}}>
 					<td>{{ $user->fullName }}</td>
 					<td>{{ $user->email    }}</td>
 
