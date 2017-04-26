@@ -30,7 +30,7 @@
 		<tbody>
 			@foreach($mbMembers as $mbMember)
 			@unless ($mbMember->user === null)
-				<tr>
+				<tr {{ $mbMember->hasActiveCharge ? 'class=table-success' : '' }}>
 					<td>{{ $mbMember->user->fullName }}</td>
 					<td>{{ $mbMember->dni_nif        }}</td>
 					<td>{{ $mbMember->phone          }}</td>
