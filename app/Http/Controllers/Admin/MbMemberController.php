@@ -2,26 +2,47 @@
 
 namespace Avem\Http\Controllers\Admin;
 
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Avem\Http\Controllers\Controller;
-
 use Avem\User;
 use Avem\Charge;
 use Avem\MbMember;
+use Carbon\Carbon;
 use Avem\MbMemberPeriod;
+use Illuminate\Http\Request;
+use Avem\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Builder;
 
 class MbMemberController extends Controller
 {
 	/**
+	 * Filter MB members by user full name or email.
+	 *
+	 * @param \Illuminate\Http\Request  $request
+	 * @param |Illuminate\Database\Eloquent\Builder  $query
+	 */
+	private function filterMembers(Request $request, Builder $query)
+	{
+		$filter = '%'.$request->input('q').'%';
+		return $query->join('users', 'mb_members.id', '=', 'users.id')
+		             ->where(\DB::raw('users.name || " " || users.surname'), 'LIKE', $filter)
+		             ->orWhere('users.email', 'LIKE', $filter)
+		             ->select('mb_members.*');
+	}
+
+	/**
 	 * Display a listing of the resource.
 	 *
+	 * @param \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
+		$query = MbMember::query();
+		if ($request->has('q')) {
+			$query = $this->filterMembers($request, $query);
+		}
+
 		return view('admin.mbMembers.index', [
-			'mbMembers' => MbMember::all(),
+			'mbMembers' => $query->get(),
 			'charges'   => Charge::all(),
 		]);
 	}

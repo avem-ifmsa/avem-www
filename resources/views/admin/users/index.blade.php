@@ -5,13 +5,15 @@
 
 	<form class="my-4 col-lg-8 offset-lg-2">
 		<p class="input-group">
-			<input name="q" class="form-control" type="search" />
+			<input name="q" class="form-control" type="search"
+			       placeholder="Nombre o dirección de correo-e del usuario"
+			    {{ Request::has('q') ? 'value='.Request::get('q') : '' }} />
 			<button class="btn btn-secondary input-group-addon"
 			        type="submit" role="button">Buscar</button>
 		</p>
 	</form>
 
-	<table class="table table-hover table-responsive">
+	<table class="table table-hover">
 		<thead class="thead-inverse">
 			<tr>
 				<th class="align-middle">Nombre</th>
@@ -24,8 +26,8 @@
 		<tbody>
 			@foreach ($users as $user)
 				<tr>
-					<td>{{ $user->fullName                }}</td>
-					<td>{{ $user->email                   }}</td>
+					<td>{{ $user->fullName }}</td>
+					<td>{{ $user->email    }}</td>
 
 					@if ($user->isActive)
 						<td>

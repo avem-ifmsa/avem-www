@@ -5,7 +5,9 @@
 
 	<form class="my-4 col-lg-8 offset-lg-2">
 		<p class="input-group">
-			<input name="q" class="form-control" type="search" />
+			<input name="q" class="form-control" type="search"
+			       placeholder="Nombre o dirección de correo-e del miembro de junta"
+			    {{ Request::has('q') ? 'value='.Request::get('q') : '' }} />
 			<button class="btn btn-secondary input-group-addon" role="button"
 			        type="submit" role="button">Buscar</button>
 		</p>

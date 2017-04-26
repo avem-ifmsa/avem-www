@@ -9,19 +9,38 @@ use Avem\Renewal;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Avem\Http\Controllers\Controller;
-
+use Illuminate\Database\Eloquent\Builder;
 
 class UserController extends Controller
 {
 	/**
+	 * Filter users by full name or email.
+	 *
+	 * @param \Illuminate\Http\Request  $request
+	 * @param |Illuminate\Database\Eloquent\Builder  $query
+	 */
+	private function filterUsers(Request $request, Builder $query)
+	{
+		$filter = '%'.$request->input('q').'%';
+		return $query->where(\DB::raw('name || " " || surname'), 'LIKE', $filter)
+		             ->orWhere('email', 'LIKE', $filter);
+	}
+
+	/**
 	 * Display a listing of the resource.
 	 *
+	 * @param \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
+		$query = User::query();
+		if ($request->has('q')) {
+			$users = $this->filterUsers($request, $query);
+		}
+
 		return view('admin.users.index', [
-			'users' => User::all(),
+			'users' => $query->get(),
 		]);
 	}
 
