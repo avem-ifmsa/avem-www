@@ -7,24 +7,42 @@ use Avem\Activity;
 use Avem\MbMemberPeriod;
 use Illuminate\Http\Request;
 use Avem\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Builder;
 
 class ActivityController extends Controller
 {
+	private function filterActivities(Request $request, Builder $query)
+	{
+		$filter = '%'.$request->input('q').'%';
+		return $query->where('name', 'LIKE', $filter)
+		             ->orWhere('description', 'LIKE', $filter);
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
 		$mbMember = Auth::user()->mbMember;
 		$mbMemberPeriods = $mbMember ? $mbMember->mbMemberPeriods() : null;
 		$activePeriod = $mbMemberPeriods ? $mbMemberPeriods->active()->first() : null;
-		$organizedActivities = $activePeriod ? $activePeriod->organizedActivities : collect();
-		$otherActivities = Activity::whereNotIn('id', $organizedActivities->pluck('id'))->get();
+		$organizedActivities = $activePeriod ? $activePeriod->organizedActivities() : null;
+		$otherActivities = $organizedActivities
+			? Activity::whereNotIn('id', $organizedActivities->pluck('id'))
+			: Activity::query();
+
+		if ($request->has('q')) {
+			if ($organizedActivities)
+				$organizedActivities = $this->filterActivities($request, $organizedActivities);
+			$otherActivities = $this->filterActivities($request, $otherActivities);
+		}
+
 		return view('admin.activities.index', [
-			'organizedActivities' => $organizedActivities,
-			'otherActivities'     => $otherActivities,
+			'otherActivities'     => $otherActivities->get(),
+			'organizedActivities' => $organizedActivities ? $organizedActivities->get()
+			                                              : collect(),
 		]);
 	}
 
