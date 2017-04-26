@@ -1,7 +1,17 @@
 @extends('layouts.admin')
 
 @section('content')
-	<h1>Gestión de intercambios</h1>
+	<h1 class="my-4">Gestión de intercambios</h1>
+
+	<form class="my-4 col-lg-8 offset-lg-2">
+		<p class="input-group">
+			<input name="q" class="form-control" type="search"
+			    {{ Request::has('q') ? 'value='.Request::get('q') : '' }}
+			       placeholder="Destino, tipo o modalidad del intercambio" />
+			<button class="btn btn-secondary input-group-addon"
+			        type="submit" role="button">Buscar</button>
+		</p>
+	</form>
 
 	<table class="table table-hover">
 		<thead class="thead-inverse">
