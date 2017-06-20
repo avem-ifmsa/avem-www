@@ -1,37 +1,49 @@
 @extends('layouts.admin')
 
 @section('content')
-	<h1 class="mt-3 text-center">Panel de administración</h1>
+	<h1 class="text-center">Panel de administración</h1>
 
-	<nav class="my-4 dashboard dashboard--admin">
+	<nav class="my-5 dashboard dashboard--admin">
 		<a class="dashboard-item" href="{{ route('admin.activities.index') }}">
-			<img class="item-icon" src="{{ asset('img/admin-activities.svg') }}">
-			<span class="item-text">Gestión de actividades</span>
+			<div class="item-icon">
+				<span class="fa fa-calendar"></span>
+			</div>
+			<span class="item-text">Actividades</span>
 		</a>
 
 		<a class="dashboard-item" href="{{ route('admin.exchanges.index') }}">
-			<img class="item-icon" src="{{ asset('img/admin-exchanges.svg') }}">
-			<span class="item-text">Gestión de intercambios</span>
-		</a>
-
-		<a class="dashboard-item dashboard-item--disabled" href="{{ route('admin.notifications.index') }}">
-			<img class="item-icon" src="{{ asset('img/admin-notifications.svg') }}">
-			<span class="item-text">Gestión de notificaciones</span>
+			<div class="item-icon">
+				<span class="fa fa-globe"></span>
+			</div>
+			<span class="item-text">Intercambios</span>
 		</a>
 
 		<a class="dashboard-item" href="{{ route('admin.users.index') }}">
-			<img class="item-icon" src="{{ asset('img/admin-users.svg') }}">
-			<span class="item-text">Gestión de usuarios</span>
+			<div class="item-icon">
+				<span class="fa fa-users"></span>
+			</div>
+			<span class="item-text">Usuarios</span>
 		</a>
 
 		<a class="dashboard-item" href="{{ route('admin.board') }}">
-			<img class="item-icon" src="{{ asset('img/admin-board.svg') }}">
-			<span class="item-text">Gestión de junta directiva</span>
+			<div class="item-icon">
+				<span class="fa fa-sitemap"></span>
+			</div>
+			<span class="item-text">Junta directiva</span>
 		</a>
 
-		<a class="dashboard-item dashboard-item--disabled" href="{{ route('admin.analytics') }}">
-			<img class="item-icon" src="{{ asset('img/admin-analytics.svg') }}">
+		<a class="dashboard-item item--disabled" href="{{ route('admin.analytics') }}">
+			<div class="item-icon">
+				<span class="fa fa-pie-chart"></span>
+			</div>
 			<span class="item-text">Analíticas</span>
+		</a>
+
+		<a class="dashboard-item item--disabled" href="#">
+			<div class="item-icon">
+				<span class="fa fa-cogs"></span>
+			</div>
+			<span class="item-text">Avanzado</span>
 		</a>
 	</nav>
 @stop
