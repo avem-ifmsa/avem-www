@@ -39,7 +39,7 @@
 			<span class="item-text">Analíticas</span>
 		</a>
 
-		<a class="dashboard-item item--disabled" href="#">
+		<a class="dashboard-item" href="https://dashboard.heroku.com/apps/avem-www/" target="_blank">
 			<div class="item-icon">
 				<span class="fa fa-cogs"></span>
 			</div>
