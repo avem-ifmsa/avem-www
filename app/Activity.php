@@ -13,9 +13,9 @@ class Activity extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'name', 'description', 'location', 'start', 'end', 'visibility',
+		'name', 'description', 'location', 'start', 'end', 'audience',
 		'inscription_policy', 'inscription_start', 'inscription_end',
-		'member_limit', 'points', 'image',
+		'member_limit', 'points', 'image', 'published',
 	];
 
 	/**
