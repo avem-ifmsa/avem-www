@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.auth')
 
 @section('content')
 	<form class="mt-3 col-md-10 offset-md-1 col-lg-8 offset-lg-2"
@@ -8,7 +8,7 @@
 		{{ csrf_field() }}
 
 		<div class="mx-auto mb-3 profile-photo">
-			<input class="rounded-circle" type="file" name="photo" is="input-image" 
+			<input class="rounded-circle" type="file" name="photo" is="input-image"
 			       placeholder="{{ asset('img/user-default-image.svg') }}">
 		</div>
 

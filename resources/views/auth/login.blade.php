@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.auth')
 
 @section('content')
 	<form class="mt-3 col-md-6 offset-md-3" method="post" action="{{ route('login') }}">
