@@ -1,10 +1,6 @@
 @extends('layouts.main')
 
 @section('content')
-	<div class="mt-5 mb-3 text-center">
-		<img src="{{ asset('img/avem-logo.svg') }}">
-	</div>
-
 	<form class="mt-3 col-md-6 offset-md-3" method="post" action="{{ route('login') }}">
 		{{ csrf_field() }}
 
