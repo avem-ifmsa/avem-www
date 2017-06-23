@@ -16,9 +16,12 @@ class CreateExchangesTable extends Migration
 		Schema::create('exchanges', function (Blueprint $table) {
 			$table->increments('id');
 			$table->text('conditions');
+			$table->text('reports')->default('');
+			$table->string('lc_nmo')->nullable();
+			$table->integer('vacancies')->unsigned();
 			$table->text('observations')->nullable();
 			$table->text('requirements')->default('');
-			$table->boolean('is_active')->default(true);
+			$table->boolean('published')->default(true);
 			$table->integer('destination_id')->unsigned();
 			$table->integer('mb_member_period_id')->unsigned();
 			$table->enum('modality', ['clinical', 'research'])->required();

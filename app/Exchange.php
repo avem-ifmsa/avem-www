@@ -12,7 +12,9 @@ class Exchange extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'conditions', 'is_active', 'modality', 'observations', 'requirements',
+		'conditions', 'reports', 'lc_nmo', 'vacancies',
+		'observations', 'requirements', 'published',
+		'modality', 
 	];
 
 	/**
@@ -21,7 +23,7 @@ class Exchange extends Model
 	 * @var array
 	 */
 	protected $casts = [
-		'is_active'  => 'boolean',
+		'published'  => 'boolean',
 	];
 
 	public function destination()

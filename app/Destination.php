@@ -13,7 +13,7 @@ class Destination extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'image_url', 'name', 'type',
+		'name', 'image_url', 'type',
 	];
 
 	public function exchanges()
