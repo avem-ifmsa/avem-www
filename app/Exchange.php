@@ -12,9 +12,8 @@ class Exchange extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'conditions', 'reports', 'lc_nmo', 'vacancies',
-		'observations', 'requirements', 'published',
-		'modality', 
+		'conditions', 'reports', 'vacancies', 'observations',
+		'requirements', 'published', 'modality', 
 	];
 
 	/**

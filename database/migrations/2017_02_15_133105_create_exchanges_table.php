@@ -17,7 +17,6 @@ class CreateExchangesTable extends Migration
 			$table->increments('id');
 			$table->text('conditions');
 			$table->text('reports')->default('');
-			$table->string('lc_nmo')->nullable();
 			$table->integer('vacancies')->unsigned();
 			$table->text('observations')->nullable();
 			$table->text('requirements')->default('');
