@@ -44,6 +44,7 @@
 			<colgroup>
 				<col class="l-admin-activity-select">
 				<col class="l-admin-activity-name-description">
+				<col class="l-admin-activity-location">
 				<col class="l-admin-activity-start">
 				<col class="l-admin-activity-inscription-start">
 				<col class="l-admin-activity-actions">
