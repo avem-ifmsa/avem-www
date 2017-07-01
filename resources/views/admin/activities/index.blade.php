@@ -1,93 +1,88 @@
 @extends('layouts.admin')
 
 @section('content')
-	<h1 class="my-4">Gestión de actividades</h1>
+	<h1 class="my-3">Actividades</h1>
 
-	<form class="my-4 col-lg-8 offset-lg-2">
-		<p class="input-group">
-			<input name="q" class="form-control" type="search"
-			    {{ Request::has('q') ? 'value='.Request::get('q') : '' }}
-			       placeholder="Nombre o descripción de la actividad" />
-			<button class="btn btn-secondary input-group-addon"
-			        type="submit" role="button">Buscar</button>
-		</p>
+	<form>
+		<div class="l-admin-head clearfix mt-2">
+			<div class="float-left form-inline inline-selector">
+				<label class="selector-text">Actividades organizadas por
+					<select class="ml-1 form-control form-control-sm selector-input" name="organized_by">
+						<option value="me" {{
+							Request::has('organized_by') && Request::get('organized_by') == 'me' ? 'selected' : ''
+						}}>mí</option>
+						<option value="all" {{
+							Request::has('organized_by') && Request::get('organized_by') == 'all' ? 'selected' : ''
+						}}>todos</option>
+					</select>
+				</label>
+			</div>
+			
+			<div class="float-right">
+				<a role="button" class="btn btn-sm btn-secondary" href="{{ route('admin.activities.create') }}">
+					Crear nueva actividad
+				</a>
+			</div>
+		</div>
+
+		<div class="l-admin-search mx-auto mt-3">
+			<div class="input-group">
+				<input class="form-control" type="search" name="q"
+					{{ Request::has('q') ? 'value='.Request::get('q') : '' }}
+					placeholder="Nombre o descripción de la actividad" >
+				<span class="input-group-btn">
+					<button class="btn btn-secondary" type="submit">
+						<span class="fa fa-search"></span>
+					</button>
+				</span>
+			</div>
+		</div>
 	</form>
+	
+	<div class="l-admin-main mt-4">
+		<table class="table table-striped">
+			<colgroup>
+				<col class="l-admin-activity-select">
+				<col class="l-admin-activity-name-description">
+				<col class="l-admin-activity-start">
+				<col class="l-admin-activity-inscription-start">
+				<col class="l-admin-activity-actions">
+			</colgroup>
 
-	<section>
-		<h2 class="mb-3 text-center">Actividades organizadas por tí</h2>
-		<table class="table table-hover">
-			<thead class="thead-inverse">
+			<thead>
 				<tr>
-					<th class="align-middle">Nombre</th>
-					<th class="align-middle">Inicio de la actividad</th>
-					<th class="align-middle">Fin de la actividad</th>
-					<th class="align-middle text-nowrap">
-						<a class="btn btn-sm btn-secondary{{ Gate::denies('create', Avem\Activity::class) ? ' disabled' : ''}}"
-						{{ Gate::denies('create', Avem\Activity::class) ? 'aria-disabled=true' : '' }} role="button"
-						   href="{{ route('admin.activities.create') }}">Crear nueva actividad</a>
-					</th>
+					<th></th>
+					<th>Nombre y descripción</th>
+					<th>Lugar</th>
+					<th>Inicio</th>
+					<th>Inscripción</th>
+					<th></th>
 				</tr>
 			</thead>
 
 			<tbody>
-				@foreach ($organizedActivities as $activity)
-					<td>{{ $activity->name  }}</td>
-					<td>{{ $activity->start }}</td>
-					<td>{{ $activity->end   }}</td>
-					<td>
-						<div class="form-inline">
-							<a class="mx-1 btn btn-secondary{{ Gate::denies('update', $activity) ? ' disabled' : '' }}"
-							{{ Gate::denies('update', $activity) ? 'aria-disabled=true' : '' }} role="button"
-							   href="{{ route('admin.activities.edit', [$activity]) }}">Editar</a>
-
-							<form class="mx-1" action="{{ route('admin.activities.destroy', [$activity]) }}" method="post">
-								{{ csrf_field() }}
-								{{ method_field('delete') }}
-								<button {{ Gate::denies('destroy', $activity) ? 'disabled' : '' }} role="button"
-								           type="submit" class="btn btn-sm btn-danger">Eliminar</button>
-							</form>
-						</div>
-					</td>
-				@endforeach
-			</tbody>
-		</table>
-	</section>
-
-	<section class="mt-5">
-		<h2 class="text-center">Resto de actividades</h2>
-		<table class="table table-hover">
-			<thead class="thead-inverse">
-				<tr>
-					<th class="align-middle">Nombre</th>
-					<th class="align-middle">Inicio de la actividad</th>
-					<th class="align-middle">Fin de la actividad</th>
-					<th class="align-middle text-nowrap"></th>
-				</tr>
-			</thead>
-
-			<tbody>
-				@foreach ($otherActivities as $activity)
+				@foreach ($activities as $activity)
 					<tr>
-						<td>{{ $activity->name  }}</td>
-						<td>{{ $activity->start }}</td>
-						<td>{{ $activity->end   }}</td>
 						<td>
-							<div class="form-inline">
-								<a class="mx-1 btn btn-secondary{{ Gate::denies('update', $activity) ? ' disabled' : '' }}"
-								{{ Gate::denies('update', $activity) ? 'aria-disabled=true' : '' }} role="button"
-								   href="{{ route('admin.activities.edit', [$activity]) }}">Editar</a>
+							
+						</td>
+						<td>
+							<span class="activity-title">{{ $activity->name }}</span><br />
+							<span class="activity-description">{{ $activity->description}}</span>
+						</td>
+						<td>
+							{{ $activity->location }}
+						</td>
+						<td>{{ $activity->start->diffForHumans() }}</td>
+						<td>
+							{{ $activity->inscription_start ? $activity->inscription_start->diffForHumans() : '--' }}
+						</td>
+						<td>
 
-								<form class="mx-1" action="{{ route('admin.activities.destroy', [$activity]) }}" method="post">
-									{{ csrf_field() }}
-									{{ method_field('delete') }}
-									<button {{ Gate::denies('destroy', $activity) ? 'disabled' : '' }} role="button"
-											   type="submit" class="btn btn-sm btn-danger">Eliminar</button>
-								</form>
-							</div>
 						</td>
 					</tr>
 				@endforeach
 			</tbody>
 		</table>
-	</section>
+	</div>
 @stop

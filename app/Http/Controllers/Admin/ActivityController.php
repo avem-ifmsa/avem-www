@@ -11,11 +11,12 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ActivityController extends Controller
 {
-	private function filterActivities(Request $request, Builder $query)
+	private function getCurrentMbMemberPeriod(Request $request)
 	{
-		$filter = '%'.$request->input('q').'%';
-		return $query->where('name', 'LIKE', $filter)
-		             ->orWhere('description', 'LIKE', $filter);
+		$mbMember = $request->user()->mbMember;
+		$mbMemberPeriods = $mbMember ? $mbMember->mbMemberPeriods() : null;
+		$activePeriod = $mbMemberPeriods ? $mbMemberPeriods->active()->first() : null;
+		return $activePeriod;
 	}
 
 	/**
@@ -25,25 +26,7 @@ class ActivityController extends Controller
 	 */
 	public function index(Request $request)
 	{
-		$mbMember = Auth::user()->mbMember;
-		$mbMemberPeriods = $mbMember ? $mbMember->mbMemberPeriods() : null;
-		$activePeriod = $mbMemberPeriods ? $mbMemberPeriods->active()->first() : null;
-		$organizedActivities = $activePeriod ? $activePeriod->organizedActivities() : null;
-		$otherActivities = $organizedActivities
-			? Activity::whereNotIn('id', $organizedActivities->pluck('id'))
-			: Activity::query();
-
-		if ($request->has('q')) {
-			if ($organizedActivities)
-				$organizedActivities = $this->filterActivities($request, $organizedActivities);
-			$otherActivities = $this->filterActivities($request, $otherActivities);
-		}
-
-		return view('admin.activities.index', [
-			'otherActivities'     => $otherActivities->get(),
-			'organizedActivities' => $organizedActivities ? $organizedActivities->get()
-			                                              : collect(),
-		]);
+		return view('admin.activities.index');
 	}
 
 	/**
@@ -51,13 +34,11 @@ class ActivityController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function create()
+	public function create(Request $request)
 	{
 		$this->authorize('create', Activity::class);
 
-		$mbMember = Auth::user()->mbMember;
-		$mbMemberPeriods = $mbMember ? $mbMember->mbMemberPeriods() : null;
-		$activePeriod = $mbMemberPeriods ? $mbMemberPeriods->active()->first() : null;
+		$activePeriod = $this->getCurrentMbMemberPeriod($request);
 		return view('admin.activities.create', [
 			'mbMemberPeriods'  => MbMemberPeriod::active(),
 			'organizerPeriods' => $activePeriod ? [$activePeriod] : [],

@@ -1,18 +1,52 @@
-@extends('layouts.admin')
+@extends('admin.activities.index')
+
+@push('scripts')
+	<script>
+		$(function() {
+			$('#edit-modal').modal();
+		});
+	</script>
+@endpush
 
 @section('content')
-	<div class="col-lg-8 offset-lg-2">
-		<h1 class="my-4">Editar actividad</h1>
-		<form method="post" action="{{ route('admin.activities.update', [$activity]) }}">
+	@parent
 
-			{{ csrf_field() }}
-			{{ method_field('patch') }}
+	<div id="edit-modal" class="modal fade" role="dialog" data-backdrop="static">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<header class="modal-header">
+					<h5 class="modal-title">Edita una actividad</h5>
+					<a role="button" class="close" href="{{ route('admin.activities.index') }}" aria-label="Cerrar">
+						<span aria-hidden="true">&times;</span>
+					</a>
+				</header>
 
-			@include('admin.activities.form', compact('activity', 'mbMemberPeriods'))
+				<form action="{{ route('admin.activities.update', [$activity]) }}" method="post" enctype="multipart/form-data">>
+					<div class="modal-body">
+						{{ csrf_field() }}
+						{{ method_field('patch') }}
 
-			<p class="my-4 text-right">
-				<button type="submit" class="btn btn-primary" role="button">Guardar actividad</button>
-			</p>
-		</form>
+						<div class="container-fluid">
+							@include('admin.activities.form', compact('activity', 'mbMemberPeriods', 'organizers'))
+						</div>
+					</div>
+
+					<div class="modal-footer">
+						<a class="btn btn-secondary" role="button" href="{{ route('admin.activities.index') }}">Cancelar</a>
+						<button type="submit" class="btn btn-primary" role="button">Guardar</button>
+
+						@if ($activity->published)
+							<form action="{{ route('admin.activities.publish', [$activity]) }}" method="post">
+								<button type="submit" class="btn btn-secondary" role="button">Publicar</button>
+							</form>
+						@else
+							<form action="{{ route('admin.activities.unpublish', [$activity]) }}" method="post">
+								<button type="submit" class="btn btn-secondary" role="button">Despublicar</button>
+							</form>
+						@endif
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
 @stop

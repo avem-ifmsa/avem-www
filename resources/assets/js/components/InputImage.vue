@@ -51,11 +51,6 @@
 <script>
 	export default {
 		props: [ 'alt', 'name', 'value', 'required', 'placeholder' ],
-		data: function() {
-			return {
-				value: null,
-			};
-		},
 		computed: {
 			imageUrl: function() {
 				return this.value || this.placeholder;

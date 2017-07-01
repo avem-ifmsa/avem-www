@@ -13255,6 +13255,39 @@ a.text-gray-dark:hover {
   clip: auto;
 }
 
+.l-admin-search {
+  max-width: 600px;
+  text-align: center;
+}
+
+.l-admin-main {
+  margin-top: 35px;
+}
+
+.l-admin-activity-select {
+  width: 5%;
+}
+
+.l-admin-activity-name-description {
+  width: 30%;
+}
+
+.l-admin-activity-location {
+  width: 15%;
+}
+
+.l-admin-activity-start {
+  width: 15%;
+}
+
+.l-admin-activity-inscription-start {
+  width: 15%;
+}
+
+.l-admin-activity-actions {
+  width: 25%;
+}
+
 .dashboard {
   min-width: 240px;
   margin-top: 10px;
@@ -13395,6 +13428,10 @@ a.text-gray-dark:hover {
   font-family: FontAwesome;
 }
 
+.label--smaller {
+  font-size: smaller;
+}
+
 @media (max-width: 767px) {
   .profile-photo {
     width: 140px;
@@ -13416,7 +13453,7 @@ a.text-gray-dark:hover {
 
 @media (min-width: 340px) {
   .section-header {
-    margin-top: 25px;
+    margin-top: 15px;
   }
 }
 
@@ -13429,14 +13466,14 @@ a.text-gray-dark:hover {
 .section-header .header-icon {
   margin: 0 auto;
   display: block;
-  width: 45px;
-  height: 45px;
+  width: 30px;
+  height: 30px;
 }
 
 @media (min-width: 340px) {
   .section-header .header-icon {
-    width: 70px;
-    height: 70px;
+    width: 45px;
+    height: 45px;
   }
 }
 
@@ -13451,14 +13488,14 @@ a.text-gray-dark:hover {
   font-weight: bold;
   text-align: center;
   text-transform: uppercase;
-  font-size: 0.7rem;
+  font-size: 0.5rem;
   margin-top: 10px;
 }
 
 @media (min-width: 340px) {
   .section-header .header-title {
-    font-size: 0.9rem;
-    margin-top: 20px;
+    font-size: 0.7rem;
+    margin-top: 10px;
   }
 }
 
@@ -13485,5 +13522,9 @@ a.text-gray-dark:hover {
 
 .admin .dashboard--admin .item-text {
   letter-spacing: 1px;
+}
+
+.admin .modal {
+  color: black;
 }
 

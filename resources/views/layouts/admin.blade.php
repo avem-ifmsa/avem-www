@@ -3,19 +3,16 @@
 @section('body')
 	<body class="admin">
 		<div id="app">
-			<div class="section-header">
-				<a class="header-icon" href="{{ route('admin.index') }}">
-					{!! file_get_contents('img/avem-logo.svg') !!}
-				</a>
+			<div class="container">
+				<div class="section-header">
+					<a class="header-icon" href="{{ route('admin.index') }}">
+						{!! file_get_contents('img/avem-logo.svg') !!}
+					</a>
+					<h1 class="header-title">Panel de administración</h1>
+				</div>
 
-				@hasSection('section-title')
-					<h1 class="header-title">
-						@yield('section-title')
-					</h1>
-				@endif
+				@yield('content')
 			</div>
-
-			@yield('content')
 		</div>
 	</body>
 @stop

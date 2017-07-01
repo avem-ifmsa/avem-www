@@ -44742,7 +44742,7 @@ var Component = __webpack_require__(2)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\Users\\alex9\\documents\\github\\avem-www\\resources\\assets\\js\\components\\InputImage.vue"
+Component.options.__file = "C:\\Users\\alex9\\Documents\\GitHub\\avem-www\\resources\\assets\\js\\components\\InputImage.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] InputImage.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -44897,11 +44897,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	props: ['alt', 'name', 'value', 'required', 'placeholder'],
-	data: function data() {
-		return {
-			value: null
-		};
-	},
 	computed: {
 		imageUrl: function imageUrl() {
 			return this.value || this.placeholder;
@@ -44976,7 +44971,7 @@ var Component = __webpack_require__(2)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\Users\\alex9\\documents\\github\\avem-www\\resources\\assets\\js\\components\\OpenSelect.vue"
+Component.options.__file = "C:\\Users\\alex9\\Documents\\GitHub\\avem-www\\resources\\assets\\js\\components\\OpenSelect.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] OpenSelect.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -45141,7 +45136,7 @@ var Component = __webpack_require__(2)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\Users\\alex9\\documents\\github\\avem-www\\resources\\assets\\js\\components\\SortableList.vue"
+Component.options.__file = "C:\\Users\\alex9\\Documents\\GitHub\\avem-www\\resources\\assets\\js\\components\\SortableList.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
