@@ -13265,10 +13265,10 @@ a.text-gray-dark:hover {
 }
 
 .l-admin-activity-select {
-  width: 5%;
+  width: 3%;
 }
 
-.l-admin-activity-name-description {
+.l-admin-activity-nameAndDescription {
   width: 30%;
 }
 
@@ -13280,12 +13280,56 @@ a.text-gray-dark:hover {
   width: 15%;
 }
 
-.l-admin-activity-inscription-start {
+.l-admin-activity-inscriptionStart {
   width: 15%;
 }
 
 .l-admin-activity-actions {
+  width: 27%;
+}
+
+.l-admin-charge-select {
+  width: 3%;
+}
+
+.l-admin-charge-name {
   width: 25%;
+}
+
+.l-admin-charge-email {
+  width: 25%;
+}
+
+.l-admin-charge-workingGroup {
+  width: 25%;
+}
+
+.l-admin-charge-actions {
+  width: 22%;
+}
+
+.l-admin-mbMember-select {
+  width: 3%;
+}
+
+.l-admin-mbMember-name {
+  width: 25%;
+}
+
+.l-admin-mbMember-dniNif {
+  width: 5%;
+}
+
+.l-admin-mbMember-phone {
+  width: 5%;
+}
+
+.l-admin-mbMember-charge {
+  width: 15%;
+}
+
+.l-admin-mbMember-actions {
+  width: 37%;
 }
 
 .dashboard {

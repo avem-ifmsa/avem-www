@@ -44,12 +44,12 @@
 	<div class="l-admin-main mt-4">
 		<table class="table table-striped">
 			<colgroup>
-				<col class="l-admin-mb-member-select">
-				<col class="l-admin-mb-member-name">
-				<col class="l-admin-mb-member-dni-nif">
-				<col class="l-admin-mb-member-phone">
-				<col class="l-admin-mb-member-charge">
-				<col class="l-admin-mb-member-actions">
+				<col class="l-admin-mbMember-select">
+				<col class="l-admin-mbMember-name">
+				<col class="l-admin-mbMember-dniNif">
+				<col class="l-admin-mbMember-phone">
+				<col class="l-admin-mbMember-charge">
+				<col class="l-admin-mbMember-actions">
 			</colgroup>
 
 			<thead>

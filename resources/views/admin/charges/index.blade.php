@@ -13,46 +13,50 @@
 		</div>
 	</div>
 
-	<table class="table table-striped">
-		<colgroup>
-			<col class="l-admin-charge-select">
-			<col class="l-admin-charge-name">
-			<col class="l-admin-charge-email">
-			<col class="l-admin-charge-working-group">
-			<col class="l-admin-charge-actions">
-		</colgroup>
+	<div class="l-admin-main mt-4">
+		<table class="table table-striped">
+			<colgroup>
+				<col class="l-admin-charge-select">
+				<col class="l-admin-charge-name">
+				<col class="l-admin-charge-email">
+				<col class="l-admin-charge-workingGroup">
+				<col class="l-admin-charge-actions">
+			</colgroup>
 
-		<thead>
-			<tr>
-				<th>Nombre</th>
-				<th>Dirección de correo-e</th>
-				<th>Grupo de trabajo</th>
-				<th></th>
-			</tr>
-		</thead>
-
-		<tbody>
-			@foreach ($charges as $charge)
+			<thead>
 				<tr>
-					<td>{{ $charge->name }}</td>
-					<td>{{ $charge->email }}</td>
-					<td>{{ $charge->workingGroup ?? 'Ninguno' }}</td>
-					<td>
-						<div class="form-inline">
-							<a class="mx-1 btn btn-sm btn-secondary{{ Gate::denies('update', $charge) ? ' disabled' : ''}}"
-							{{ Gate::denies('update', $charge) ? 'aria-disabled=true' : ''}} role="button"
-							   href="{{ route('admin.charges.edit', [$charge]) }}" >Editar</a>
-
-							<form class="mx-1" action="{{ route('admin.charges.destroy', $charge) }}" method="post">
-   								{{ csrf_field() }}
-   								{{ method_field('delete' )}}
-								<button {{ Gate::denies('delete', $charge) ? 'disabled' : '' }} role="button"
-								        type="submit" class="btn btn-sm btn-danger">Eliminar</button>
-							</form>
-						</div>
-					</td>
+					<th></th>
+					<th>Nombre</th>
+					<th>Dirección de correo-e</th>
+					<th>Grupo de trabajo</th>
+					<th></th>
 				</tr>
-			@endforeach
-		</tbody>
-	</table>
+			</thead>
+
+			<tbody>
+				@foreach ($charges as $charge)
+					<tr>
+						<td></td>
+						<td>{{ $charge->name }}</td>
+						<td>{{ $charge->email }}</td>
+						<td>{{ $charge->workingGroup ?? 'Ninguno' }}</td>
+						<td>
+							<div class="form-inline">
+								<a class="mx-1 btn btn-sm btn-secondary{{ Gate::denies('update', $charge) ? ' disabled' : ''}}"
+								{{ Gate::denies('update', $charge) ? 'aria-disabled=true' : ''}} role="button"
+								href="{{ route('admin.charges.edit', [$charge]) }}" >Editar</a>
+
+								<form class="mx-1" action="{{ route('admin.charges.destroy', $charge) }}" method="post">
+									{{ csrf_field() }}
+									{{ method_field('delete' )}}
+									<button {{ Gate::denies('delete', $charge) ? 'disabled' : '' }} role="button"
+											type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+								</form>
+							</div>
+						</td>
+					</tr>
+				@endforeach
+			</tbody>
+		</table>
+	</div>
 @stop

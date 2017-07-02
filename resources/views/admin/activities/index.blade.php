@@ -5,7 +5,7 @@
 
 	<form>
 		<div class="l-admin-head clearfix mt-2">
-			<div class="float-left form-inline inline-selector">
+			<div class="float-left form-inline">
 				<label class="selector-text">Actividades organizadas por
 					<select class="ml-1 form-control form-control-sm selector-input" name="organized_by">
 						<option value="me" {{
@@ -19,14 +19,16 @@
 			</div>
 			
 			<div class="float-right">
-				<a role="button" class="btn btn-sm btn-secondary" href="{{ route('admin.activities.create') }}">
+				<a role="button" href="{{ route('admin.activities.create') }}"
+				   class="btn btn-sm btn-secondary{{ Gate::denies('create', Avem\MbMember::class) ? ' disabled' : '' }}"
+				{{ Gate::denies('create', Avem\Charge::class) ? 'aria-disabled=true' : '' }}>
 					Crear nueva actividad
 				</a>
 			</div>
 		</div>
 
 		<div class="l-admin-search mx-auto mt-3">
-			<div class="input-group">
+			<p class="input-group">
 				<input class="form-control" type="search" name="q"
 					{{ Request::has('q') ? 'value='.Request::get('q') : '' }}
 					placeholder="Nombre o descripción de la actividad" >
@@ -35,7 +37,7 @@
 						<span class="fa fa-search"></span>
 					</button>
 				</span>
-			</div>
+			</p>
 		</div>
 	</form>
 	
@@ -43,10 +45,10 @@
 		<table class="table table-striped">
 			<colgroup>
 				<col class="l-admin-activity-select">
-				<col class="l-admin-activity-name-description">
+				<col class="l-admin-activity-nameAndDescription">
 				<col class="l-admin-activity-location">
 				<col class="l-admin-activity-start">
-				<col class="l-admin-activity-inscription-start">
+				<col class="l-admin-activity-inscriptionStart">
 				<col class="l-admin-activity-actions">
 			</colgroup>
 
