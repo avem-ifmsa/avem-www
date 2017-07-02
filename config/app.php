@@ -169,6 +169,7 @@ return [
  		Laravel\Tinker\TinkerServiceProvider::class,
  		Laravel\Socialite\SocialiteServiceProvider::class,
 		Fideloper\Proxy\TrustedProxyServiceProvider::class,
+		Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
 
 		/*
 		 * Application Service Providers...

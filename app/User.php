@@ -5,11 +5,15 @@ namespace Avem;
 use Storage;
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 
-class User extends Authenticatable
+
+class User extends Authenticatable implements HasMediaConversions
 {
 	use Notifiable;
+	use HasMediaTrait;
 
 	/**
 	 * The attributes that are mass assignable.
@@ -29,36 +33,6 @@ class User extends Authenticatable
 		'created_at', 'updated_at', 'birthday',
 	];
 
-	private $updatedImage = null;
-
-	private function applyProfileImageChanges()
-	{
-		if ($this->photo)
-			Storage::delete($this->photo);
-
-		if ($this->updatedImage) {
-			$path = $this->updatedImage->store('profiles', 'public');
-			$this->photo = $path;
-		} else {
-			$this->photo = null;
-		}
-	}
-
-	public static function boot()
-	{
-		parent::boot();
-
-		User::saving(function($user) {
-			if ($user->updatedImage)
-				$user->applyProfileImageChanges();
-		});
-
-		User::deleting(function($user) {
-			if ($user->photo)
-				Storage::delete($user->photo);
-		});
-	}
-
 	public function filedClaims()
 	{
 		return $this->hasMany('Avem\Claim');
@@ -69,14 +43,6 @@ class User extends Authenticatable
 		$name = $this->attributes['name'];
 		$surname = $this->attributes['surname'];
 		return "$name $surname";
-	}
-
-	public function getImageUrlAttribute()
-	{
-		if (!$this->photo)
-			return asset('img/user-default-image.svg');
-
-		return Storage::url($this->photo);
 	}
 
 	public function getIsActiveAttribute()
@@ -90,6 +56,11 @@ class User extends Authenticatable
 		return $transactions->reduce(function($result, $t) {
 			return max($result + $t->points, 0);
 		}, 0);
+	}
+
+	public function getProfileImageAttribute()
+	{
+		return $this->getMedia('avatars')->first();
 	}
 
 	public function hasPermission($name)
@@ -127,9 +98,11 @@ class User extends Authenticatable
 		return $this->hasMany('Avem\PerformedActivity');
 	}
 
-	public function setProfileImage($file)
+	public function registerMediaConversions()
 	{
-		$this->updatedImage = $file;
+		$this->addMediaConversion('thumb')
+		     ->width(368)->height(232)
+		     ->sharpen(10);
 	}
 
 	public function setGenderAttribute($gender)

@@ -83,9 +83,7 @@ class RegisterController extends Controller
 	 */
 	protected function registered(Request $request, User $user)
 	{
-		if ($request->hasFile('photo')) {
-			$user->setProfileImage($request->file('photo'));
-			$user->save();
-		}
+		if ($request->hasFile('photo'))
+			$user->addMediaFromRequest('photo')->toMediaLibrary('avatars');
 	}
 }
