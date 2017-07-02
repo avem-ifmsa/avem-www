@@ -15,17 +15,17 @@
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<header class="modal-header">
-					<h5 class="modal-title">Edita una actividad</h5>
+					<h5 class="modal-title">Edita la actividad</h5>
 					<a role="button" class="close" href="{{ route('admin.activities.index') }}" aria-label="Cerrar">
 						<span aria-hidden="true">&times;</span>
 					</a>
 				</header>
 
-				<form action="{{ route('admin.activities.update', [$activity]) }}" method="post" enctype="multipart/form-data">>
-					<div class="modal-body">
-						{{ csrf_field() }}
-						{{ method_field('patch') }}
+				<form action="{{ route('admin.activities.update', [$activity]) }}" method="post" enctype="multipart/form-data">
+					{{ csrf_field() }}
+					{{ method_field('patch') }}
 
+					<div class="modal-body">
 						<div class="container-fluid">
 							@include('admin.activities.form', compact('activity', 'mbMemberPeriods', 'organizers'))
 						</div>

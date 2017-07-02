@@ -25,14 +25,13 @@
 				</header>
 
 				<form method="post" action="{{ route('admin.activities.store') }}">
-					<div class="modal-body">
-						{{ csrf_field() }}
+					{{ csrf_field() }}
 
+					<div class="modal-body">
 						<div class="container-fluid">
 							@include('admin.activities.form', compact('mbMemberPeriods', 'organizers'))
+							<input id="create-published" type="hidden" value="0">
 						</div>
-
-						<input id="create-published" type="hidden" value="0">
 					</div>
 
 					<div class="modal-footer">

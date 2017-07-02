@@ -1,7 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
-	<h1>Gestión de cargos</h1>
+	<h1>Cargos de junta</h1>
+
 	<table class="table table-hover">
 		<thead class="thead-inverse">
 			<tr>

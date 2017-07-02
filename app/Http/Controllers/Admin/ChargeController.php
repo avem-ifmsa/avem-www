@@ -33,9 +33,7 @@ class ChargeController extends Controller
 	 */
 	public function index()
 	{
-		return view('admin.charges.index', [
-			'charges' => Charge::all(),
-		]);
+		return view('admin.charges.index');
 	}
 
 	/**
@@ -47,7 +45,7 @@ class ChargeController extends Controller
 	{
 		return view('admin.charges.create', [
 			'workingGroups' => WorkingGroup::all(),
-			'allCharges'    => Charge::orderBy('order')->get(),
+			'charges'       => Charge::orderBy('order')->get(),
 		]);
 	}
 
@@ -101,7 +99,7 @@ class ChargeController extends Controller
 		return view('admin.charges.edit', [
 			'charge'        => $charge,
 			'workingGroups' => WorkingGroup::all(),
-			'allCharges'    => Charge::orderBy('order')->get(),
+			'charges'       => Charge::orderBy('order')->get(),
 		]);
 	}
 

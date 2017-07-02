@@ -2,9 +2,9 @@
 
 namespace Avem\Http\ViewComposers;
 
+use Avem\Activity;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
-use App\Repositories\UserRepository;
 
 class AdminActivityViewComposer
 {
