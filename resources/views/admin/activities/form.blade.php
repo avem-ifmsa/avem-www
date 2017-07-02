@@ -1,10 +1,10 @@
 <div class="row">
-	<div class="col-md-5 my-3">
+	<div class="col-md-5 mb-2">
 		<p class="h-100">
 			<input type="file" name="image" is="input-image" required
 			       value="{{ isset($activity) ? $activity->imageUrl : '' }}"
-			@if (env('UNSPLASH_USERNAME'))
-			       placeholder="https://source.unsplash.com/user/{{ env('UNSPLASH_USERNAME') }}/likes/400x300">
+			@if (env('UNSPLASH_ACTIVITIES_COLLECTION_ID'))
+			       placeholder="https://source.unsplash.com/collection/{{ env('UNSPLASH_ACTIVITIES_COLLECTION_ID') }}/400x300">
 			@else
 			       placeholder="https://source.unsplash.com/random/400x300">
 			@endif
