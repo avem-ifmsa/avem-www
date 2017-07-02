@@ -3,7 +3,11 @@
 		<p class="h-100">
 			<input type="file" name="image" is="input-image" required
 			       value="{{ isset($activity) ? $activity->imageUrl : '' }}"
-			       placeholder="https://source.unsplash.com/user/avem_webmaster/likes/400x300">
+			@if (env('UNSPLASH_USERNAME'))
+			       placeholder="https://source.unsplash.com/user/{{ env('UNSPLASH_USERNAME') }}/likes/400x300">
+			@else
+			       placeholder="https://source.unsplash.com/random/400x300">
+			@endif
 		</p>
 	</div>
 
