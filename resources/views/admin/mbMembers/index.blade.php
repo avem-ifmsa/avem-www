@@ -8,12 +8,12 @@
 			<div class="float-left form-inline">
 				<label class="selector-text">Mostrar miembros de junta
 					<select class="ml-1 form-control form-control-sm selector-input" name="showMembers">
-						<option value="active" {{
-							Request::has('show') && Request::get('show') == 'active' ? 'selected' : ''
-						}}>activos</option>
 						<option value="all" {{
 							Request::has('show') && Request::get('show') == 'all'    ? 'selected' : ''
 						}}>todos</option>
+						<option value="active" {{
+							Request::has('show') && Request::get('show') == 'active' ? 'selected' : ''
+						}}>activos</option>
 					</select>
 				</label>
 			</div>

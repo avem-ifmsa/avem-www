@@ -11,11 +11,11 @@ class AdminMbMemberViewComposer
 {
 	private function getRequestedMbMembers(Request $request)
 	{
-		$showMembers = $request->input('showMembers', 'active');
-		if ($showMembers == 'active') {
-			$mbMembers = MbMember::active();
-		} else {
+		$showMembers = $request->input('showMembers', 'all');
+		if ($showMembers == 'all') {
 			$mbMembers = MbMember::query();
+		} else {
+			$mbMembers = MbMember::active();
 		}
 
 		if ($request->has('q')) {
