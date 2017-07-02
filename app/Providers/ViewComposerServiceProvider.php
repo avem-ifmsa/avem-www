@@ -16,6 +16,7 @@ class ViewComposerServiceProvider extends ServiceProvider
     {
         View::composer('admin.activities.*', 'Avem\Http\ViewComposers\AdminActivityViewComposer');
         View::composer('admin.charges.*'   , 'Avem\Http\ViewComposers\AdminChargeViewComposer'  );
+        View::composer('admin.mbMembers.*' , 'Avem\Http\ViewComposers\AdminMbMemberViewComposer');
     }
 
     /**

@@ -1,16 +1,41 @@
-@extends('layouts.admin')
+@extends('admin.mbMembers.index')
+
+@push('scripts')
+	<script>
+		$(function() {
+			$('#create-modal').modal();
+		});
+	</script>
+@endpush
 
 @section('content')
-	<div class="col-lg-8 offset-lg-2">
-		<h1 class="my-4">Crear nuevo miembro de junta</h1>
-		<form method="post" action="{{ route('admin.mbMembers.store') }}">
-			{{ csrf_field() }}
+	@parent
 
-			@include('admin.mbMembers.form', compact('users'))
+	<div id="create-modal" class="modal fade" role="dialog" data-backdrop="static">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<header class="modal-header">
+					<h5 class="modal-title">Crea un nuevo perfil de junta</h5>
+					<a role="button" class="close" href="{{ route('admin.mbMembers.index') }}" aria-label="Cerrar">
+						<span aria-hidden="true">&times;</span>
+					</a>
+				</header>
 
-			<p class="my-4 text-right">
-				<button type="submit" class="btn btn-primary" role="button">Crear miembro de junta</button>
-			</p>
-		</form>
+				<form method="post" action="{{ route('admin.mbMembers.store') }}">
+					{{ csrf_field() }}
+
+					<div class="modal-body">
+						<div class="container-fluid">
+							@include('admin.mbMembers.form', compact('users'))
+						</div>
+					</div>
+
+					<div class="modal-footer">
+						<a class="btn btn-secondary" role="button" href="{{ route('admin.mbMembers.index') }}">Cancelar</a>
+						<button type="submit" class="btn btn-primary" role="button">Guardar</button>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
 @stop

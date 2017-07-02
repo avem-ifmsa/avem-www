@@ -2,6 +2,7 @@
 
 namespace Avem;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class MbMember extends Model

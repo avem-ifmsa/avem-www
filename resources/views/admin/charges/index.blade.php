@@ -1,19 +1,33 @@
 @extends('layouts.admin')
 
 @section('content')
-	<h1>Cargos de junta</h1>
+	<h1 class="my-3">Cargos de junta</h1>
+	
+	<div class="l-admin-head clearfix mt-2">
+		<div class="float-right">
+			<a role="button" href="{{ route('admin.charges.create') }}"
+			class="btn btn-sm btn-secondary{{ Gate::denies('create', Avem\Charge::class) ? ' disabled' : '' }}"
+			{{ Gate::denies('create', Avem\Charge::class) ? 'aria-disabled=true' : '' }}>
+				Crear nuevo cargo de junta
+			</a>
+		</div>
+	</div>
 
-	<table class="table table-hover">
-		<thead class="thead-inverse">
+	<table class="table table-striped">
+		<colgroup>
+			<col class="l-admin-charge-select">
+			<col class="l-admin-charge-name">
+			<col class="l-admin-charge-email">
+			<col class="l-admin-charge-working-group">
+			<col class="l-admin-charge-actions">
+		</colgroup>
+
+		<thead>
 			<tr>
-				<th class="align-middle">Nombre</th>
-				<th class="align-middle">Dirección de correo-e</th>
-				<th class="align-middle">Grupo de trabajo</th>
-				<th class="align-middle text-nowrap">
-					<a class="btn btn-sm btn-secondary{{ Gate::denies('create', Avem\Charge::class) ? ' disabled' : '' }}"
-					{{ Gate::denies('create', Avem\Charge::class) ? 'aria-disabled=true' : '' }} role="button"
-					   href="{{ route('admin.charges.create') }}">Crear nuevo cargo de junta</a>
-				</th>
+				<th>Nombre</th>
+				<th>Dirección de correo-e</th>
+				<th>Grupo de trabajo</th>
+				<th></th>
 			</tr>
 		</thead>
 
