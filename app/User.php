@@ -3,12 +3,10 @@
 namespace Avem;
 
 use Storage;
-use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
-
 
 class User extends Authenticatable implements HasMediaConversions
 {
@@ -33,6 +31,11 @@ class User extends Authenticatable implements HasMediaConversions
 		'created_at', 'updated_at', 'birthday',
 	];
 
+	public function chargePeriods()
+	{
+		return $this->hasMany('Avem\ChargePeriod');
+	}
+
 	public function filedClaims()
 	{
 		return $this->hasMany('Avem\Claim');
@@ -43,6 +46,11 @@ class User extends Authenticatable implements HasMediaConversions
 		$name = $this->attributes['name'];
 		$surname = $this->attributes['surname'];
 		return "$name $surname";
+	}
+
+	public function getHasActiveChargeAttribute()
+	{
+		return $this->chargePeriods()->active()->exists();
 	}
 
 	public function getIsActiveAttribute()
@@ -78,9 +86,9 @@ class User extends Authenticatable implements HasMediaConversions
 		return $this->belongsToMany('Avem\Activity');
 	}
 
-	public function mbMember()
+	public function issuedRenewals()
 	{
-		return $this->hasOne('Avem\MbMember', 'id');
+		return $this->hasManyThrough('Avem\Renewal', 'Avem\ChargePeriod');
 	}
 
 	public function notificationReceipts()
@@ -96,6 +104,11 @@ class User extends Authenticatable implements HasMediaConversions
 	public function performedActivities()
 	{
 		return $this->hasMany('Avem\PerformedActivity');
+	}
+
+	public function publishedExchanges()
+	{
+		return $this->hasManyThrough('Avem\Exchange', 'Avem\ChargePeriod');
 	}
 
 	public function registerMediaConversions()
@@ -122,9 +135,21 @@ class User extends Authenticatable implements HasMediaConversions
 		return $this->hasMany('Avem\Renewal');
 	}
 
+	public function resolvedClaims()
+	{
+		return $this->hasManyThrough('Avem\ClaimResolution', 'Avem\ChargePeriod');
+	}
+
 	public function roles()
 	{
 		return $this->belongsToMany('Avem\Role');
+	}
+
+	public function scopeWithActiveCharge($query)
+	{
+		return $query->join('charge_periods', 'charge_periods.user_id', '=', 'users.id')
+		             ->where('start', '<=', 'CURRENT_TIMESTAMP')->where('end', '>', 'CURRENT_TIMESTAMP')
+		             ->select('users.*');
 	}
 
 	public function selfInscribedActivities()
@@ -137,13 +162,13 @@ class User extends Authenticatable implements HasMediaConversions
 		return $this->morphedByMany('Avem\Activity', 'subscribable', 'own_subscribables');
 	}
 
-	public function selfSubscribedActivityTasks()
-	{
-		return $this->morphedByMany('Avem\ActivityTask', 'subscribable', 'own_subscribables');
-	}
-
 	public function transactions()
 	{
 		return $this->hasMany('Avem\Transaction');
+	}
+
+	public function witnessedActivities()
+	{
+		return $this->hasManyThrough('Avem\PerformedActivity', 'Avem\ChargePeriod');
 	}
 }

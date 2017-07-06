@@ -31,8 +31,12 @@
 			
 			<div class="float-right">
 				<a role="button" href="{{ route('admin.activities.create') }}"
-					class="btn btn-sm btn-secondary{{ Gate::denies('create', Avem\MbMember::class) ? ' disabled' : '' }}"
-				{{ Gate::denies('create', Avem\Charge::class) ? 'aria-disabled=true' : '' }}>
+				@if (Gate::allows('create', Avem\Activity::class))
+					class="btn btn-sm btn-secondary"
+				@else
+					class="btn btn-sm btn-secondary disabled" aria-disabled="true"
+				@endif
+				>
 					Crear nueva actividad
 				</a>
 			</div>
