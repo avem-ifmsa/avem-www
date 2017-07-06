@@ -1,13 +1,24 @@
 @extends('layouts.admin')
 
+@push('scripts')
+	<script>
+		$(function() {
+			var $filterForm = $("#index-filter-form");
+			$("#index-organized-by").change(function(event) {
+				$filterForm.submit();
+			});
+		});
+	</script>
+@endpush
+
 @section('content')
 	<h1 class="my-3">Actividades</h1>
 
-	<form>
+	<form id="index-filter-form">
 		<div class="l-admin-head clearfix mt-2">
 			<div class="float-left form-inline">
 				<label class="selector-text">Actividades organizadas por
-					<select class="ml-1 form-control form-control-sm selector-input" name="organized_by">
+					<select id="index-organized-by" class="ml-1 form-control form-control-sm selector-input" name="organized_by">
 						<option value="me" {{
 							Request::has('organized_by') && Request::get('organized_by') == 'me' ? 'selected' : ''
 						}}>mí</option>
@@ -20,7 +31,7 @@
 			
 			<div class="float-right">
 				<a role="button" href="{{ route('admin.activities.create') }}"
-				   class="btn btn-sm btn-secondary{{ Gate::denies('create', Avem\MbMember::class) ? ' disabled' : '' }}"
+					class="btn btn-sm btn-secondary{{ Gate::denies('create', Avem\MbMember::class) ? ' disabled' : '' }}"
 				{{ Gate::denies('create', Avem\Charge::class) ? 'aria-disabled=true' : '' }}>
 					Crear nueva actividad
 				</a>
