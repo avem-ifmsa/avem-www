@@ -41,6 +41,17 @@ class User extends Authenticatable implements HasMediaConversions
 		return $this->hasMany('Avem\Claim');
 	}
 
+	public function getCurrentChargePeriodAttribute()
+	{
+		return $this->chargePeriods()->active()->orderBy('start', 'desc')->first();
+	}
+
+	public function getCurrentChargeAttribute()
+	{
+		$currentPeriod = $this->currentChargePeriod;
+		return $currentPeriod ? $currentPeriod->charge : null;
+	}
+
 	public function getFullNameAttribute()
 	{
 		$name = $this->attributes['name'];

@@ -12,22 +12,17 @@ class Charge extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'name', 'description', 'email', 'order',
+		'name', 'ifmsa_name', 'ifmsa_acronym', 'description', 'email', 'index',
 	];
-
-	public static function boot()
-	{
-		parent::boot();
-	}
 
 	public function chargeRoles()
 	{
 		return $this->belongsToMany('Avem\Role');
 	}
 
-	public function mbMemberPeriods()
+	public function chargePeriods()
 	{
-		return $this->hasMany('Avem\MbMemberPeriod');
+		return $this->hasMany('Avem\ChargePeriod');
 	}
 
 	public function workingGroup()

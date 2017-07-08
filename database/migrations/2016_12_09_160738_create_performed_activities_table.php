@@ -17,7 +17,7 @@ class CreatePerformedActivitiesTable extends Migration
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
 			$table->integer('activity_id')->unsigned();
-			$table->integer('mb_member_period_id')->unsigned();
+			$table->integer('charge_period_id')->unsigned();
 			$table->timestamps();
 
 			$table->foreign('user_id')
@@ -28,8 +28,8 @@ class CreatePerformedActivitiesTable extends Migration
 			      ->references('id')->on('activities')
 			      ->onDelete('cascade');
 
-			$table->foreign('mb_member_period_id')
-			      ->references('id')->on('mb_member_periods')
+			$table->foreign('charge_period_id')
+			      ->references('id')->on('charge_periods')
 			      ->onDelete('cascade');
 		});
 	}

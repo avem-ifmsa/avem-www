@@ -16,9 +16,11 @@ class CreateChargesTable extends Migration
 		Schema::create('charges', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('name');
-			$table->text('description');
 			$table->string('email')->unique();
-			$table->integer('order')->default(0);
+			$table->integer('index')->default(0);
+			$table->text('description')->nullable();
+			$table->string('ifmsa_name')->nullable();
+			$table->string('ifmsa_acronym')->nullable();
 			$table->integer('working_group_id')->unsigned()->nullable();
 			$table->timestamps();
 

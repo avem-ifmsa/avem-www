@@ -15,7 +15,7 @@ class CreateRoleUserView extends Migration
 	{
 		DB::statement('CREATE VIEW role_user AS
 			SELECT user_id, role_id FROM own_user_roles
-			UNION SELECT mb_member_id AS user_id, role_id FROM active_mb_member_periods
+			UNION SELECT user_id, role_id FROM active_charge_periods
 				INNER JOIN charge_role USING (charge_id)
 		');
 	}

@@ -19,9 +19,11 @@ class CreateChargeRoleTable extends Migration
 			$table->timestamps();
 
 			$table->primary(['charge_id', 'role_id']);
+
 			$table->foreign('charge_id')
 			      ->references('id')->on('charges')
 			      ->onDelete('cascade');
+			
 			$table->foreign('role_id')
 			      ->references('id')->on('roles')
 			      ->onDelete('cascade');

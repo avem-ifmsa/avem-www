@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMbMemberPeriodsTable extends Migration
+class CreateChargePeriodsTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -13,17 +13,18 @@ class CreateMbMemberPeriodsTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('mb_member_periods', function (Blueprint $table) {
+		Schema::create('charge_periods', function (Blueprint $table) {
 			$table->increments('id');
 			$table->integer('charge_id')->unsigned();
-			$table->integer('mb_member_id')->unsigned()->nullable();
+			$table->integer('user_id')->unsigned()->nullable();
 			$table->dateTime('start');
 			$table->dateTime('end');
 			$table->timestamps();
 
-			$table->foreign('mb_member_id')
-			      ->references('id')->on('mb_members')
-			      ->onDelete('set null');
+			$table->foreign('user_id')
+			      ->references('id')->on('users')
+			      ->onDelete('cascade');
+			
 			$table->foreign('charge_id')
 			      ->references('id')->on('charges')
 			      ->onDelete('cascade');
@@ -37,6 +38,6 @@ class CreateMbMemberPeriodsTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('mb_member_periods');
+		Schema::dropIfExists('charge_periods');
 	}
 }

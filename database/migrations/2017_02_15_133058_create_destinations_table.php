@@ -16,7 +16,6 @@ class CreateDestinationsTable extends Migration
 		Schema::create('destinations', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('name');
-			$table->string('image_url');
 			$table->enum('type', ['national', 'international']);
 			$table->timestamps();
 		});

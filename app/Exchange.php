@@ -12,8 +12,8 @@ class Exchange extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'conditions', 'reports', 'vacancies', 'observations',
-		'requirements', 'published', 'modality', 
+		'destination', 'conditions', 'reports', 'vacancies',
+		'observations', 'requirements', 'published', 'modality',
 	];
 
 	/**
@@ -22,7 +22,7 @@ class Exchange extends Model
 	 * @var array
 	 */
 	protected $casts = [
-		'published'  => 'boolean',
+		'published' => 'boolean',
 	];
 
 	public function destination()

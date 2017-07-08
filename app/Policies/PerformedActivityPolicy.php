@@ -13,11 +13,7 @@ class PerformedActivityPolicy
 
 	private function isActivityOrganizer(Activity $activity, User $user)
 	{
-		if (!$user->mbMember)
-			return false;
-
-		$organizedActivities = $user->mbMember->organizedActivities();
-		return $organizedActivities()->where('id', $activity->id)->exists();
+		return $activity->organizerPeriods()->where('user_id', $user->id)->exists();
 	}
 
 	/**

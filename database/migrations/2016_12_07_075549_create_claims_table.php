@@ -23,6 +23,7 @@ class CreateClaimsTable extends Migration
 			$table->foreign('user_id')
 			      ->references('id')->on('users')
 			      ->onDelete('cascade');
+			
 			$table->foreign('activity_id')
 			      ->references('id')->on('activities')
 			      ->onDelete('cascade');

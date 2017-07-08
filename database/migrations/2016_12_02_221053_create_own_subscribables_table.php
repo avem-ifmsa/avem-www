@@ -19,6 +19,7 @@ class CreateOwnSubscribablesTable extends Migration
 			$table->timestamps();
 
 			$table->primary(['user_id', 'subscribable_id', 'subscribable_type']);
+			
 			$table->foreign('user_id')
 			      ->references('id')->on('users')
 			      ->onDelete('cascade');

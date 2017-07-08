@@ -19,9 +19,11 @@ class CreateSelfInscribedActivityUsersTable extends Migration
 			$table->timestamps();
 
 			$table->primary(['activity_id', 'user_id']);
+			
 			$table->foreign('activity_id')
 			      ->references('id')->on('activities')
 			      ->onDelete('cascade');
+			
 			$table->foreign('user_id')
 			      ->references('id')->on('users')
 			      ->onDelete('cascade');

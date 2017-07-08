@@ -4,19 +4,16 @@ namespace Avem\Http\Controllers\Admin;
 
 use Auth;
 use Avem\Activity;
-use Avem\MbMemberPeriod;
+use Avem\ChargePeriod;
 use Illuminate\Http\Request;
 use Avem\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Builder;
 
 class ActivityController extends Controller
 {
-	private function getCurrentMbMemberPeriod(Request $request)
+	private function getCurrentChargePeriod(Request $request)
 	{
-		$mbMember = $request->user()->mbMember;
-		$mbMemberPeriods = $mbMember ? $mbMember->mbMemberPeriods() : null;
-		$activePeriod = $mbMemberPeriods ? $mbMemberPeriods->active()->first() : null;
-		return $activePeriod;
+		return $request->user()->chargePeriods()->active()->first();
 	}
 
 	/**
@@ -38,10 +35,13 @@ class ActivityController extends Controller
 	{
 		$this->authorize('create', Activity::class);
 
-		$activePeriod = $this->getCurrentMbMemberPeriod($request);
+		$user = $request->user();
+		$activePeriods = $user->chargePeriods()->active();
+		$currentPeriod = $activePeriods->first();
+
 		return view('admin.activities.create', [
-			'mbMemberPeriods'  => MbMemberPeriod::active(),
-			'organizerPeriods' => $activePeriod ? [$activePeriod] : [],
+			'chargePeriods'    => ChargePeriod::active(),
+			'organizerPeriods' => $currentPeriod ? [$currentPeriod] : [],
 		]);
 	}
 
@@ -87,7 +87,7 @@ class ActivityController extends Controller
 
 		return view('admin.activities.edit', [
 			'activity'         => $activity,
-			'mbMemberPeriods'  => MbMemberPeriod::active(),
+			'chargePeriods'    => ChargePeriod::active(),
 			'organizerPeriods' => $activity->organizerPeriods(),
 		]);
 	}

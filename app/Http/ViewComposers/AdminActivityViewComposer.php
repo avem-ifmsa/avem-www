@@ -8,20 +8,20 @@ use Illuminate\Http\Request;
 
 class AdminActivityViewComposer
 {
-	private function getCurrentMbMemberPeriod(Request $request)
+	private function filterActivities(Request $request, $query)
 	{
-		$mbMember = $request->user()->mbMember;
-		$mbMemberPeriods = $mbMember ? $mbMember->mbMemberPeriods() : null;
-		$activePeriod = $mbMemberPeriods ? $mbMemberPeriods->active()->first() : null;
-		return $activePeriod;
+		$filter = '%'.$request->input('q').'%';
+		return $query->where('name', 'LIKE', $filter)
+		             ->orWhere('description', 'LIKE', $filter);
 	}
 
 	private function getRequestedActivities(Request $request)
 	{
 		$organizedBy = $request->input('organized_by', 'me');
 		if ($organizedBy == 'me') {
-			$activePeriod = $this->getCurrentMbMemberPeriod($request);
-			$activities = $activePeriod->organizedActivities();
+			$chargePeriods = $request->user()->chargePeriods();
+			$activities = $chargePeriods->join('activities', 'charge_period_id', '=', 'charge_periods.id')
+			                            ->select('activities.*');
 		} else {
 			$activities = Activity::query();
 		}
@@ -33,24 +33,24 @@ class AdminActivityViewComposer
 		return $activities->get();
 	}
 
-    /**
-     * Create a new profile composer.
-     *
-     * @return void
-     */
-    public function __construct(Request $request)
-    {
-        $this->request = $request;
-    }
+	/**
+	 * Create a new profile composer.
+	 *
+	 * @return void
+	 */
+	public function __construct(Request $request)
+	{
+		$this->request = $request;
+	}
 
-    /**
-     * Bind data to the view.
-     *
-     * @param  View  $view
-     * @return void
-     */
-    public function compose(View $view)
-    {
-        $view->with('activities', $this->getRequestedActivities($this->request));
-    }
+	/**
+	 * Bind data to the view.
+	 *
+	 * @param  View  $view
+	 * @return void
+	 */
+	public function compose(View $view)
+	{
+		$view->with('activities', $this->getRequestedActivities($this->request));
+	}
 }

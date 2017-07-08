@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMbMemberWorkingGroupView extends Migration
+class CreateUserWorkingGroupView extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -13,9 +13,9 @@ class CreateMbMemberWorkingGroupView extends Migration
 	 */
 	public function up()
 	{
-		DB::statement('CREATE VIEW mb_member_working_group AS
-			SELECT mb_member_id, working_group_id FROM charges
-			INNER JOIN mb_member_periods ON mb_member_periods.charge_id = charges.id
+		DB::statement('CREATE VIEW user_working_group AS
+			SELECT user_id, working_group_id FROM charges
+			INNER JOIN charge_periods ON charge_id = charges.id
 		');
 	}
 
@@ -26,6 +26,6 @@ class CreateMbMemberWorkingGroupView extends Migration
 	 */
 	public function down()
 	{
-		DB::statement('DROP VIEW mb_member_working_group');
+		DB::statement('DROP VIEW user_working_group');
 	}
 }

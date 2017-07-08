@@ -19,8 +19,7 @@ class CreateActivityUserView extends Migration
 				WHERE activities.inscription_policy = \'inscribed\'
 			UNION SELECT users.id AS user_id, activities.id AS activity_id FROM users
 				CROSS JOIN activities WHERE activities.inscription_policy = \'all\'
-			UNION SELECT active_mb_member_periods.id, activities.id AS activity_id FROM active_mb_member_periods
-				INNER JOIN mb_members ON active_mb_member_periods.mb_member_id = mb_members.id
+			UNION SELECT user_id, activities.id AS activity_id FROM active_charge_periods
 				CROSS JOIN activities WHERE activities.inscription_policy = \'board\'
 		');
 	}

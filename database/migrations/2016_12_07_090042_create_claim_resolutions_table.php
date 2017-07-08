@@ -16,15 +16,16 @@ class CreateClaimResolutionsTable extends Migration
 		Schema::create('claim_resolutions', function (Blueprint $table) {
 			$table->increments('id');
 			$table->integer('claim_id')->unsigned();
-			$table->integer('mb_member_period_id')->unsigned();
-			$table->enum('status', [ 'accepted', 'declined' ]);
+			$table->integer('charge_period_id')->unsigned();
+			$table->enum('status', ['accepted', 'declined']);
 			$table->timestamps();
 
 			$table->foreign('claim_id')
 			      ->references('id')->on('claims')
 			      ->onDelete('cascade');
-			$table->foreign('mb_member_period_id')
-			      ->references('id')->on('mb_member_periods')
+			
+			$table->foreign('charge_period_id')
+			      ->references('id')->on('charge_periods')
 			      ->onDelete('cascade');
 		});
 	}

@@ -18,15 +18,15 @@ class CreatePlainTransactionsTable extends Migration
 			$table->string('concept');
 			$table->integer('points');
 			$table->integer('user_id')->unsigned();
-			$table->integer('mb_member_period_id')->unsigned();
+			$table->integer('charge_period_id')->unsigned();
 			$table->timestamps();
 
 			$table->foreign('user_id')
 			      ->references('id')->on('users')
 			      ->onDelete('cascade');
 
-			$table->foreign('mb_member_period_id')
-			      ->references('id')->on('mb_member_periods')
+			$table->foreign('charge_period_id')
+			      ->references('id')->on('charge_periods')
 			      ->onDelete('cascade');
 		});
 	}

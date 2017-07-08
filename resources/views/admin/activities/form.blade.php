@@ -189,16 +189,14 @@
 	<p class="form-group{{ $errors->has('organizers') ? ' has-danger' : '' }}">
 		<label for="form-organizers">Organizadores</label>
 		<select id="form-organizers" name="organizer_periods[]" class="form-control" multiple>
-			@foreach($mbMemberPeriods as $period)
-			@if ($period->mbMember && $period->mbMember->user)
+			@foreach($chargePeriods as $period)
 				<option value="{{ $period->id }}" {{
 					isset($organizerPeriods) &&
-					$organizerPeriods->pluck('id')->contains($mbMemberPeriod->mbMember->id)
+					$organizerPeriods->pluck('id')->contains($period->id)
 					? 'selected' : ''
 				}}>
-					{{ $mbMemberPeriod->mbMember->user->fullName }}
+					{{ $period->user->fullName }}
 				</option>
-			@endif
 			@endforeach
 		</select>
 		@if ($errors->has('organizers'))

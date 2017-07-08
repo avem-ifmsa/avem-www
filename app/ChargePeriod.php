@@ -5,8 +5,9 @@ namespace Avem;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
-class MbMemberPeriod extends Model
+class ChargePeriod extends Model
 {
+
 	/**
 	 * The attributes that are mass assignable.
 	 *
@@ -29,7 +30,6 @@ class MbMemberPeriod extends Model
 	{
 		return $this->hasMany('Avem\Transaction');
 	}
-
 	public function charge()
 	{
 		return $this->belongsTo('Avem\Charge');
@@ -38,11 +38,6 @@ class MbMemberPeriod extends Model
 	public function issuedRenewals()
 	{
 		return $this->hasMany('Avem\Renewal');
-	}
-
-	public function mbMember()
-	{
-		return $this->belongsTo('Avem\MbMember');
 	}
 
 	public function organizedActivities()
@@ -77,8 +72,14 @@ class MbMemberPeriod extends Model
 		return $this->hasMany('Avem\Notification');
 	}
 
+	public function user()
+	{
+		return $this->belongsTo('Avem\User');
+	}
+
 	public function witnessedActivities()
 	{
-		return $this->hasManyThrough('Avem\Activity', 'Avem\MbMemberPeriod');
+		return $this->hasManyThrough('Avem\Activity', 'Avem\PerformedActivity');
 	}
+
 }

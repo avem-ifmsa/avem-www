@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateActiveMbMemberPeriodsView extends Migration
+class CreateActiveChargePeriodsView extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -13,9 +13,9 @@ class CreateActiveMbMemberPeriodsView extends Migration
 	 */
 	public function up()
 	{
-		DB::statement('CREATE VIEW active_mb_member_periods AS
-			SELECT * FROM mb_member_periods
-			WHERE CURRENT_TIMESTAMP BETWEEN mb_member_periods.start AND mb_member_periods.end
+		DB::statement('
+			CREATE VIEW active_charge_periods AS SELECT * FROM charge_periods
+				WHERE CURRENT_TIMESTAMP BETWEEN start AND end
 		');
 	}
 
@@ -26,6 +26,6 @@ class CreateActiveMbMemberPeriodsView extends Migration
 	 */
 	public function down()
 	{
-		DB::statement('DROP VIEW active_mb_member_periods');
+		DB::statement('DROP VIEW active_charge_periods');
 	}
 }

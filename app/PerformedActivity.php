@@ -21,8 +21,8 @@ class PerformedActivity extends Model
 		return $this->belongsTo('Avem\User');
 	}
 
-	public function witnesserPeriod()
+	public function witnessPeriod()
 	{
-		return $this->belongsTo('Avem\MbMemberPeriod', 'mb_member_period_id');
+		return $this->belongsTo('Avem\ChargePeriod', 'charge_period_id');
 	}
 }
