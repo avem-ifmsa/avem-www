@@ -129,6 +129,29 @@ class User extends Authenticatable implements HasMediaConversions
 		     ->sharpen(10);
 	}
 
+	public function setNameAttribute($firstName)
+	{
+		$firstName = trim($firstName);
+		$firstName = preg_replace('/\s+/', ' ', $firstName);
+		$firstName = ucwords(strtolower($firstName));
+
+		$this->attributes['name'] = $firstName;
+	}
+
+	public function setSurnameAttribute($lastName)
+	{
+		$lastName = trim($lastName);
+		$lastNameWords = preg_split('/\s+/', $lastName);
+		$lastNameWords = array_map(function($w) {
+			$w = strtolower($w);
+			if (in_array($w, ['de', 'la', 'del']))
+				return $w;
+			return ucfirst($w);
+		}, $lastNameWords);
+
+		$this->attributes['surname'] = implode(' ', $lastNameWords);
+	}
+
 	public function setGenderAttribute($gender)
 	{
 		if ($gender !== null)
