@@ -15,9 +15,18 @@ class CreateWorkingGroupsTable extends Migration
 	{
 		Schema::create('working_groups', function (Blueprint $table) {
 			$table->increments('id');
-			$table->string('name')->unique();
-			$table->text('description');
+			$table->string('name');
+			$table->string('color')->nullable();
+			$table->integer('index')->default(0);
+			$table->text('description')->nullable();
+			$table->string('ifmsa_name')->nullable();
+			$table->string('ifmsa_acronym')->nullable();
+			$table->integer('parent_id')->unsigned()->nullable();
 			$table->timestamps();
+
+			$table->foreign('parent_id')
+			      ->references('id')->on('working_groups')
+			      ->onDelete('cascade');
 		});
 	}
 

@@ -12,7 +12,7 @@ class WorkingGroup extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'name', 'description',
+		'name', 'ifmsa_name', 'ifmsa_acronym', 'color', 'description', 'index'
 	];
 
 	public function charges()
@@ -20,9 +20,26 @@ class WorkingGroup extends Model
 		return $this->hasMany('Avem\Charge');
 	}
 
-	public function mbMembers()
+	public function getColorAttribute()
 	{
-		return $this->belongsToMany('Avem\MbMember');
+		$selfColor = $this->attributes['color'];
+		if ($selfColor != null)
+			return $selfColor;
+		
+		if ($this->parentGroup != null)
+			return $this->parentGroup->color;
+
+		return null;
+	}
+
+	public function subgroups()
+	{
+		return $this->hasMany('Avem\WorkingGroup', 'parent_id');
+	}
+
+	public function parentGroup()
+	{
+		return $this->belongsTo('Avem\WorkingGroup');
 	}
 
 	public function tags()

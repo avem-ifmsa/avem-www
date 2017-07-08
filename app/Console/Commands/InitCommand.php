@@ -2,8 +2,10 @@
 
 namespace Avem\Console\Commands;
 
+use DB;
 use Avem\Role;
 use Avem\Permission;
+use Avem\WorkingGroup;
 use Illuminate\Console\Command;
 
 class InitCommand extends Command
@@ -19,6 +21,7 @@ class InitCommand extends Command
 		// Charge permissions
 		['name' => 'charge:create', 'description' => 'Crear nuevos cargos de junta'],
 		['name' => 'charge:view'  , 'description' => 'Ver información sobre los cargos de junta'],
+		['name' => 'charge:renew' , 'description' => 'Modificar la pertenencia de los usuarios a los distintos cargos de junta'],
 		['name' => 'charge:update', 'description' => 'Modificar información sobre los cargos de junta'],
 		['name' => 'charge:delete', 'description' => 'Eliminar cargos de junta'],
 
@@ -27,13 +30,6 @@ class InitCommand extends Command
 		['name' => 'exchange:view'  , 'description' => 'Ver información sobre los intercambios existentes'],
 		['name' => 'exchange:update', 'description' => 'Modificar información sobre los intercambios'],
 		['name' => 'exchange:delete', 'description' => 'Eliminar intercambios'],
-
-		// MbMember permissions
-		['name' => 'mb-member:create', 'description' => 'Dar de alta miembros de junta'],
-		['name' => 'mb-member:view'  , 'description' => 'Ver información sobre los miembros de junta'],
-		['name' => 'mb-member:update', 'description' => 'Modificar la información de los miembros de junta'],
-		['name' => 'mb-member:renew' , 'description' => 'Renovar los cargos de junta'],
-		['name' => 'mb-member:delete', 'description' => 'Eliminar miembros de junta'],
 
 		// User permissions
 		['name' => 'user:create', 'description' => 'Crear nuevos socios'],
@@ -56,9 +52,8 @@ class InitCommand extends Command
 			'description' => 'Administrador',
 			'permissions' => [
 				'activity:create', 'activity:view', 'activity:update', 'activity:delete',
-				'charge:create', 'charge:view', 'charge:update', 'charge:delete',
+				'charge:create', 'charge:view', 'charge:update', 'charge:renew', 'charge:delete',
 				'exchange:create', 'exchange:view', 'exchange:update', 'exchange:delete',
-				'mb-member:create', 'mb-member:view', 'mb-member:renew', 'mb-member:update', 'mb-member:delete',
 				'user:create', 'user:view', 'user:renew', 'user:update', 'user:delete',
 				'working-group:create', 'working-group:view', 'working-group:update', 'working-group:delete',
 			],
@@ -81,8 +76,7 @@ class InitCommand extends Command
 		'bureaucracy_r' => [
 			'description' => 'Cargos administrativos',
 			'permissions' => [
-				'charge:create', 'charge:view', 'charge:update', 'charge:delete',
-				'mb-member:create', 'mb-member:view', 'mb-member:renew', 'mb-member:update', 'mb-member:delete',
+				'charge:create', 'charge:view', 'charge:update', 'charge:renew', 'charge:delete',
 				'working-group:create', 'working-group:view', 'working-group:update', 'working-group:delete',
 			],
 		],
@@ -100,6 +94,73 @@ class InitCommand extends Command
 				'activity:view',
 				'user:view', 'user:update',
 			],
+		],
+
+	];
+
+	const WORKING_GROUPS = [
+
+		'Cargos burocráticos' => [
+			'color' => '#a01238',
+			
+		],
+
+		'Grupos de trabajo temático' => [
+
+		],
+
+		'Cargos de apoyo' => [
+			'color' => '#c8c800',
+
+		],
+
+		'Cargos de intercambios' => [
+			'color' => '#1368d8',
+
+		],
+
+		'Educación médica' => [
+			'color'  => '#485b6b',
+			'parent' => 'Grupos de trabajo temático',
+
+		],
+
+		'Salud pública' => [
+			'color'  => '#ff8316',
+			'parent' => 'Grupos de trabajo temático',
+
+		],
+
+		'Sexualidad' => [
+			'color'  => '#dc083c',
+			'parent' => 'Grupos de trabajo temático',
+
+		],
+
+		'Derechos humanos' => [
+			'color'  => '#44b724',
+			'parent' => 'Grupos de trabajo temático',
+
+		],
+
+		'Intercambios internacionales clínicos' => [
+			'parent' => 'Cargos de intercambios',
+
+		],
+
+		'Intercambios internacionales de investigación' => [
+			'parent' => 'Cargos de intercambios',
+
+		],
+
+		'Intercambios nacionales' => [
+			'parent' => 'Cargos de intercambios',
+
+		],
+
+		'Coordinación de acogida de intercambios' => [
+			'parent' => 'Cargos de intercambios',
+
 		],
 
 	];
@@ -143,6 +204,20 @@ class InitCommand extends Command
 		}
 	}
 
+	private function initWorkingGroups()
+	{
+		foreach (static::WORKING_GROUPS as $name => $info) {
+			$workingGroup = WorkingGroup::firstOrCreate([ 'name' => $name ], $info);
+			if (isset($info['parent'])) {
+				$parentName = $info['parent'];
+				$parentInfo = static::WORKING_GROUPS[$parentName];
+				$parent = WorkingGroup::firstOrCreate([ 'name' => $parentName ], $parentInfo);
+				$workingGroup->parent()->associate($parent->id);
+				$workingGroup->save();
+			}
+		}
+	}
+
 	/**
 	 * Execute the console command.
 	 *
@@ -150,7 +225,13 @@ class InitCommand extends Command
 	 */
 	public function handle()
 	{
-		$this->initPermissions();
-		$this->initRoles();
+		DB::transaction(function() {
+			$this->initPermissions();
+			$this->initRoles();
+
+			$this->initWorkingGroups();
+		});
+
+		$this->info('Database initialized');
 	}
 }
