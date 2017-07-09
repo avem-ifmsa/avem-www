@@ -70,7 +70,7 @@
 
 		<p class="form-group{{ $errors->has('tags') ? ' has-danger' : '' }}">
 			<label for="form-tags">Etiquetas</label>
-			<input id="form-tags" class="form-control" name="tags" type="text">
+			<input is="token-input" class="form-control" id="form-tags" name="tags" type="text">
 			@if ($errors->has('tags'))
 				<span class="form-text">
 					<strong>{{ $errors->first('tags') }}</strong>
