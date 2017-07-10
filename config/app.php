@@ -171,6 +171,7 @@ return [
 		Fideloper\Proxy\TrustedProxyServiceProvider::class,
 		Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
 		Barryvdh\Debugbar\ServiceProvider::class,
+		AlgoliaSearch\Laravel\AlgoliaServiceProvider::class,
 
 		/*
 		 * Application Service Providers...
