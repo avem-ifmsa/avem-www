@@ -2,15 +2,15 @@
 
 namespace Avem;
 
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
-use AlgoliaSearch\Laravel\AlgoliaEloquentTrait;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 
 class Exchange extends Model
 {
+	use Searchable;
 	use HasMediaTrait;
-	use AlgoliaEloquentTrait;
 
 	/**
 	 * The attributes that are mass assignable.
@@ -31,28 +31,9 @@ class Exchange extends Model
 		'published' => 'boolean',
 	];
 
-	/**
-	 * Algolia search settings for this model.
-	 *
-	 * @var array
-	 */
-	public $algoliaSettings = [
-		'searchableAttributes' => [
-			'destination', 'type', 'modality',
-		],
-		'customRanking' => [
-			'desc(created_at)', 'desc(id)',
-		],
-	];
-
 	public function destination()
 	{
 		return $this->belongsTo('Avem\Destination');
-	}
-
-	public function indexOnly($indexName)
-	{
-		return $this->published;
 	}
 
 	public function publishedPeriod()

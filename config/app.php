@@ -172,6 +172,7 @@ return [
 		Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
 		Barryvdh\Debugbar\ServiceProvider::class,
 		AlgoliaSearch\Laravel\AlgoliaServiceProvider::class,
+		Laravel\Scout\ScoutServiceProvider::class,
 
 		/*
 		 * Application Service Providers...

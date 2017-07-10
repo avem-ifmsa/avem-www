@@ -3,8 +3,8 @@
 namespace Avem;
 
 use Storage;
+use Laravel\Scout\Searchable;
 use Illuminate\Notifications\Notifiable;
-use AlgoliaSearch\Laravel\AlgoliaEloquentTrait;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
@@ -12,8 +12,8 @@ use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 class User extends Authenticatable implements HasMediaConversions
 {
 	use Notifiable;
+	use Searchable;
 	use HasMediaTrait;
-	use AlgoliaEloquentTrait;
 
 	/**
 	 * The attributes that are mass assignable.
@@ -40,20 +40,6 @@ class User extends Authenticatable implements HasMediaConversions
 	 */
 	protected $dates = [
 		'created_at', 'updated_at', 'birthday',
-	];
-
-	/**
-	 * Algolia search settings for this model.
-	 *
-	 * @var array
-	 */
-	public $algoliaSettings = [
-		'searchableAttributes' => [
-			'name', 'surname', 'email', 'id',
-		],
-		'customRanking' => [
-			'desc(created_at)', 'desc(id)',
-		],
 	];
 
 	public function chargePeriods()

@@ -3,15 +3,15 @@
 namespace Avem;
 
 use Carbon\Carbon;
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
-use AlgoliaSearch\Laravel\AlgoliaEloquentTrait;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 
 class Activity extends Model implements HasMediaConversions
 {
+	use Searchable;
 	use HasMediaTrait;
-	use AlgoliaEloquentTrait;
 
 	/**
 	 * The attributes that are mass assignable.
@@ -34,28 +34,9 @@ class Activity extends Model implements HasMediaConversions
 		'inscription_start', 'inscription_end',
 	];
 
-	/**
-	 * Algolia search settings for this model.
-	 *
-	 * @var array
-	 */
-	public $algoliaSettings = [
-		'searchableAttributes' => [
-			'name', 'description', 'location',
-		],
-		'customRanking' => [
-			'desc(created_at)', 'desc(id)',
-		],
-	];
-
 	public function getNotifiableReceiversAttribute()
 	{
 		return $this->subscribedUsers;
-	}
-
-	public function indexOnly($indexName)
-	{
-		return $this->published;
 	}
 
 	public function inscribedUsers()
