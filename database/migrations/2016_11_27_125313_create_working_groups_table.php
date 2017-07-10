@@ -21,10 +21,10 @@ class CreateWorkingGroupsTable extends Migration
 			$table->text('description')->nullable();
 			$table->string('ifmsa_name')->nullable();
 			$table->string('ifmsa_acronym')->nullable();
-			$table->integer('parent_id')->unsigned()->nullable();
+			$table->integer('parent_group_id')->unsigned()->nullable();
 			$table->timestamps();
 
-			$table->foreign('parent_id')
+			$table->foreign('parent_group_id')
 			      ->references('id')->on('working_groups')
 			      ->onDelete('cascade');
 		});

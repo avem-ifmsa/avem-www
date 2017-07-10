@@ -22,6 +22,7 @@ class CreateChargesTable extends Migration
 			$table->string('ifmsa_name')->nullable();
 			$table->string('ifmsa_acronym')->nullable();
 			$table->integer('working_group_id')->unsigned()->nullable();
+			$table->softDeletes();
 			$table->timestamps();
 
 			$table->foreign('working_group_id')

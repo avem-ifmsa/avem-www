@@ -14,8 +14,11 @@ class CreateActiveChargePeriodsView extends Migration
 	public function up()
 	{
 		DB::statement('
-			CREATE VIEW active_charge_periods AS SELECT * FROM charge_periods
-				WHERE CURRENT_TIMESTAMP BETWEEN start AND end
+			CREATE VIEW active_charge_periods AS
+				SELECT * FROM charge_periods
+				INNER JOIN charges ON charge_id = charges.id
+					WHERE CURRENT_TIMESTAMP BETWEEN start AND end
+					  AND charges.deleted_at IS NULL
 		');
 	}
 

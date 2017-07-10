@@ -13,9 +13,11 @@ class CreateUserWorkingGroupView extends Migration
 	 */
 	public function up()
 	{
-		DB::statement('CREATE VIEW user_working_group AS
-			SELECT user_id, working_group_id FROM charges
-			INNER JOIN charge_periods ON charge_id = charges.id
+		DB::statement('
+			CREATE VIEW user_working_group AS
+				SELECT user_id, working_group_id FROM charges
+				INNER JOIN charge_periods ON charge_id = charges.id
+					WHERE charges.deleted_at IS NULL
 		');
 	}
 
