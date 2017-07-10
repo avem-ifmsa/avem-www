@@ -13338,7 +13338,7 @@ a.text-gray-dark:hover {
   margin-bottom: 10px;
 }
 
-@media (min-width: 380px) {
+@media (min-width: 400px) {
   .dashboard {
     margin-top: 25px;
     margin-bottom: 25px;
@@ -13369,9 +13369,9 @@ a.text-gray-dark:hover {
   width: 240px;
 }
 
-@media (min-width: 380px) {
+@media (min-width: 400px) {
   .dashboard-items {
-    width: 340px;
+    width: 360px;
   }
 }
 
@@ -13407,10 +13407,10 @@ a.text-gray-dark:hover {
   text-decoration: inherit;
 }
 
-@media (min-width: 380px) {
+@media (min-width: 400px) {
   .dashboard-item {
-    width: 150px;
-    height: 150px;
+    width: 160px;
+    height: 160px;
     font-size: 0.7rem;
   }
 }
@@ -13510,8 +13510,8 @@ a.text-gray-dark:hover {
 .section-header .header-icon {
   margin: 0 auto;
   display: block;
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
 }
 
 @media (min-width: 340px) {
