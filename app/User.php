@@ -21,6 +21,15 @@ class User extends Authenticatable implements HasMediaConversions
 	protected $fillable = [
 		'name', 'surname', 'gender', 'birthday', 'email', 'password',
 	];
+	
+	/**
+	 * The attributes excluded from the model's JSON form.
+	 *
+	 * @var array
+	 */
+	protected $hidden = [
+		'password', 'remember_token',
+	];
 
 	/**
 	 * The attributes that should be mutated to dates.
