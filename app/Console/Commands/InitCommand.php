@@ -212,7 +212,7 @@ class InitCommand extends Command
 				$parentName = $info['parent'];
 				$parentInfo = static::WORKING_GROUPS[$parentName];
 				$parent = WorkingGroup::firstOrCreate([ 'name' => $parentName ], $parentInfo);
-				$workingGroup->parent()->associate($parent->id);
+				$workingGroup->parentGroup()->associate($parent->id);
 				$workingGroup->save();
 			}
 		}
