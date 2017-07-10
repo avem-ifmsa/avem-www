@@ -4,9 +4,15 @@ namespace Avem;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use AlgoliaSearch\Laravel\AlgoliaEloquentTrait;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 
-class Activity extends Model
+class Activity extends Model implements HasMediaConversions
 {
+	use HasMediaTrait;
+	use AlgoliaEloquentTrait;
+
 	/**
 	 * The attributes that are mass assignable.
 	 *
@@ -28,9 +34,28 @@ class Activity extends Model
 		'inscription_start', 'inscription_end',
 	];
 
+	/**
+	 * Algolia search settings for this model.
+	 *
+	 * @var array
+	 */
+	public $algoliaSettings = [
+		'searchableAttributes' => [
+			'name', 'description', 'location',
+		],
+		'customRanking' => [
+			'desc(created_at)', 'desc(id)',
+		],
+	];
+
 	public function getNotifiableReceiversAttribute()
 	{
 		return $this->subscribedUsers;
+	}
+
+	public function indexOnly($indexName)
+	{
+		return $this->published;
 	}
 
 	public function inscribedUsers()
@@ -51,6 +76,13 @@ class Activity extends Model
 	public function performedActivityRecords()
 	{
 		return $this->hasMany('Avem\PerformedActivity');
+	}
+
+	public function registerMediaConversions()
+	{
+		$this->addMediaConversion('thumb')
+		     ->width(368)->height(232)
+		     ->sharpen(10);
 	}
 
 	public function selfInscribedUsers()
