@@ -17,8 +17,8 @@ class CreateActiveChargePeriodsView extends Migration
 			CREATE VIEW active_charge_periods AS
 				SELECT * FROM charge_periods
 				INNER JOIN charges ON charge_id = charges.id
-					WHERE CURRENT_TIMESTAMP BETWEEN start AND end
-					  AND charges.deleted_at IS NULL
+					WHERE charges.deleted_at IS NULL
+					  AND CURRENT_TIMESTAMP BETWEEN start AND end
 		');
 	}
 
