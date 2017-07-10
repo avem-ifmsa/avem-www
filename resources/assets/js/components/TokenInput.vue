@@ -3,8 +3,8 @@
 		<li ref="tokenItems" v-for="(token, i) of tokens"
 			@keydown.stop="onTokenItemKeyDown(i, $event)"
 			class="token-existing" tabindex="0">
-			<span v-if="editingTokenIndex === i">
-				<input ref="editTokenInputs" type="text" :value="token"
+			<span v-if="isTokenInEditMode(i)">
+				<input ref="editTokenInputs" type="text" :value="token" :list="list"
 				       @blur="onEditTokenInputBlur" @input="onTokenInputInput"
 				       @keydown.stop="onEditTokenInputKeyDown(i, $event)">
 			</span>
@@ -16,7 +16,7 @@
 		</li>
 
 		<li class="token-new">
-			<input ref="newTokenInput" type="text"
+			<input ref="newTokenInput" type="text" :list="list"
 			       @keydown.stop="onNewTokenInputKeyDown"
 			       @input="onTokenInputInput">
 		</li>
@@ -44,13 +44,6 @@
 		font-weight: 600;
 		white-space: nowrap;
 		overflow: hidden;
-
-		input {
-			padding: 0;
-			border: none;
-			outline: none;
-			min-width: 2px;
-		}
 
 		&.token-existing {
 			border-radius: 4px;
@@ -86,6 +79,19 @@
 			margin: 3px 2px;
 		}
 	}
+
+	input {
+		padding: 0;
+		border: none;
+		outline: none;
+
+		width: 20px;
+		min-width: 2px;
+		
+		&::-webkit-calendar-picker-indicator {
+			display: none;
+		}
+	}
 </style>
 
 <script>
@@ -93,7 +99,7 @@
 
 	export default {
 		props: [
-			'name', 'value', 'disabled',
+			'name', 'value', 'list',
 		],
 		data: function() {
 			return {
@@ -107,8 +113,18 @@
 			},
 		},
 		methods: {
+			getComputedTokenWidth: function(inputElement) {
+				var inputStyle = getComputedStyle(inputElement);
+				return textWidth(inputElement.value, {
+					size: inputStyle.getPropertyValue("font-size"),
+					family: inputStyle.getPropertyValue("font-family"),
+				}) + 10;
+			},
 			isTokenSelected: function(index) {
 				return index === this.selectedTokenIndex;
+			},
+			isTokenInEditMode: function(index) {
+				return index === this.editingTokenIndex;
 			},
 			removeToken: function(index) {
 				this.tokens.splice(index, 1);
@@ -147,7 +163,7 @@
 				this.editingTokenIndex = index;
 				Vue.nextTick(() => {
 					var tokenInput = this.$refs.editTokenInputs[0];
-					var tokenWidth = textWidth(tokenInput.value);
+					var tokenWidth = this.getComputedTokenWidth(tokenInput);
 					tokenInput.style.width = `${tokenWidth}px`;
 					tokenInput.select();
 				});
@@ -165,6 +181,7 @@
 					else
 						this.tokens.splice(index, 1, tokenInput.value);
 					this.editingTokenIndex = null;
+					tokenInput.style.width = null;
 					break;
 				case 'Escape':
 					this.editingTokenIndex = null;
@@ -178,6 +195,7 @@
 					if (tokenInput.value !== '') {
 						event.preventDefault();
 						this.tokens.push(tokenInput.value);
+						tokenInput.style.width = null;
 						tokenInput.value = '';
 					}
 					break;
@@ -192,7 +210,7 @@
 			},
 			onTokenInputInput: function(event) {
 				var tokenInput = event.currentTarget;
-				var tokenWidth = textWidth(tokenInput.value);
+				var tokenWidth = this.getComputedTokenWidth(tokenInput);
 				tokenInput.style.width = `${tokenWidth}px`;
 			},
 		},

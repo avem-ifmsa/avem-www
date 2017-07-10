@@ -1965,11 +1965,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: ['name', 'value', 'disabled'],
+	props: ['name', 'value', 'list'],
 	data: function data() {
 		return {
 			editingTokenIndex: null,
@@ -1984,8 +1990,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		}
 	},
 	methods: {
+		getComputedTokenWidth: function getComputedTokenWidth(inputElement) {
+			var inputStyle = getComputedStyle(inputElement);
+			return __WEBPACK_IMPORTED_MODULE_0_text_width___default.a(inputElement.value, {
+				size: inputStyle.getPropertyValue("font-size"),
+				family: inputStyle.getPropertyValue("font-family")
+			}) + 10;
+		},
 		isTokenSelected: function isTokenSelected(index) {
 			return index === this.selectedTokenIndex;
+		},
+		isTokenInEditMode: function isTokenInEditMode(index) {
+			return index === this.editingTokenIndex;
 		},
 		removeToken: function removeToken(index) {
 			this.tokens.splice(index, 1);
@@ -2023,7 +2039,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			this.editingTokenIndex = index;
 			Vue.nextTick(function () {
 				var tokenInput = _this2.$refs.editTokenInputs[0];
-				var tokenWidth = __WEBPACK_IMPORTED_MODULE_0_text_width___default.a(tokenInput.value);
+				var tokenWidth = _this2.getComputedTokenWidth(tokenInput);
 				tokenInput.style.width = tokenWidth + 'px';
 				tokenInput.select();
 			});
@@ -2038,6 +2054,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					var tokenInput = event.currentTarget;
 					if (tokenInput.value === '') this.tokens.splice(index, 1);else this.tokens.splice(index, 1, tokenInput.value);
 					this.editingTokenIndex = null;
+					tokenInput.style.width = null;
 					break;
 				case 'Escape':
 					this.editingTokenIndex = null;
@@ -2051,6 +2068,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					if (tokenInput.value !== '') {
 						event.preventDefault();
 						this.tokens.push(tokenInput.value);
+						tokenInput.style.width = null;
 						tokenInput.value = '';
 					}
 					break;
@@ -2064,7 +2082,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		},
 		onTokenInputInput: function onTokenInputInput(event) {
 			var tokenInput = event.currentTarget;
-			var tokenWidth = __WEBPACK_IMPORTED_MODULE_0_text_width___default.a(tokenInput.value);
+			var tokenWidth = this.getComputedTokenWidth(tokenInput);
 			tokenInput.style.width = tokenWidth + 'px';
 		}
 	}
@@ -5637,7 +5655,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\nul[data-v-302d394c] {\n  margin: 0;\n  padding: 4px 3px;\n  display: inline-flex;\n  flex-wrap: wrap;\n  cursor: text;\n}\nli[data-v-302d394c] {\n  margin: 2px;\n  outline: none;\n  padding: 3px 8px;\n  font-weight: 600;\n  white-space: nowrap;\n  overflow: hidden;\n}\nli input[data-v-302d394c] {\n    padding: 0;\n    border: none;\n    outline: none;\n    min-width: 2px;\n}\nli.token-existing[data-v-302d394c] {\n    border-radius: 4px;\n    border: 1px solid #c3c3c3;\n    cursor: pointer;\n    background-color: #f7f7f7;\n}\nli.token-existing p[data-v-302d394c] {\n      margin: 0;\n      padding: 0;\n      display: inline-block;\n}\nli.token-existing button[data-v-302d394c] {\n      border: none;\n      padding: 1px;\n      margin-left: 5px;\n      color: inherit;\n      background-color: inherit;\n      cursor: pointer;\n}\nli.token-existing[data-v-302d394c]:focus {\n      background-color: #fefbc6;\n}\nli.token-new[data-v-302d394c] {\n    display: inline-block;\n    margin: 3px 2px;\n}\n", ""]);
+exports.push([module.i, "\nul[data-v-302d394c] {\n  margin: 0;\n  padding: 4px 3px;\n  display: inline-flex;\n  flex-wrap: wrap;\n  cursor: text;\n}\nli[data-v-302d394c] {\n  margin: 2px;\n  outline: none;\n  padding: 3px 8px;\n  font-weight: 600;\n  white-space: nowrap;\n  overflow: hidden;\n}\nli.token-existing[data-v-302d394c] {\n    border-radius: 4px;\n    border: 1px solid #c3c3c3;\n    cursor: pointer;\n    background-color: #f7f7f7;\n}\nli.token-existing p[data-v-302d394c] {\n      margin: 0;\n      padding: 0;\n      display: inline-block;\n}\nli.token-existing button[data-v-302d394c] {\n      border: none;\n      padding: 1px;\n      margin-left: 5px;\n      color: inherit;\n      background-color: inherit;\n      cursor: pointer;\n}\nli.token-existing[data-v-302d394c]:focus {\n      background-color: #fefbc6;\n}\nli.token-new[data-v-302d394c] {\n    display: inline-block;\n    margin: 3px 2px;\n}\ninput[data-v-302d394c] {\n  padding: 0;\n  border: none;\n  outline: none;\n  width: 20px;\n  min-width: 2px;\n}\ninput[data-v-302d394c]::-webkit-calendar-picker-indicator {\n    display: none;\n}\n", ""]);
 
 // exports
 
@@ -36023,11 +36041,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.onTokenItemKeyDown(i, $event)
         }
       }
-    }, [(_vm.editingTokenIndex === i) ? _c('span', [_c('input', {
+    }, [(_vm.isTokenInEditMode(i)) ? _c('span', [_c('input', {
       ref: "editTokenInputs",
       refInFor: true,
       attrs: {
-        "type": "text"
+        "type": "text",
+        "list": _vm.list
       },
       domProps: {
         "value": token
@@ -36062,7 +36081,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('input', {
     ref: "newTokenInput",
     attrs: {
-      "type": "text"
+      "type": "text",
+      "list": _vm.list
     },
     on: {
       "keydown": function($event) {
