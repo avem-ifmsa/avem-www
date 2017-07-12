@@ -173,6 +173,7 @@ return [
 		Barryvdh\Debugbar\ServiceProvider::class,
 		AlgoliaSearch\Laravel\AlgoliaServiceProvider::class,
 		Laravel\Scout\ScoutServiceProvider::class,
+		Laravel\Passport\PassportServiceProvider::class,
 
 		/*
 		 * Application Service Providers...

@@ -10,6 +10,7 @@
         "barryvdh/laravel-debugbar": "^2.4",
         "fideloper/proxy": "^3.2",
         "laravel/framework": "5.4.*",
+        "laravel/passport": "^3.0",
         "laravel/scout": "^3.0",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "^1.0",

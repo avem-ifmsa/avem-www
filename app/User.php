@@ -4,6 +4,7 @@ namespace Avem;
 
 use Storage;
 use Laravel\Scout\Searchable;
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,6 +14,7 @@ class User extends Authenticatable implements HasMediaConversions
 {
 	use Notifiable;
 	use Searchable;
+	use HasApiTokens;
 	use HasMediaTrait;
 
 	/**

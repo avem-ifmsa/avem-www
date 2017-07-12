@@ -1,6 +1,6 @@
 <template>
 	<ul ref="tokenList" class="list-unstyled" @click="onTokenListClick">
-		<li ref="tokenItems" v-for="(token, i) of tokens"
+		<li ref="tokenItems" v-for="(token, i) of tokens" :key="token"
 			@keydown.stop="onTokenItemKeyDown(i, $event)"
 			class="token-existing" tabindex="0">
 			<span v-if="isTokenInEditMode(i)">
