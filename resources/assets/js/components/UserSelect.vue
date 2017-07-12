@@ -1,6 +1,7 @@
 <template>
 	<div ref="root" class="root" @focusout="onComponentFocusOut">
-		<button v-if="!isActivated" class="form-control" @click="activateControl">
+		<button v-if="!isActivated" class="form-control"
+		        @click="activateControl" @keydown.space="activateControl">
 			<slot :user="selectedUser"></slot>
 			<button v-if="selectedUser" class="clear-user"
 			        @click.stop="clearSelectedUser">
@@ -50,14 +51,14 @@
 
 <style scoped lang="scss">
 	.root {
-		display: inline-block;
 		position: relative;
+		display: inline-block;
 	}
 
 	.option-container {
-		position: absolute;
-		width: 100%;
 		top: 100%;
+		width: 100%;
+		position: absolute;
 	}
 
 	button {
@@ -82,8 +83,8 @@
 
 	ul {
 		margin-left: 0;
-		list-style: none;
 		padding: 5px 0px;
+		list-style: none;
 
 		background-color: #fff;
 	}
@@ -94,7 +95,9 @@
 		cursor: default;
 	}
 
-	.not-ready i, .request-error i, .not-available i {
+	.not-ready i,
+	.request-error i,
+	.not-available i {
 		margin-right: 10px;
 	}
 

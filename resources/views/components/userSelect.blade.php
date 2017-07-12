@@ -10,7 +10,11 @@
 		</div>
 
 		<span v-else>
-			Seleccione un usuario
+			@if (isset($placeholder))
+				{{ $placeholder }}
+			@else
+				Seleccione un usuario
+			@endif
 		</span>
 	</template>
 </user-select>
