@@ -17,20 +17,18 @@ class AdminActivityViewComposer
 
 	private function getRequestedActivities(Request $request)
 	{
-		$organizedBy = $request->input('organized_by', 'me');
-		if ($organizedBy == 'me') {
+		if ($filter = $request->input('q'))
+			$matchingActivities = Activity::search($filter)->get();
+		
+		if ($request->input('organized_by', 'me') == 'me') {
 			$chargePeriods = $request->user()->chargePeriods();
-			$activities = $chargePeriods->join('activities', 'charge_period_id', '=', 'charge_periods.id')
-			                            ->select('activities.*');
-		} else {
-			$activities = Activity::query();
+			$organizedActivities = $chargePeriods->join('activities', 'charge_period_id', '=', 'charge_periods.id');
+			if (isset($matchingActivities))
+				$organizedActivities = $organizedActivities->whereIn('activities.id', $matchingActivities->pluck('id'));
+			$matchingActivities = $organizedActivities->select('activities.*')->get();
 		}
 
-		if ($request->has('q')) {
-			$activities = $this->filterActivities($request, $activities);
-		}
-
-		return $activities->get();
+		return isset($matchingActivities) ? $matchingActivities : Activity::all();
 	}
 
 	/**
