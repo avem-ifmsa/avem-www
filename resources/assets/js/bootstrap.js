@@ -19,6 +19,7 @@ require('bootstrap');
  */
 
 window.Vue = require('vue');
+window.VueAsyncComputed = require('vue-async-computed');
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

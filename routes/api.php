@@ -13,6 +13,20 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/user', function (Request $request) {
-	return $request->user();
-})->middleware('auth:api');
+Route::group([ 'namespace'  => 'Api'      ,
+               'middleware' => 'auth:api' ], function() {
+
+	Route::get('user', function(Request $request) {
+		return $request->user();
+	});
+
+	Route::group([ 'as'     => 'search.' ,
+	               'prefix' => 'search'  ], function() {
+		
+		Route::get('users', 'SearchController@searchUsers');
+		Route::get('exchanges', 'SearchController@searchExchanges');
+		Route::get('activities', 'SearchController@searchActivities');
+	
+	});
+
+});

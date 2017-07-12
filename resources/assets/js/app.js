@@ -12,10 +12,13 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.use(VueAsyncComputed);
+
 Vue.component('input-image'  , require('./components/InputImage.vue'  ));
 Vue.component('open-select'  , require('./components/OpenSelect.vue'  ));
 Vue.component('sortable-list', require('./components/SortableList.vue'));
 Vue.component('token-input'  , require('./components/TokenInput.vue'  ));
+Vue.component('user-select'  , require('./components/UserSelect.vue'  ));
 
 document.addEventListener('DOMContentLoaded', function() {
 	const app = new Vue({

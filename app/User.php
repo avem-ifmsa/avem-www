@@ -27,6 +27,15 @@ class User extends Authenticatable implements HasMediaConversions
 	];
 	
 	/**
+	 * The attributes that should be included too.
+	 *
+	 * @var array
+	 */
+	protected $appends = [
+		'fullName', 'profileImageUrl',
+	];
+	
+	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
 	 * @var array
@@ -93,6 +102,13 @@ class User extends Authenticatable implements HasMediaConversions
 	public function getProfileImageAttribute()
 	{
 		return $this->getMedia('avatars')->first();
+	}
+
+	public function getProfileImageUrlAttribute()
+	{
+		$profileImage = $this->profileImage;
+		return $profileImage ? $profileImage->getUrl('thumb')
+		                     : asset('img/user-default-image.svg');
 	}
 
 	public function hasPermission($name)
