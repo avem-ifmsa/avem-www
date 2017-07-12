@@ -2202,6 +2202,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	props: ["name", "value"],
@@ -5860,7 +5863,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.root[data-v-6ce965a2] {\n  display: inline-block;\n  position: relative;\n}\n.option-container[data-v-6ce965a2] {\n  position: absolute;\n  width: 100%;\n  top: 100%;\n}\nbutton[data-v-6ce965a2] {\n  cursor: pointer;\n}\n.clear-user[data-v-6ce965a2] {\n  top: 50%;\n  right: 5%;\n  position: absolute;\n  transform: translateY(-50%);\n  color: #aaa;\n  border: none;\n  outline: none;\n  background-color: transparent;\n}\n.clear-user[data-v-6ce965a2]:hover {\n    color: #000;\n}\nul[data-v-6ce965a2] {\n  margin-left: 0;\n  list-style: none;\n  padding: 5px 0px;\n  background-color: #fff;\n}\nli[data-v-6ce965a2] {\n  padding: 3px 20px;\n  cursor: default;\n}\n.not-ready i[data-v-6ce965a2], .request-error i[data-v-6ce965a2], .not-available i[data-v-6ce965a2] {\n  margin-right: 10px;\n}\n.user-results li[data-v-6ce965a2]:hover {\n  background-color: #f5f5f5;\n}\n", ""]);
+exports.push([module.i, "\n.root[data-v-6ce965a2] {\n  position: relative;\n  display: inline-block;\n}\n.option-container[data-v-6ce965a2] {\n  top: 100%;\n  width: 100%;\n  position: absolute;\n}\nbutton[data-v-6ce965a2] {\n  cursor: pointer;\n}\n.clear-user[data-v-6ce965a2] {\n  top: 50%;\n  right: 5%;\n  position: absolute;\n  transform: translateY(-50%);\n  color: #aaa;\n  border: none;\n  outline: none;\n  background-color: transparent;\n}\n.clear-user[data-v-6ce965a2]:hover {\n    color: #000;\n}\nul[data-v-6ce965a2] {\n  margin-left: 0;\n  padding: 5px 0px;\n  list-style: none;\n  background-color: #fff;\n}\nli[data-v-6ce965a2] {\n  padding: 3px 20px;\n  cursor: default;\n}\n.not-ready i[data-v-6ce965a2],\n.request-error i[data-v-6ce965a2],\n.not-available i[data-v-6ce965a2] {\n  margin-right: 10px;\n}\n.user-results li[data-v-6ce965a2]:hover {\n  background-color: #f5f5f5;\n}\n", ""]);
 
 // exports
 
@@ -36467,7 +36470,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [(!_vm.isActivated) ? _c('button', {
     staticClass: "form-control",
     on: {
-      "click": _vm.activateControl
+      "click": _vm.activateControl,
+      "keydown": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "space", 32)) { return null; }
+        _vm.activateControl($event)
+      }
     }
   }, [_vm._t("default", null, {
     user: _vm.selectedUser

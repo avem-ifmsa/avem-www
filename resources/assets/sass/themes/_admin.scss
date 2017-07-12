@@ -1,9 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Libre+Franklin');
 
 .admin {
-	color: #fff;
-	background-color: #262626;
 	font-family: 'Libre Franklin', sans-serif;
+
+	.section-header {
+		color: #fff;
+		background-color: #262626;
+	}
 
 	.header-icon {
 		fill: #fff;
@@ -17,9 +20,5 @@
 		.item-text {
 			letter-spacing: 1px;
 		}
-	}
-
-	.modal {
-		color: black;
 	}
 }

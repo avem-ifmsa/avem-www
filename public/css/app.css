@@ -13492,18 +13492,18 @@ a.text-gray-dark:hover {
 }
 
 .section-header {
-  margin: 10px 20px;
+  padding: 10px 20px;
 }
 
 @media (min-width: 340px) {
   .section-header {
-    margin-top: 15px;
+    padding-top: 15px;
   }
 }
 
 @media (min-width: 640px) {
   .section-header {
-    margin-top: 40px;
+    padding-top: 40px;
   }
 }
 
@@ -13585,9 +13585,12 @@ a.text-gray-dark:hover {
 }
 
 .admin {
+  font-family: 'Libre Franklin', sans-serif;
+}
+
+.admin .section-header {
   color: #fff;
   background-color: #262626;
-  font-family: 'Libre Franklin', sans-serif;
 }
 
 .admin .header-icon {
@@ -13600,9 +13603,5 @@ a.text-gray-dark:hover {
 
 .admin .dashboard--admin .item-text {
   letter-spacing: 1px;
-}
-
-.admin .modal {
-  color: black;
 }
 
