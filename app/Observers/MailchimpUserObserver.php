@@ -33,7 +33,8 @@ class MailchimpUserObserver
 		if ($user->isDirty('email')) {
 			$newEmail = $user->email;
 			$oldEmail = $user->getOriginal('email');
-			Newsletter::updateEmailAddress($oldEmail, $newEmail);
+			if (Newsletter::isSubscribed($oldEmail))
+				Newsletter::updateEmailAddress($oldEmail, $newEmail);
 		}
 	}
 
