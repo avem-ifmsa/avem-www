@@ -188,11 +188,6 @@ class User extends Authenticatable implements HasMediaConversions
 		$this->attributes['gender'] = $gender;
 	}
 
-	public function subscribedActivities()
-	{
-		return $this->morphedByMany('Avem\Activity', 'subscribable');
-	}
-
 	public function renewals()
 	{
 		return $this->hasMany('Avem\Renewal');
@@ -218,11 +213,6 @@ class User extends Authenticatable implements HasMediaConversions
 	public function selfInscribedActivities()
 	{
 		return $this->belongsToMany('Avem\Activity', 'self_inscribed_activity_users');
-	}
-
-	public function selfSubscribedActivities()
-	{
-		return $this->morphedByMany('Avem\Activity', 'subscribable', 'own_subscribables');
 	}
 
 	public function transactions()

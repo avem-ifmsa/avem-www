@@ -22,11 +22,6 @@ class Tag extends Model
 		return $this->morphedByMany('Avem\Activity', 'taggable');
 	}
 
-	public function subscribedUsers()
-	{
-		return $this->morphMany('Avem\User', 'subscribable');
-	}
-
 	public function workingGroups()
 	{
 		return $this->morphedByMany('Avem\WorkingGroup', 'taggable');

@@ -71,11 +71,6 @@ class Activity extends Model implements HasMediaConversions
 		return $this->belongsToMany('Avem\User', 'self_inscribed_activity_users');
 	}
 
-	public function selfSubscribedUsers()
-	{
-		return $this->morphToMany('Avem\User', 'subscribable');
-	}
-
 	public function setEndAttribute($date) {
 		$this->attributes['end'] = Carbon::parse($date);
 	}
@@ -90,11 +85,6 @@ class Activity extends Model implements HasMediaConversions
 
 	public function setStartAttribute($date) {
 		$this->attributes['start'] = Carbon::parse($date);
-	}
-
-	public function subscribedUsers()
-	{
-		return $this->morphToMany('Avem\User', 'subscribable', 'all_subscribables');
 	}
 
 	public function tags()

@@ -15,19 +15,9 @@ class Claim extends Model implements Notifiable
 		'info',
 	];
 
-	public function activityTask()
+	public function activity()
 	{
-		return $this->belongsTo('Avem\ActivityTask');
-	}
-
-	public function getNotifiableReceiversAttribute()
-	{
-		return [$this->user];
-	}
-
-	public function notifications()
-	{
-		return $this->morphMany('Avem\Notification', 'notifiable');
+		return $this->belongsTo('Avem\Activity');
 	}
 
 	public function resolution()
