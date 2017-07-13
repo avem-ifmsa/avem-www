@@ -102,65 +102,101 @@ class InitCommand extends Command
 
 		'Cargos burocráticos' => [
 			'color' => '#a01238',
-			
 		],
 
 		'Grupos de trabajo temático' => [
-
 		],
 
 		'Cargos de apoyo' => [
 			'color' => '#c8c800',
-
 		],
 
 		'Cargos de intercambios' => [
 			'color' => '#1368d8',
-
 		],
 
 		'Educación médica' => [
-			'color'  => '#485b6b',
-			'parent' => 'Grupos de trabajo temático',
-
+			'color'         => '#485b6b',
+			'parent'        => 'Grupos de trabajo temático',
+			'ifmsa_name'    => 'Standing Committee On Medical Education',
+			'ifmsa_acronym' => 'SCOME',
+			'description'   =>
+				'Se encarga de la formación médica complementaria, ampliándola mediante '  .
+				'charlas, cursillos y otras actividades. Además, trabaja el estado de la ' .
+				'educación médica y la docencia.',
 		],
 
 		'Salud pública' => [
-			'color'  => '#ff8316',
-			'parent' => 'Grupos de trabajo temático',
-
+			'color'         => '#ff8316',
+			'parent'        => 'Grupos de trabajo temático',
+			'ifmsa_name'    => 'Standing Committee On Public Health',
+			'ifmsa_acronym' => 'SCOPH',
+			'description'   =>
+				'Organiza actividades para informar sobre cómo prevenir enfermedades, ' .
+				'mantener un estado de salud adecuado y acercar la medicina al ámbito ' .
+				'público. Entre sus actividades estrella se encuentra la famosa Feria ' .
+				'de la Salud por el Día Mundial de la Salud (DMS).',
 		],
 
 		'Sexualidad' => [
-			'color'  => '#dc083c',
-			'parent' => 'Grupos de trabajo temático',
-
+			'color'         => '#dc083c',
+			'parent'        => 'Grupos de trabajo temático',
+			'ifmsa_name'    => 'Standing Committee On Reproductive health and Sexuality including HIV/AIDS',
+			'ifmsa_acronym' => 'SCORSA',
+			'description'   =>
+				'Organizan charlas, debates, videofórums y otras actividades para ' .
+				'informar y formar sobre temas de salud reproductiva y sexualidad.',
 		],
 
 		'Derechos humanos' => [
-			'color'  => '#44b724',
-			'parent' => 'Grupos de trabajo temático',
-
+			'color'         => '#44b724',
+			'parent'        => 'Grupos de trabajo temático',
+			'ifmsa_name'    => 'Standing Committee On Human Rights and Peace',
+			'ifmsa_acronym' => 'SCORP',
+			'description'   =>
+				'Organiza actividades relacionadas con la paz, los refugiados y los derechos' .
+				'humanos, poniendo énfasis en la concienciación sobre desigualdad, '          .
+				'intolerancia, racismo, violencia y abuso a las personas.',
 		],
 
 		'Intercambios internacionales clínicos' => [
-			'parent' => 'Cargos de intercambios',
-
+			'parent'        => 'Cargos de intercambios',
+			'ifmsa_name'    => 'Standing Committee On Professional Exchanges',
+			'ifmsa_acronym' => 'SCOPE',
+			'description'   =>
+				'Gestionan los intercambios clínicos entre universidades de todo el mundo. Los ' .
+				'intercambios clínicos solo están disponibles para socios a partir de 3º curso.',
 		],
 
 		'Intercambios internacionales de investigación' => [
-			'parent' => 'Cargos de intercambios',
-
+			'parent'        => 'Cargos de intercambios',
+			'ifmsa_name'    => 'Standing Committee On Research Exchanges',
+			'ifmsa_acronym' => 'SCORE',
+			'description'   =>
+				'Gestiona intercambios ligados a proyectos de investigación internacional '      .
+				'entre universidades de todo el mundo. Los intercambios de investigación están ' .
+				'disponibles para estudiantes de todos los cursos.',
 		],
 
 		'Intercambios nacionales' => [
-			'parent' => 'Cargos de intercambios',
-
+			'parent'        => 'Cargos de intercambios',
+			'ifmsa_name'    => 'Standing Committee On National Exchanges',
+			'ifmsa_acronym' => 'SCONE',
+			'description'   =>
+				'Gestionan los intercambios entre universidades españolas, tanto para los que ' .
+				'vienen (incomings) como para los que se van (outgoings). Coordinan tanto '     .
+				'intercambios clínicos (o profesionales) como de investigación.',
 		],
 
 		'Coordinación de acogida de intercambios' => [
-			'parent' => 'Cargos de intercambios',
-
+			'parent'        => 'Cargos de intercambios',
+			'ifmsa_name'    => 'Standing Committee On Incoming Hosting',
+			'ifmsa_acronym' => 'SCOIH',
+			'description'   =>
+				'Ajusta el programa de intercambios al presupuesto pautado por tesorería, ' .
+				'gestiona el programa acoge un guiri, coordina la acogida de incomings '    .
+				'(condiciones, distribución y otras características del alojamiento) y es ' .
+				'responsable de los Contact Person.',
 		],
 
 	];
