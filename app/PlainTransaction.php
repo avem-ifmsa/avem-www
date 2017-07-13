@@ -17,7 +17,7 @@ class PlainTransaction extends Model
 
 	public function applierPeriod()
 	{
-		return $this->belongsTo('Avem\MbMemberPeriod', 'mb_member_period_id');
+		return $this->belongsTo('Avem\ChargePeriod', 'charge_period_id');
 	}
 
 	public function transaction()

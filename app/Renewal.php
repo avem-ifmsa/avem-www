@@ -2,7 +2,6 @@
 
 namespace Avem;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Renewal extends Model
@@ -27,12 +26,12 @@ class Renewal extends Model
 
 	public function issuerPeriod()
 	{
-		return $this->belongsTo('Avem\MbMemberPeriod', 'mb_member_period_id');
+		return $this->belongsTo('Avem\ChargePeriod', 'charge_period_id');
 	}
 
 	public function scopeActive($query)
 	{
-		$query->where('until', '>', Carbon::now());
+		$query->where('until', '>', 'CURRENT_TIMESTAMP');
 	}
 
 	public function user()

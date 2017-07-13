@@ -22,6 +22,6 @@ class ClaimResolution extends Model
 
 	public function resolverPeriod()
 	{
-		return $this->belongsTo('Avem\MbMemberPeriod');
+		return $this->belongsTo('Avem\ChargePeriod', 'charge_period_id');
 	}
 }

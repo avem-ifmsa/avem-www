@@ -36,8 +36,8 @@ class Exchange extends Model
 		return $this->belongsTo('Avem\Destination');
 	}
 
-	public function publishedPeriod()
+	public function publisherPeriod()
 	{
-		return $this->belongsTo('Avem\MbMemberPeriod');
+		return $this->belongsTo('Avem\ChargePeriod', 'charge_period_id');
 	}
 }
