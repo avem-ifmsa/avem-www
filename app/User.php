@@ -131,11 +131,6 @@ class User extends Authenticatable implements HasMediaConversions
 		return $this->hasManyThrough('Avem\Renewal', 'Avem\ChargePeriod');
 	}
 
-	public function notificationReceipts()
-	{
-		return $this->hasMany('Avem\NotificationReceipt');
-	}
-
 	public function ownRoles()
 	{
 		return $this->belongsToMany('Avem\Role', 'own_user_roles');
