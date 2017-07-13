@@ -17,8 +17,8 @@ class CreateChargePeriodsTable extends Migration
 			$table->increments('id');
 			$table->integer('charge_id')->unsigned();
 			$table->integer('user_id')->unsigned()->nullable();
-			$table->dateTime('start');
-			$table->dateTime('end');
+			$table->date('start');
+			$table->date('end');
 			$table->timestamps();
 
 			$table->foreign('user_id')

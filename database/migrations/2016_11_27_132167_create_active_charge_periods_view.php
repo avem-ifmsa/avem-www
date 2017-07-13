@@ -13,13 +13,11 @@ class CreateActiveChargePeriodsView extends Migration
 	 */
 	public function up()
 	{
-		DB::statement('
-			CREATE VIEW active_charge_periods AS
-				SELECT charge_periods.* FROM charge_periods
-				INNER JOIN charges ON charge_id = charges.id
-					WHERE charges.deleted_at IS NULL
-					  AND charge_periods.start <= CURRENT_TIMESTAMP
-					  AND CURRENT_TIMESTAMP < charge_periods.end
+		DB::statement('CREATE VIEW active_charge_periods AS
+			SELECT charge_periods.* FROM charge_periods
+			INNER JOIN charges ON charge_id = charges.id
+				WHERE charges.deleted_at IS NULL
+				  AND CURRENT_TIMESTAMP BETWEEN charge_periods.start AND charge_periods.end
 		');
 	}
 

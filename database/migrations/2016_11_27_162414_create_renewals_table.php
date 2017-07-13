@@ -17,7 +17,7 @@ class CreateRenewalsTable extends Migration
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
 			$table->integer('charge_period_id')->unsigned();
-			$table->datetime('until');
+			$table->date('until');
 			$table->timestamps();
 
 			$table->foreign('user_id')
