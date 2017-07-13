@@ -174,15 +174,17 @@ return [
 		AlgoliaSearch\Laravel\AlgoliaServiceProvider::class,
 		Laravel\Scout\ScoutServiceProvider::class,
 		Laravel\Passport\PassportServiceProvider::class,
+		Spatie\Newsletter\NewsletterServiceProvider::class,
 
 		/*
 		 * Application Service Providers...
 		 */
 		Avem\Providers\AppServiceProvider::class,
 		Avem\Providers\AuthServiceProvider::class,
-		// Avem\Providers\BroadcastServiceProvider::class,
 		Avem\Providers\EventServiceProvider::class,
 		Avem\Providers\RouteServiceProvider::class,
+		Avem\Providers\MailchimpServiceProvider::class,
+		// Avem\Providers\BroadcastServiceProvider::class,
 		Avem\Providers\ViewComposerServiceProvider::class,
 
 	],
@@ -219,6 +221,7 @@ return [
 		'Lang' => Illuminate\Support\Facades\Lang::class,
 		'Log' => Illuminate\Support\Facades\Log::class,
 		'Mail' => Illuminate\Support\Facades\Mail::class,
+		'Newsletter' => Spatie\Newsletter\NewsletterFacade::class,
 		'Notification' => Illuminate\Support\Facades\Notification::class,
 		'Password' => Illuminate\Support\Facades\Password::class,
 		'Queue' => Illuminate\Support\Facades\Queue::class,
