@@ -134,7 +134,7 @@ class InitCommand extends Command
 			'parent'        => 'Grupos de trabajo temático',
 			'ifmsa_name'    => 'Standing Committee On Public Health',
 			'ifmsa_acronym' => 'SCOPH',
-			'tags'          => ['SCOPH', 'Salud Pública'],
+			'tags'          => ['SCOPH', 'Salud pública'],
 			'description'   =>
 				'Organiza actividades para informar sobre cómo prevenir enfermedades, ' .
 				'mantener un estado de salud adecuado y acercar la medicina al ámbito ' .
