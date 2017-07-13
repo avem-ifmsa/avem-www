@@ -4,6 +4,7 @@ namespace Avem\Providers;
 
 use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class AppServiceProvider extends ServiceProvider
 {
