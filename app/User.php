@@ -3,6 +3,8 @@
 namespace Avem;
 
 use Storage;
+use Avem\Role;
+use Avem\Activity;
 use Laravel\Scout\Searchable;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -123,7 +125,24 @@ class User extends Authenticatable implements HasMediaConversions
 
 	public function inscribedActivities()
 	{
-		return $this->belongsToMany('Avem\Activity');
+		$selfInscribedActivities = $this->selfInscribedActivities();
+
+		$boardInscribedActivities = $this->chargePeriods()
+			->select('activities.*', "$this->id as pivot_user_id", 'activities.id as pivot_activity_id')
+			->crossJoin('activities')->where('activities.inscription_policy', 'board')
+			->where(function($query) {
+				$query->whereBetween('charge_periods.start', ['activities.start', 'activities.end'])
+				      ->orWhereBetween('charge_periods.end', ['activities.start', 'activities.end'])
+				      ->orWhereBetween('activities.start', ['charge_periods.start', 'charge_periods.end'])
+				      ->orWhereBetween('activities.end', ['charge_periods.start', 'charge_periods.end']);
+			});
+		
+		$allInscribedActivities = Activity::where('inscription_policy', 'all')
+			->select('activities.*', "$this->id as pivot_user_id", 'activities.id as pivot_activity_id')
+			->whereDate($this->createdAt, '<=', 'activities.end');
+		
+		return $selfInscribedActivities->union($boardInscribedActivities)
+		                               ->union($allInscribedActivities);
 	}
 
 	public function issuedRenewals()
@@ -133,7 +152,7 @@ class User extends Authenticatable implements HasMediaConversions
 
 	public function ownRoles()
 	{
-		return $this->belongsToMany('Avem\Role', 'own_user_roles');
+		return $this->belongsToMany('Avem\Role');
 	}
 
 	public function performedActivities()
@@ -195,7 +214,15 @@ class User extends Authenticatable implements HasMediaConversions
 
 	public function roles()
 	{
-		return $this->belongsToMany('Avem\Role');
+		$ownRoles = $this->ownRoles();
+
+		$chargeRoles = $this->chargePeriods()->active()
+		                    ->select('roles.*', "roles.id as pivot_role_id", "$this->id as pivot_user_id")
+		                    ->join('charge_role', 'charge_role.charge_id', '=', 'charge_periods.charge_id')
+		                    ->join('roles', 'roles.id', '=', 'charge_role.role_id')
+		                    ->groupBy('roles.id');
+		
+		return $ownRoles->union($chargeRoles);
 	}
 
 	public function scopeWithActiveCharge($query)
@@ -207,7 +234,7 @@ class User extends Authenticatable implements HasMediaConversions
 
 	public function selfInscribedActivities()
 	{
-		return $this->belongsToMany('Avem\Activity', 'self_inscribed_activity_users');
+		return $this->belongsToMany('Avem\Activity');
 	}
 
 	public function transactions()

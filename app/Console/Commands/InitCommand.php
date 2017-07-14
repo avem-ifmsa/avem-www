@@ -532,7 +532,7 @@ class InitCommand extends Command
 			$charge = Charge::create(array_merge([ 'email' => $email ], $info));
 
 			if (isset($info['roles'])) {
-				$charge->chargeRoles()->saveMany(
+				$charge->roles()->saveMany(
 					Role::whereIn('name', $info['roles'])->get()
 				);
 			}

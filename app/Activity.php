@@ -41,7 +41,28 @@ class Activity extends Model implements HasMediaConversions
 
 	public function inscribedUsers()
 	{
-		return $this->belongsToMany('Avem\User');
+		$selfInscribedUsers = $this->selfInscribedUsers();
+
+		$boardInscribedUsers = Activity::where('activities.id', $this->id)
+			->crossJoin('charge_periods')
+			->join('users', 'users.id', '=', 'charge_periods.user_id')
+			->select('users.*', 'activities.id as pivot_activity_id', 'users.id as pivot_user_id')
+			->where('activities.inscription_policy', 'board')
+			->where(function($query) {
+				$query->whereBetween('charge_periods.start', ['activities.start', 'activities.end'])
+				      ->orWhereBetween('charge_periods.end', ['activities.start', 'activities.end'])
+				      ->orWhereBetween('activities.start', ['charge_periods.start', 'charge_periods.end'])
+				      ->orWhereBetween('activities.end', ['charge_periods.start', 'charge_periods.end']);
+			});
+		
+		$allInscribedUsers = Activity::where('activities.id', $this->id)
+			->crossJoin('users')
+			->select('users.*', 'activities.id as pivot_activity_id', 'users.id as pivot_user_id')
+			->where('activities.inscription_policy', 'all')
+			->whereDate('users.created_at', '<', 'activities.end');
+		
+		return $selfInscribedUsers->union($boardInscribedUsers)
+		                          ->union($allInscribedUsers);
 	}
 
 	public function notifications()
@@ -68,7 +89,7 @@ class Activity extends Model implements HasMediaConversions
 
 	public function selfInscribedUsers()
 	{
-		return $this->belongsToMany('Avem\User', 'self_inscribed_activity_users');
+		return $this->belongsToMany('Avem\User');
 	}
 
 	public function setEndAttribute($date) {

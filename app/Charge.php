@@ -27,7 +27,7 @@ class Charge extends Model
 		'created_at', 'updated_at', 'deleted_at',
 	];
 
-	public function chargeRoles()
+	public function roles()
 	{
 		return $this->belongsToMany('Avem\Role');
 	}
