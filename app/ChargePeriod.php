@@ -68,8 +68,9 @@ class ChargePeriod extends Model
 
 	public function scopeActive($query)
 	{
-		return $query->whereDate('start', '<=', 'CURRENT_TIMESTAMP')
-		             ->WhereDate('end', '<', 'CURRENT_TIMESTAMP');
+		$now = Carbon::now()->toDateString();
+		return $query->whereDate('start', '<=', $now)
+		             ->whereDate('end', '>', $now);
 	}
 
 	public function sentNotifications()

@@ -72,7 +72,7 @@ class Activity extends Model implements HasMediaConversions
 
 	public function organizerPeriods()
 	{
-		return $this->belongsToMany('Avem\MbMemberPeriod');
+		return $this->belongsToMany('Avem\ChargePeriod');
 	}
 
 	public function performedActivityRecords()

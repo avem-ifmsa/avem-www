@@ -22,7 +22,8 @@ class AdminActivityViewComposer
 		
 		if ($request->input('organized_by', 'me') == 'me') {
 			$chargePeriods = $request->user()->chargePeriods();
-			$organizedActivities = $chargePeriods->join('activities', 'charge_period_id', '=', 'charge_periods.id');
+			$organizedActivities = $chargePeriods->join('activity_charge_period', 'charge_periods.id', '=', 'activity_charge_period.charge_period_id')
+			                                     ->join('activities', 'activities.id', '=', 'activity_charge_period.activity_id');
 			if (isset($matchingActivities))
 				$organizedActivities = $organizedActivities->whereIn('activities.id', $matchingActivities->pluck('id'));
 			$matchingActivities = $organizedActivities->select('activities.*')->get();

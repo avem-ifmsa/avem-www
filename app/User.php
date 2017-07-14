@@ -127,8 +127,8 @@ class User extends Authenticatable implements HasMediaConversions
 		$selfInscribedActivities = $this->selfInscribedActivities();
 
 		$boardInscribedActivities = $this->chargePeriods()
-			->select('activities.*', "$this->id as pivot_user_id", 'activities.id as pivot_activity_id')
 			->crossJoin('activities')->where('activities.inscription_policy', 'board')
+			->select('activities.*', 'users.id as pivot_user_id', 'activities.id as pivot_activity_id')
 			->where(function($query) {
 				$query->whereBetween('charge_periods.start', ['activities.start', 'activities.end'])
 				      ->orWhereBetween('charge_periods.end', ['activities.start', 'activities.end'])
@@ -136,8 +136,9 @@ class User extends Authenticatable implements HasMediaConversions
 				      ->orWhereBetween('activities.end', ['charge_periods.start', 'charge_periods.end']);
 			});
 		
-		$allInscribedActivities = Activity::where('inscription_policy', 'all')
-			->select('activities.*', "$this->id as pivot_user_id", 'activities.id as pivot_activity_id')
+		$allInscribedActivities = User::where('id', $this->id)
+			->crossJoin('activities')->where('inscription_policy', 'all')
+			->select('activities.*', 'users.id as pivot_user_id', 'activities.id as pivot_activity_id')
 			->whereDate($this->createdAt, '<=', 'activities.end');
 		
 		return $selfInscribedActivities->union($boardInscribedActivities)
@@ -216,19 +217,11 @@ class User extends Authenticatable implements HasMediaConversions
 		$ownRoles = $this->ownRoles();
 
 		$chargeRoles = $this->chargePeriods()->active()
-		                    ->select('roles.*', "roles.id as pivot_role_id", "$this->id as pivot_user_id")
+		                    ->select('roles.*', 'roles.id as pivot_role_id', 'charge_periods.user_id as pivot_user_id')
 		                    ->join('charge_role', 'charge_role.charge_id', '=', 'charge_periods.charge_id')
-		                    ->join('roles', 'roles.id', '=', 'charge_role.role_id')
-		                    ->groupBy('roles.id');
+		                    ->join('roles', 'roles.id', '=', 'charge_role.role_id');
 		
 		return $ownRoles->union($chargeRoles);
-	}
-
-	public function scopeWithActiveCharge($query)
-	{
-		return $query->join('charge_periods', 'charge_periods.user_id', '=', 'users.id')
-		             ->where('start', '<=', 'CURRENT_TIMESTAMP')->where('end', '>', 'CURRENT_TIMESTAMP')
-		             ->select('users.*');
 	}
 
 	public function selfInscribedActivities()
