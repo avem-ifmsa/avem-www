@@ -26,7 +26,7 @@
 								</li>
 							@empty
 								<li class="charge-period charge-period--unassigned">
-									<span class="period-user">Cargo no asignado...</span>
+									<span class="period-user">Cargo no asignado&#8230;</span>
 									<span class="period-end">Haz clic aquí para asignarlo a alguien</span>
 								</li>
 							@endforelse
@@ -36,7 +36,7 @@
 
 				<li class="group-charge group-charge--new{{ Gate::denies('create', Avem\Charge::class) ? ' disabled' : '' }}">
 					<span class="charge-name">
-						<i class="fa fa-plus"></i> Nuevo cargo...
+						<i class="fa fa-plus"></i> Nuevo cargo&#8230;
 					</span>
 				</li>
 			</ol>
