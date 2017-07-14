@@ -34,7 +34,7 @@
 					</li>
 				@endforeach
 
-				<li class="group-charge group-charge--new">
+				<li class="group-charge group-charge--new{{ Gate::denies('create', Avem\Charge::class) ? ' disabled' : '' }}">
 					<span class="charge-name">
 						<i class="fa fa-plus"></i> Nuevo cargo...
 					</span>

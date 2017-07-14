@@ -115,7 +115,6 @@ class User extends Authenticatable implements HasMediaConversions
 
 	public function hasPermission($name)
 	{
-		$this->load('roles.permissions');
 		foreach ($this->roles as $role) {
 			if ($role->permissions->contains('name', $name))
 				return true;
