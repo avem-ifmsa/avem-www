@@ -28,13 +28,24 @@ Route::group([ 'as'         => 'admin.',
 		return view('admin.index');
 	}]);
 
-	Route::get('board', [ 'as' => 'board', function() {
-		return view('admin.board');
-	}]);
+	Route::group([ 'as' => 'board.', 'prefix' => 'board' ], function() {
 
-	Route::get('analytics', [ 'as' => 'analytics', function() {
-		return view('admin.analytics');
-	}]);
+		Route::get('/', [
+			'as'   => 'index',
+			'uses' => 'BoardController@index',
+		]);
+
+		Route::post('renewCharge', [
+			'as'   => 'renewCharge',
+			'uses' => 'BoardController@renewCharge',
+		]);
+
+		Route::post('endChargePeriod', [
+			'as'   => 'endChargePeriod',
+			'uses' => 'BoardController@endChargePeriod',
+		]);
+
+	});
 
 	Route::resource('activities'   , 'ActivityController'    );
 	Route::resource('charges'      , 'ChargeController'      );

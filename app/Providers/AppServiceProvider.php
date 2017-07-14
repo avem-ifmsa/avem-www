@@ -17,6 +17,7 @@ class AppServiceProvider extends ServiceProvider
 	{
 		// Make Carbon use app locale
 		Carbon::setLocale(config('app.locale'));
+		setlocale(LC_TIME, config('app.locale'));
 
 		// Set up morph map for polymorphic relationships
 		Relation::morphMap([

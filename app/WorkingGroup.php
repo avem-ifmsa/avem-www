@@ -26,7 +26,7 @@ class WorkingGroup extends Model
 		if ($selfColor != null)
 			return $selfColor;
 		
-		if ($this->parentGroup != null)
+		if ($this->parent_group_id !== null)
 			return $this->parentGroup->color;
 
 		return null;
@@ -34,7 +34,7 @@ class WorkingGroup extends Model
 
 	public function subgroups()
 	{
-		return $this->hasMany('Avem\WorkingGroup', 'parent_group_id');
+		return $this->hasMany('Avem\WorkingGroup', 'parent_group_id')->with('subgroups');
 	}
 
 	public function parentGroup()

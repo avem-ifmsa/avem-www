@@ -35,7 +35,7 @@
 			</li>
 
 			<li class="dashboard-item">
-				<a href="{{ route('admin.board') }}">
+				<a href="{{ route('admin.board.index') }}">
 					<div class="item-icon">
 						<span class="fa fa-sitemap"></span>
 					</div>
@@ -53,7 +53,7 @@
 			</li>
 
 			<li class="dashboard-item item--disabled">
-				<a href="{{ route('admin.analytics') }}">
+				<a href="#">
 					<div class="item-icon">
 						<span class="fa fa-pie-chart"></span>
 					</div>
