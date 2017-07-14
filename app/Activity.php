@@ -92,25 +92,16 @@ class Activity extends Model implements HasMediaConversions
 		return $this->belongsToMany('Avem\User');
 	}
 
-	public function setEndAttribute($date) {
-		$this->attributes['end'] = Carbon::parse($date);
-	}
-
-	public function setInscriptionEndAttribute($date) {
-		$this->attributes['inscription_end'] = Carbon::parse($date);
-	}
-
-	public function setInscriptionStartAttribute($date) {
-		$this->attributes['inscription_start'] = Carbon::parse($date);
-	}
-
-	public function setStartAttribute($date) {
-		$this->attributes['start'] = Carbon::parse($date);
-	}
-
 	public function tags()
 	{
 		return $this->morphToMany('Avem\Tag', 'taggable');
+	}
+
+	public function toSearchableArray()
+	{
+		$data = $this->toArray();
+		$data['tags'] = $this->tags->pluck('name');
+		return $data;
 	}
 
 	public function transactions()
