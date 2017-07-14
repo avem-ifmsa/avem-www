@@ -3,7 +3,7 @@
 @section('body')
 	<body class="main">
 		<div id="app">
-			<div class="section-header">
+			<div class="page-header">
 				<a class="header-icon" href="{{ route('admin.index') }}">
 					{!! file_get_contents('img/avem-logo.svg') !!}
 				</a>
