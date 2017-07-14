@@ -6,12 +6,28 @@ use DB;
 use Avem\Tag;
 use Avem\Role;
 use Avem\Charge;
+use Carbon\Carbon;
 use Avem\Permission;
 use Avem\WorkingGroup;
 use Illuminate\Console\Command;
 
 class InitCommand extends Command
 {
+
+	/**
+	 * The name and signature of the console command.
+	 *
+	 * @var string
+	 */
+	protected $signature = 'avem:init';
+
+	/**
+	 * The console command description.
+	 *
+	 * @var string
+	 */
+	protected $description = 'Initializes the AVEM database';
+
 	const PERMISSIONS = [
 
 		// Activity permissions
@@ -50,9 +66,11 @@ class InitCommand extends Command
 
 	const ROLES = [
 
-		'admin_r' => [
-			'description' => 'Administrador',
-			'permissions' => [
+		// Administrator role
+		[
+			'name'         => 'admin_r',
+			'description'  => 'Permite el control total sobre todos los recursos de la Asociación.',
+			'_permissions' => [
 				'activity:create', 'activity:view', 'activity:update', 'activity:delete',
 				'charge:create', 'charge:view', 'charge:update', 'charge:renew', 'charge:delete',
 				'exchange:create', 'exchange:view', 'exchange:update', 'exchange:delete',
@@ -61,38 +79,48 @@ class InitCommand extends Command
 			],
 		],
 
-		'finances_r' => [
-			'description' => 'Tesorería',
-			'permissions' => [
+		// Finances role
+		[
+			'name'         => 'finances_r',
+			'description'  => 'Permite efectuar las renovaciones de los socios.',
+			'_permissions' => [
 				'user:view', 'user:renew',
 			],
 		],
 
-		'activities_r' => [
-			'description' => 'Cargos temático',
-			'permissions' => [
+		// Activities role
+		[
+			'name'         => 'activities_r',
+			'description'  => 'Permite crear y administrar actividades.',
+			'_permissions' => [
 				'activity:create',
 			],
 		],
 
-		'bureaucracy_r' => [
-			'description' => 'Cargos administrativos',
-			'permissions' => [
+		// Bureaucracy role
+		[
+			'name'         => 'bureaucracy_r',
+			'description'  => 'Permite crear y administrar cargos y grupos de trabajo.',
+			'_permissions' => [
 				'charge:create', 'charge:view', 'charge:update', 'charge:renew', 'charge:delete',
 				'working-group:create', 'working-group:view', 'working-group:update', 'working-group:delete',
 			],
 		],
 
-		'exchanges_r' => [
-			'description' => 'Intercambios',
-			'permissions' => [
+		// Exchanges role
+		[
+			'name'         => 'exchanges_r',
+			'description'  => 'Permite crear y administrar intercambios.',
+			'_permissions' => [
 				'exchange:create', 'exchange:view', 'exchange:update', 'exchange:delete',
 			],
 		],
 
-		'help_r' => [
-			'description' => 'Asistencia a socios',
-			'permissions' => [
+		// Help role
+		[
+			'name'         => 'help_r',
+			'description'  => 'Permite acceder a la información de los socios.',
+			'_permissions' => [
 				'activity:view',
 				'user:view', 'user:update',
 			],
@@ -102,39 +130,51 @@ class InitCommand extends Command
 
 	const WORKING_GROUPS = [
 
-		'Cargos burocráticos' => [
+		// Cargos burocráticos
+		[
+			'name'  => 'Cargos burocráticos',
 			'color' => '#a01238',
 		],
 
-		'Grupos de trabajo temático' => [
+		// Grupos de trabajo temático
+		[
+			'name' => 'Grupos de trabajo temático',
 		],
 
-		'Cargos de apoyo' => [
+		// Cargos de apoyo
+		[
+			'name'  => 'Cargos de apoyo',
 			'color' => '#c8c800',
 		],
 
-		'Cargos de intercambios' => [
+		// Cargos de intercambios
+		[
+			'name'  => 'Cargos de intercambios',
 			'color' => '#1368d8',
 		],
 
-		'Educación médica' => [
+		// Cargos de trabajo temático > Educación médica
+		[
+			'name'          => 'Educación médica',
 			'color'         => '#485b6b',
-			'parent'        => 'Grupos de trabajo temático',
+			'_parent'       => 'Grupos de trabajo temático',
 			'ifmsa_name'    => 'Standing Committee On Medical Education',
 			'ifmsa_acronym' => 'SCOME',
-			'tags'          => ['SCOME', 'Educación médica'],
+			'_tags'         => ['SCOME', 'Educación médica'],
 			'description'   =>
 				'Se encarga de la formación médica complementaria, ampliándola mediante '  .
 				'charlas, cursillos y otras actividades. Además, trabaja el estado de la ' .
 				'educación médica y la docencia.',
 		],
 
-		'Salud pública' => [
+		// Cargos de trabajo temático > Salud pública
+		[
+			'name'          => 'Salud pública',
 			'color'         => '#ff8316',
-			'parent'        => 'Grupos de trabajo temático',
+			'_parent'       => 'Grupos de trabajo temático',
 			'ifmsa_name'    => 'Standing Committee On Public Health',
 			'ifmsa_acronym' => 'SCOPH',
-			'tags'          => ['SCOPH', 'Salud pública'],
+			'_tags'         => ['SCOPH', 'Salud pública'],
 			'description'   =>
 				'Organiza actividades para informar sobre cómo prevenir enfermedades, ' .
 				'mantener un estado de salud adecuado y acercar la medicina al ámbito ' .
@@ -142,34 +182,40 @@ class InitCommand extends Command
 				'de la Salud por el Día Mundial de la Salud (DMS).',
 		],
 
-		'Sexualidad' => [
+		// Cargos de trabajo temático > Sexualidad
+		[
+			'name'          => 'Sexualidad',
 			'color'         => '#dc083c',
-			'parent'        => 'Grupos de trabajo temático',
+			'_parent'       => 'Grupos de trabajo temático',
 			'ifmsa_name'    => 'Standing Committee On Reproductive health and Sexuality including HIV/AIDS',
 			'ifmsa_acronym' => 'SCORSA',
-			'tags'          => ['SCORSA', 'Sexualidad'],
+			'_tags'         => ['SCORSA', 'Sexualidad'],
 			'description'   =>
 				'Organiza charlas, debates, videofórums y otras actividades para ' .
 				'informar y formar sobre temas de salud reproductiva y sexualidad.',
 		],
 
-		'Derechos humanos' => [
+		// Cargos de trabajo temático > Derechos humanos
+		[
+			'name'          => 'Derechos humanos',
 			'color'         => '#44b724',
-			'parent'        => 'Grupos de trabajo temático',
+			'_parent'       => 'Grupos de trabajo temático',
 			'ifmsa_name'    => 'Standing Committee On Human Rights and Peace',
 			'ifmsa_acronym' => 'SCORP',
-			'tags'          => ['SCORP', 'Derechos humanos'],
+			'_tags'         => ['SCORP', 'Derechos humanos'],
 			'description'   =>
 				'Organiza actividades relacionadas con la paz, los refugiados y los derechos' .
 				'humanos, poniendo énfasis en la concienciación sobre desigualdad, '          .
 				'intolerancia, racismo, violencia y abuso a las personas.',
 		],
 
-		'Intercambios internacionales clínicos' => [
-			'parent'        => 'Cargos de intercambios',
+		// Cargos de intercambios > Intercambios internacionales clínicos
+		[
+			'name'          => 'Intercambios internacionales clínicos',
+			'_parent'       => 'Cargos de intercambios',
 			'ifmsa_name'    => 'Standing Committee On Professional Exchanges',
 			'ifmsa_acronym' => 'SCOPE',
-			'tags'          => [
+			'_tags'         => [
 				'SCOPE', 'Intercambios internacionales', 'Intercambios clínicos',
 			],
 			'description'   =>
@@ -177,11 +223,13 @@ class InitCommand extends Command
 				'intercambios clínicos solo están disponibles para socios a partir de 3r curso.',
 		],
 
-		'Intercambios internacionales de investigación' => [
-			'parent'        => 'Cargos de intercambios',
+		// Cargos de intercambios > Intercambios internacionales de investigación
+		[
+			'name'          => 'Intercambios internacionales de investigación',
+			'_parent'       => 'Cargos de intercambios',
 			'ifmsa_name'    => 'Standing Committee On Research Exchanges',
 			'ifmsa_acronym' => 'SCORE',
-			'tags'          => [
+			'_tags'         => [
 				'SCOPE', 'Intercambios internacionales', 'Intercambios de investigación',
 			],
 			'description'   =>
@@ -190,22 +238,26 @@ class InitCommand extends Command
 				'disponibles para estudiantes de todos los cursos.',
 		],
 
-		'Intercambios nacionales' => [
-			'parent'        => 'Cargos de intercambios',
+		// Cargos de intercambios > Intercambios nacionales
+		[
+			'name'          => 'Intercambios nacionales',
+			'_parent'       => 'Cargos de intercambios',
 			'ifmsa_name'    => 'Standing Committee On National Exchanges',
 			'ifmsa_acronym' => 'SCONE',
-			'tags'          => ['SCONE', 'Intercambios nacionales'],
+			'_tags'         => ['SCONE', 'Intercambios nacionales'],
 			'description'   =>
 				'Gestiona los intercambios entre universidades españolas, tanto para los que ' .
 				'vienen (incomings) como para los que se van (outgoings). Coordinan tanto '    .
 				'intercambios clínicos (o profesionales) como de investigación.',
 		],
 
-		'Coordinación de acogida de intercambios' => [
-			'parent'        => 'Cargos de intercambios',
+		// Cargos de intercambios > Coordinación de acogida de intercambios
+		[
+			'name'          => 'Coordinación de acogida de intercambios',
+			'_parent'       => 'Cargos de intercambios',
 			'ifmsa_name'    => 'Standing Committee On Incoming Hosting',
 			'ifmsa_acronym' => 'SCOIH',
-			'tags'          => ['SCOIH'],
+			'_tags'         => ['SCOIH'],
 			'description'   =>
 				'Ajusta el programa de intercambios al presupuesto pautado por tesorería, ' .
 				'gestiona el programa «acoge un guiri», coordina la acogida de incomings '  .
@@ -217,11 +269,13 @@ class InitCommand extends Command
 
 	const CHARGES = [
 
-		'presidencia@avem.es' => [
-			'name'          => 'Presidencia',
-			'working_group' => 'Cargos burocráticos',
-			'roles'         => [ 'bureaucracy_r', 'finances_r', 'help_r'],
-			'description'   =>
+		// Presidencia <presidencia@avem.es>
+		[
+			'name'           => 'Presidencia',
+			'email'          => 'presidencia@avem.es',
+			'_working_group' => 'Cargos burocráticos',
+			'_roles'         => [ 'bureaucracy_r', 'finances_r', 'help_r'],
+			'description'    =>
 				'Representa oficial y legalmente a la Asociación y es responsable de las '    .
 				'relaciones externas —con otras asociaciones, personalidades y organismos. '  .
 				'Coordina y supervisa el trabajo de la Asociación, tiene poder para adoptar'  .
@@ -229,11 +283,13 @@ class InitCommand extends Command
 				'reuniones de Junta Directiva.',
 		],
 
-		'vicepresidencia@avem.es' => [
-			'name'          => 'Vicepresidencia',
-			'working_group' => 'Cargos burocráticos',
-			'roles'         => ['bureaucracy_r', 'finances_r', 'help_r'],
-			'description'   =>
+		// Vicepresidencia <vicepresidencia@avem.es>
+		[
+			'name'           => 'Vicepresidencia',
+			'email'          => 'vicepresidencia@avem.es',
+			'_working_group' => 'Cargos burocráticos',
+			'_roles'         => ['bureaucracy_r', 'finances_r', 'help_r'],
+			'description'    =>
 				'Sustituye el cargo de presidencia en ausencia de éste. Supervisa y participa' .
 				'en el correcto funcionamiento de las actividades y los cargos de la '         .
 				'asociación, además de identificar problemas potenciales y actuar en '         .
@@ -243,222 +299,260 @@ class InitCommand extends Command
 				'comunicar de forma eficaz.',
 		],
 
-		'tesoreria@avem.es' => [
-			'name'          => 'Tesorería',
-			'working_group' => 'Cargos burocráticos',
-			'roles'         => ['bureaucracy_r', 'finances_r', 'help_r'],
-			'description'   =>
+		// Tesorería <tesoreria@avem.es>
+		[
+			'name'           => 'Tesorería',
+			'email'          => 'tesoreria@avem.es',
+			'_working_group' => 'Cargos burocráticos',
+			'_roles'         => ['bureaucracy_r', 'finances_r', 'help_r'],
+			'description'    =>
 				'Ordena, autoriza, registra, justifica y gestiona los movimientos monetarios de ' .
 				'la Asociación en consonancia con Presidencia. Además, se encarga de buscar '     .
 				'subvenciones y recaudar fondos para la Asociación.',
 		],
 
-		'secretaria@avem.es' => [
-			'name'          => 'Secretaría',
-			'working_group' => 'Cargos burocráticos',
-			'roles'         => ['bureaucracy_r', 'finances_r', 'help_r'],
-			'description'   =>
+		// Secretaría <secretaria@avem.es>
+		[
+			'name'           => 'Secretaría',
+			'email'          => 'secretaria@avem.es',
+			'_working_group' => 'Cargos burocráticos',
+			'_roles'         => ['bureaucracy_r', 'finances_r', 'help_r'],
+			'description'    =>
 				'Es responsable de los trabajos administrativos de la Asociación: toma actas de las ' .
 				'reuniones, hace certificados y documentos, presenta papeles, y actualiza la lista '  .
 				'de contactos útiles para AVEM.',
 		],
 
-		'comunicacion@avem.es' => [
-			'name'          => 'Responsable de comunicación',
-			'working_group' => 'Cargos de apoyo',
-			'roles'         => ['help_r'],
-			'description'   =>
+		// Comunicación <comunicacion@avem.es>
+		[
+			'name'           => 'Responsable de comunicación',
+			'email'          => 'comunicacion@avem.es',
+			'_working_group' => 'Cargos de apoyo',
+			'_roles'         => ['help_r'],
+			'description'    =>
 				'Es un community manager. Su trabajo consiste en difundir las actividades de la '  .
 				'Asociación vía correo-e, Facebook, Instagram, entre otros medios. Además, puede ' .
 				'informar de otras actividades que AVEM apoya, advertir de plazos importantes y '  .
 				'resolver dudas frente a socios.',
 		],
 
-		'webmaster@avem.es' => [
-			'name'          => 'Webmaster',
-			'working_group' => 'Cargos de apoyo',
-			'roles'         => ['admin_r'],
-			'description'   =>
+		// Webmaster <webmaster@avem.es>
+		[
+			'name'           => 'Webmaster',
+			'email'          => 'webmaster@avem.es',
+			'_working_group' => 'Cargos de apoyo',
+			'_roles'         => ['admin_r'],
+			'description'    =>
 				'Su trabajo consiste en mantener la página web (incluyendo el blog de AVEM), y facilitar ' .
 				'el acceso y la formación sobre las herramientas informáticas necesarias para el '         .
 				'funcionamiento de la Asociación. También atiende dudas técnicas por correo (olvido de '   .
 				'contraseña, renovación, etc) y hace las veces de servicio técnico.',
 		],
 
-		'lome@avem.es' => [
-			'name'          => 'Responsable de educación médica',
-			'ifmsa_name'    => 'Local Officer of Medical Education',
-			'ifmsa_acronym' => 'LOME',
-			'working_group' => 'Educación médica',
-			'roles'         => ['activities_r', 'help_r'],
-			'description'   =>
+		// LOME <lome@avem.es>
+		[
+			'name'           => 'Responsable de educación médica',
+			'ifmsa_name'     => 'Local Officer of Medical Education',
+			'ifmsa_acronym'  => 'LOME',
+			'email'          => 'lome@avem.es',
+			'_working_group' => 'Educación médica',
+			'_roles'         => ['activities_r', 'help_r'],
+			'description'    =>
 				'Se encarga de la formación médica complementaria, ampliándola mediante '  .
 				'charlas, cursillos y otras actividades. Además, trabaja el estado de la ' .
 				'educación médica y la docencia.',
 		],
 
-		'lome2@avem.es' => [
-			'name'          => 'Responsable de educación médica',
-			'ifmsa_name'    => 'Local Officer of Medical Education',
-			'ifmsa_acronym' => 'LOME',
-			'working_group' => 'Educación médica',
-			'roles'         => ['activities_r', 'help_r'],
-			'description'   =>
+		// LOME <lome2@avem.es>
+		[
+			'name'           => 'Responsable de educación médica',
+			'ifmsa_name'     => 'Local Officer of Medical Education',
+			'ifmsa_acronym'  => 'LOME',
+			'email'          => 'lome2@avem.es',
+			'_working_group' => 'Educación médica',
+			'_roles'         => ['activities_r', 'help_r'],
+			'description'    =>
 				'Se encarga de la formación médica complementaria, ampliándola mediante '  .
 				'charlas, cursillos y otras actividades. Además, trabaja el estado de la ' .
 				'educación médica y la docencia.',
 		],
 
-		'lpo@avem.es' => [
-			'name'          => 'Responsable de salud pública',
-			'ifmsa_name'    => 'Local Officer of Public Health',
-			'ifmsa_acronym' => 'LPO',
-			'working_group' => 'Salud pública',
-			'roles'         => ['activities_r', 'help_r'],
-			'description'   =>
+		// LPO <lpo@avem.es>
+		[
+			'name'           => 'Responsable de salud pública',
+			'ifmsa_name'     => 'Local Officer of Public Health',
+			'ifmsa_acronym'  => 'LPO',
+			'email'          => 'lpo@avem.es',
+			'_working_group' => 'Salud pública',
+			'_roles'         => ['activities_r', 'help_r'],
+			'description'    =>
 				'Organiza actividades para informar sobre cómo prevenir enfermedades, ' .
 				'mantener un estado de salud adecuado y acercar la medicina al ámbito ' .
 				'público. Entre sus actividades estrella se encuentra la famosa Feria ' .
 				'de la Salud por el Día Mundial de la Salud (DMS).',
 		],
 
-		'lpo2@avem.es' => [
-			'name'          => 'Responsable de salud pública',
-			'ifmsa_name'    => 'Local Officer of Public Health',
-			'ifmsa_acronym' => 'LPO',
-			'working_group' => 'Salud pública',
-			'roles'         => ['activities_r', 'help_r'],
-			'description'   =>
+		// LPO <lpo2@avem.es>
+		[
+			'name'           => 'Responsable de salud pública',
+			'ifmsa_name'     => 'Local Officer of Public Health',
+			'ifmsa_acronym'  => 'LPO',
+			'email'          => 'lpo2@avem.es',
+			'_working_group' => 'Salud pública',
+			'_roles'         => ['activities_r', 'help_r'],
+			'description'    =>
 				'Organiza actividades para informar sobre cómo prevenir enfermedades, ' .
 				'mantener un estado de salud adecuado y acercar la medicina al ámbito ' .
 				'público. Entre sus actividades estrella se encuentra la famosa Feria ' .
 				'de la Salud por el Día Mundial de la Salud (DMS).',
 		],
 
-		'lpo3@avem.es' => [
-			'name'          => 'Responsable de salud pública',
-			'ifmsa_name'    => 'Local Officer of Public Health',
-			'ifmsa_acronym' => 'LPO',
-			'working_group' => 'Salud pública',
-			'roles'         => ['activities_r', 'help_r'],
-			'description'   =>
+		// LPO <lpo3@avem.es>
+		[
+			'name'           => 'Responsable de salud pública',
+			'ifmsa_name'     => 'Local Officer of Public Health',
+			'ifmsa_acronym'  => 'LPO',
+			'email'          => 'lpo3@avem.es',
+			'_working_group' => 'Salud pública',
+			'_roles'         => ['activities_r', 'help_r'],
+			'description'    =>
 				'Organiza actividades para informar sobre cómo prevenir enfermedades, ' .
 				'mantener un estado de salud adecuado y acercar la medicina al ámbito ' .
 				'público. Entre sus actividades estrella se encuentra la famosa Feria ' .
 				'de la Salud por el Día Mundial de la Salud (DMS).',
 		],
 
-		'lorsa@avem.es' => [
-			'name'          => 'Responsable de sexualidad',
-			'ifmsa_name'    => 'Local Officer of Reproductive health and Sexuality including HIV/AIDS',
-			'ifmsa_acronym' => 'LORSA',
-			'working_group' => 'Sexualidad',
-			'roles'         => ['activities_r', 'help_r'],
-			'description'   =>
+		// LORSA <lorsa@avem.es>
+		[
+			'name'           => 'Responsable de sexualidad',
+			'ifmsa_name'     => 'Local Officer of Reproductive health and Sexuality including HIV/AIDS',
+			'ifmsa_acronym'  => 'LORSA',
+			'email'          => 'lorsa@avem.es',
+			'_working_group' => 'Sexualidad',
+			'_roles'         => ['activities_r', 'help_r'],
+			'description'    =>
 				'Organiza charlas, debates, videofórums y otras actividades para ' .
 				'informar y formar sobre temas de salud reproductiva y sexualidad.',
 		],
 
-		'lorsa2@avem.es' => [
-			'name'          => 'Responsable de sexualidad',
-			'ifmsa_name'    => 'Local Officer of Reproductive health and Sexuality including HIV/AIDS',
-			'ifmsa_acronym' => 'LORSA',
-			'working_group' => 'Sexualidad',
-			'roles'         => ['activities_r', 'help_r'],
-			'description'   =>
+		// LORSA <lorsa2@avem.es>
+		[
+			'name'           => 'Responsable de sexualidad',
+			'ifmsa_name'     => 'Local Officer of Reproductive health and Sexuality including HIV/AIDS',
+			'ifmsa_acronym'  => 'LORSA',
+			'email'          => 'lorsa2@avem.es',
+			'_working_group' => 'Sexualidad',
+			'_roles'         => ['activities_r', 'help_r'],
+			'description'    =>
 				'Organiza charlas, debates, videofórums y otras actividades para ' .
 				'informar y formar sobre temas de salud reproductiva y sexualidad.',
 		],
 
-		'lorp@avem.es' => [
-			'name'          => 'Responsable de derechos humanos',
-			'ifmsa_name'    => 'Local Officer of human Rights and Peace',
-			'ifmsa_acronym' => 'LORP',
-			'working_group' => 'Derechos humanos',
-			'roles'         => ['activities_r', 'help_r'],
-			'description'   =>
+		// LORP <lorp@avem.es>
+		[
+			'name'           => 'Responsable de derechos humanos',
+			'ifmsa_name'     => 'Local Officer of human Rights and Peace',
+			'ifmsa_acronym'  => 'LORP',
+			'email'          => 'lorp@avem.es',
+			'_working_group' => 'Derechos humanos',
+			'_roles'         => ['activities_r', 'help_r'],
+			'description'    =>
 				'Organiza actividades relacionadas con la paz, los refugiados y los derechos' .
 				'humanos, poniendo énfasis en la concienciación sobre desigualdad, '          .
 				'intolerancia, racismo, violencia y abuso a las personas.',
 		],
 
-		'lorp2@avem.es' => [
-			'name'          => 'Responsable de derechos humanos',
-			'ifmsa_name'    => 'Local Officer of human Rights and Peace',
-			'ifmsa_acronym' => 'LORP',
-			'working_group' => 'Derechos humanos',
-			'roles'         => ['activities_r', 'help_r'],
-			'description'   =>
+		// LORP <lorp2@avem.es>
+		[
+			'name'           => 'Responsable de derechos humanos',
+			'ifmsa_name'     => 'Local Officer of human Rights and Peace',
+			'ifmsa_acronym'  => 'LORP',
+			'email'          => 'lorp2@avem.es',
+			'_working_group' => 'Derechos humanos',
+			'_roles'         => ['activities_r', 'help_r'],
+			'description'    =>
 				'Organiza actividades relacionadas con la paz, los refugiados y los derechos' .
 				'humanos, poniendo énfasis en la concienciación sobre desigualdad, '          .
 				'intolerancia, racismo, violencia y abuso a las personas.',
 		],
 
-		'leo@avem.es' => [
-			'name'          => 'Responsable de intercambios internacionales clínicos',
-			'ifmsa_name'    => 'Local Exchange Officer',
-			'ifmsa_acronym' => 'LEO',
-			'working_group' => 'Intercambios internacionales clínicos',
-			'roles'         => ['exchanges_r', 'help_r'],
-			'description'   =>
+		// LEO <leo@avem.es>
+		[
+			'name'           => 'Responsable de intercambios internacionales clínicos',
+			'ifmsa_name'     => 'Local Exchange Officer',
+			'ifmsa_acronym'  => 'LEO',
+			'email'          => 'leo@avem.es',
+			'_working_group' => 'Intercambios internacionales clínicos',
+			'_roles'         => ['exchanges_r', 'help_r'],
+			'description'    =>
 				'Gestiona los intercambios clínicos entre universidades de todo el mundo. Los ' .
 				'intercambios clínicos solo están disponibles para socios a partir de 3r curso.',
 		],
 
-		'leo2@avem.es' => [
-			'name'          => 'Responsable de intercambios internacionales clínicos',
-			'ifmsa_name'    => 'Local Exchange Officer',
-			'ifmsa_acronym' => 'LEO',
-			'working_group' => 'Intercambios internacionales clínicos',
-			'roles'         => ['exchanges_r', 'help_r'],
-			'description'   =>
+		// LEO <leo2@avem.es>
+		[
+			'name'           => 'Responsable de intercambios internacionales clínicos',
+			'ifmsa_name'     => 'Local Exchange Officer',
+			'ifmsa_acronym'  => 'LEO',
+			'email'          => 'leo2@avem.es',
+			'_working_group' => 'Intercambios internacionales clínicos',
+			'_roles'         => ['exchanges_r', 'help_r'],
+			'description'    =>
 				'Gestiona los intercambios clínicos entre universidades de todo el mundo. Los ' .
 				'intercambios clínicos solo están disponibles para socios a partir de 3r curso.',
 		],
 
-		'lore@avem.es' => [
-			'name'          => 'Responsable de intercambios internacionales de investigación',
-			'ifmsa_name'    => 'Local Officer of Research Exchanges',
-			'ifmsa_acronym' => 'LORE',
-			'working_group' => 'Intercambios internacionales de investigación',
-			'roles'         => ['exchanges_r', 'help_r'],
-			'description'   =>
+		// LORE <lore@avem.es>
+		[
+			'name'           => 'Responsable de intercambios internacionales de investigación',
+			'ifmsa_name'     => 'Local Officer of Research Exchanges',
+			'ifmsa_acronym'  => 'LORE',
+			'email'          => 'lore@avem.es',
+			'_working_group' => 'Intercambios internacionales de investigación',
+			'_roles'         => ['exchanges_r', 'help_r'],
+			'description'    =>
 				'Gestiona intercambios ligados a proyectos de investigación internacional '      .
 				'entre universidades de todo el mundo. Los intercambios de investigación están ' .
 				'disponibles para estudiantes de todos los cursos.',
 		],
 
-		'lone@avem.es' => [
-			'name'          => 'Responsable de intercambios nacionales',
-			'ifmsa_name'    => 'Local Officer of National Exchanges',
-			'ifmsa_acronym' => 'LONE',
-			'working_group' => 'Intercambios nacionales',
-			'roles'         => ['exchanges_r', 'help_r'],
-			'description'   =>
+		// LONE <lone@avem.es>
+		[
+			'name'           => 'Responsable de intercambios nacionales',
+			'ifmsa_name'     => 'Local Officer of National Exchanges',
+			'ifmsa_acronym'  => 'LONE',
+			'email'          => 'lone@avem.es',
+			'_working_group' => 'Intercambios nacionales',
+			'_roles'         => ['exchanges_r', 'help_r'],
+			'description'    =>
 				'Gestiona los intercambios entre universidades españolas, tanto para los que ' .
 				'vienen (incomings) como para los que se van (outgoings). Coordinan tanto '    .
 				'intercambios clínicos (o profesionales) como de investigación.',
 		],
 
-		'lone2@avem.es' => [
-			'name'          => 'Responsable de intercambios nacionales',
-			'ifmsa_name'    => 'Local Officer of National Exchanges',
-			'ifmsa_acronym' => 'LONE',
-			'working_group' => 'Intercambios nacionales',
-			'roles'         => ['exchanges_r', 'help_r'],
-			'description'   =>
+		// LONE <lone2@avem.es>
+		[
+			'name'           => 'Responsable de intercambios nacionales',
+			'ifmsa_name'     => 'Local Officer of National Exchanges',
+			'ifmsa_acronym'  => 'LONE',
+			'email'          => 'lone2@avem.es',
+			'_working_group' => 'Intercambios nacionales',
+			'_roles'         => ['exchanges_r', 'help_r'],
+			'description'    =>
 				'Gestiona los intercambios entre universidades españolas, tanto para los que ' .
 				'vienen (incomings) como para los que se van (outgoings). Coordinan tanto '    .
 				'intercambios clínicos (o profesionales) como de investigación.',
 		],
 
-		'incomings@avem.es' => [
-			'name'          => 'Responsable de coordinación de acogida de intercambios',
-			'ifmsa_name'    => 'Local Officer of Incoming Hosting',
-			'ifmsa_acronym' => 'LOIH',
-			'working_group' => 'Coordinación de acogida de intercambios',
-			'roles'         => ['exchanges_r', 'help_r'],
-			'description'   =>
+		// LOIH <incomings@avem.es>
+		[
+			'name'           => 'Responsable de coordinación de acogida de intercambios',
+			'ifmsa_name'     => 'Local Officer of Incoming Hosting',
+			'ifmsa_acronym'  => 'LOIH',
+			'email'          => 'incomings@avem.es',
+			'_working_group' => 'Coordinación de acogida de intercambios',
+			'_roles'         => ['exchanges_r', 'help_r'],
+			'description'    =>
 				'Ajusta el programa de intercambios al presupuesto pautado por tesorería, ' .
 				'gestiona el programa «acoge un guiri», coordina la acogida de incomings '  .
 				'(condiciones, distribución y otras características del alojamiento) y es ' .
@@ -466,20 +560,6 @@ class InitCommand extends Command
 		],
 
 	];
-
-	/**
-	 * The name and signature of the console command.
-	 *
-	 * @var string
-	 */
-	protected $signature = 'avem:init';
-
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
-	protected $description = 'Initializes the AVEM database';
 
 	/**
 	 * Create a new command instance.
@@ -491,58 +571,138 @@ class InitCommand extends Command
 		parent::__construct();
 	}
 
-	private function initPermissions()
+	private function hidePrivateFields($items)
 	{
-		Permission::insert(static::PERMISSIONS);
+		return array_map(function($info) {
+			return array_reduce(array_keys($info) , function($data, $propKey) use ($info) {
+				if ($propKey[0] !== '_')
+					$data[$propKey] = $info[$propKey];
+				return $data;
+			}, []);
+		}, $items);
 	}
 
-	private function initRoles()
+	private function addMissingFields($items)
 	{
-		foreach (static::ROLES as $name => $info) {
-			$role = Role::create(array_merge([ 'name' => $name ], $info));
+		$fields = array_reduce($items, function($fields, $info) {
+			foreach (array_keys($info) as $f) {
+				if (!in_array($f, $fields))
+					array_push($fields, $f);
+			}
+			return $fields;
+		}, []);
+
+		return array_map(function($info) use ($fields) {
+			return array_reduce($fields, function($data, $f) {
+				if (!isset($data[$f]))
+					$data[$f] = null;
+				return $data;
+			}, $info);
+		}, $items);
+	}
+
+	private function addTimestamps($items, $now)
+	{
+		return array_map(function($data) use ($now) {
+			return array_merge($data, [
+				'created_at' => $now,
+				'updated_at' => $now,
+			]);
+		}, $items);
+	}
+
+	private function prepareData($items, $now)
+	{
+		$items = $this->hidePrivateFields($items);
+		$items = $this->addMissingFields($items);
+		$items = $this->addTimestamps($items, $now);
+		return $items;
+	}
+
+	private function initPermissions($now)
+	{
+		Permission::insert($this->prepareData(static::PERMISSIONS, $now));
+
+		$this->info('Creating permissions... Done');
+	}
+
+	private function initRoles($now)
+	{
+		Role::insert($this->prepareData(static::ROLES, $now));
+
+		$roleData = array_reduce(static::ROLES, function($roleData, $roleInfo) {
+			$roleData[$roleInfo['name']] = $roleInfo;
+			return $roleData;
+		}, []);
+		
+		$roleNames = array_keys($roleData);
+		foreach (Role::whereIn('name', $roleNames) as $role) {
+			$roleInfo = $roleData[$role->name];
 			$role->permissions()->saveMany(
-				Permission::whereIn('name', $info['permissions'])->get()
+				Permission::whereIn('name', $roleInfo['_permissions'])->get()
 			);
 		}
+
+		$this->info('Creating roles... Done');
 	}
 
-	private function initWorkingGroups()
+	private function initWorkingGroups($now)
 	{
-		foreach (static::WORKING_GROUPS as $name => $info) {
-			$workingGroup = WorkingGroup::firstOrCreate([ 'name' => $name ], $info);
+		WorkingGroup::insert($this->prepareData(static::WORKING_GROUPS, $now));
 
-			if (isset($info['parent'])) {
-				$parentName = $info['parent'];
-				$parentInfo = static::WORKING_GROUPS[$parentName];
-				$parentGroup = WorkingGroup::firstOrCreate([ 'name' => $parentName ], $parentInfo);
+		$groupData = array_reduce(static::WORKING_GROUPS, function($groupData, $groupInfo) {
+			$groupData[$groupInfo['name']] = $groupInfo;
+			return $groupData;
+		}, []);
+
+		$groupNames = array_keys($groupData);
+		$workingGroups = WorkingGroup::whereIn('name', $groupNames)->get();
+		foreach ($workingGroups as $workingGroup) {
+			$groupInfo = $groupData[$workingGroup->name];
+			
+			if (isset($groupInfo['_parent'])) {
+				$parentName = $groupInfo['_parent'];
+				$parentGroup = $workingGroups->where('name', $parentName)->first();
 				$parentGroup->subgroups()->save($workingGroup);
 			}
 			
-			if (isset($info['tags'])) {
+			if (isset($groupInfo['_tags'])) {
 				$workingGroup->tags()->saveMany(array_map(function($tagName) {
 					return Tag::firstOrCreate([ 'name' => $tagName ]);
-				}, $info['tags']));
+				}, $groupInfo['_tags']));
 			}
 		}
+
+		$this->info('Creating working groups... Done');
 	}
 
-	private function initCharges()
+	private function initCharges($now)
 	{
-		foreach (static::CHARGES as $email => $info) {
-			$charge = Charge::create(array_merge([ 'email' => $email ], $info));
+		Charge::insert($this->prepareData(static::CHARGES, $now));
 
-			if (isset($info['roles'])) {
+		$chargeData = array_reduce(static::CHARGES, function($chargeData, $chargeInfo) {
+			$chargeData[$chargeInfo['email']] = $chargeInfo;
+			return $chargeData;
+		}, []);
+
+		$chargeEmails = array_keys($chargeData);
+		foreach (Charge::whereIn('email', $chargeEmails)->get() as $charge) {
+			$chargeInfo = $chargeData[$charge->email];
+
+			if (isset($chargeInfo['_roles'])) {
 				$charge->roles()->saveMany(
-					Role::whereIn('name', $info['roles'])->get()
+					Role::whereIn('name', $chargeInfo['_roles'])->get()
 				);
 			}
 
-			if (isset($info['working_group'])) {
-				$groupName = $info['working_group'];
+			if (isset($chargeInfo['_working_group'])) {
+				$groupName = $chargeInfo['_working_group'];
 				$workingGroup = WorkingGroup::where('name', $groupName)->first();
 				$workingGroup->charges()->save($charge);
 			}
 		}
+
+		$this->info('Creating charges... Done');
 	}
 
 	/**
@@ -552,15 +712,16 @@ class InitCommand extends Command
 	 */
 	public function handle()
 	{
-		DB::transaction(function() {
+		$now = Carbon::now();
+		DB::transaction(function() use ($now) {
 
 			// ACL-related tables
-			$this->initPermissions();
-			$this->initRoles();
+			$this->initPermissions($now);
+			$this->initRoles($now);
 
 			// AVEM-specific tables
-			$this->initWorkingGroups();
-			$this->initCharges();
+			$this->initWorkingGroups($now);
+			$this->initCharges($now);
 
 		});
 
