@@ -35,7 +35,9 @@
 				@endforeach
 
 				<li class="group-charge group-charge--new">
-					<span class="charge-name">Nuevo cargo</button>
+					<span class="charge-name">
+						<i class="fa fa-plus"></i> Nuevo cargo...
+					</span>
 				</li>
 			</ol>
 		@endif

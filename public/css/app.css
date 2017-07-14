@@ -13599,6 +13599,14 @@ a.text-gray-dark:hover {
   font-weight: 600;
 }
 
+.group-charge--new .charge-name {
+  opacity: 0.5;
+}
+
+.group-charge--new .charge-name:hover {
+  opacity: 1;
+}
+
 @media (max-width: 767px) {
   .profile-photo {
     width: 140px;

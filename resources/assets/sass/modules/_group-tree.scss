@@ -118,3 +118,13 @@
 .period-user {
 	font-weight: 600;
 }
+
+.group-charge--new {
+	.charge-name {
+		opacity: 0.5;
+
+		&:hover {
+			opacity: 1;
+		}
+	}
+}
