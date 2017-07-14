@@ -30,9 +30,15 @@ class ChargePeriod extends Model
 	{
 		return $this->hasMany('Avem\Transaction');
 	}
+
 	public function charge()
 	{
 		return $this->belongsTo('Avem\Charge');
+	}
+
+	public function getIsActiveAttribute()
+	{
+		return Carbon::now()->between($this->start, $this->end);
 	}
 
 	public function issuedRenewals()

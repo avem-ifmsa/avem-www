@@ -19,7 +19,7 @@
 						<span class="charge-name">{{ $charge->internalName }}</span>
 
 						<ul class="charge-periods">
-							@forelse ($charge->periods->where('active', true) as $period)
+							@forelse ($charge->periods->where('isActive', true) as $period)
 								<li class="charge-period">
 									<span class="period-user">{{ $period->user->fullName }} ({{ $period->user->id }})</span>
 									<span class="period-end">Ocupa este cargo hasta {{ $period->end->formatLocalized('%B del %Y') }} ({{ $period->end->diffForHumans() }})</span>
