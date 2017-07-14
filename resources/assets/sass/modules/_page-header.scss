@@ -1,10 +1,10 @@
-$section-header-padding-top-sm: 10px;
-$section-header-padding-top-md: 15px;
-$section-header-padding-top-lg: 40px;
+$page-header-padding-top-sm: 10px;
+$page-header-padding-top-md: 15px;
+$page-header-padding-top-lg: 40px;
 
-$section-header-padding-bottom-sm: 5px;
-$section-header-padding-bottom-md: 10px;
-$section-header-padding-bottom-lg: 45px;
+$page-header-padding-bottom-sm: 5px;
+$page-header-padding-bottom-md: 10px;
+$page-header-padding-bottom-lg: 45px;
 
 $header-icon-size-sm: 35px;
 $header-icon-size-md: 45px;
@@ -21,15 +21,15 @@ $header-title-margin-top-lg: 25px;
 $section-breakpoint-md: 340px;
 $section-breakpoint-lg: 640px;
 
-.section-header {
-	padding: $section-header-padding-top-sm 20px;
+.page-header {
+	padding: $page-header-padding-top-sm 20px;
 
 	@media (min-width: $section-breakpoint-md) {
-		padding-top: $section-header-padding-top-md;
+		padding-top: $page-header-padding-top-md;
 	}
 
 	@media (min-width: $section-breakpoint-lg) {
-		padding-top: $section-header-padding-top-lg;
+		padding-top: $page-header-padding-top-lg;
 	}
 
 	.header-icon {

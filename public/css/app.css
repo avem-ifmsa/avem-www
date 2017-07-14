@@ -13607,6 +13607,65 @@ a.text-gray-dark:hover {
   opacity: 1;
 }
 
+.page-header {
+  padding: 10px 20px;
+}
+
+@media (min-width: 340px) {
+  .page-header {
+    padding-top: 15px;
+  }
+}
+
+@media (min-width: 640px) {
+  .page-header {
+    padding-top: 40px;
+  }
+}
+
+.page-header .header-icon {
+  margin: 0 auto;
+  display: block;
+  width: 35px;
+  height: 35px;
+}
+
+@media (min-width: 340px) {
+  .page-header .header-icon {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@media (min-width: 640px) {
+  .page-header .header-icon {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.page-header .header-title {
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 0.5rem;
+  margin-top: 10px;
+}
+
+@media (min-width: 340px) {
+  .page-header .header-title {
+    font-size: 0.7rem;
+    margin-top: 10px;
+  }
+}
+
+@media (min-width: 640px) {
+  .page-header .header-title {
+    font-size: 1rem;
+    margin-top: 25px;
+  }
+}
+
 @media (max-width: 767px) {
   .profile-photo {
     width: 140px;
@@ -13619,65 +13678,6 @@ a.text-gray-dark:hover {
   .profile-photo {
     width: 200px;
     height: 200px;
-  }
-}
-
-.section-header {
-  padding: 10px 20px;
-}
-
-@media (min-width: 340px) {
-  .section-header {
-    padding-top: 15px;
-  }
-}
-
-@media (min-width: 640px) {
-  .section-header {
-    padding-top: 40px;
-  }
-}
-
-.section-header .header-icon {
-  margin: 0 auto;
-  display: block;
-  width: 35px;
-  height: 35px;
-}
-
-@media (min-width: 340px) {
-  .section-header .header-icon {
-    width: 45px;
-    height: 45px;
-  }
-}
-
-@media (min-width: 640px) {
-  .section-header .header-icon {
-    width: 100px;
-    height: 100px;
-  }
-}
-
-.section-header .header-title {
-  font-weight: bold;
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 0.5rem;
-  margin-top: 10px;
-}
-
-@media (min-width: 340px) {
-  .section-header .header-title {
-    font-size: 0.7rem;
-    margin-top: 10px;
-  }
-}
-
-@media (min-width: 640px) {
-  .section-header .header-title {
-    font-size: 1rem;
-    margin-top: 25px;
   }
 }
 
