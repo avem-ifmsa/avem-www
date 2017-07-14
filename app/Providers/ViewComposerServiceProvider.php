@@ -7,25 +7,24 @@ use Illuminate\Support\ServiceProvider;
 
 class ViewComposerServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap the application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        View::composer('admin.activities.*', 'Avem\Http\ViewComposers\AdminActivityViewComposer');
-        View::composer('admin.charges.*'   , 'Avem\Http\ViewComposers\AdminChargeViewComposer'  );
-        View::composer('admin.mbMembers.*' , 'Avem\Http\ViewComposers\AdminMbMemberViewComposer');
-    }
+	/**
+	 * Bootstrap the application services.
+	 *
+	 * @return void
+	 */
+	public function boot()
+	{
+		View::composer('admin.board.index', 'Avem\Http\ViewComposers\AdminBoardViewComposer');
+		View::composer('admin.activities.index', 'Avem\Http\ViewComposers\AdminActivityViewComposer');
+	}
 
-    /**
-     * Register the application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
-    }
+	/**
+	 * Register the application services.
+	 *
+	 * @return void
+	 */
+	public function register()
+	{
+		//
+	}
 }

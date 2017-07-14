@@ -32,9 +32,14 @@ class Charge extends Model
 		return $this->belongsToMany('Avem\Role');
 	}
 
-	public function chargePeriods()
+	public function periods()
 	{
 		return $this->hasMany('Avem\ChargePeriod');
+	}
+
+	public function getInternalNameAttribute()
+	{
+		return $this->ifmsa_acronym ?? $this->ifmsa_name ?? $this->name;
 	}
 
 	public function workingGroup()

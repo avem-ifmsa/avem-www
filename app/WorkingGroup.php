@@ -34,7 +34,7 @@ class WorkingGroup extends Model
 
 	public function subgroups()
 	{
-		return $this->hasMany('Avem\WorkingGroup', 'parent_group_id')->with('subgroups');
+		return $this->hasMany('Avem\WorkingGroup', 'parent_group_id');
 	}
 
 	public function parentGroup()
