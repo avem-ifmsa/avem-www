@@ -35,7 +35,7 @@
 			</li>
 
 			<li class="dashboard-item">
-				<a href="{{ route('admin.board.index') }}">
+				<a href="{{ route('admin.board') }}">
 					<div class="item-icon">
 						<span class="fa fa-sitemap"></span>
 					</div>

@@ -28,41 +28,14 @@ Route::group([ 'as'         => 'admin.',
 		return view('admin.index');
 	}]);
 
-	Route::group([ 'as' => 'board.', 'prefix' => 'board' ], function() {
-
-		Route::get('/', [
-			'as'   => 'index',
-			'uses' => 'BoardController@index',
-		]);
-
-		Route::post('renewCharge', [
-			'as'   => 'renewCharge',
-			'uses' => 'BoardController@renewCharge',
-		]);
-
-		Route::post('endChargePeriod', [
-			'as'   => 'endChargePeriod',
-			'uses' => 'BoardController@endChargePeriod',
-		]);
-
-	});
+	Route::get('board', [ 'as' => 'board', function() {
+		return view('admin.board.index');
+	}]);
 
 	Route::resource('activities'   , 'ActivityController'    );
-	Route::resource('charges'      , 'ChargeController'      );
 	Route::resource('exchanges'    , 'ExchangeController'    );
-	Route::resource('notifications', 'NotificationController');
 	Route::resource('users'        , 'UserController'        );
-	Route::resource('mbMembers'    , 'MbMemberController'    );
+	Route::resource('charges'      , 'ChargeController'      );
 	Route::resource('workingGroups', 'WorkingGroupController');
-
-	Route::post('users/{user}/renew', [
-		'as'   => 'users.renew',
-		'uses' => 'UserController@renew',
-	]);
-
-	Route::post('mbMembers/{mbMember}/renew', [
-		'as'   => 'mbMembers.renew',
-		'uses' => 'MbMemberController@renew',
-	]);
 
 });
