@@ -636,7 +636,7 @@ class InitCommand extends Command
 		}, []);
 		
 		$roleNames = array_keys($roleData);
-		foreach (Role::whereIn('name', $roleNames) as $role) {
+		foreach (Role::whereIn('name', $roleNames)->get() as $role) {
 			$roleInfo = $roleData[$role->name];
 			$role->permissions()->saveMany(
 				Permission::whereIn('name', $roleInfo['_permissions'])->get()
