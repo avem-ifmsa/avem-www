@@ -85,18 +85,24 @@
 							
 						</td>
 						<td>
-							<span class="activity-title">{{ $activity->name }}</span><br />
-							<span class="activity-description">{{ $activity->description}}</span>
+							<h6 class="activity-title">{{ $activity->name }}</h6>
+							<p class="activity-description">{{ $activity->description}}</p>
 						</td>
 						<td>
 							{{ $activity->location }}
 						</td>
-						<td>{{ $activity->start->diffForHumans() }}</td>
+						<td>{{ $activity->start ? $activity->start->diffForHumans() : '--' }}</td>
 						<td>
 							{{ $activity->inscription_start ? $activity->inscription_start->diffForHumans() : '--' }}
 						</td>
 						<td>
+							<a role="button" class="btn btn-sm btn-secondary" href="{{ route('admin.activities.edit', [$activity]) }}">
+								<i class="fa fa-pencil mr-1"></i> Editar
+							</a>
 
+							<a role="button" class="btn btn-sm btn-danger" href="#">
+								<i class="fa fa-trash mr-1"></i> Eliminar
+							</a>
 						</td>
 					</tr>
 				@endforeach
