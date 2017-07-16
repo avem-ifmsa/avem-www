@@ -2103,6 +2103,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	props: ["name", "value"],
@@ -5761,7 +5775,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.root[data-v-6ce965a2] {\n  position: relative;\n  display: inline-block;\n}\n.option-container[data-v-6ce965a2] {\n  top: 100%;\n  width: 100%;\n  position: absolute;\n}\nbutton[data-v-6ce965a2] {\n  cursor: pointer;\n}\n.clear-user[data-v-6ce965a2] {\n  top: 50%;\n  right: 5%;\n  position: absolute;\n  transform: translateY(-50%);\n  color: #aaa;\n  border: none;\n  outline: none;\n  background-color: transparent;\n}\n.clear-user[data-v-6ce965a2]:hover {\n    color: #000;\n}\nul[data-v-6ce965a2] {\n  margin-left: 0;\n  padding: 5px 0px;\n  list-style: none;\n  border: 1px solid rgba(0, 0, 0, 0.15);\n  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.175);\n  background-color: #fff;\n}\nli[data-v-6ce965a2] {\n  padding: 3px 20px;\n  cursor: default;\n}\n.not-ready i[data-v-6ce965a2],\n.request-error i[data-v-6ce965a2],\n.not-available i[data-v-6ce965a2] {\n  margin-right: 10px;\n}\n.user-results li[data-v-6ce965a2]:hover {\n  background-color: #f5f5f5;\n}\n", ""]);
+exports.push([module.i, "\n.root[data-v-6ce965a2] {\n  position: relative;\n  display: inline-block;\n}\n.option-container[data-v-6ce965a2] {\n  top: 100%;\n  width: 100%;\n  position: absolute;\n}\nbutton[data-v-6ce965a2] {\n  cursor: pointer;\n}\n.select-button[data-v-6ce965a2] {\n  display: flex;\n  position: relative;\n  padding-right: 30px;\n}\n.selected-info[data-v-6ce965a2] {\n  overflow: hidden;\n}\n.clear-button[data-v-6ce965a2] {\n  padding: 0;\n  top: 50%;\n  right: 10px;\n  position: absolute;\n  transform: translateY(-50%);\n  color: #aaa;\n  border: none;\n  outline: none;\n  background-color: transparent;\n}\n.clear-button[data-v-6ce965a2]:hover {\n    color: #000;\n}\nul[data-v-6ce965a2] {\n  margin-left: 0;\n  padding: 5px 0px;\n  list-style: none;\n  border: 1px solid rgba(0, 0, 0, 0.15);\n  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.175);\n  background-color: #fff;\n}\nli[data-v-6ce965a2] {\n  padding: 3px 20px;\n  cursor: default;\n}\n.not-ready i[data-v-6ce965a2],\n.request-error i[data-v-6ce965a2],\n.not-available i[data-v-6ce965a2] {\n  margin-right: 10px;\n}\n.user-results li[data-v-6ce965a2]:hover {\n  background-color: #f5f5f5;\n}\n", ""]);
 
 // exports
 
@@ -36383,7 +36397,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "focusout": _vm.onComponentFocusOut
     }
   }, [(!_vm.isActivated) ? _c('button', {
-    staticClass: "form-control",
+    staticClass: "select-button form-control",
     on: {
       "click": _vm.activateControl,
       "keydown": function($event) {
@@ -36391,10 +36405,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.activateControl($event)
       }
     }
+  }, [_c('div', {
+    staticClass: "selected-info"
   }, [_vm._t("default", null, {
     user: _vm.selectedUser
-  }), _vm._v(" "), (_vm.selectedUser) ? _c('button', {
-    staticClass: "clear-user",
+  })], 2), _vm._v(" "), (_vm.selectedUser) ? _c('button', {
+    staticClass: "clear-button",
     on: {
       "click": function($event) {
         $event.stopPropagation();
@@ -36403,7 +36419,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fa fa-times"
-  })]) : _vm._e()], 2) : _c('input', {
+  })]) : _vm._e()]) : _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",

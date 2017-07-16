@@ -1,10 +1,11 @@
 <template>
 	<div ref="root" class="root" @focusout="onComponentFocusOut">
-		<button v-if="!isActivated" class="form-control"
+		<button v-if="!isActivated" class="select-button form-control"
 		        @click="activateControl" @keydown.space="activateControl">
-			<slot :user="selectedUser"></slot>
-			<button v-if="selectedUser" class="clear-user"
-			        @click.stop="clearSelectedUser">
+			<div class="selected-info">
+				<slot :user="selectedUser"></slot>
+			</div>
+			<button v-if="selectedUser" class="clear-button" @click.stop="clearSelectedUser">
 				<i class="fa fa-times"></i>
 			</button>
 		</button>
@@ -65,9 +66,22 @@
 		cursor: pointer;
 	}
 
-	.clear-user {
+	.select-button {
+		display: flex;
+		position: relative;
+
+		padding-right: 30px;
+	}
+
+	.selected-info {
+		overflow: hidden;
+	}
+
+	.clear-button {
+		padding: 0;
+
 		top: 50%;
-		right: 5%;
+		right: 10px;
 		position: absolute;
 		transform: translateY(-50%);
 

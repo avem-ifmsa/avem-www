@@ -1,5 +1,6 @@
 .user-entry {
 	margin: 0 auto;
+	overflow: hidden;
 	text-align: left;
 	white-space: nowrap;
 }
@@ -12,12 +13,11 @@
 .user-image {
 	width: 36px;
 	height: 36px;
-	margin-left: 20px;
 	border-radius: 50%;
 }
 
 .user-info {
-	margin-left: 10px;
+	margin: 0 10px;
 	line-height: 20px;
 }
 
