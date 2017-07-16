@@ -1891,16 +1891,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				family: inputStyle.getPropertyValue("font-family")
 			}) + 10;
 		},
-		isTokenSelected: function isTokenSelected(index) {
-			return index === this.selectedTokenIndex;
-		},
 		isTokenInEditMode: function isTokenInEditMode(index) {
 			return index === this.editingTokenIndex;
 		},
-		removeToken: function removeToken(index) {
-			this.tokens.splice(index, 1);
-		},
-		onTokenListClick: function onTokenListClick(event) {
+		onTokenListClick: function onTokenListClick() {
 			this.$refs.newTokenInput.focus();
 		},
 		onTokenItemKeyDown: function onTokenItemKeyDown(index, event) {
@@ -1922,12 +1916,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					});
 					break;
 				default:
-					var tokenItem = event.currentTarget;
+					var tokenItem = event.target;
 					tokenItem.blur();
 					break;
 			}
 		},
-		onTokenItemDoubleClick: function onTokenItemDoubleClick(index, event) {
+		onTokenItemDoubleClick: function onTokenItemDoubleClick(index) {
 			var _this2 = this;
 
 			this.editingTokenIndex = index;
@@ -1945,20 +1939,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			switch (event.key) {
 				case 'Enter':
 					event.preventDefault();
-					var tokenInput = event.currentTarget;
+					var tokenInput = event.target;
 					if (tokenInput.value === '') this.tokens.splice(index, 1);else this.tokens.splice(index, 1, tokenInput.value);
 					this.editingTokenIndex = null;
 					tokenInput.style.width = null;
 					break;
 				case 'Escape':
 					this.editingTokenIndex = null;
+					this.$refs.tokenInput.focus();
 					break;
 			}
 		},
 		onNewTokenInputKeyDown: function onNewTokenInputKeyDown(event) {
 			switch (event.key) {
 				case 'Enter':
-					var tokenInput = event.currentTarget;
+					var tokenInput = event.target;
 					if (tokenInput.value !== '') {
 						event.preventDefault();
 						this.tokens.push(tokenInput.value);
@@ -1967,7 +1962,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					}
 					break;
 				case 'ArrowLeft':case 'Backspace':
-					if (event.currentTarget.value === '') {
+					if (event.target.value === '') {
 						var tokenItems = this.$refs.tokenItems;
 						if (tokenItems.length > 0) tokenItems[tokenItems.length - 1].focus();
 					}
@@ -1975,9 +1970,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}
 		},
 		onTokenInputInput: function onTokenInputInput(event) {
-			var tokenInput = event.currentTarget;
+			var tokenInput = event.target;
 			var tokenWidth = this.getComputedTokenWidth(tokenInput);
 			tokenInput.style.width = tokenWidth + 'px';
+		},
+		removeToken: function removeToken(index) {
+			this.tokens.splice(index, 1);
+		},
+		selectToken: function selectToken(index) {
+			this.$refs.tokenItems[index].focus();
 		}
 	}
 });
@@ -36276,7 +36277,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     ref: "tokenList",
     staticClass: "list-unstyled",
     on: {
-      "click": _vm.onTokenListClick
+      "click": function($event) {
+        if ($event.target !== $event.currentTarget) { return null; }
+        _vm.onTokenListClick($event)
+      }
     }
   }, [_vm._l((_vm.tokens), function(token, i) {
     return _c('li', {
@@ -36289,7 +36293,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       on: {
         "keydown": function($event) {
-          $event.stopPropagation();
+          if ($event.target !== $event.currentTarget) { return null; }
           _vm.onTokenItemKeyDown(i, $event)
         }
       }
@@ -36307,23 +36311,27 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "blur": _vm.onEditTokenInputBlur,
         "input": _vm.onTokenInputInput,
         "keydown": function($event) {
-          $event.stopPropagation();
+          if ($event.target !== $event.currentTarget) { return null; }
           _vm.onEditTokenInputKeyDown(i, $event)
         }
       }
     })]) : _c('span', {
       on: {
+        "click": function($event) {
+          if ($event.target !== $event.currentTarget) { return null; }
+          _vm.selectToken(i)
+        },
         "dblclick": function($event) {
-          _vm.onTokenItemDoubleClick(i, $event)
+          _vm.onTokenItemDoubleClick(i)
         }
       }
     }, [_c('p', [_vm._v(_vm._s(token))]), _vm._v(" "), _c('button', {
       attrs: {
+        "type": "button",
         "tabindex": "-1"
       },
       on: {
         "click": function($event) {
-          $event.preventDefault();
           _vm.removeToken(i)
         }
       }
@@ -36337,10 +36345,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "list": _vm.list
     },
     on: {
-      "keydown": function($event) {
-        $event.stopPropagation();
-        _vm.onNewTokenInputKeyDown($event)
-      },
+      "keydown": _vm.onNewTokenInputKeyDown,
       "input": _vm.onTokenInputInput
     }
   })]), _vm._v(" "), _c('input', {

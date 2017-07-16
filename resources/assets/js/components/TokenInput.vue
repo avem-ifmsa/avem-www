@@ -1,23 +1,23 @@
 <template>
-	<ul ref="tokenList" class="list-unstyled" @click="onTokenListClick">
+	<ul ref="tokenList" class="list-unstyled" @click.self="onTokenListClick">
 		<li ref="tokenItems" v-for="(token, i) of tokens" :key="token"
-			@keydown.stop="onTokenItemKeyDown(i, $event)"
-			class="token-existing" tabindex="0">
+		    @keydown.self="onTokenItemKeyDown(i, $event)"
+		   class="token-existing" tabindex="0">
 			<span v-if="isTokenInEditMode(i)">
 				<input ref="editTokenInputs" type="text" :value="token" :list="list"
 				       @blur="onEditTokenInputBlur" @input="onTokenInputInput"
-				       @keydown.stop="onEditTokenInputKeyDown(i, $event)">
+				       @keydown.self="onEditTokenInputKeyDown(i, $event)">
 			</span>
 
-			<span v-else @dblclick="onTokenItemDoubleClick(i, $event)">
+			<span v-else @click.self="selectToken(i)" @dblclick="onTokenItemDoubleClick(i)">
 				<p>{{ token }}</p>
-				<button tabindex="-1" @click.prevent="removeToken(i)">&times;</button>
+				<button type="button" tabindex="-1" @click="removeToken(i)">&times;</button>
 			</span>
 		</li>
 
 		<li class="token-new">
 			<input ref="newTokenInput" type="text" :list="list"
-			       @keydown.stop="onNewTokenInputKeyDown"
+			       @keydown="onNewTokenInputKeyDown"
 			       @input="onTokenInputInput">
 		</li>
 		
@@ -120,16 +120,10 @@
 					family: inputStyle.getPropertyValue("font-family"),
 				}) + 10;
 			},
-			isTokenSelected: function(index) {
-				return index === this.selectedTokenIndex;
-			},
 			isTokenInEditMode: function(index) {
 				return index === this.editingTokenIndex;
 			},
-			removeToken: function(index) {
-				this.tokens.splice(index, 1);
-			},
-			onTokenListClick: function(event) {
+			onTokenListClick: function() {
 				this.$refs.newTokenInput.focus();
 			},
 			onTokenItemKeyDown: function(index, event) {
@@ -154,12 +148,12 @@
 					});
 					break;
 				default:
-					var tokenItem = event.currentTarget;
+					var tokenItem = event.target;
 					tokenItem.blur();
 					break;
 				}
 			},
-			onTokenItemDoubleClick: function(index, event) {
+			onTokenItemDoubleClick: function(index) {
 				this.editingTokenIndex = index;
 				Vue.nextTick(() => {
 					var tokenInput = this.$refs.editTokenInputs[0];
@@ -175,7 +169,7 @@
 				switch (event.key) {
 				case 'Enter':
 					event.preventDefault();
-					var tokenInput = event.currentTarget;
+					var tokenInput = event.target;
 					if (tokenInput.value === '')
 						this.tokens.splice(index, 1);
 					else
@@ -185,13 +179,14 @@
 					break;
 				case 'Escape':
 					this.editingTokenIndex = null;
+					this.$refs.tokenInput.focus();
 					break;
 				}
 			},
 			onNewTokenInputKeyDown: function(event) {
 				switch (event.key) {
 				case 'Enter':
-					var tokenInput = event.currentTarget;
+					var tokenInput = event.target;
 					if (tokenInput.value !== '') {
 						event.preventDefault();
 						this.tokens.push(tokenInput.value);
@@ -200,7 +195,7 @@
 					}
 					break;
 				case 'ArrowLeft': case 'Backspace':
-					if (event.currentTarget.value === '') {
+					if (event.target.value === '') {
 						var tokenItems = this.$refs.tokenItems;
 						if (tokenItems.length > 0)
 							tokenItems[tokenItems.length - 1].focus();
@@ -209,9 +204,15 @@
 				}
 			},
 			onTokenInputInput: function(event) {
-				var tokenInput = event.currentTarget;
+				var tokenInput = event.target;
 				var tokenWidth = this.getComputedTokenWidth(tokenInput);
 				tokenInput.style.width = `${tokenWidth}px`;
+			},
+			removeToken: function(index) {
+				this.tokens.splice(index, 1);
+			},
+			selectToken: function(index) {
+				this.$refs.tokenItems[index].focus();
 			},
 		},
 	};
