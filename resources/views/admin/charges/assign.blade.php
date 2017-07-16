@@ -16,7 +16,7 @@
 			<div class="modal-content">
 				<header class="modal-header">
 					<h5 class="modal-title">Elige un usuario&hellip;</h5>
-					<a role="button" class="close" href="#" aria-label="Cerrar">
+					<a role="button" class="close" href="{{ route('admin.board') }}" aria-label="Cerrar">
 						<span aria-hidden="true">&times;</span>
 					</a>
 				</header>
