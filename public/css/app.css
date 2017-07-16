@@ -13576,10 +13576,12 @@ a.text-gray-dark:hover {
   text-transform: uppercase;
 }
 
+.group-charges .charge-name,
 .group-subgroups .group-name,
-.group-charges .charge-name {
+.charge-new-link {
   padding: 3px 8px;
   border-radius: 5px;
+  background-color: var(--wg-color);
 }
 
 .charge-period {
@@ -13599,22 +13601,24 @@ a.text-gray-dark:hover {
   font-weight: 600;
 }
 
-.group-charge--new .charge-name {
-  opacity: 0.5;
+.charge-new-link,
+.charge-period-link {
   color: inherit;
 }
 
-.group-charge--new .charge-name:focus,
-.group-charge--new .charge-name:hover {
+.charge-new-link:focus,
+.charge-new-link:hover,
+.charge-period-link:focus,
+.charge-period-link:hover {
+  color: inherit;
   text-decoration: none;
 }
 
-.group-charge--new.disabled {
-  cursor: not-allowed;
+.charge-new-link {
+  opacity: 0.5;
 }
 
-.group-charge--new:not(.disabled) .charge-name:focus,
-.group-charge--new:not(.disabled) .charge-name:hover {
+.charge-new-link:hover {
   opacity: 1;
 }
 

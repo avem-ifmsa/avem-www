@@ -1,7 +1,7 @@
 <p class="form-group form-group--required">
 	<label>Nombre sencillo</label>
 	<input class="form-control" type="text" name="name" required
-	       placeholder="Responsable de educación médica&#8230;"
+	       placeholder="Responsable de educación médica&hellip;"
 	       value="{{ old('name', isset($charge) ? $charge->name : '') }}">
 	@if ($errors->has('name'))
 		<span class="form-text">
@@ -15,13 +15,13 @@
 		<p class="col-md-9 form-group">
 			<label>Nombre según IFMSA</label>
 			<input class="form-control" type="text" name="ifmsa_name"
-				placeholder="Local Officer of Medical Education&#8230;"
+				placeholder="Local Officer of Medical Education&hellip;"
 				value="{{ old('ifmsa_name', isset($charge) ? $charge->ifmsa_name : '') }}">
 		</p>
 
 		<p class="col-md-3 form-group">
 			<label>Siglas según IFMSA</label>
-			<input class="form-control" type="text" name="ifmsa_acronym" placeholder="LOME&#8230;"
+			<input class="form-control" type="text" name="ifmsa_acronym" placeholder="LOME&hellip;"
 				value="{{ old('ifmsa_acronym', isset($charge) ? $charge->ifmsa_acronym : '') }}">
 		</p>
 	</div>
@@ -41,7 +41,7 @@
 
 <p class="form-group form-group--required">
 	<label>Dirección de correo-e</label>
-	<input class="form-control" type="email" name="email" placeholder="lome@avem.es&#8230;"
+	<input class="form-control" type="email" name="email" placeholder="lome@avem.es&hellip;"
 	       value="{{ old('email', isset($charge) ? $charge->email : '') }}" required>
 	@if ($errors->has('email'))
 		<span class="form-text">
@@ -71,7 +71,7 @@
 
 <p class="form-group form-group--required">
 	<label>Descripción del cargo</label>
-	<textarea name="description" class="form-control" placeholder="Se encarga de la formación médica complementaria, ampliándola mediante charlas, cursillos y otras actividades. Además, trabaja el estado de la educación médica y la docencia&#8230;">{{
+	<textarea name="description" class="form-control" placeholder="Se encarga de la formación médica complementaria, ampliándola mediante charlas, cursillos y otras actividades. Además, trabaja el estado de la educación médica y la docencia&hellip;">{{
 		old('description', isset($charge) ? $charge->description : '')
 	}}</textarea>
 	@if ($errors->has('description'))
@@ -83,7 +83,7 @@
 
 <p class="form-group">
 	<label>Etiquetas</label>
-	<input type="text" is="token-input" class="form-control" placeholder="Educación médica, LOME, SCOME&#8230;"
+	<input type="text" is="token-input" class="form-control" placeholder="Educación médica, LOME, SCOME&hellip;"
 	       name="tags" value="{{ old('tags', isset($charge) ? $charge->ownTags->pluck('name')->implode(',') : '') }}">
 	@if ($errors->has('tags'))
 		<span class="form-text">

@@ -132,6 +132,20 @@ class ChargeController extends Controller
 	}
 
 	/**
+	 * Assign given charge to an existing user.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \Avem\Charge  $charge
+	 * @return \Illuminate\Http\Response
+	 */
+	public function assign(Request $request, Charge $charge)
+	{
+		return view('admin.charges.assign', [
+			'charge' => $charge,
+		]);
+	}
+
+	/**
 	 * Remove the specified resource from storage.
 	 *
 	 * @param  \Avem\Charge  $charge

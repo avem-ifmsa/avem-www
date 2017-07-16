@@ -95,10 +95,12 @@
 	text-transform: uppercase;
 }
 
+.group-charges .charge-name,
 .group-subgroups .group-name,
-.group-charges .charge-name {
+.charge-new-link {
 	padding: 3px 8px;
 	border-radius: 5px;
+	background-color: var(--wg-color);
 }
 
 .charge-period {
@@ -119,24 +121,20 @@
 	font-weight: 600;
 }
 
-.group-charge--new {
-	.charge-name {
-		opacity: 0.5;
+.charge-new-link,
+.charge-period-link {
+	color: inherit;
+
+	&:focus, &:hover {
 		color: inherit;
-
-		&:focus, &:hover {
-			text-decoration: none;
-		}
+		text-decoration: none;
 	}
+}
 
-	&.disabled {
-		cursor: not-allowed;
-	}
-
-	&:not(.disabled) {
-		.charge-name:focus,
-		.charge-name:hover {
-			opacity: 1;
-		}
+.charge-new-link {
+	opacity: 0.5;
+	
+	&:hover {
+		opacity: 1;
 	}
 }

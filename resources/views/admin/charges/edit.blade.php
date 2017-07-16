@@ -28,6 +28,15 @@
 					
 					<div class="modal-body">
 						<div class="container-fluid">
+							<div class="alert alert-info alert-dismissible">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								
+								<strong>¡Psst!</strong> Si lo que quieres es asignar este cargo a un usuario,
+								<a href="{{ route('admin.charges.assign', [$charge]) }}">hazlo aquí</a>.
+							</div>
+							
 							@include('admin.charges.form', [
 								'charge'        => $charge,
 								'workingGroups' => $workingGroups,
