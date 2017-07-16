@@ -2,38 +2,51 @@
 
 namespace Avem\Http\Controllers\Admin;
 
+use DB;
+use Session;
+use Avem\Tag;
 use Avem\Charge;
 use Avem\WorkingGroup;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Avem\Http\Controllers\Controller;
 
-
 class ChargeController extends Controller
 {
-	/**
-	 * Validation rules against a given charge.
-	 *
-	 * @param mixed  $charge
-	 * @return mixed
-	 */
-	private function rules($charge = null) {
-		return [
-			'email' => [
-				'required', 'email', 'unique:users',
-				Rule::unique('charges')->ignore($charge ? $charge->id : null),
-			],
-		];
+
+	private function prefetchWorkingGroups($workingGroups)
+	{
+		foreach ($workingGroups as $parentGroup) {
+			$parentGroup->subgroups = $workingGroups->where('parent_group_id', $parentGroup->id);
+			foreach ($parentGroup->subgroups as $childGroup)
+				$childGroup->parentGroup = $parentGroup;
+		}
+		return $workingGroups;
 	}
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function index()
+	private function getWorkingGroups()
 	{
-		return view('admin.charges.index');
+		return $this->prefetchWorkingGroups(WorkingGroup::all())
+			->where('parent_group_id', null)
+			->sortByDesc(function($workingGroup) {
+				return $workingGroup->subgroups->count();
+			});
+	}
+
+	private function getInputTags(Request $request)
+	{
+		$tagNames = explode(',', $request->input('tags'));
+		$tagNames = array_map('trim', $tagNames);
+
+		$existingTags = Tag::whereIn('name', $tagNames)->get();
+		$existingTagNames = $existingTags->pluck('name')->toArray();
+		$otherTagNames = array_diff($tagNames, $existingTagNames);
+		Tag::insert(array_map(function($tagName) {
+			return [ 'name' => $tagName ];
+		}, $otherTagNames));
+
+		$otherTags = Tag::whereIn('name', $otherTagNames)->get();
+		return $existingTags->merge($otherTags);
 	}
 
 	/**
@@ -41,19 +54,16 @@ class ChargeController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function create()
+	public function create(Request $request)
 	{
-		return view('admin.charges.create', [
-			'workingGroups' => WorkingGroup::all(),
-			'charges'       => Charge::orderBy('order')->get(),
-		]);
-	}
+		$this->authorize('create', Charge::class);
 
-	private function updateChargeOrdering($orderedChargeIds)
-	{
-		foreach ($orderedChargeIds as $index => $chargeId) {
-			Charge::where('id', $chargeId)->update([ 'order' => $index ]);
-		}
+		if ($chargeGroup = $request->input('workingGroup'))
+			Session::flash('_old_input.working_group', $chargeGroup);
+
+		return view('admin.charges.create', [
+			'workingGroups' => $this->getWorkingGroups(),
+		]);
 	}
 
 	/**
@@ -64,28 +74,20 @@ class ChargeController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		$this->validate($request, $this->rules());
+		$this->authorize('create', Charge::class);
 
-		$ordered = $request->input('order');
-		$newCharge = new Charge($request->except('order'));
-		$newCharge->order = array_search('new', $ordered);
-		$newCharge->save();
+		DB::transaction(function() use ($request) {
+			$charge = new Charge($request->all());
+			if ($workingGroupId = $request->input('working_group')) {
+				$charge->workingGroup()->associate($workingGroupId);
+			}
+			$charge->save();
 
-		unset($ordered[$newCharge->order]);
-		$this->updateChargeOrdering($ordered);
+			$chargeTags = $this->getInputTags($request);
+			$charge->ownTags()->sync($chargeTags->pluck('id'));
+		});
 
-		return redirect()->route('admin.charges.index');
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  \Avem\Charge  $charge
-	 * @return \Illuminate\Http\Response
-	 */
-	public function show(Charge $charge)
-	{
-		//
+		return redirect()->route('admin.board');
 	}
 
 	/**
@@ -96,10 +98,11 @@ class ChargeController extends Controller
 	 */
 	public function edit(Charge $charge)
 	{
+		$this->authorize('update', $charge);
+
 		return view('admin.charges.edit', [
 			'charge'        => $charge,
-			'workingGroups' => WorkingGroup::all(),
-			'charges'       => Charge::orderBy('order')->get(),
+			'workingGroups' => $this->getWorkingGroups(),
 		]);
 	}
 
@@ -112,14 +115,11 @@ class ChargeController extends Controller
 	 */
 	public function update(Request $request, Charge $charge)
 	{
-		$this->validate($request, $this->rules($charge));
+		$this->authorize('update', $charge);
 
-		$ordered = $request->input('order');
-		$charge->update($request->except('order'));
+		$charge->update($request->all());
 
-		$this->updateChargeOrdering($ordered);
-
-		return redirect()->route('admin.charges.index');
+		return redirect()->route('admin.board');
 	}
 
 	/**
@@ -130,7 +130,10 @@ class ChargeController extends Controller
 	 */
 	public function destroy(Charge $charge)
 	{
+		$this->authorize('delete', $charge);
+
 		$charge->delete();
-		return redirect()->route('admin.charges.index');
+
+		return redirect()->route('admin.board');
 	}
 }

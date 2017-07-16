@@ -1,4 +1,5 @@
-<li class="tree-group {{ $level > 0 ? 'group-subgroup' : '' }} tree-group--level-{{ $level }}" style="--wg-color: {{ $workingGroup->color }}">
+<li class="tree-group {{ $level > 0 ? 'group-subgroup' : '' }} tree-group--level-{{ $level }}"
+{!! $workingGroup->color ? 'style="--wg-color: '.$workingGroup->color.'"' : '' !!}>
 	<span class="group-name">
 		{{ $workingGroup->name }}
 	</span>
@@ -35,9 +36,9 @@
 				@endforeach
 
 				<li class="group-charge group-charge--new{{ Gate::denies('create', Avem\Charge::class) ? ' disabled' : '' }}">
-					<span class="charge-name">
+					<a class="charge-name" href="{{ route('admin.charges.create', [ 'workingGroup' => $workingGroup ]) }}">
 						<i class="fa fa-plus"></i> Nuevo cargo&#8230;
-					</span>
+					</a>
 				</li>
 			</ol>
 		@endif

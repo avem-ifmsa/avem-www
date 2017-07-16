@@ -43,20 +43,17 @@ class Activity extends Model implements HasMediaConversions
 	{
 		$selfInscribedUsers = $this->selfInscribedUsers();
 
-		$boardInscribedUsers = Activity::where('activities.id', $this->id)
-			->crossJoin('charge_periods')
-			->join('users', 'users.id', '=', 'charge_periods.user_id')
+		$boardInscribedUsers = Activity::find($this->id)->crossJoin('charge_periods')
 			->select('users.*', 'activities.id as pivot_activity_id', 'users.id as pivot_user_id')
-			->where('activities.inscription_policy', 'board')
-			->where(function($query) {
+			->join('users', 'users.id', '=', 'charge_periods.user_id')
+			->where('activities.inscription_policy', 'board')->where(function($query) {
 				$query->whereBetween('charge_periods.start', ['activities.start', 'activities.end'])
 				      ->orWhereBetween('charge_periods.end', ['activities.start', 'activities.end'])
 				      ->orWhereBetween('activities.start', ['charge_periods.start', 'charge_periods.end'])
 				      ->orWhereBetween('activities.end', ['charge_periods.start', 'charge_periods.end']);
 			});
 		
-		$allInscribedUsers = Activity::where('activities.id', $this->id)
-			->crossJoin('users')
+		$allInscribedUsers = Activity::find($this->id)->crossJoin('users')
 			->select('users.*', 'activities.id as pivot_activity_id', 'users.id as pivot_user_id')
 			->where('activities.inscription_policy', 'all')
 			->whereDate('users.created_at', '<', 'activities.end');

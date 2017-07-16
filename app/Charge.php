@@ -27,9 +27,14 @@ class Charge extends Model
 		'created_at', 'updated_at', 'deleted_at',
 	];
 
-	public function roles()
+	public function getInternalNameAttribute()
 	{
-		return $this->belongsToMany('Avem\Role');
+		return $this->ifmsa_acronym ?? $this->ifmsa_name ?? $this->name;
+	}
+
+	public function ownTags()
+	{
+		return $this->morphToMany('Avem\Tag', 'taggable');
 	}
 
 	public function periods()
@@ -37,9 +42,24 @@ class Charge extends Model
 		return $this->hasMany('Avem\ChargePeriod');
 	}
 
-	public function getInternalNameAttribute()
+	public function roles()
 	{
-		return $this->ifmsa_acronym ?? $this->ifmsa_name ?? $this->name;
+		return $this->belongsToMany('Avem\Role');
+	}
+
+	public function tags()
+	{
+		$ownTags = $this->ownTags();
+
+		$groupTags = Charge::find($this->id)
+			->select('tags.*', 'charges.id as pivot_charge_id', 'tags.id as pivot_tag_id')
+			->join('working_groups', 'working_groups.id', '=', 'charges.working_group_id')
+			->join('taggables', function($join) {
+				$join->on('taggable_id', '=', 'working_groups.id');
+				$join->on('taggable_type', '=', 'working_group');
+			})->join('tags', 'tags.id', '=', 'taggables.tag_id');
+		
+		return $ownTags->union($groupTags);
 	}
 
 	public function workingGroup()

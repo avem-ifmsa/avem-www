@@ -125,8 +125,7 @@
 	<p class="form-group{{ $errors->has('inscription_policy' ? ' has-danger' : '') }}">
 		<label for="form-inscription-policy">Modalidad de inscripción</label>
 		<select id="form-inscripcion-policy" class="form-control" name="inscription_policy" required>
-			<option value="inscribed" {{ (!isset($activity)
-			                          || (old('inscription_policy') == 'inscribed')
+			<option value="inscribed" {{ ((old('inscription_policy') == 'inscribed')
 			                          || (isset($activity) && $activity->inscriptionPolicy == 'inscribed')
 			                          )? 'selected' : '' }}>Predeterminada</option>
 			<option value="all"       {{ ((old('inscription_policy') == 'all')

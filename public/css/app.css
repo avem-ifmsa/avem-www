@@ -13601,9 +13601,20 @@ a.text-gray-dark:hover {
 
 .group-charge--new .charge-name {
   opacity: 0.5;
+  color: inherit;
 }
 
+.group-charge--new .charge-name:focus,
 .group-charge--new .charge-name:hover {
+  text-decoration: none;
+}
+
+.group-charge--new.disabled {
+  cursor: not-allowed;
+}
+
+.group-charge--new:not(.disabled) .charge-name:focus,
+.group-charge--new:not(.disabled) .charge-name:hover {
   opacity: 1;
 }
 

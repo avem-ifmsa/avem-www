@@ -16,6 +16,16 @@ class AdminBoardViewComposer
 	{
 	}
 
+	private function prefetchWorkingGroups($workingGroups)
+	{
+		foreach ($workingGroups as $parentGroup) {
+			$parentGroup->subgroups = $workingGroups->where('parent_group_id', $parentGroup->id);
+			foreach ($parentGroup->subgroups as $childGroup)
+				$childGroup->parentGroup = $parentGroup;
+		}
+		return $workingGroups;
+	}
+
 	/**
 	 * Bind data to the view.
 	 *
@@ -25,11 +35,7 @@ class AdminBoardViewComposer
 	public function compose(View $view)
 	{
 		$workingGroups = WorkingGroup::with('charges', 'charges.periods', 'charges.periods.user')->get();
-		foreach ($workingGroups as $parentGroup) {
-			$parentGroup->subgroups = $workingGroups->where('parent_group_id', $parentGroup->id);
-			foreach ($parentGroup->subgroups as $subgroup)
-				$subgroup->parentGroup = $parentGroup;
-		}
+		$workingGroups = $this->prefetchWorkingGroups($workingGroups);
 
 		$view->with('workingGroups', $workingGroups->where('parent_group_id', null));
 	}

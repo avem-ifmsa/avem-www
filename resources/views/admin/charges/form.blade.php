@@ -1,7 +1,8 @@
-<p class="form-group form-group--required {{ $errors->has('name') ? ' has-danger' : '' }}">
-	<label for="form-name">Nombre del cargo</label>
-	<input id="form-name" class="form-control" name="name" type="text" required
-	       value="{{ old('name') ?? (isset($charge) ? $charge->name : '') }}">
+<p class="form-group form-group--required">
+	<label>Nombre sencillo</label>
+	<input class="form-control" type="text" name="name" required
+	       placeholder="Responsable de educación médica&#8230;"
+	       value="{{ old('name', isset($charge) ? $charge->name : '') }}">
 	@if ($errors->has('name'))
 		<span class="form-text">
 			<strong>{{ $errors->first('name') }}</strong>
@@ -9,10 +10,69 @@
 	@endif
 </p>
 
-<p class="form-group form-group--required {{ $errors->has('description') ? ' has-danger' : '' }}">
-	<label for="form-description">Descripción</label>
-	<textarea id="form-description" class="form-control" name="description" required>{{
-		old('description') ?? (isset($charge) ? $charge->description : '')
+<div>
+	<div class="row">
+		<p class="col-md-9 form-group">
+			<label>Nombre según IFMSA</label>
+			<input class="form-control" type="text" name="ifmsa_name"
+				placeholder="Local Officer of Medical Education&#8230;"
+				value="{{ old('ifmsa_name', isset($charge) ? $charge->ifmsaName : '') }}">
+		</p>
+
+		<p class="col-md-3 form-group">
+			<label>Siglas según IFMSA</label>
+			<input class="form-control" type="text" name="ifmsa_acronym" placeholder="LOME&#8230;"
+				value="{{ old('ifmsa_acronym', isset($charge) ? $charge->ifmsaAcronym : '') }}">
+		</p>
+	</div>
+
+	@if ($errors->has('ifmsa_name'))
+		<span class="form-text">
+			<strong>{{ $errors->first('ifmsa_name') }}</strong>
+		</span>
+	@endif
+
+	@if ($errors->has('ifmsa_acronym'))
+		<span class="form-text">
+			<strong>{{ $errors->first('ifmsa_acronym') }}</strong>
+		</span>
+	@endif
+</div>
+
+<p class="form-group form-group--required">
+	<label>Dirección de correo-e</label>
+	<input class="form-control" type="email" name="email" placeholder="lome@avem.es&#8230;"
+	       value="{{ old('email', isset($charge) ? $charge->email : '') }}" required>
+	@if ($errors->has('email'))
+		<span class="form-text">
+			<strong>{{ $errors->first('email') }}</strong>
+		</span>
+	@endif
+</p>
+
+<p class="form-group">
+	<label>Grupo de trabajo al que pertenece</label>
+	<select name="working_group" class="form-control form-control-sm">
+		<option value="">Ninguno</option>
+		@foreach($workingGroups as $workingGroup)
+			@include('admin.charges._wgSelectPartial', [
+				'workingGroup' => $workingGroup,
+				'charge' => isset($charge) ? $charge : null,
+				'value' => old('working_group', isset($charge) ? $charge->working_group_id : null),
+			])
+		@endforeach
+	</select>
+	@if ($errors->has('working_group'))
+		<span class="form-text">
+			<strong>{{ $errors->first('working_group') }}</strong>
+		</span>
+	@endif
+</p>
+
+<p class="form-group form-group--required">
+	<label>Descripción del cargo</label>
+	<textarea name="description" class="form-control" placeholder="Se encarga de la formación médica complementaria, ampliándola mediante charlas, cursillos y otras actividades. Además, trabaja el estado de la educación médica y la docencia&#8230;">{{
+		old('description', isset($charge) ? $charge->description : '')
 	}}</textarea>
 	@if ($errors->has('description'))
 		<span class="form-text">
@@ -21,49 +81,13 @@
 	@endif
 </p>
 
-<div class="row">
-	<p class="col-md-6 form-group form-group--required {{ $errors->has('email') ? ' has-danger' : '' }}">
-		<label for="form-email">Dirección de correo-e</label>
-		<input id="form-email" class="form-control" name="email" type="email" required
-		       value="{{ old('email') ?? (isset($charge) ? $charge->email : '') }}">
-		@if ($errors->has('email'))
-			<span class="form-text">
-				<strong>{{ $errors->first('email') }}</strong>
-			</span>
-		@endif
-	</p>
-
-	<p class="col-md-6 form-group{{ $errors->has('working_group') ? ' has-danger' : '' }}">
-		<label for="form-working-group">Grupo de trabajo</label>
-		<select id="form-working-group" class="form-control" name="working_group"
-		        value="{{ old('working_group') ?? (isset($charge) ? $charge->workingGroup : 0) }}">
-			<option value="">Ninguno</option>
-			@foreach ($workingGroups as $workingGroup)
-				<option value="{{ $workingGroup->id }}">{{ $workingGroup->name }}</option>
-			@endforeach
-		</select>
-	</p>
-</div>
-
-<p class="form-group{{ $errors->has('order') ? ' has-danger' : '' }}">
-	<label>Orden</label>
-	<ol is="sortable-list">
-		@foreach($charges as $existingCharge)
-			<li draggable="true">
-				<input name="order[]" type="hidden" value="{{ $existingCharge->id }}">
-				<span>{{ $existingCharge->name }}</span>
-			</li>
-		@endforeach
-		@unless (isset($charge))
-			<li draggable="true">
-				<input name="order[]" type="hidden" value="new">
-				<span>Nuevo cargo</span>
-			</li>
-		@endunless
-	</ol>
-	@if ($errors->has('order'))
+<p class="form-group">
+	<label>Etiquetas</label>
+	<input type="text" is="token-input" class="form-control" placeholder="Educación médica, LOME, SCOME&#8230;"
+	       name="tags" value="{{ old('tags', isset($charge) ? $charge->tags->pluck('name')->implode(',') : '') }}">
+	@if ($errors->has('tags'))
 		<span class="form-text">
-			<strong>{{ $errors->first('order') }}</strong>
+			<strong>{{ $errors->first('tags') }}</strong>
 		</span>
 	@endif
 </p>

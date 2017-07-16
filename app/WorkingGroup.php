@@ -20,18 +20,6 @@ class WorkingGroup extends Model
 		return $this->hasMany('Avem\Charge');
 	}
 
-	public function getColorAttribute()
-	{
-		$selfColor = $this->attributes['color'];
-		if ($selfColor != null)
-			return $selfColor;
-		
-		if ($this->parent_group_id !== null)
-			return $this->parentGroup->color;
-
-		return null;
-	}
-
 	public function subgroups()
 	{
 		return $this->hasMany('Avem\WorkingGroup', 'parent_group_id');

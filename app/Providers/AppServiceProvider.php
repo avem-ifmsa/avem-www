@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
 		// Set up morph map for polymorphic relationships
 		Relation::morphMap([
 			'activity'           => 'Avem\Activity',
+			'charge'             => 'Avem\Charge',
 			'plain_transaction'  => 'Avem\PlainTransaction',
 			'performed_activity' => 'Avem\PerformedActivity',
 			'working_group'      => 'Avem\WorkingGroup',

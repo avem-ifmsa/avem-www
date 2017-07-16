@@ -136,7 +136,7 @@ class User extends Authenticatable implements HasMediaConversions
 				      ->orWhereBetween('activities.end', ['charge_periods.start', 'charge_periods.end']);
 			});
 		
-		$allInscribedActivities = User::where('id', $this->id)
+		$allInscribedActivities = User::find($this->id)
 			->crossJoin('activities')->where('inscription_policy', 'all')
 			->select('activities.*', 'users.id as pivot_user_id', 'activities.id as pivot_activity_id')
 			->whereDate($this->createdAt, '<=', 'activities.end');
