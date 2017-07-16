@@ -6,6 +6,7 @@ use DB;
 use Session;
 use Avem\Tag;
 use Avem\Charge;
+use Avem\ChargePeriod;
 use Avem\WorkingGroup;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -132,7 +133,7 @@ class ChargeController extends Controller
 	}
 
 	/**
-	 * Assign given charge to an existing user.
+	 * Show assign charge dialog.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
 	 * @param  \Avem\Charge  $charge
@@ -143,6 +144,30 @@ class ChargeController extends Controller
 		return view('admin.charges.assign', [
 			'charge' => $charge,
 		]);
+	}
+
+	/**
+	 * Assign given charge to an existing user.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \Avem\Charge  $charge
+	 * @return \Illuminate\Http\Response
+	 */
+	public function doAssign(Request $request, Charge $charge)
+	{
+		$this->authorize('create', ChargePeriod::class);
+
+		$chargePeriod = new ChargePeriod;
+		$chargePeriod->start = Carbon::now();
+		$chargePeriod->end = $request->input('end');
+
+		$chargeUser = User::findOrFail($request->input('user'));
+		$chargePeriod->user()->associate($chargeUser);
+		$chargePeriod->charge()->associate($charge);
+
+		$chargePeriod->save();
+
+		return redirect()->route('admin.board');
 	}
 
 	/**
