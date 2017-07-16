@@ -138,7 +138,7 @@ class InitCommand extends Command
 
 		// Grupos de trabajo temático
 		[
-			'name' => 'Grupos de trabajo temático',
+			'name'  => 'Grupos de trabajo temático',
 		],
 
 		// Cargos de apoyo
