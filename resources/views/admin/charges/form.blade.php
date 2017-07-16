@@ -16,13 +16,13 @@
 			<label>Nombre según IFMSA</label>
 			<input class="form-control" type="text" name="ifmsa_name"
 				placeholder="Local Officer of Medical Education&#8230;"
-				value="{{ old('ifmsa_name', isset($charge) ? $charge->ifmsaName : '') }}">
+				value="{{ old('ifmsa_name', isset($charge) ? $charge->ifmsa_name : '') }}">
 		</p>
 
 		<p class="col-md-3 form-group">
 			<label>Siglas según IFMSA</label>
 			<input class="form-control" type="text" name="ifmsa_acronym" placeholder="LOME&#8230;"
-				value="{{ old('ifmsa_acronym', isset($charge) ? $charge->ifmsaAcronym : '') }}">
+				value="{{ old('ifmsa_acronym', isset($charge) ? $charge->ifmsa_acronym : '') }}">
 		</p>
 	</div>
 
@@ -84,7 +84,7 @@
 <p class="form-group">
 	<label>Etiquetas</label>
 	<input type="text" is="token-input" class="form-control" placeholder="Educación médica, LOME, SCOME&#8230;"
-	       name="tags" value="{{ old('tags', isset($charge) ? $charge->tags->pluck('name')->implode(',') : '') }}">
+	       name="tags" value="{{ old('tags', isset($charge) ? $charge->ownTags->pluck('name')->implode(',') : '') }}">
 	@if ($errors->has('tags'))
 		<span class="form-text">
 			<strong>{{ $errors->first('tags') }}</strong>

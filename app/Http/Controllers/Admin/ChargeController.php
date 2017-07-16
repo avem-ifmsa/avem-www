@@ -117,7 +117,16 @@ class ChargeController extends Controller
 	{
 		$this->authorize('update', $charge);
 
-		$charge->update($request->all());
+		DB::transaction(function() use ($request, $charge) {
+			$charge->fill($request->all());
+			if ($workingGroupId = $request->input('working_group')) {
+				$charge->workingGroup()->associate($workingGroupId);
+			}
+			$charge->save();
+
+			$chargeTags = $this->getInputTags($request);
+			$charge->ownTags()->sync($chargeTags->pluck('id'));
+		});
 
 		return redirect()->route('admin.board');
 	}

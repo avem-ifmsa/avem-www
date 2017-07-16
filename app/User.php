@@ -139,7 +139,7 @@ class User extends Authenticatable implements HasMediaConversions
 		$allInscribedActivities = User::find($this->id)
 			->crossJoin('activities')->where('inscription_policy', 'all')
 			->select('activities.*', 'users.id as pivot_user_id', 'activities.id as pivot_activity_id')
-			->whereDate($this->createdAt, '<=', 'activities.end');
+			->whereDate('activities.end', '>=', $this->created_at);
 		
 		return $selfInscribedActivities->union($boardInscribedActivities)
 		                               ->union($allInscribedActivities);

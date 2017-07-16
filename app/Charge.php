@@ -56,7 +56,7 @@ class Charge extends Model
 			->join('working_groups', 'working_groups.id', '=', 'charges.working_group_id')
 			->join('taggables', function($join) {
 				$join->on('taggable_id', '=', 'working_groups.id');
-				$join->on('taggable_type', '=', 'working_group');
+				$join->where('taggable_type', 'working_group');
 			})->join('tags', 'tags.id', '=', 'taggables.tag_id');
 		
 		return $ownTags->union($groupTags);
