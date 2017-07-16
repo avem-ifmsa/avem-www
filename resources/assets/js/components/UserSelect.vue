@@ -17,7 +17,7 @@
 
 		<input type="hidden" :name="name" :value="submitValue">
 
-		<div v-if="isActivated" class="option-container">
+		<div v-if="isActivated && filterText !== ''" class="option-container">
 			<ul v-if="userResultsNotReady" class="not-ready">
 				<li>
 					<i class="fa fa-spin fa-refresh"></i>
@@ -85,6 +85,9 @@
 		margin-left: 0;
 		padding: 5px 0px;
 		list-style: none;
+
+		border: 1px solid rgba(0, 0, 0, 0.15);
+		box-shadow: 0 6px 8px rgba(0, 0, 0, .175);
 
 		background-color: #fff;
 	}
