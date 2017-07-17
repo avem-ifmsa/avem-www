@@ -2,23 +2,48 @@
 
 namespace Avem\Http\Controllers\Admin;
 
+use DB;
+use Avem\WorkingGroup;
 use Illuminate\Http\Request;
 use Avem\Http\Controllers\Controller;
 
-use Avem\WorkingGroup;
-
 class WorkingGroupController extends Controller
 {
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function index()
+	private function prefetchWorkingGroups($workingGroups)
 	{
-		return view('admin.workingGroups.index', [
-			'workingGroups' => WorkingGroup::all(),
-		]);
+		foreach ($workingGroups as $parentGroup) {
+			$parentGroup->subgroups = $workingGroups->where('parent_group_id', $parentGroup->id);
+			foreach ($parentGroup->subgroups as $childGroup)
+				$childGroup->parentGroup = $parentGroup;
+		}
+		return $workingGroups;
+	}
+
+	private function getWorkingGroups($except = null)
+	{
+		$allWorkingGroups = $this->prefetchWorkingGroups(WorkingGroup::all());
+		$workingGroups = $allWorkingGroups->where('parent_group_id', null);
+		if ($except)
+			$workingGroups = $workingGroups->where('id', '<>', $except->id);
+		return $workingGroups->sortByDesc(function($workingGroup) {
+			return $workingGroup->subgroups->count();
+		});
+	}
+
+	private function getInputTags(Request $request)
+	{
+		$tagNames = explode(',', $request->input('tags'));
+		$tagNames = array_map('trim', $tagNames);
+
+		$existingTags = Tag::whereIn('name', $tagNames)->get();
+		$existingTagNames = $existingTags->pluck('name')->toArray();
+		$otherTagNames = array_diff($tagNames, $existingTagNames);
+		Tag::insert(array_map(function($tagName) {
+			return [ 'name' => $tagName ];
+		}, $otherTagNames));
+
+		$otherTags = Tag::whereIn('name', $otherTagNames)->get();
+		return $existingTags->merge($otherTags);
 	}
 
 	/**
@@ -28,7 +53,14 @@ class WorkingGroupController extends Controller
 	 */
 	public function create()
 	{
-		return view('admin.workingGroups.create');
+		$this->authorize('create', WorkingGroup::class);
+
+		if ($parentGroup = $request->input('parentGroup'))
+			Session::flash('_old_input.parent_group', $parentGroup);
+
+		return view('admin.workingGroups.create', [
+			'workingGroups' => $this->getWorkingGroups(),
+		]);
 	}
 
 	/**
@@ -39,19 +71,19 @@ class WorkingGroupController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		WorkingGroup::create($request->all());
-		return redirect()->route('admin.workingGroups.index');
-	}
+		$this->authorize('create', WorkingGroup::class);
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  \Avem\WorkingGroup  $workingGroup
-	 * @return \Illuminate\Http\Response
-	 */
-	public function show(WorkingGroup $workingGroup)
-	{
-		//
+		DB::transaction(function() use ($request) {
+			$workingGroup = new WorkingGroup($request->all());
+			if ($parentGroup = $request->input('parent_group'))
+				$workingGroup->parentGroup()->associate($parentGroup);
+			$workingGroup->save();
+
+			$groupTags = $this->getInputTags($request);
+			$workingGroup->tags()->sync($groupTags);
+		});
+		
+		return redirect()->route('admin.board');
 	}
 
 	/**
@@ -62,8 +94,11 @@ class WorkingGroupController extends Controller
 	 */
 	public function edit(WorkingGroup $workingGroup)
 	{
+		$this->authorize('update', $workingGroup);
+
 		return view('admin.workingGroups.edit', [
-			'workingGroup' => $workingGroup,
+			'workingGroup'  => $workingGroup,
+			'workingGroups' => $this->getWorkingGroups($workingGroup),
 		]);
 	}
 
@@ -76,8 +111,19 @@ class WorkingGroupController extends Controller
 	 */
 	public function update(Request $request, WorkingGroup $workingGroup)
 	{
-		$workingGroup->update($request->all());
-		return redirect()->route('admin.working_group.index');
+		$this->authorize('update', $workingGroup);
+
+		DB::transaction(function() use ($request, $workingGroup) {
+			$workingGroup->fill($request->all());
+			if ($parentGroup = $request->input('parent_group'))
+				$workingGroup->parentGroup()->associate($parentGroup);
+			$workingGroup->save();
+
+			$groupTags = $this->getInputTags($request);
+			$workingGroup->tags()->sync($groupTags);
+		});
+		
+		return redirect()->route('admin.board');
 	}
 
 	/**
@@ -88,7 +134,10 @@ class WorkingGroupController extends Controller
 	 */
 	public function destroy(WorkingGroup $workingGroup)
 	{
+		$this->authorize('remove', $workingGroup);
+
 		$workingGroup->delete();
-		return redirect()->route('admin.working_group.index');
+		
+		return redirect()->route('admin.board');
 	}
 }

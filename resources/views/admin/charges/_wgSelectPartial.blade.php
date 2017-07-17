@@ -3,7 +3,6 @@
 		@foreach($workingGroup->subgroups as $childGroup)
 			@include('admin.charges._wgSelectPartial', [
 				'workingGroup' => $childGroup,
-				'charge' => isset($charge) ? $charge : null,
 			])
 		@endforeach
 	</optgroup>

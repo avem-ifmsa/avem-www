@@ -55,6 +55,7 @@ Route::group([ 'as'         => 'admin.',
 	});
 
 	Route::resource('workingGroups', 'WorkingGroupController');
+	
 	Route::resource('activities'   , 'ActivityController'    );
 	Route::resource('exchanges'    , 'ExchangeController'    );
 	Route::resource('users'        , 'UserController'        );
