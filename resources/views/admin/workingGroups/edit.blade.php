@@ -35,7 +35,7 @@
 					</div>
 
 					<div class="modal-footer">
-						<a class="btn btn-secondary" role="button" href="#">Cancelar</a>
+						<a class="btn btn-secondary" role="button" href="{{ route('admin.board') }}">Cancelar</a>
 						<button type="submit" class="btn btn-primary" role="button">Guardar</button>
 					</div>
 				</form>
