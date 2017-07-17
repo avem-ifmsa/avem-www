@@ -14,7 +14,6 @@ use Avem\Http\Controllers\Controller;
 
 class ChargeController extends Controller
 {
-
 	private function prefetchWorkingGroups($workingGroups)
 	{
 		foreach ($workingGroups as $parentGroup) {
@@ -27,11 +26,11 @@ class ChargeController extends Controller
 
 	private function getWorkingGroups()
 	{
-		return $this->prefetchWorkingGroups(WorkingGroup::all())
-			->where('parent_group_id', null)
-			->sortByDesc(function($workingGroup) {
-				return $workingGroup->subgroups->count();
-			});
+		$allWorkingGroups = $this->prefetchWorkingGroups(WorkingGroup::all());
+		$topLevelGroups = $allWorkingGroups->where('parent_group_id', null);
+		return $topLevelGroups->sortByDesc(function($workingGroup) {
+			return $workingGroup->subgroups->count();
+		});
 	}
 
 	private function getInputTags(Request $request)

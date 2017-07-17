@@ -11,7 +11,7 @@
 @section('content')
 	@parent
 
-	<div id="edit-modal" class="modal fade" role="dialog" data-backdrop="static">
+	<div id="edit-modal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<header class="modal-header">
@@ -21,7 +21,6 @@
 					</a>
 				</header>
 
-				
 				<form action="{{ route('admin.charges.update', [$charge]) }}" method="post">
 					{{ csrf_field() }}
 					{{ method_field('patch') }}

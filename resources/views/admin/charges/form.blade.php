@@ -15,14 +15,14 @@
 		<p class="col-md-9 form-group">
 			<label>Nombre según IFMSA</label>
 			<input class="form-control" type="text" name="ifmsa_name"
-				placeholder="Local Officer of Medical Education&hellip;"
-				value="{{ old('ifmsa_name', isset($charge) ? $charge->ifmsa_name : '') }}">
+			       placeholder="Local Officer of Medical Education&hellip;"
+			       value="{{ old('ifmsa_name', isset($charge) ? $charge->ifmsa_name : '') }}">
 		</p>
 
 		<p class="col-md-3 form-group">
 			<label>Siglas según IFMSA</label>
 			<input class="form-control" type="text" name="ifmsa_acronym" placeholder="LOME&hellip;"
-				value="{{ old('ifmsa_acronym', isset($charge) ? $charge->ifmsa_acronym : '') }}">
+			       value="{{ old('ifmsa_acronym', isset($charge) ? $charge->ifmsa_acronym : '') }}">
 		</p>
 	</div>
 
@@ -57,7 +57,6 @@
 		@foreach($workingGroups as $workingGroup)
 			@include('admin.charges._wgSelectPartial', [
 				'workingGroup' => $workingGroup,
-				'charge' => isset($charge) ? $charge : null,
 				'value' => old('working_group', isset($charge) ? $charge->working_group_id : null),
 			])
 		@endforeach
@@ -71,9 +70,9 @@
 
 <p class="form-group form-group--required">
 	<label>Descripción del cargo</label>
-	<textarea name="description" class="form-control" placeholder="Se encarga de la formación médica complementaria, ampliándola mediante charlas, cursillos y otras actividades. Además, trabaja el estado de la educación médica y la docencia&hellip;">{{
-		old('description', isset($charge) ? $charge->description : '')
-	}}</textarea>
+	<textarea name="description" class="form-control"
+	          placeholder="Se encarga de la formación médica complementaria, ampliándola mediante charlas, cursillos y otras actividades. Además, trabaja el estado de la educación médica y la docencia&hellip;"
+	>{{ old('description', isset($charge) ? $charge->description : '') }}</textarea>
 	@if ($errors->has('description'))
 		<span class="form-text">
 			<strong>{{ $errors->first('description') }}</strong>
@@ -83,7 +82,7 @@
 
 <p class="form-group">
 	<label>Etiquetas</label>
-	<input type="text" is="token-input" class="form-control" placeholder="Educación médica, LOME, SCOME&hellip;"
+	<input is="token-input" type="text" class="form-control" placeholder="Educación médica, LOME, SCOME&hellip;"
 	       name="tags" value="{{ old('tags', isset($charge) ? $charge->ownTags->pluck('name')->implode(',') : '') }}">
 	@if ($errors->has('tags'))
 		<span class="form-text">
