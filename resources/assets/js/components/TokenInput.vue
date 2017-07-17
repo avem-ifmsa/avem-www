@@ -1,12 +1,17 @@
 <template>
 	<ul ref="tokenList" class="list-unstyled" @click.self="onTokenListClick">
+		<li v-if="isPlaceholderShown" class="token-placeholder">
+			<span>{{ this.placeholder }}</span>
+		</li>
+
 		<li ref="tokenItems" v-for="(token, i) of tokens" :key="token"
 		    @keydown.self="onTokenItemKeyDown(i, $event)"
-		   class="token-existing" tabindex="0">
+		    class="token-existing" tabindex="0">
 			<span v-if="isTokenInEditMode(i)">
 				<input ref="editTokenInputs" type="text" :value="token" :list="list"
 				       @blur="onEditTokenInputBlur" @input="onTokenInputInput"
-				       @keydown.self="onEditTokenInputKeyDown(i, $event)">
+				       @keydown.self="onEditTokenInputKeyDown(i, $event)"
+				       v-model="editTokenContent">
 			</span>
 
 			<span v-else @click.self="selectToken(i)" @dblclick="onTokenItemDoubleClick(i)">
@@ -18,7 +23,8 @@
 		<li class="token-new">
 			<input ref="newTokenInput" type="text" :list="list"
 			       @keydown="onNewTokenInputKeyDown"
-			       @input="onTokenInputInput">
+			       @input="onTokenInputInput"
+			       v-model="newTokenContent">
 		</li>
 		
 		<input ref="tokenListValue" type="hidden" :name="name" :value="inputValue">
@@ -92,6 +98,15 @@
 			display: none;
 		}
 	}
+
+	.token-placeholder {
+		position: absolute;
+
+		color: #b1b7ba;
+		font-weight: normal;
+		pointer-events: none;
+		font-family: sans-serif;
+	}
 </style>
 
 <script>
@@ -99,17 +114,22 @@
 
 	export default {
 		props: [
-			'name', 'value', 'list',
+			'name', 'value', 'list', 'placeholder',
 		],
 		data: function() {
 			return {
-				editingTokenIndex: null,
+				newTokenContent: '',
+				editTokenContent: '',
+				editTokenIndex: null,
 				tokens: this.value ? this.value.split(',').map(t => t.trim()) : [],
 			};
 		},
 		computed: {
 			inputValue: function() {
 				return this.tokens.join(',');
+			},
+			isPlaceholderShown: function() {
+				return this.tokens.length == 0 && this.newTokenContent == '';
 			},
 		},
 		methods: {
@@ -121,7 +141,7 @@
 				}) + 10;
 			},
 			isTokenInEditMode: function(index) {
-				return index === this.editingTokenIndex;
+				return index === this.editTokenIndex;
 			},
 			onTokenListClick: function() {
 				this.$refs.newTokenInput.focus();
@@ -139,12 +159,15 @@
 					else
 						this.$refs.newTokenInput.focus();
 					break;
-				case 'Backspace':
+				case 'Backspace': case 'Delete':
 					this.tokens.splice(index, 1);
 					Vue.nextTick(() => {
 						var tokenItems = this.$refs.tokenItems;
-						if (index === tokenItems.length)
+						if (index < tokenItems.length) {
+							this.$refs.tokenItems[index].focus();
+						} else {
 							this.$refs.newTokenInput.focus();
+						}
 					});
 					break;
 				default:
@@ -154,7 +177,8 @@
 				}
 			},
 			onTokenItemDoubleClick: function(index) {
-				this.editingTokenIndex = index;
+				this.editTokenIndex = index;
+				this.editTokenContent = this.tokens[index];
 				Vue.nextTick(() => {
 					var tokenInput = this.$refs.editTokenInputs[0];
 					var tokenWidth = this.getComputedTokenWidth(tokenInput);
@@ -163,22 +187,25 @@
 				});
 			},
 			onEditTokenInputBlur: function(event) {
-				this.editingTokenIndex = null;
+				this.editTokenIndex = null;
 			},
 			onEditTokenInputKeyDown: function(index, event) {
 				switch (event.key) {
 				case 'Enter':
 					event.preventDefault();
 					var tokenInput = event.target;
-					if (tokenInput.value === '')
+					if (this.editTokenContent !== '') {
+						this.tokens.splice(index, 1, this.editTokenContent);
+					} else {
 						this.tokens.splice(index, 1);
-					else
-						this.tokens.splice(index, 1, tokenInput.value);
-					this.editingTokenIndex = null;
+					}
+					this.editTokenIndex = null;
+					this.editTokenContent = '';
 					tokenInput.style.width = null;
 					break;
 				case 'Escape':
-					this.editingTokenIndex = null;
+					this.editTokenIndex = null;
+					this.editTokenContent = '';
 					this.$refs.tokenInput.focus();
 					break;
 				}
@@ -186,12 +213,12 @@
 			onNewTokenInputKeyDown: function(event) {
 				switch (event.key) {
 				case 'Enter':
-					var tokenInput = event.target;
-					if (tokenInput.value !== '') {
+					if (this.newTokenContent !== '') {
 						event.preventDefault();
-						this.tokens.push(tokenInput.value);
+						var tokenInput = event.target;
+						this.tokens.push(this.newTokenContent);
 						tokenInput.style.width = null;
-						tokenInput.value = '';
+						this.newTokenContent = '';
 					}
 					break;
 				case 'ArrowLeft': case 'Backspace':

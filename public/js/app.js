@@ -1865,14 +1865,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: ['name', 'value', 'list'],
+	props: ['name', 'value', 'list', 'placeholder'],
 	data: function data() {
 		return {
-			editingTokenIndex: null,
+			newTokenContent: '',
+			editTokenContent: '',
+			editTokenIndex: null,
 			tokens: this.value ? this.value.split(',').map(function (t) {
 				return t.trim();
 			}) : []
@@ -1881,6 +1898,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	computed: {
 		inputValue: function inputValue() {
 			return this.tokens.join(',');
+		},
+		isPlaceholderShown: function isPlaceholderShown() {
+			return this.tokens.length == 0 && this.newTokenContent == '';
 		}
 	},
 	methods: {
@@ -1892,7 +1912,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}) + 10;
 		},
 		isTokenInEditMode: function isTokenInEditMode(index) {
-			return index === this.editingTokenIndex;
+			return index === this.editTokenIndex;
 		},
 		onTokenListClick: function onTokenListClick() {
 			this.$refs.newTokenInput.focus();
@@ -1908,11 +1928,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					var tokenItems = this.$refs.tokenItems;
 					if (index < tokenItems.length - 1) tokenItems[index + 1].focus();else this.$refs.newTokenInput.focus();
 					break;
-				case 'Backspace':
+				case 'Backspace':case 'Delete':
 					this.tokens.splice(index, 1);
 					Vue.nextTick(function () {
 						var tokenItems = _this.$refs.tokenItems;
-						if (index === tokenItems.length) _this.$refs.newTokenInput.focus();
+						if (index < tokenItems.length) {
+							_this.$refs.tokenItems[index].focus();
+						} else {
+							_this.$refs.newTokenInput.focus();
+						}
 					});
 					break;
 				default:
@@ -1924,7 +1948,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		onTokenItemDoubleClick: function onTokenItemDoubleClick(index) {
 			var _this2 = this;
 
-			this.editingTokenIndex = index;
+			this.editTokenIndex = index;
+			this.editTokenContent = this.tokens[index];
 			Vue.nextTick(function () {
 				var tokenInput = _this2.$refs.editTokenInputs[0];
 				var tokenWidth = _this2.getComputedTokenWidth(tokenInput);
@@ -1933,19 +1958,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			});
 		},
 		onEditTokenInputBlur: function onEditTokenInputBlur(event) {
-			this.editingTokenIndex = null;
+			this.editTokenIndex = null;
 		},
 		onEditTokenInputKeyDown: function onEditTokenInputKeyDown(index, event) {
 			switch (event.key) {
 				case 'Enter':
 					event.preventDefault();
 					var tokenInput = event.target;
-					if (tokenInput.value === '') this.tokens.splice(index, 1);else this.tokens.splice(index, 1, tokenInput.value);
-					this.editingTokenIndex = null;
+					if (this.editTokenContent !== '') {
+						this.tokens.splice(index, 1, this.editTokenContent);
+					} else {
+						this.tokens.splice(index, 1);
+					}
+					this.editTokenIndex = null;
+					this.editTokenContent = '';
 					tokenInput.style.width = null;
 					break;
 				case 'Escape':
-					this.editingTokenIndex = null;
+					this.editTokenIndex = null;
+					this.editTokenContent = '';
 					this.$refs.tokenInput.focus();
 					break;
 			}
@@ -1953,12 +1984,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		onNewTokenInputKeyDown: function onNewTokenInputKeyDown(event) {
 			switch (event.key) {
 				case 'Enter':
-					var tokenInput = event.target;
-					if (tokenInput.value !== '') {
+					if (this.newTokenContent !== '') {
 						event.preventDefault();
-						this.tokens.push(tokenInput.value);
+						var tokenInput = event.target;
+						this.tokens.push(this.newTokenContent);
 						tokenInput.style.width = null;
-						tokenInput.value = '';
+						this.newTokenContent = '';
 					}
 					break;
 				case 'ArrowLeft':case 'Backspace':
@@ -5760,7 +5791,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\nul[data-v-302d394c] {\n  margin: 0;\n  padding: 4px 3px;\n  display: inline-flex;\n  flex-wrap: wrap;\n  cursor: text;\n}\nli[data-v-302d394c] {\n  margin: 2px;\n  outline: none;\n  padding: 3px 8px;\n  font-weight: 600;\n  white-space: nowrap;\n  overflow: hidden;\n}\nli.token-existing[data-v-302d394c] {\n    border-radius: 4px;\n    border: 1px solid #c3c3c3;\n    cursor: pointer;\n    background-color: #f7f7f7;\n}\nli.token-existing p[data-v-302d394c] {\n      margin: 0;\n      padding: 0;\n      display: inline-block;\n}\nli.token-existing button[data-v-302d394c] {\n      border: none;\n      padding: 1px;\n      margin-left: 5px;\n      color: inherit;\n      background-color: inherit;\n      cursor: pointer;\n}\nli.token-existing[data-v-302d394c]:focus {\n      background-color: #fefbc6;\n}\nli.token-new[data-v-302d394c] {\n    display: inline-block;\n    margin: 3px 2px;\n}\ninput[data-v-302d394c] {\n  padding: 0;\n  border: none;\n  outline: none;\n  width: 20px;\n  min-width: 2px;\n}\ninput[data-v-302d394c]::-webkit-calendar-picker-indicator {\n    display: none;\n}\n", ""]);
+exports.push([module.i, "\nul[data-v-302d394c] {\n  margin: 0;\n  padding: 4px 3px;\n  display: inline-flex;\n  flex-wrap: wrap;\n  cursor: text;\n}\nli[data-v-302d394c] {\n  margin: 2px;\n  outline: none;\n  padding: 3px 8px;\n  font-weight: 600;\n  white-space: nowrap;\n  overflow: hidden;\n}\nli.token-existing[data-v-302d394c] {\n    border-radius: 4px;\n    border: 1px solid #c3c3c3;\n    cursor: pointer;\n    background-color: #f7f7f7;\n}\nli.token-existing p[data-v-302d394c] {\n      margin: 0;\n      padding: 0;\n      display: inline-block;\n}\nli.token-existing button[data-v-302d394c] {\n      border: none;\n      padding: 1px;\n      margin-left: 5px;\n      color: inherit;\n      background-color: inherit;\n      cursor: pointer;\n}\nli.token-existing[data-v-302d394c]:focus {\n      background-color: #fefbc6;\n}\nli.token-new[data-v-302d394c] {\n    display: inline-block;\n    margin: 3px 2px;\n}\ninput[data-v-302d394c] {\n  padding: 0;\n  border: none;\n  outline: none;\n  width: 20px;\n  min-width: 2px;\n}\ninput[data-v-302d394c]::-webkit-calendar-picker-indicator {\n    display: none;\n}\n.token-placeholder[data-v-302d394c] {\n  position: absolute;\n  color: #b1b7ba;\n  font-weight: normal;\n  pointer-events: none;\n  font-family: sans-serif;\n}\n", ""]);
 
 // exports
 
@@ -36299,7 +36330,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.onTokenListClick($event)
       }
     }
-  }, [_vm._l((_vm.tokens), function(token, i) {
+  }, [(_vm.isPlaceholderShown) ? _c('li', {
+    staticClass: "token-placeholder"
+  }, [_c('span', [_vm._v(_vm._s(this.placeholder))])]) : _vm._e(), _vm._v(" "), _vm._l((_vm.tokens), function(token, i) {
     return _c('li', {
       key: token,
       ref: "tokenItems",
@@ -36315,6 +36348,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [(_vm.isTokenInEditMode(i)) ? _c('span', [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.editTokenContent),
+        expression: "editTokenContent"
+      }],
       ref: "editTokenInputs",
       refInFor: true,
       attrs: {
@@ -36322,11 +36361,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "list": _vm.list
       },
       domProps: {
-        "value": token
+        "value": token,
+        "value": (_vm.editTokenContent)
       },
       on: {
         "blur": _vm.onEditTokenInputBlur,
-        "input": _vm.onTokenInputInput,
+        "input": [function($event) {
+          if ($event.target.composing) { return; }
+          _vm.editTokenContent = $event.target.value
+        }, _vm.onTokenInputInput],
         "keydown": function($event) {
           if ($event.target !== $event.currentTarget) { return null; }
           _vm.onEditTokenInputKeyDown(i, $event)
@@ -36356,14 +36399,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('li', {
     staticClass: "token-new"
   }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.newTokenContent),
+      expression: "newTokenContent"
+    }],
     ref: "newTokenInput",
     attrs: {
       "type": "text",
       "list": _vm.list
     },
+    domProps: {
+      "value": (_vm.newTokenContent)
+    },
     on: {
       "keydown": _vm.onNewTokenInputKeyDown,
-      "input": _vm.onTokenInputInput
+      "input": [function($event) {
+        if ($event.target.composing) { return; }
+        _vm.newTokenContent = $event.target.value
+      }, _vm.onTokenInputInput]
     }
   })]), _vm._v(" "), _c('input', {
     ref: "tokenListValue",
