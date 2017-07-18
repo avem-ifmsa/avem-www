@@ -2,6 +2,7 @@
 
 namespace Avem;
 
+use Auth;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -31,9 +32,12 @@ class Exchange extends Model
 		'published' => 'boolean',
 	];
 
-	public function destination()
+	public static function saving(Exchange $exchange)
 	{
-		return $this->belongsTo('Avem\Destination');
+		parent::saving($exchange);
+
+		$chargePeriod = Auth::user()->currentChargePeriod;
+		$exchange->publisherPeriod()->associate($chargePeriod);
 	}
 
 	public function publisherPeriod()

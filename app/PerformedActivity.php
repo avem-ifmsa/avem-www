@@ -2,10 +2,19 @@
 
 namespace Avem;
 
+use Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class PerformedActivity extends Model
 {
+	public static function saving(PerformedActivity $performedActivity)
+	{
+		parent::saving($performedActivity);
+
+		$chargePeriod = Auth::user()->currentChargePeriod;
+		$performedActivity->witnessPeriod()->associate($chargePeriod);
+	}
+
 	public function activity()
 	{
 		return $this->belongsTo('Avem\Activity');

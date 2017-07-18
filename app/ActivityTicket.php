@@ -26,6 +26,14 @@ class ActivityTicket extends Model
 		'created_at', 'updated_at', 'exchanged_at',
 	];
 
+	public static function saving(ActivityTicket $activityTicket)
+	{
+		parent::saving($activityTicket);
+
+		$chargePeriod = Auth::user()->currentChargePeriod;
+		$activityTicket->issuerPeriod()->associate($chargePeriod);
+	}
+
 	private static function generateRandomCode($length = 6)
 	{
 		$code = [];

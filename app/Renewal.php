@@ -2,6 +2,7 @@
 
 namespace Avem;
 
+use Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Renewal extends Model
@@ -23,6 +24,14 @@ class Renewal extends Model
 	protected $dates = [
 		'created_at', 'updated_at', 'until',
 	];
+
+	public static function saving(Renewal $renewal)
+	{
+		parent::saving($renewal);
+
+		$chargePeriod = Auth::user()->currentChargePeriod;
+		$renewal->issuerPeriod()->associate($chargePeriod);
+	}
 
 	public function issuerPeriod()
 	{

@@ -2,6 +2,7 @@
 
 namespace Avem;
 
+use Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class PlainTransaction extends Model
@@ -14,6 +15,14 @@ class PlainTransaction extends Model
 	protected $fillable = [
 		'concept', 'points',
 	];
+
+	public static function saving(PlainTransaction $plainTransaction)
+	{
+		parent::saving($plainTransaction);
+
+		$chargePeriod = Auth::user()->currentChargePeriod;
+		$plainTransaction->applierPeriod()->associate($chargePeriod);
+	}
 
 	public function applierPeriod()
 	{
