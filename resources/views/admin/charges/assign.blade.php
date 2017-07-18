@@ -21,10 +21,12 @@
 					</a>
 				</header>
 
-				<form method="post">
+				<form action="{{ route('admin.chargePeriods.store') }}" method="post">
 					<div class="modal-body">
 						<div class="container-fluid">
 							<div class="col-md-8 offset-md-2">
+								<input type="hidden" name="charge" value="{{ $charge->id }}">
+								
 								@include('components.userSelect', [
 									'name' => 'user', 'placeholder' => 'Selecciona un usuario&hellip;'
 								])

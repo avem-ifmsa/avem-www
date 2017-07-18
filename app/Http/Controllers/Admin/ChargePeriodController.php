@@ -2,12 +2,38 @@
 
 namespace Avem\Http\Controllers\Admin;
 
+use Avem\User;
+use Carbon\Carbon;
 use Avem\ChargePeriod;
 use Illuminate\Http\Request;
 use Avem\Http\Controllers\Controller;
 
 class ChargePeriodController extends Controller
 {
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function store(Request $request)
+	{
+		$this->authorize('create', ChargePeriod::class);
+
+		$chargePeriod = new ChargePeriod;
+		$chargePeriod->start = Carbon::now();
+		$chargePeriod->end = $request->input('end');
+
+		$chargeUser = User::findOrFail($request->input('user'));
+		$chargePeriod->user()->associate($chargeUser);
+
+		$periodCharge = Charge::findOrFail($request->input('charge'));
+		$chargePeriod->charge()->associate($charge);
+
+		$chargePeriod->save();
+
+		return redirect()->route('admin.board');
+	}
 
 	/**
 	 * Display charge period actions.

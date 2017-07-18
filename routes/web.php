@@ -40,6 +40,10 @@ Route::group([ 'as'         => 'admin.',
 
 	Route::group([ 'as' => 'chargePeriods.', 'prefix' => 'chargePeriods'], function() {
 
+		Route::post('/', [
+			'as' => 'store', 'uses' => 'ChargePeriodController@store',
+		]);
+
 		Route::get('/{chargePeriod}/manage', [
 			'as' => 'manage', 'uses' => 'ChargePeriodController@manage',
 		]);
