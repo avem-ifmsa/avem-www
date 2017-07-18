@@ -3,9 +3,11 @@
 namespace Avem\Observers;
 
 use Avem\User;
-use Newsletter;
+use Avem\Jobs\SubscribeUserToNewsletter;
+use Avem\Jobs\UpdateUserNewsletterEmail;
+use Avem\Jobs\UnsubscribeUserFromNewsletter;
 
-class MailchimpUserObserver
+class NewsletterUserObserver
 {
 	/**
 	 * Listen to the User created event.
@@ -15,11 +17,8 @@ class MailchimpUserObserver
 	 */
 	public function created(User $user)
 	{
-		Newsletter::subscribe($user->email, [
-			'FNAME'  => $user->name,
-			'LNAME'  => $user->surname,
-			'NSOCIO' => $user->id,
-		]);
+		$job = new SubscribeUserToNewsletter($user);
+		dispatch($job->onQueue('newsletter'));
 	}
 	
 	/**
@@ -33,8 +32,8 @@ class MailchimpUserObserver
 		if ($user->isDirty('email')) {
 			$newEmail = $user->email;
 			$oldEmail = $user->getOriginal('email');
-			if (Newsletter::isSubscribed($oldEmail))
-				Newsletter::updateEmailAddress($oldEmail, $newEmail);
+			$job = new UpdateUserNewsletterEmail($user, $oldEmail);
+			dispatch($job->onQueue('newsletter'));
 		}
 	}
 
@@ -46,6 +45,7 @@ class MailchimpUserObserver
 	 */
 	public function deleting(User $user)
 	{
-		Newsletter::unsubscribe($user->email);
+		$job = new UnsubscribeUserFromNewsletter($user);
+		dispatch($job->onQueue('newsletter'));
 	}
 }

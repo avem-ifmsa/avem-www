@@ -182,7 +182,7 @@ return [
 		Avem\Providers\AuthServiceProvider::class,
 		Avem\Providers\EventServiceProvider::class,
 		Avem\Providers\RouteServiceProvider::class,
-		Avem\Providers\MailchimpServiceProvider::class,
+		Avem\Providers\NewsletterServiceProvider::class,
 		// Avem\Providers\BroadcastServiceProvider::class,
 		Avem\Providers\ViewComposerServiceProvider::class,
 

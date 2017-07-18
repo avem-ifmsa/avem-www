@@ -4,9 +4,9 @@ namespace Avem\Providers;
 
 use Avem\User;
 use Illuminate\Support\ServiceProvider;
-use Avem\Observers\MailchimpUserObserver;
+use Avem\Observers\NewsletterUserObserver;
 
-class MailchimpServiceProvider extends ServiceProvider
+class NewsletterServiceProvider extends ServiceProvider
 {
 	/**
 	 * Bootstrap any application services.
@@ -15,7 +15,7 @@ class MailchimpServiceProvider extends ServiceProvider
 	 */
 	public function boot()
 	{
-		User::observe(MailchimpUserObserver::class);
+		User::observe(NewsletterUserObserver::class);
 	}
 
 	/**
