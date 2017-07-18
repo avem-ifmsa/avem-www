@@ -145,6 +145,11 @@ class User extends Authenticatable implements HasMediaConversions
 		                               ->union($allInscribedActivities);
 	}
 
+	public function issuedActivityTickers()
+	{
+		return $this->hasManyThrough('Avem\ActivityTicket', 'Avem\ChargePeriod');
+	}
+
 	public function issuedRenewals()
 	{
 		return $this->hasManyThrough('Avem\Renewal', 'Avem\ChargePeriod');

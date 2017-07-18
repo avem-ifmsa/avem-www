@@ -34,9 +34,9 @@ class Activity extends Model implements HasMediaConversions
 		'inscription_start', 'inscription_end',
 	];
 
-	public function getNotifiableReceiversAttribute()
+	public function activityTickets()
 	{
-		return $this->subscribedUsers;
+		return $this->hasMany('Avem\ActivityTicket');
 	}
 
 	public function inscribedUsers()

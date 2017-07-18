@@ -11,6 +11,11 @@ class PerformedActivity extends Model
 		return $this->belongsTo('Avem\Activity');
 	}
 
+	public function activityTicket()
+	{
+		return $this->hasOne('Avem\ActivityTicket');
+	}
+
 	public function transaction()
 	{
 		return $this->morphOne('Avem\Transaction');

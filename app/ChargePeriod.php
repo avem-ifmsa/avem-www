@@ -41,6 +41,11 @@ class ChargePeriod extends Model
 		return Carbon::now()->between($this->start, $this->end);
 	}
 
+	public function issuedActivityTickets()
+	{
+		return $this->hasMany('Avem\ActivityTicket');
+	}
+
 	public function issuedRenewals()
 	{
 		return $this->hasMany('Avem\Renewal');
