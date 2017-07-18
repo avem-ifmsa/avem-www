@@ -13,10 +13,6 @@
 
 Auth::routes();
 
-Route::get('/', function () {
-	return view('welcome');
-});
-
 Route::get('/home', 'HomeController@index');
 
 Route::group([ 'as'         => 'admin.',
@@ -24,9 +20,9 @@ Route::group([ 'as'         => 'admin.',
                'namespace'  => 'Admin' ,
                'prefix'     => 'admin' ], function() {
 
-	Route::get('/', [ 'as' => 'index', function() {
-		return view('admin.index');
-	}]);
+	Route::get('/', [
+		'as' => 'index', 'uses' => 'Admin\IndexController@index',
+	]);
 
 	Route::get('board', [
 		'as' => 'board', 'uses' => 'BoardController@index',

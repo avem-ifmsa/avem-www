@@ -16,10 +16,6 @@ use Illuminate\Http\Request;
 Route::group([ 'namespace'  => 'Api'      ,
                'middleware' => 'auth:api' ], function() {
 
-	Route::get('user', function(Request $request) {
-		return $request->user();
-	});
-
 	Route::group([ 'as'     => 'search.' ,
 	               'prefix' => 'search'  ], function() {
 		
