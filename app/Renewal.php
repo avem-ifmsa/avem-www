@@ -31,7 +31,7 @@ class Renewal extends Model
 
 	public function scopeActive($query)
 	{
-		$query->where('until', '>', 'CURRENT_TIMESTAMP');
+		$query->whereDate('until', '>', Carbon::now());
 	}
 
 	public function user()
