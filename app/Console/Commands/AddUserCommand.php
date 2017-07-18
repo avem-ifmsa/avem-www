@@ -2,6 +2,7 @@
 
 namespace Avem\Console\Commands;
 
+use DB;
 use Avem\User;
 use Avem\Role;
 use Illuminate\Console\Command;
@@ -56,8 +57,13 @@ class AddUserCommand extends Command
 		}
 
 		if ($this->option('assumeyes') || $this->confirm('Is everything correct')) {
-			$user = User::create($info);
-			$user->ownRoles()->saveMany($roles);
+			DB::transaction(function() use ($info, $roles) {
+				$user = new User($info);
+				$user->save();
+
+				$user->ownRoles()->saveMany($roles);
+			});
+
 			$this->info('User created successfully');
 		}
 	}
