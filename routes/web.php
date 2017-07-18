@@ -21,7 +21,7 @@ Route::group([ 'as'         => 'admin.',
                'prefix'     => 'admin' ], function() {
 
 	Route::get('/', [
-		'as' => 'index', 'uses' => 'Admin\IndexController@index',
+		'as' => 'index', 'uses' => 'IndexController@index',
 	]);
 
 	Route::get('board', [
