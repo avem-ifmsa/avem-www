@@ -15,6 +15,7 @@ class AuthServiceProvider extends ServiceProvider
 	 */
 	protected $policies = [
 		'Avem\Activity' => 'Avem\Policies\ActivityPolicy',
+		'Avem\ActivityTicket' => 'Avem\Policies\ActivityTicket',
 		'Avem\Charge' => 'Avem\Policies\ChargePolicy',
 		'Avem\ChargePeriod' => 'Avem\Policies\ChargePolicy',
 		'Avem\Exchange' => 'Avem\Policies\ExchangePolicy',
