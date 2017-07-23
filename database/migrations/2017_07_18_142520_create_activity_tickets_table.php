@@ -14,22 +14,22 @@ class CreateActivityTicketsTable extends Migration
 	public function up()
 	{
 		Schema::create('activity_tickets', function (Blueprint $table) {
-			$table->string('code', 6);
+			$table->increments('id');
+			$table->string('code', 6)->unique();
 			$table->integer('activity_id')->unsigned();
 			$table->integer('charge_period_id')->unsigned();
 			$table->integer('performed_activity_id')->unsigned()->nullable();
+			$table->timestamp('expires_at');
 			$table->timestamps();
-
-			$table->primary(['code', 'activity_id']);
 
 			$table->foreign('activity_id')
 			      ->references('id')->on('activities')
 			      ->onDelete('cascade');
-			
+
 			$table->foreign('charge_period_id')
 			      ->references('id')->on('charge_period')
 			      ->onDelete('cascade');
-			
+
 			$table->foreign('performed_activity_id')
 			      ->references('id')->on('performed_activities')
 			      ->onDelete('set null');
