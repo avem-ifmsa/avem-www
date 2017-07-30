@@ -35,6 +35,10 @@
 	margin-top: 20px;
 }
 
+.charge-period ~ .charge-period {
+	margin-top: 10px;
+}
+
 .charge-periods {
 	margin: 10px 0;
 }
@@ -133,7 +137,7 @@
 
 .charge-new-link {
 	opacity: 0.5;
-	
+
 	&:hover {
 		opacity: 1;
 	}
