@@ -69,7 +69,8 @@ a:hover {
 abbr[title] {
   border-bottom: none;
   text-decoration: underline;
-  text-decoration: underline dotted;
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
 }
 
 b,
@@ -13286,50 +13287,6 @@ a.text-gray-dark:hover {
 
 .l-admin-activity-actions {
   width: 27%;
-}
-
-.l-admin-charge-select {
-  width: 3%;
-}
-
-.l-admin-charge-name {
-  width: 25%;
-}
-
-.l-admin-charge-email {
-  width: 25%;
-}
-
-.l-admin-charge-workingGroup {
-  width: 25%;
-}
-
-.l-admin-charge-actions {
-  width: 22%;
-}
-
-.l-admin-mbMember-select {
-  width: 3%;
-}
-
-.l-admin-mbMember-name {
-  width: 25%;
-}
-
-.l-admin-mbMember-dniNif {
-  width: 5%;
-}
-
-.l-admin-mbMember-phone {
-  width: 5%;
-}
-
-.l-admin-mbMember-charge {
-  width: 15%;
-}
-
-.l-admin-mbMember-actions {
-  width: 37%;
 }
 
 .dashboard {
