@@ -37,10 +37,12 @@
 
 						@if ($activity->published)
 							<form action="{{ route('admin.activities.publish', [$activity]) }}" method="post">
+								{{ csrf_field() }}
 								<button type="submit" class="btn btn-secondary" role="button">Publicar</button>
 							</form>
 						@else
 							<form action="{{ route('admin.activities.unpublish', [$activity]) }}" method="post">
+								{{ csrf_field()}}
 								<button type="submit" class="btn btn-secondary" role="button">Despublicar</button>
 							</form>
 						@endif
