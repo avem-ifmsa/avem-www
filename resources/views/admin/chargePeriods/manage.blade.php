@@ -63,7 +63,7 @@
 
 								<p class="my-1">
 									Se prolongará el periodo de cargo de {{ $chargePeriod->user->name }}, de manera que seguirá ocupando
-									el puesto de «{{ $chargePeriod->charge->internalName }}» el año que viene.
+									el puesto de «{{ $chargePeriod->charge->internalName }}» durante un año más.
 								</p>
 
 								<small><strong>¡Ojo!</strong> Para asignarle a {{ $chargePeriod->user->name }} un cargo diferente, selecciona el
@@ -78,8 +78,10 @@
 								</div>
 
 								<p class="my-1">
-									Finalizar el periodo de cargo de {{ $chargePeriod->user->name }} ahora mismo. Una vez hecho esto, puedes
-									asignar el cargo de «{{ $chargePeriod->charge->internalName }}» a otro socio desde el panel de junta.
+									Finalizar el periodo de cargo de {{ $chargePeriod->user->name }} ahora mismo. {{ $chargePeriod->user->name }}
+									dejará de ocupar el puesto de «{{ $chargePeriod->charge->internalName }}» con efecto inmediato. Puedes volver a
+									asignar el cargo de «{{ $chargePeriod->charge->internalName }}» a otro socio en cualquier momento desde el panel
+									de junta.
 								</p>
 							</button>
 						</div>
