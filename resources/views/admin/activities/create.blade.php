@@ -2,11 +2,13 @@
 
 @push('scripts')
 	<script>
+		function onSaveAndPublishActivity() {
+			$('input[name=published]').val(true);
+			$('#create-form').submit();
+		}
+
 		$(function() {
 			$('#create-modal').modal();
-			$('#create-save-and-publish-button').click(function(event) {
-				$('input[name=published]').val(true);
-			});
 		});
 	</script>
 @endpush
@@ -24,7 +26,7 @@
 					</a>
 				</header>
 
-				<form method="post" action="{{ route('admin.activities.store') }}">
+				<form id="create-form" method="post" action="{{ route('admin.activities.store') }}">
 					{{ csrf_field() }}
 
 					<div class="modal-body">
@@ -36,9 +38,8 @@
 
 					<div class="modal-footer">
 						<a class="btn btn-secondary" role="button" href="{{ route('admin.activities.index') }}">Cancelar</a>
-						<button type="submit" class="btn btn-secondary" role="button">Guardar</button>
-						<button id="create-save-and-publish-button" class="btn btn-primary"
-						        type="submit" role="button">Guardar y publicar</button>
+						<button type="submit" class="btn btn-secondary" role="button">Guardar como borrador</button>
+						<button type="button" class="btn btn-primary" role="button" onclick="onSaveAndPublishActivity">Guardar y publicar</button>
 					</div>
 				</form>
 			</div>
