@@ -25,8 +25,10 @@
 					<div class="modal-body">
 						<div class="container-fluid">
 							<div class="col-md-8 offset-md-2">
+								{{ csrf_field() }}
+
 								<input type="hidden" name="charge" value="{{ $charge->id }}">
-								
+
 								@include('components.userSelect', [
 									'name' => 'user', 'placeholder' => 'Selecciona un usuario&hellip;'
 								])
@@ -36,7 +38,7 @@
 
 					<div class="modal-footer">
 						<a class="btn btn-secondary" href="{{ route('admin.board') }}">Cancelar</a>
-						<button class="btn btn-primary" role="button" type="submit">Asignar cargo</button>
+						<button type="submit" class="btn btn-primary" role="button">Asignar cargo</button>
 					</div>
 				</form>
 			</div>
