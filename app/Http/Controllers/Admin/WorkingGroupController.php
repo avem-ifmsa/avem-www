@@ -4,11 +4,14 @@ namespace Avem\Http\Controllers\Admin;
 
 use DB;
 use Avem\WorkingGroup;
+use Avem\ManagesTagsTrait;
 use Illuminate\Http\Request;
 use Avem\Http\Controllers\Controller;
 
 class WorkingGroupController extends Controller
 {
+	use ManagesTagsTrait;
+
 	private function prefetchWorkingGroups($workingGroups)
 	{
 		foreach ($workingGroups as $parentGroup) {
@@ -28,22 +31,6 @@ class WorkingGroupController extends Controller
 		return $workingGroups->sortByDesc(function($workingGroup) {
 			return $workingGroup->subgroups->count();
 		});
-	}
-
-	private function getInputTags(Request $request)
-	{
-		$tagNames = explode(',', $request->input('tags'));
-		$tagNames = array_map('trim', $tagNames);
-
-		$existingTags = Tag::whereIn('name', $tagNames)->get();
-		$existingTagNames = $existingTags->pluck('name')->toArray();
-		$otherTagNames = array_diff($tagNames, $existingTagNames);
-		Tag::insert(array_map(function($tagName) {
-			return [ 'name' => $tagName ];
-		}, $otherTagNames));
-
-		$otherTags = Tag::whereIn('name', $otherTagNames)->get();
-		return $existingTags->merge($otherTags);
 	}
 
 	/**
@@ -79,10 +66,10 @@ class WorkingGroupController extends Controller
 				$workingGroup->parentGroup()->associate($parentGroup);
 			$workingGroup->save();
 
-			$groupTags = $this->getInputTags($request);
+			$groupTags = $this->inputTags($request, 'tags');
 			$workingGroup->tags()->sync($groupTags);
 		});
-		
+
 		return redirect()->route('admin.board');
 	}
 
@@ -119,10 +106,10 @@ class WorkingGroupController extends Controller
 				$workingGroup->parentGroup()->associate($parentGroup);
 			$workingGroup->save();
 
-			$groupTags = $this->getInputTags($request);
+			$groupTags = $this->inputTags($request, 'tags');
 			$workingGroup->tags()->sync($groupTags);
 		});
-		
+
 		return redirect()->route('admin.board');
 	}
 
@@ -137,7 +124,7 @@ class WorkingGroupController extends Controller
 		$this->authorize('remove', $workingGroup);
 
 		$workingGroup->delete();
-		
+
 		return redirect()->route('admin.board');
 	}
 }

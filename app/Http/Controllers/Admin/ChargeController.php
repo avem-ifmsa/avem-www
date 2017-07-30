@@ -5,14 +5,28 @@ namespace Avem\Http\Controllers\Admin;
 use DB;
 use Session;
 use Avem\Tag;
+use Avem\User;
 use Avem\Charge;
+use Carbon\Carbon;
+use Avem\ChargePeriod;
 use Avem\WorkingGroup;
+use Avem\ManagesTagsTrait;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Avem\Http\Controllers\Controller;
 
 class ChargeController extends Controller
 {
+	use ManagesTagsTrait;
+
+	private function currentPeriodEnd()
+	{
+		$period = Carbon::create(null, 9, 1);
+		if (Carbon::now()->gt($period))
+			$period->addYear();
+		return $period;
+	}
+
 	private function prefetchWorkingGroups($workingGroups)
 	{
 		foreach ($workingGroups as $parentGroup) {
@@ -30,22 +44,6 @@ class ChargeController extends Controller
 		return $topLevelGroups->sortByDesc(function($workingGroup) {
 			return $workingGroup->subgroups->count();
 		});
-	}
-
-	private function getInputTags(Request $request)
-	{
-		$tagNames = explode(',', $request->input('tags'));
-		$tagNames = array_map('trim', $tagNames);
-
-		$existingTags = Tag::whereIn('name', $tagNames)->get();
-		$existingTagNames = $existingTags->pluck('name')->toArray();
-		$otherTagNames = array_diff($tagNames, $existingTagNames);
-		Tag::insert(array_map(function($tagName) {
-			return [ 'name' => $tagName ];
-		}, $otherTagNames));
-
-		$otherTags = Tag::whereIn('name', $otherTagNames)->get();
-		return $existingTags->merge($otherTags);
 	}
 
 	/**
@@ -82,7 +80,7 @@ class ChargeController extends Controller
 			}
 			$charge->save();
 
-			$chargeTags = $this->getInputTags($request);
+			$chargeTags = $this->inputTags($request, 'tags');
 			$charge->ownTags()->sync($chargeTags->pluck('id'));
 		});
 
@@ -123,7 +121,7 @@ class ChargeController extends Controller
 			}
 			$charge->save();
 
-			$chargeTags = $this->getInputTags($request);
+			$chargeTags = $this->inputTags($request, 'tags');
 			$charge->ownTags()->sync($chargeTags->pluck('id'));
 		});
 
@@ -139,8 +137,35 @@ class ChargeController extends Controller
 	 */
 	public function assign(Request $request, Charge $charge)
 	{
+		$this->authorize('create', ChargePeriod::class);
+
 		return view('admin.charges.assign', [
 			'charge' => $charge,
+		]);
+	}
+
+	/**
+	 * Show confirm dialog for charge assignment.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \Avem\Charge  $charge
+	 * @return \Illuminate\Http\Response
+	 */
+	public function confirmAssign(Request $request, Charge $charge)
+	{
+		$this->authorize('create', ChargePeriod::class);
+
+		$chargePeriodStart = Carbon::now();
+		$currentPeriodEnd = $this->currentPeriodEnd();
+		$user = User::findOrFail($request->input('user'));
+		$upcomingPeriodEnd = $currentPeriodEnd->copy()->addYear();
+
+		return view('admin.charges.confirm', [
+			'user'              => $user,
+			'charge'            => $charge,
+			'currentPeriodEnd'  => $currentPeriodEnd,
+			'upcomingPeriodEnd' => $upcomingPeriodEnd,
+			'chargePeriodStart' => $chargePeriodStart,
 		]);
 	}
 

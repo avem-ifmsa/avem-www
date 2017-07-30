@@ -3,6 +3,7 @@
 namespace Avem\Http\Controllers\Admin;
 
 use Avem\User;
+use Avem\Charge;
 use Carbon\Carbon;
 use Avem\ChargePeriod;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class ChargePeriodController extends Controller
 		$chargePeriod->user()->associate($chargeUser);
 
 		$periodCharge = Charge::findOrFail($request->input('charge'));
-		$chargePeriod->charge()->associate($charge);
+		$chargePeriod->charge()->associate($periodCharge);
 
 		$chargePeriod->save();
 
@@ -60,7 +61,7 @@ class ChargePeriodController extends Controller
 	{
 		$this->authorize('update', $chargePeriod);
 
-		$nextPeriodEnd = Carbon::create(null, 10, 1)->addYear();
+		$nextPeriodEnd = Carbon::create(null, 9, 1)->addYear();
 		$chargePeriod->update([ 'end' => $nextPeriodEnd ]);
 
 		return redirect()->route('admin.board');

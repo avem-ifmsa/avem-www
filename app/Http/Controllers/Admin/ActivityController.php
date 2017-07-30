@@ -2,15 +2,19 @@
 
 namespace Avem\Http\Controllers\Admin;
 
+use DB;
 use Auth;
 use Avem\Activity;
 use Avem\ChargePeriod;
+use Avem\ManagesTagsTrait;
 use Illuminate\Http\Request;
 use Avem\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Builder;
 
 class ActivityController extends Controller
 {
+	use ManagesTagsTrait;
+
 	private function getCurrentChargePeriod(Request $request)
 	{
 		return $request->user()->chargePeriods()->active()->first();
@@ -35,9 +39,7 @@ class ActivityController extends Controller
 	{
 		$this->authorize('create', Activity::class);
 
-		$user = $request->user();
-		$activePeriods = $user->chargePeriods()->active();
-		$currentPeriod = $activePeriods->first();
+		$currentPeriod = $request->user()->currentPeriod;
 
 		return view('admin.activities.create', [
 			'chargePeriods'    => ChargePeriod::active(),
@@ -55,8 +57,14 @@ class ActivityController extends Controller
 	{
 		$this->authorize('create', Activity::class);
 
-		$activity = Activity::create($request->all());
-		$activity->organizerPeriods()->sync($request->input('organizers', []));
+		DB::transaction(function() use ($request) {
+			$activity = Activity::create($request->all());
+			$activity->organizerPeriods()->sync($request->input('organizers', []));
+
+			$activityTags = $this->inputTags($request, 'tags');
+			$activity->tags()->sync($activityTags->pluck('id'));
+		});
+
 		return redirect()->route('admin.activities.show', [$activity]);
 	}
 
@@ -103,8 +111,14 @@ class ActivityController extends Controller
 	{
 		$this->authorize('update', $activity);
 
-		$activity->update($request->all());
-		$activity->organizerPeriods()->sync($request->input('organizer_periods', []));
+		DB::transaction(function() use ($request, $activity) {
+			$activity->update($request->all());
+			$activity->organizerPeriods()->sync($request->input('organizer_periods', []));
+
+			$activityTags = $this->inputTags($request, 'tags');
+			$activity->tags()->sync($activityTags->pluck('id'));
+		});
+
 		return redirect()->route('admin.activities.show', [$activity]);
 	}
 
