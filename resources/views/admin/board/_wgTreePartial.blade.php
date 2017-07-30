@@ -27,7 +27,7 @@
 						<ul class="charge-periods">
 							@forelse ($charge->periods->where('isActive', true) as $period)
 								<li class="charge-period">
-									<a class="charge-period-link" href="{{ route('admin.chargePeriods.manage', [$charge]) }}">
+									<a class="charge-period-link" href="{{ route('admin.chargePeriods.manage', [$period]) }}">
 										<span class="period-user">{{ $period->user->fullName }} ({{ $period->user->id }})</span>
 										<span class="period-end">Ocupa este cargo hasta {{ $period->end->formatLocalized('%B del %Y') }} ({{ $period->end->diffForHumans() }})</span>
 									</a>
