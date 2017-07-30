@@ -16,8 +16,8 @@ class AppServiceProvider extends ServiceProvider
 	public function boot()
 	{
 		// Make Carbon use app locale
+		setlocale(LC_TIME, 'es_ES.utf-8');
 		Carbon::setLocale(config('app.locale'));
-		setlocale(LC_TIME, config('app.locale'));
 
 		// Set up morph map for polymorphic relationships
 		Relation::morphMap([
