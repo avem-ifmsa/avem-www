@@ -1,3 +1,6 @@
+$user-image-size: 36px;
+$user-image-size-lg: 64px;
+
 .user-entry {
 	margin: 0 auto;
 	overflow: hidden;
@@ -11,8 +14,8 @@
 }
 
 .user-image {
-	width: 36px;
-	height: 36px;
+	width: $user-image-size;
+	height: $user-image-size;
 	border-radius: 50%;
 }
 
@@ -28,4 +31,11 @@
 .user-email {
 	color: #aaa;
 	font-size: 0.9em;
+}
+
+.user-entry--large {
+	.user-image {
+		width: $user-image-size-lg;
+		height: $user-image-size-lg;
+	}
 }

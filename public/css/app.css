@@ -13476,6 +13476,10 @@ a.text-gray-dark:hover {
   margin-top: 20px;
 }
 
+.charge-period ~ .charge-period {
+  margin-top: 10px;
+}
+
 .charge-periods {
   margin: 10px 0;
 }
@@ -13685,6 +13689,11 @@ a.text-gray-dark:hover {
 .user-email {
   color: #aaa;
   font-size: 0.9em;
+}
+
+.user-entry--large .user-image {
+  width: 64px;
+  height: 64px;
 }
 
 .admin {

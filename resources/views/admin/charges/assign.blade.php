@@ -2,7 +2,15 @@
 
 @push('scripts')
 	<script>
+		var submitButton;
+
+		function onSelectUser(user) {
+			submitButton.prop('disabled', !user);
+		}
+
 		$(function() {
+			submitButton = $('#assign-submit');
+
 			$('#assign-modal').modal();
 		});
 	</script>
@@ -21,16 +29,20 @@
 					</a>
 				</header>
 
-				<form action="{{ route('admin.chargePeriods.store') }}" method="post">
+				<form action="{{ route('admin.charges.assign.confirm', [$charge]) }}" method="post">
+					{{ csrf_field() }}
+
 					<div class="modal-body">
 						<div class="container-fluid">
-							<div class="col-md-8 offset-md-2">
-								{{ csrf_field() }}
+							<p class="h6">
+								Se le asignará el cargo de «{{ $charge->name }}» al usuario:
+							</p>
 
-								<input type="hidden" name="charge" value="{{ $charge->id }}">
-
+							<div class="my-4 col-md-8 offset-md-2">
 								@include('components.userSelect', [
-									'name' => 'user', 'placeholder' => 'Selecciona un usuario&hellip;'
+									'name'        => 'user',
+									'onchange'    => 'window.onSelectUser',
+									'placeholder' => 'Selecciona un usuario&hellip;',
 								])
 							</div>
 						</div>
@@ -38,7 +50,7 @@
 
 					<div class="modal-footer">
 						<a class="btn btn-secondary" href="{{ route('admin.board') }}">Cancelar</a>
-						<button type="submit" class="btn btn-primary" role="button">Asignar cargo</button>
+						<button id="assign-submit" type="submit" class="btn btn-primary" role="button" disabled>Continuar</button>
 					</div>
 				</form>
 			</div>

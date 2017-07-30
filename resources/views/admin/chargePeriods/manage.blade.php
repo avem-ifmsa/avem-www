@@ -44,19 +44,28 @@
 							   class="list-group-item list-group-item-action flex-column align-items-start">
 								<div class="d-flex w-100 justify-content-between">
 									<h5 class="mb-1">
-										<strong>Relevo</strong> de {{ $chargePeriod->charge->internalName }} por otra persona diferente
+										<strong>Relevo</strong> de «{{ $chargePeriod->charge->internalName }}» por otra persona diferente
 									</h5>
 								</div>
-								<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+
+								<p class="my-1">
+									Se le asignará el puesto de «{{ $chargePeriod->charge->internalName }}» a otro socio, pero {{ $chargePeriod->user->name }}
+									seguirá teniendo poderes de «{{ $chargePeriod->charge->internalName }}» hasta finalizar su periodo de cargo.
+								</p>
 							</a>
-							
+
 							<button id="manage-extend-button" class="list-group-item list-group-item-action" type="button" role="button">
 								<div class="d-flex w-100 justify-content-between">
 									<h5 class="mb-1">
-										<strong>Reelección</strong> como {{ $chargePeriod->charge->internalName }} un año más
+										<strong>Reelección</strong> como «{{ $chargePeriod->charge->internalName }}» para el año que viene
 									</h5>
 								</div>
-								<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+
+								<p class="my-1">
+									Se prolongará el periodo de cargo de {{ $chargePeriod->user->name }}, de manera que seguirá ocupando
+									el puesto de «{{ $chargePeriod->charge->internalName }}» el año que viene.
+								</p>
+
 								<small><strong>¡Ojo!</strong> Para asignarle a {{ $chargePeriod->user->name }} un cargo diferente, selecciona el
 								cargo que quieras asignarle en el panel de junta.</small>
 							</button>
@@ -67,7 +76,11 @@
 										<strong>Expulsión o dimisión</strong> de la junta directiva
 									</h5>
 								</div>
-								<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+
+								<p class="my-1">
+									Finalizar el periodo de cargo de {{ $chargePeriod->user->name }} ahora mismo. Una vez hecho esto, puedes
+									asignar el cargo de «{{ $chargePeriod->charge->internalName }}» a otro socio desde el panel de junta.
+								</p>
 							</button>
 						</div>
 					</div>

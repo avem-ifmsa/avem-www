@@ -27,11 +27,15 @@ Route::group([ 'as'         => 'admin.',
 	Route::get('board', [
 		'as' => 'board', 'uses' => 'BoardController@index',
 	]);
-	
+
 	Route::resource('charges', 'ChargeController');
 
 	Route::get('charges/{charge}/assign', [
 		'as' => 'charges.assign', 'uses' => 'ChargeController@assign',
+	]);
+
+	Route::post('charges/{charge}/assign/confirm', [
+		'as' => 'charges.assign.confirm', 'uses' => 'ChargeController@confirmAssign',
 	]);
 
 	Route::group([ 'as' => 'chargePeriods.', 'prefix' => 'chargePeriods'], function() {
@@ -55,7 +59,7 @@ Route::group([ 'as'         => 'admin.',
 	});
 
 	Route::resource('workingGroups', 'WorkingGroupController');
-	
+
 	Route::resource('activities'   , 'ActivityController'    );
 	Route::resource('exchanges'    , 'ExchangeController'    );
 	Route::resource('users'        , 'UserController'        );
