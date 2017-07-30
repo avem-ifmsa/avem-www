@@ -21,6 +21,9 @@ Vue.component('user-select'  , require('./components/UserSelect.vue'  ));
 
 document.addEventListener('DOMContentLoaded', function() {
 	const app = new Vue({
-		el: '#app'
+		el: '#app',
+		data: () => {
+			return { window };
+		},
 	});
 });

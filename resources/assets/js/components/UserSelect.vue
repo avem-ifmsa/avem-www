@@ -60,6 +60,8 @@
 		top: 100%;
 		width: 100%;
 		position: absolute;
+
+		z-index: 1;
 	}
 
 	button {
@@ -168,6 +170,7 @@
 			},
 			clearSelectedUser: function() {
 				this.selectedUser = null;
+				this.$emit('change', null);
 			},
 			deactivateControl: function() {
 				this.isActivated = false;
@@ -193,6 +196,7 @@
 			selectUser: function(user) {
 				this.selectedUser = user;
 				this.isActivated = false;
+				this.$emit('change', user);
 			},
 		},
 	};
