@@ -17,7 +17,7 @@ class AuthServiceProvider extends ServiceProvider
 		'Avem\Activity' => 'Avem\Policies\ActivityPolicy',
 		'Avem\ActivityTicket' => 'Avem\Policies\ActivityTicket',
 		'Avem\Charge' => 'Avem\Policies\ChargePolicy',
-		'Avem\ChargePeriod' => 'Avem\Policies\ChargePolicy',
+		'Avem\ChargePeriod' => 'Avem\Policies\ChargePeriodPolicy',
 		'Avem\Exchange' => 'Avem\Policies\ExchangePolicy',
 		'Avem\PerformedActivity' => 'Avem\Policies\PerformedActivity',
 		'Avem\Renewal' => 'Avem\Policies\RenewalPolicy',
