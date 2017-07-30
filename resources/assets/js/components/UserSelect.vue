@@ -1,11 +1,11 @@
 <template>
 	<div ref="root" class="root" @focusout="onComponentFocusOut">
-		<button v-if="!isActivated" class="select-button form-control"
+		<button v-if="!isActivated" type="button" class="select-button form-control"
 		        @click="activateControl" @keydown.space="activateControl">
 			<div class="selected-info">
 				<slot :user="selectedUser"></slot>
 			</div>
-			<button v-if="selectedUser" class="clear-button" @click.stop="clearSelectedUser">
+			<button v-if="selectedUser" type="button" class="clear-button" @click.stop="clearSelectedUser">
 				<i class="fa fa-times"></i>
 			</button>
 		</button>
