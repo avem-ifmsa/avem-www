@@ -13,11 +13,13 @@ use Avem\WorkingGroup;
 use Avem\ManagesTagsTrait;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Avem\UsesWorkingGroupsTrait;
 use Avem\Http\Controllers\Controller;
 
 class ChargeController extends Controller
 {
 	use ManagesTagsTrait;
+	use UsesWorkingGroupsTrait;
 
 	private function currentPeriodEnd()
 	{
@@ -25,16 +27,6 @@ class ChargeController extends Controller
 		if (Carbon::now()->gt($period))
 			$period->addYear();
 		return $period;
-	}
-
-	private function prefetchWorkingGroups($workingGroups)
-	{
-		foreach ($workingGroups as $parentGroup) {
-			$parentGroup->subgroups = $workingGroups->where('parent_group_id', $parentGroup->id);
-			foreach ($parentGroup->subgroups as $childGroup)
-				$childGroup->parentGroup = $parentGroup;
-		}
-		return $workingGroups;
 	}
 
 	private function getWorkingGroups()

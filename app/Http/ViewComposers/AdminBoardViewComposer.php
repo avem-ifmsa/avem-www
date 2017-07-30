@@ -4,9 +4,12 @@ namespace Avem\Http\ViewComposers;
 
 use Avem\WorkingGroup;
 use Illuminate\View\View;
+use Avem\UsesWorkingGroupsTrait;
 
 class AdminBoardViewComposer
 {
+	use UsesWorkingGroupsTrait;
+
 	/**
 	 * Create a new profile composer.
 	 *
@@ -14,16 +17,6 @@ class AdminBoardViewComposer
 	 */
 	public function __construct()
 	{
-	}
-
-	private function prefetchWorkingGroups($workingGroups)
-	{
-		foreach ($workingGroups as $parentGroup) {
-			$parentGroup->subgroups = $workingGroups->where('parent_group_id', $parentGroup->id);
-			foreach ($parentGroup->subgroups as $childGroup)
-				$childGroup->parentGroup = $parentGroup;
-		}
-		return $workingGroups;
 	}
 
 	/**
@@ -34,8 +27,9 @@ class AdminBoardViewComposer
 	 */
 	public function compose(View $view)
 	{
-		$workingGroups = WorkingGroup::with('charges', 'charges.periods', 'charges.periods.user')->get();
-		$workingGroups = $this->prefetchWorkingGroups($workingGroups);
+		$workingGroups = $this->prefetchWorkingGroups(
+			WorkingGroup::with('charges', 'charges.periods', 'charges.periods.user')->get()
+		);
 
 		$view->with('workingGroups', $workingGroups->where('parent_group_id', null));
 	}

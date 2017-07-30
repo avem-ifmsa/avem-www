@@ -6,21 +6,13 @@ use DB;
 use Avem\WorkingGroup;
 use Avem\ManagesTagsTrait;
 use Illuminate\Http\Request;
+use Avem\UsesWorkingGroupsTrait;
 use Avem\Http\Controllers\Controller;
 
 class WorkingGroupController extends Controller
 {
 	use ManagesTagsTrait;
-
-	private function prefetchWorkingGroups($workingGroups)
-	{
-		foreach ($workingGroups as $parentGroup) {
-			$parentGroup->subgroups = $workingGroups->where('parent_group_id', $parentGroup->id);
-			foreach ($parentGroup->subgroups as $childGroup)
-				$childGroup->parentGroup = $parentGroup;
-		}
-		return $workingGroups;
-	}
+	use UsesWorkingGroupsTrait;
 
 	private function getWorkingGroups($except = null)
 	{
