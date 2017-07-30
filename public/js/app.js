@@ -1992,10 +1992,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 						this.newTokenContent = '';
 					}
 					break;
-				case 'ArrowLeft':case 'Backspace':
-					if (event.target.value === '') {
+				case 'ArrowLeft':
+					if (this.newTokenContent === '') {
 						var tokenItems = this.$refs.tokenItems;
 						if (tokenItems.length > 0) tokenItems[tokenItems.length - 1].focus();
+					}
+					break;
+				case 'Backspace':
+					if (this.newTokenContent === '') {
+						if (this.tokens.length > 0) this.tokens.splice(this.tokens.length - 1, 1);
 					}
 					break;
 			}

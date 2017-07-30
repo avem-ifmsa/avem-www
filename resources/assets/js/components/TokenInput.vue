@@ -26,7 +26,7 @@
 			       @input="onTokenInputInput"
 			       v-model="newTokenContent">
 		</li>
-		
+
 		<input ref="tokenListValue" type="hidden" :name="name" :value="inputValue">
 	</ul>
 </template>
@@ -57,7 +57,7 @@
 
 			cursor: pointer;
 			background-color: #f7f7f7;
-			
+
 			p {
 				margin: 0;
 				padding: 0;
@@ -93,7 +93,7 @@
 
 		width: 20px;
 		min-width: 2px;
-		
+
 		&::-webkit-calendar-picker-indicator {
 			display: none;
 		}
@@ -221,11 +221,17 @@
 						this.newTokenContent = '';
 					}
 					break;
-				case 'ArrowLeft': case 'Backspace':
-					if (event.target.value === '') {
+				case 'ArrowLeft':
+					if (this.newTokenContent === '') {
 						var tokenItems = this.$refs.tokenItems;
 						if (tokenItems.length > 0)
 							tokenItems[tokenItems.length - 1].focus();
+					}
+					break;
+				case 'Backspace':
+					if (this.newTokenContent === '') {
+						if (this.tokens.length > 0)
+							this.tokens.splice(this.tokens.length - 1, 1);
 					}
 					break;
 				}
