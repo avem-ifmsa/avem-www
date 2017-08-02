@@ -39,11 +39,11 @@ class ActivityController extends Controller
 	{
 		$this->authorize('create', Activity::class);
 
-		$currentPeriod = $request->user()->currentPeriod;
+		$currentPeriod = $request->user()->currentChargePeriod;
 
 		return view('admin.activities.create', [
-			'chargePeriods'    => ChargePeriod::active(),
-			'organizerPeriods' => $currentPeriod ? [$currentPeriod] : [],
+			'organizerPeriods' => collect($currentPeriod ? [$currentPeriod] : []),
+			'chargePeriods'    => ChargePeriod::active()->with('charge', 'user')->get(),
 		]);
 	}
 
@@ -59,13 +59,14 @@ class ActivityController extends Controller
 
 		DB::transaction(function() use ($request) {
 			$activity = Activity::create($request->all());
+			$activity->addMediaFromRequest('image')->toMediaLibrary('images');
 			$activity->organizerPeriods()->sync($request->input('organizers', []));
 
 			$activityTags = $this->inputTags($request, 'tags');
 			$activity->tags()->sync($activityTags->pluck('id'));
 		});
 
-		return redirect()->route('admin.activities.show', [$activity]);
+		return redirect()->route('admin.activities.index');
 	}
 
 	/**
@@ -95,8 +96,8 @@ class ActivityController extends Controller
 
 		return view('admin.activities.edit', [
 			'activity'         => $activity,
-			'chargePeriods'    => ChargePeriod::active(),
-			'organizerPeriods' => $activity->organizerPeriods(),
+			'organizerPeriods' => $activity->organizerPeriods,
+			'chargePeriods'    => ChargePeriod::active()->with('charge', 'user')->get(),
 		]);
 	}
 
@@ -113,13 +114,22 @@ class ActivityController extends Controller
 
 		DB::transaction(function() use ($request, $activity) {
 			$activity->update($request->all());
-			$activity->organizerPeriods()->sync($request->input('organizer_periods', []));
+
+			if ($request->hasFile('image')) {
+				$activity->clearMediaLibrary('images');
+				$activity->addMediaFromRequest('image')
+				         ->toMediaLibrary('images');
+			}
+
+			$activity->organizerPeriods()->sync(
+				$request->input('organizer_periods', [])
+			);
 
 			$activityTags = $this->inputTags($request, 'tags');
 			$activity->tags()->sync($activityTags->pluck('id'));
 		});
 
-		return redirect()->route('admin.activities.show', [$activity]);
+		return redirect()->route('admin.activities.index');
 	}
 
 	/**

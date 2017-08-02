@@ -16,10 +16,10 @@ class CreateActivitiesTable extends Migration
 		Schema::create('activities', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('name');
-			$table->text('description');
+			$table->text('description')->nullable();
 			$table->string('image')->nullable();
 			$table->text('location')->nullable();
-			$table->boolean('published')->default(1);
+			$table->boolean('published')->default(false);
 			$table->integer('points')->unsigned()->default(0);
 			$table->integer('member_limit')->nullable();
 			$table->datetime('start')->nullable();

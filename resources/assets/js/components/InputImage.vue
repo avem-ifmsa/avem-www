@@ -1,9 +1,8 @@
 <template>
 	<label>
-		<img :src="imageUrl" @load="onImageLoad">
-		<input ref="fileInput" :alt="alt" :name="name" type="file"
-		       :required="required" accept="image/*" v-show="false"
-		       @change="onFileChange">
+		<img :src="imageUrl" :alt="alt" @load="onImageLoad">
+		<input ref="fileInput" type="file" accept="image/*" :required="required"
+		       v-show="false" :name="name" @change="onFileChange">
 	</label>
 </template>
 
@@ -50,7 +49,12 @@
 
 <script>
 	export default {
-		props: [ 'alt', 'name', 'value', 'required', 'placeholder' ],
+		props: [ 'alt', 'name', 'required', 'placeholder' ],
+		data: function() {
+			return {
+				value: undefined,
+			};
+		},
 		computed: {
 			imageUrl: function() {
 				return this.value || this.placeholder;

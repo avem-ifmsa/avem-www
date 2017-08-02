@@ -1,13 +1,13 @@
+<input type="hidden" name="published" value="{{
+	(isset($activity) && $activity->published) ? '1' : '0'
+}}">
+
 <div class="row">
 	<div class="col-md-5 mb-2">
 		<p class="h-100">
-			<input type="file" name="image" is="input-image" required
-			       value="{{ isset($activity) ? $activity->imageUrl : '' }}"
-			@if (env('UNSPLASH_ACTIVITIES_COLLECTION_ID'))
-			       placeholder="https://source.unsplash.com/collection/{{ env('UNSPLASH_ACTIVITIES_COLLECTION_ID') }}/400x300">
-			@else
-			       placeholder="https://source.unsplash.com/random/400x300">
-			@endif
+			<input type="file" is="input-image" name="image" placeholder="{{
+				isset($activity) ? $activity->image->getUrl() : ''
+			}}">
 		</p>
 	</div>
 
@@ -15,7 +15,7 @@
 		<p class="form-group form-group--required{{ $errors->has('name') ? ' has-danger' : '' }}">
 			<label for="form-name">Nombre de la actividad</label>
 			<input id="form-name" class="form-control" name="name" type="text" required
-			       value="{{ old('name') ?? (isset($activity) ? $activity->name : '') }}">
+			       value="{{ old('name', isset($activity) ? $activity->name : '') }}">
 			@if ($errors->has('name'))
 				<span class="form-text">
 					<strong>{{ $errors->first('name') }}</strong>
@@ -26,7 +26,7 @@
 		<p class="form-group form-group--required{{ $errors->has('description') ? ' has-danger' : '' }}">
 			<label for="form-description">Descripción</label>
 			<textarea id="form-description" class="form-control" name="description" required>{{
-				old('description') ?? (isset($activity) ? $activity->description : '')
+				old('description', isset($activity) ? $activity->description : '')
 			}}</textarea>
 			@if ($errors->has('description'))
 				<span class="form-text">
@@ -38,18 +38,17 @@
 		<div class="row">
 			<div class="col-md-6">
 				<p class="form-group{{ $errors->has('visibility') ? ' has-danger' : '' }}">
-					<label for="form-visibility">Público objetivo</label>
-					<select id="form-visibility" class="form-control" name="visibility" required>
-						<option value="all"   {{ (!isset($activity)
-						                      || (old('visibility') == 'all')
-						                      || (isset($activity) && $activity->visibility == 'all')
-						                      )? 'selected' : '' }}>Todos los socios</option>
-						<option value="board" {{ ((old('visibility') == 'board')
-						                      || (isset($activity) && $activity->visibility == 'board')
-						                      )? 'selected' : '' }}>Miembros de junta</option>
-						<option value="none"  {{ ((old('visibility') == 'none')
-						                      || (isset($activity) && $activity->visibility == 'none')
-						                      )? 'selected' : '' }}>Nadie</option>
+					<label for="form-audience">Público objetivo</label>
+					<select id="form-audience" class="form-control" name="audience">
+						<option value="all" {{
+							(old('audience', isset($activity) ? $activity->audience : '') == 'all'  ) ? 'selected' : ''
+						}}>Todos los socios</option>
+						<option value="board" {{
+							(old('audience', isset($activity) ? $activity->audience : '') == 'board') ? 'selected' : ''
+						}}>Miembros de junta</option>
+						<option value="none"  {{
+							(old('audience', isset($activity) ? $activity->audience : '') == 'none' ) ? 'selected' : ''
+						}}>Nadie</option>
 					</select>
 				</p>
 			</div>
@@ -70,7 +69,9 @@
 
 		<p class="form-group{{ $errors->has('tags') ? ' has-danger' : '' }}">
 			<label for="form-tags">Etiquetas</label>
-			<input is="token-input" class="form-control" id="form-tags" name="tags" type="text">
+			<input is="token-input" class="form-control" id="form-tags" name="tags" type="text" value="{{
+				old('tags', isset($activity) ? $activity->tags->pluck('name')->implode(',') : '')
+			}}">
 			@if ($errors->has('tags'))
 				<span class="form-text">
 					<strong>{{ $errors->first('tags') }}</strong>
@@ -84,7 +85,7 @@
 	<p class="form-group{{ $errors->has('location') ? ' has-danger' : '' }}">
 		<label for="form-location">Lugar</label>
 		<input name="location" id="form-location" class="form-control" type="text"
-		       value="{{ old('location') ?? (isset($activity) ? $activity->location : '') }}">
+		       value="{{ old('location', isset($activity) ? $activity->location : '') }}">
 		@if ($errors->has('location'))
 			<span class="form-text">
 				<strong>{{ $errors->first('location') }}</strong>
@@ -98,8 +99,9 @@
 		<div class="row">
 			<p class="col-md-6 form-group{{ $errors->has('start') ? ' has-danger' : '' }}">
 				<label class="label--smaller" for="form-start">Inicio de la actividad</label>
-				<input id="form-start" class="form-control form-control-sm" name="start" type="datetime-local"
-				       value="{{ old('start') ?? (isset($activity) ? $activity->start->format('Y-m-d\TH:i') : '') }}">
+				<input id="form-start" class="form-control form-control-sm" name="start" type="datetime-local" value="{{
+					old('start', isset($activity) && $activity->start ? $activity->start->toW3cString() : '')
+				}}">
 				@if ($errors->has('start'))
 					<span class="form-text">
 						<strong>{{ $errors->first('start') }}</strong>
@@ -109,8 +111,9 @@
 
 			<p class="col-md-6 form-group{{ $errors->has('end') ? ' has-danger' : '' }}">
 				<label class="label--smaller" for="form-end">Fín de la actividad</label>
-				<input id="form-end" class="form-control form-control-sm" name="end" type="datetime-local"
-				       value="{{ old('end') ?? (isset($activity) ? $activity->end->format('Y-m-d\TH:i') : '' ) }}">
+				<input id="form-end" class="form-control form-control-sm" name="end" type="datetime-local" value="{{
+					old('end', isset($activity) && $activity->end ? $activity->end->toW3cString() : '')
+				}}">
 				@if ($errors->has('end'))
 					<span class="form-text">
 						<strong>{{ $errors->first('end') }}</strong>
@@ -124,16 +127,16 @@
 <div>
 	<p class="form-group{{ $errors->has('inscription_policy' ? ' has-danger' : '') }}">
 		<label for="form-inscription-policy">Modalidad de inscripción</label>
-		<select id="form-inscripcion-policy" class="form-control" name="inscription_policy" required>
-			<option value="inscribed" {{ ((old('inscription_policy') == 'inscribed')
-			                          || (isset($activity) && $activity->inscriptionPolicy == 'inscribed')
-			                          )? 'selected' : '' }}>Predeterminada</option>
-			<option value="all"       {{ ((old('inscription_policy') == 'all')
-			                          || (isset($activity) && $activity->inscriptionPolicy == 'all')
-			                          )? 'selected' : '' }}>Inscribir automáticamente a todos los socios</option>
-			<option value="board"     {{ ((old('inscription_policy') == 'board')
-			                          || (isset($activity) && $activity->inscriptionPolicy == 'board')
-			                          )? 'selected' : '' }}>Inscribir automáticamente a los miembros de junta</option>
+		<select id="form-inscripcion-policy" class="form-control" name="inscription_policy">
+			<option value="inscribed" {{
+				(old('inscription_policy', isset($activity) ? $activity->inscriptionPolicy : '') == 'inscribed') ? 'selected' : ''
+			}}>Predeterminada</option>
+			<option value="all"       {{
+				(old('inscription_policy', isset($activity) ? $activity->inscriptionPolicy : '') == 'all'      ) ? 'selected' : ''
+			}}>Inscribir automáticamente a todos los socios</option>
+			<option value="board"     {{
+				(old('inscription_policy', isset($activity) ? $activity->inscriptionPolicy : '') == 'board'    ) ? 'selected' : ''
+			}}>Inscribir automáticamente a los miembros de junta</option>
 		</select>
 		@if ($errors->has('inscription_policy'))
 			<span class="form-text">
@@ -141,16 +144,16 @@
 			</span>
 		@endif
 	</p>
-	
+
 	<div>
 		<span>Periodo de inscripción</span>
 
 		<div class="row">
 			<p class="col-md-6 form-group{{ $errors->has('inscription_start') ? ' has-danger' : '' }}">
 				<label class="label--smaller" for="form-inscription-start">Inicio del periodo</label>
-				<input id="form-inscription-start" class="form-control form-control-sm" name="inscription_start"
-				       type="datetime-local" value="{{ old('inscription_start') ?? (isset($activity) && $activity->inscriptionStart
-				                                       ? $activity->inscriptionStart->format('Y-m-d\TH:i') : '') }}">
+				<input id="form-inscription-start" class="form-control form-control-sm" name="inscription_start" type="datetime-local" value="{{
+					old('inscription_start', isset($activity) && $activity->inscriptionStart ? $activity->inscriptionStart->toW3cString() : '')
+				}}">
 				@if ($errors->has('inscription_start'))
 					<span class="form-text">
 						<strong>{{ $errors->first('inscription_start') }}</strong>
@@ -160,9 +163,9 @@
 
 			<p class="col-md-6 form-group{{ $errors->has('inscription_end') ? ' has-danger' : '' }}">
 				<label class="label--smaller" for="form-inscription-end">Fín del periodo</label>
-				<input id="form-inscription-end" class="form-control form-control-sm" name="inscription_end"
-				       type="datetime-local" value="{{ old('inscription_end') ?? (isset($activity) && $activity->inscriptionEnd
-				                                       ? $activity->inscriptionEnd->format('Y-m-d\TH:i') : '' ) }}">
+				<input id="form-inscription-end" class="form-control form-control-sm" name="inscription_end" type="datetime-local" value="{{
+					old('inscription_end', isset($activity) && $activity->inscriptionEnd ? $activity->inscriptionEnd->toW3cString() : '')
+				}}">
 				@if ($errors->has('inscription_end'))
 					<span class="form-text">
 						<strong>{{ $errors->first('inscription_end') }}</strong>
@@ -175,7 +178,7 @@
 	<p class="form-group{{ $errors->has('member_limit') ? ' has-danger' : '' }}">
 		<label for="form-member-limit">Límite de socios</label>
 		<input name="member_limit" id="form-member-limit" class="form-control" type="number"
-		       value="{{ old('member_limit') ?? (isset($activity) ? $activity->member_limit : '') }}">
+		       value="{{ old('member_limit', isset($activity) ? $activity->member_limit : '') }}">
 		@if ($errors->has('member_limit'))
 			<span class="form-text">
 				<strong>{{ $errors->first('member_limit') }}</strong>
@@ -186,16 +189,12 @@
 
 <div>
 	<p class="form-group{{ $errors->has('organizers') ? ' has-danger' : '' }}">
-		<label for="form-organizers">Organizadores</label>
+		<label for="form-organizers">Responsables de la actividad</label>
 		<select id="form-organizers" name="organizer_periods[]" class="form-control" multiple>
 			@foreach($chargePeriods as $period)
 				<option value="{{ $period->id }}" {{
-					isset($organizerPeriods) &&
-					$organizerPeriods->pluck('id')->contains($period->id)
-					? 'selected' : ''
-				}}>
-					{{ $period->user->fullName }}
-				</option>
+					isset($organizerPeriods) && $organizerPeriods->contains('id', $period->id) ? 'selected' : ''
+				}}>{{ $period->user->fullName }} ({{ $period->charge->internalName }})</option>
 			@endforeach
 		</select>
 		@if ($errors->has('organizers'))

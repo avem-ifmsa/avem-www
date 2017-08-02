@@ -2,12 +2,29 @@
 
 @push('scripts')
 	<script>
+		var createActivityForm, activityDraftAlert, saveAndPublishButton;
+
+		function isActivityReadyToPublish()
+		{
+			return createActivityForm[0].checkValidity()
+			    && $('input[name=image]').val() !== '';
+		}
+
 		function onSaveAndPublishActivity() {
 			$('input[name=published]').val(true);
-			$('#create-form').submit();
+		}
+
+		function checkActivityDraftValidity() {
+			const isDraftValid = isActivityReadyToPublish();
+			activityDraftAlert.collapse(isDraftValid ? 'hide' : 'show');
+			saveAndPublishButton.prop('disabled', !isDraftValid);
 		}
 
 		$(function() {
+			activityDraftAlert = $('#create-draft-alert');
+			createActivityForm = $('#create-activity-form');
+			saveAndPublishButton = $('#create-save-and-publish-btn');
+
 			$('#create-modal').modal();
 		});
 	</script>
@@ -26,20 +43,26 @@
 					</a>
 				</header>
 
-				<form id="create-form" method="post" action="{{ route('admin.activities.store') }}">
+				<form id="create-activity-form" method="post" action="{{ route('admin.activities.store') }}"
+				      enctype="multipart/form-data" onchange="checkActivityDraftValidity()" novalidate>
 					{{ csrf_field() }}
 
 					<div class="modal-body">
 						<div class="container-fluid">
+							<div id="create-draft-alert" class="alert alert-warning collapse show">
+								Esta actividad todavía tiene campos por rellenar y por ello no puede ser publicada.
+								Acuérdate de rellenar los campos que faltan antes de publicarla.
+							</div>
+
 							@include('admin.activities.form', compact('mbMemberPeriods', 'organizers'))
-							<input id="create-published" type="hidden" value="0">
 						</div>
 					</div>
 
 					<div class="modal-footer">
 						<a class="btn btn-secondary" role="button" href="{{ route('admin.activities.index') }}">Cancelar</a>
 						<button type="submit" class="btn btn-secondary" role="button">Guardar como borrador</button>
-						<button type="button" class="btn btn-primary" role="button" onclick="onSaveAndPublishActivity">Guardar y publicar</button>
+						<button id="create-save-and-publish-btn" type="submit" class="btn btn-primary" role="button"
+						        onclick="onSaveAndPublishActivity()" disabled>Guardar y publicar</button>
 					</div>
 				</form>
 			</div>

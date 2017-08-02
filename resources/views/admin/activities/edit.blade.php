@@ -2,7 +2,34 @@
 
 @push('scripts')
 	<script>
+		var editActivityForm, activityDraftAlert, publishUnpublishButton;
+
+		function isActivityReadyToPublish()
+		{
+			const activityHasImage = {{ $activity->image !== null }};
+			return editActivityForm[0].checkValidity()
+			    && (activityHasImage || $('input[name=image]').val() !== '');
+		}
+
+		function checkActivityDraftValidity() {
+			@if (!$activity->published)
+				const isDraftValid = isActivityReadyToPublish();
+				publishUnpublishButton.prop('disabled', !isDraftValid);
+				activityDraftAlert.collapse(isDraftValid ? 'hide' : 'show');
+			@endif
+		}
+
+		function toggleActivityDraftStatus() {
+			$('input[name=published]').val({{
+				$activity->published ? '0' : '1'
+			}});
+		}
+
 		$(function() {
+			editActivityForm = $('#edit-activity-form');
+			activityDraftAlert = $('#edit-draft-alert');
+			publishUnpublishButton = $('#edit-publish-unpublish-btn');
+
 			$('#edit-modal').modal();
 		});
 	</script>
@@ -21,12 +48,21 @@
 					</a>
 				</header>
 
-				<form action="{{ route('admin.activities.update', [$activity]) }}" method="post" enctype="multipart/form-data">
+				<form id="edit-activity-form" action="{{ route('admin.activities.update', [$activity]) }}"
+				      method="post" enctype="multipart/form-data" onchange="checkActivityDraftValidity()"
+				      {{ $activity->published ? '' : 'novalidate' }}>
 					{{ csrf_field() }}
 					{{ method_field('patch') }}
 
 					<div class="modal-body">
 						<div class="container-fluid">
+							@if (!$activity->published)
+								<div class="alert alert-warning collapse{{ $activity->isReadyToPublish ? '' : ' show' }}">
+									Esta actividad se encuentra en estado de borrador y aún no está lista para
+									ser publicada. Acuérdate de rellenar los campos que faltan antes de publicarla.
+								</div>
+							@endif
+
 							@include('admin.activities.form', compact('activity', 'mbMemberPeriods', 'organizers'))
 						</div>
 					</div>
@@ -34,18 +70,10 @@
 					<div class="modal-footer">
 						<a class="btn btn-secondary" role="button" href="{{ route('admin.activities.index') }}">Cancelar</a>
 						<button type="submit" class="btn btn-primary" role="button">Guardar</button>
-
-						@if ($activity->published)
-							<form action="{{ route('admin.activities.publish', [$activity]) }}" method="post">
-								{{ csrf_field() }}
-								<button type="submit" class="btn btn-secondary" role="button">Publicar</button>
-							</form>
-						@else
-							<form action="{{ route('admin.activities.unpublish', [$activity]) }}" method="post">
-								{{ csrf_field()}}
-								<button type="submit" class="btn btn-secondary" role="button">Despublicar</button>
-							</form>
-						@endif
+						<button id="edit-publish-unpublish-btn" type="submit" class="btn btn-secondary"
+						        role="button" onclick="toggleActivityDraftStatus()">
+							{{ $activity->published ? 'Despublicar' : 'Publicar' }}
+						</button>
 					</div>
 				</form>
 			</div>

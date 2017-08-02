@@ -39,6 +39,18 @@ class Activity extends Model implements HasMediaConversions
 		return $this->hasMany('Avem\ActivityTicket');
 	}
 
+	public function getImageAttribute()
+	{
+		return $this->getMedia('images')->first();
+	}
+
+	public function getIsReadyToPublishAttribute()
+	{
+		return $this->name !== null
+		    && $this->description !== null
+		    && $this->image !== null;
+	}
+
 	public function inscribedUsers()
 	{
 		$selfInscribedUsers = $this->selfInscribedUsers();
@@ -52,12 +64,12 @@ class Activity extends Model implements HasMediaConversions
 				      ->orWhereBetween('activities.start', ['charge_periods.start', 'charge_periods.end'])
 				      ->orWhereBetween('activities.end', ['charge_periods.start', 'charge_periods.end']);
 			});
-		
+
 		$allInscribedUsers = Activity::find($this->id)->crossJoin('users')
 			->select('users.*', 'activities.id as pivot_activity_id', 'users.id as pivot_user_id')
 			->where('activities.inscription_policy', 'all')
 			->whereDate('users.created_at', '<', 'activities.end');
-		
+
 		return $selfInscribedUsers->union($boardInscribedUsers)
 		                          ->union($allInscribedUsers);
 	}

@@ -1669,10 +1669,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: ['alt', 'name', 'value', 'required', 'placeholder'],
+	props: ['alt', 'name', 'required', 'placeholder'],
+	data: function data() {
+		return {
+			value: undefined
+		};
+	},
 	computed: {
 		imageUrl: function imageUrl() {
 			return this.value || this.placeholder;
@@ -36291,7 +36295,8 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('label', [_c('img', {
     attrs: {
-      "src": _vm.imageUrl
+      "src": _vm.imageUrl,
+      "alt": _vm.alt
     },
     on: {
       "load": _vm.onImageLoad
@@ -36305,11 +36310,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     ref: "fileInput",
     attrs: {
-      "alt": _vm.alt,
-      "name": _vm.name,
       "type": "file",
+      "accept": "image/*",
       "required": _vm.required,
-      "accept": "image/*"
+      "name": _vm.name
     },
     on: {
       "change": _vm.onFileChange
