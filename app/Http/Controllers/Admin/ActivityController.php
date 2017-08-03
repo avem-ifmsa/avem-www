@@ -4,6 +4,7 @@ namespace Avem\Http\Controllers\Admin;
 
 use DB;
 use Auth;
+use Session;
 use Avem\Activity;
 use Avem\ChargePeriod;
 use Avem\ManagesTagsTrait;
@@ -40,10 +41,16 @@ class ActivityController extends Controller
 		$this->authorize('create', Activity::class);
 
 		$currentPeriod = $request->user()->currentChargePeriod;
+		if ($currentPeriod != null) {
+			$charge = $currentPeriod->charge;
+			$tags = $charge->tags->pluck('name');
+			Session::flash('_old_input.tags', $tags->implode(','));
+		}
 
 		return view('admin.activities.create', [
 			'organizerPeriods' => collect($currentPeriod ? [$currentPeriod] : []),
-			'chargePeriods'    => ChargePeriod::active()->with('charge', 'user')->get(),
+			'chargePeriods'    => ChargePeriod::active()->with('charge', 'user')
+			                                  ->get()->sortBy('charge.id'),
 		]);
 	}
 
@@ -59,8 +66,14 @@ class ActivityController extends Controller
 
 		DB::transaction(function() use ($request) {
 			$activity = Activity::create($request->all());
-			$activity->addMediaFromRequest('image')->toMediaLibrary('images');
-			$activity->organizerPeriods()->sync($request->input('organizers', []));
+
+			$activity->organizerPeriods()->sync(
+				$request->input('organizer_periods', [])
+			);
+
+			if ($request->hasFile('image')) {
+				$activity->addMediaFromRequest('image')->toMediaLibrary('images');
+			}
 
 			$activityTags = $this->inputTags($request, 'tags');
 			$activity->tags()->sync($activityTags->pluck('id'));
@@ -97,7 +110,10 @@ class ActivityController extends Controller
 		return view('admin.activities.edit', [
 			'activity'         => $activity,
 			'organizerPeriods' => $activity->organizerPeriods,
-			'chargePeriods'    => ChargePeriod::active()->with('charge', 'user')->get(),
+			'chargePeriods'    => $activity->organizerPeriods->merge(
+				ChargePeriod::active()->with('charge', 'user')
+				                      ->get()->sortBy('charge.id')
+			),
 		]);
 	}
 
@@ -115,15 +131,15 @@ class ActivityController extends Controller
 		DB::transaction(function() use ($request, $activity) {
 			$activity->update($request->all());
 
-			if ($request->hasFile('image')) {
-				$activity->clearMediaLibrary('images');
-				$activity->addMediaFromRequest('image')
-				         ->toMediaLibrary('images');
-			}
-
 			$activity->organizerPeriods()->sync(
 				$request->input('organizer_periods', [])
 			);
+
+			if ($request->hasFile('image')) {
+				$activity->clearMediaCollection('images');
+				$activity->addMediaFromRequest('image')
+				         ->toMediaLibrary('images');
+			}
 
 			$activityTags = $this->inputTags($request, 'tags');
 			$activity->tags()->sync($activityTags->pluck('id'));

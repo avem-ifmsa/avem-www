@@ -49,8 +49,8 @@
 				</header>
 
 				<form id="edit-activity-form" action="{{ route('admin.activities.update', [$activity]) }}"
-				      method="post" enctype="multipart/form-data" onchange="checkActivityDraftValidity()"
-				      {{ $activity->published ? '' : 'novalidate' }}>
+				      method="post" enctype="multipart/form-data" oninput="checkActivityDraftValidity()"
+				      onchange="checkActivityDraftValidity()" {{ $activity->published ? '' : 'novalidate' }}>
 					{{ csrf_field() }}
 					{{ method_field('patch') }}
 

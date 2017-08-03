@@ -44,14 +44,15 @@
 				</header>
 
 				<form id="create-activity-form" method="post" action="{{ route('admin.activities.store') }}"
-				      enctype="multipart/form-data" onchange="checkActivityDraftValidity()" novalidate>
+				      enctype="multipart/form-data" oninput="checkActivityDraftValidity()"
+				      onchange="checkActivityDraftValidity()" novalidate>
 					{{ csrf_field() }}
 
 					<div class="modal-body">
 						<div class="container-fluid">
 							<div id="create-draft-alert" class="alert alert-warning collapse show">
 								Esta actividad todavía tiene campos por rellenar y por ello no puede ser publicada.
-								Acuérdate de rellenar los campos que faltan antes de publicarla.
+								Acuérdate de completar los campos que faltan antes de publicarla.
 							</div>
 
 							@include('admin.activities.form', compact('mbMemberPeriods', 'organizers'))

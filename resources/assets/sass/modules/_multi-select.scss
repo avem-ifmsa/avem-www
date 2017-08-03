@@ -1,0 +1,30 @@
+$multi-select-checkbox-size: 1.1em;
+
+.multi-select {
+	&-items {
+		list-style: none;
+		padding: 10px;
+	}
+
+	&-checkbox, &-option {
+		display: inline-block;
+		vertical-align: middle;
+	}
+
+	&-option {
+		margin-left: 10px;
+	}
+
+	&-checkbox {
+		width: $multi-select-checkbox-size;
+		height: $multi-select-checkbox-size;
+	}
+
+	&-text {
+		&--secondary {
+			color: #999;
+			font-size: 0.8em;
+			margin-left: 5px;
+		}
+	}
+}

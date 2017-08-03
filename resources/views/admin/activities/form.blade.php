@@ -4,14 +4,14 @@
 
 <div class="row">
 	<div class="col-md-5 mb-2">
-		<p class="h-100">
+		<div class="h-100">
 			<input type="file" is="input-image" name="image" placeholder="{{
 				isset($activity) ? $activity->image->getUrl() : ''
 			}}">
-		</p>
+		</div>
 	</div>
 
-	<div class="col-md-7">
+	<div id="form-activity-info" class="col-md-7">
 		<p class="form-group form-group--required{{ $errors->has('name') ? ' has-danger' : '' }}">
 			<label for="form-name">Nombre de la actividad</label>
 			<input id="form-name" class="form-control" name="name" type="text" required
@@ -187,20 +187,17 @@
 	</p>
 </div>
 
-<div>
-	<p class="form-group{{ $errors->has('organizers') ? ' has-danger' : '' }}">
-		<label for="form-organizers">Responsables de la actividad</label>
-		<select id="form-organizers" name="organizer_periods[]" class="form-control" multiple>
-			@foreach($chargePeriods as $period)
-				<option value="{{ $period->id }}" {{
-					isset($organizerPeriods) && $organizerPeriods->contains('id', $period->id) ? 'selected' : ''
-				}}>{{ $period->user->fullName }} ({{ $period->charge->internalName }})</option>
-			@endforeach
-		</select>
-		@if ($errors->has('organizers'))
-			<span class="form-text">
-				<strong>{{ $errors->first('organizers') }}</strong>
-			</span>
-		@endif
-	</p>
+<div class="form-group{{ $errors->has('organizers') ? ' has-danger' : '' }}">
+	<label>Responsables de la actividad</label>
+	@include('components.mbMemberSelect', [
+		'chargePeriods'    => $chargePeriods,
+		'organizerPeriods' => $organizerPeriods,
+		'name'             => 'organizer_periods[]',
+	])
+
+	@if ($errors->has('organizers'))
+		<span class="form-text">
+			<strong>{{ $errors->first('organizers') }}</strong>
+		</span>
+	@endif
 </div>
