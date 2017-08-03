@@ -1,112 +1,99 @@
 @extends('layouts.admin')
 
-@push('scripts')
-	<script>
-		$(function() {
-			var $filterForm = $("#index-filter-form");
-			$("#index-organized-by").change(function(event) {
-				$filterForm.submit();
-			});
-		});
-	</script>
-@endpush
-
 @section('content')
-	<h1 class="my-3">Actividades</h1>
+	<h1 class="mt-4">Actividades</h1>
 
-	<form id="index-filter-form">
-		<div class="l-admin-head clearfix mt-2">
-			<div class="float-left form-inline">
-				<label class="selector-text">Actividades organizadas por
-					<select id="index-organized-by" class="ml-1 form-control form-control-sm selector-input" name="organized_by">
-						<option value="me" {{
-							Request::has('organized_by') && Request::get('organized_by') == 'me' ? 'selected' : ''
-						}}>mí</option>
-						<option value="all" {{
-							Request::has('organized_by') && Request::get('organized_by') == 'all' ? 'selected' : ''
-						}}>todos</option>
-					</select>
-				</label>
-			</div>
-			
-			<div class="float-right">
-				<a role="button" href="{{ route('admin.activities.create') }}"
-				@if (Gate::allows('create', Avem\Activity::class))
-					class="btn btn-sm btn-secondary"
-				@else
-					class="btn btn-sm btn-secondary disabled" aria-disabled="true"
-				@endif
-				>
-					Crear nueva actividad
-				</a>
-			</div>
-		</div>
+	<section class="my-4">
+		<h2>Actividades organizadas por mí</h2>
 
-		<div class="l-admin-search mx-auto mt-3">
-			<p class="input-group">
-				<input class="form-control" type="search" name="q"
-					{{ Request::has('q') ? 'value='.Request::get('q') : '' }}
-					placeholder="Nombre o descripción de la actividad" >
-				<span class="input-group-btn">
-					<button class="btn btn-secondary" type="submit">
-						<span class="fa fa-search"></span>
-					</button>
-				</span>
-			</p>
-		</div>
-	</form>
-	
-	<div class="l-admin-main mt-4">
-		<table class="table table-striped">
-			<colgroup>
-				<col class="l-admin-activity-select">
-				<col class="l-admin-activity-nameAndDescription">
-				<col class="l-admin-activity-location">
-				<col class="l-admin-activity-start">
-				<col class="l-admin-activity-inscriptionStart">
-				<col class="l-admin-activity-actions">
-			</colgroup>
-
-			<thead>
-				<tr>
-					<th></th>
-					<th>Nombre y descripción</th>
-					<th>Lugar</th>
-					<th>Inicio</th>
-					<th>Inscripción</th>
-					<th></th>
-				</tr>
-			</thead>
-
-			<tbody>
-				@foreach ($activities as $activity)
-					<tr>
-						<td>
-							
-						</td>
-						<td>
-							<h6 class="activity-title">{{ $activity->name }}</h6>
-							<p class="activity-description">{{ $activity->description}}</p>
-						</td>
-						<td>
-							{{ $activity->location }}
-						</td>
-						<td>{{ $activity->start ? $activity->start->diffForHumans() : '--' }}</td>
-						<td>
-							{{ $activity->inscription_start ? $activity->inscription_start->diffForHumans() : '--' }}
-						</td>
-						<td>
-							<a role="button" class="btn btn-sm btn-secondary" href="{{ route('admin.activities.edit', [$activity]) }}">
-								<i class="fa fa-pencil mr-1"></i> Editar
-							</a>
-
-							<a role="button" class="btn btn-sm btn-danger" href="#">
-								<i class="fa fa-trash mr-1"></i> Eliminar
-							</a>
-						</td>
-					</tr>
+		<div class="mt-4 gallery">
+			<ul class="gallery-items">
+				@foreach ($organizedActivities as $activity)
+					<li class="gallery-item card">
+						<a class="gallery-item-link" href="{{ route('admin.activities.show', [$activity]) }}">
+							<img class="gallery-item-top card-img-top"
+							     src="{{ $activity->getFirstMediaUrl('images') }}">
+							<div class="gallery-item-content card-block">
+								<h4 class="gallery-item-title card-title">
+									{{ $activity->name }}
+								</h4>
+							</div>
+						</a>
+					</li>
 				@endforeach
-			</tbody>
-		</table>
-	</div>
+
+				<li class="gallery-item card">
+					<a class="gallery-item-link gallery-item-link--new{{
+						Gate::denies('create', Avem\Activity::class) ? ' disabled' : ''
+					   }}" href="{{ route('admin.activities.create') }}">
+						<div class="text-center">
+							Crear<br>
+							<i class="fa fa-2x fa-plus"></i>
+						</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</section>
+
+	<section class="my-4">
+		<h2>Todas las actividades</h2>
+
+		<form class="w-75 mx-auto mt-4 input-group">
+			<input class="form-control" type="search" name="q"
+			       placeholder="Día Mundial de la Salud">
+			<span class="input-group-btn">
+				<button role="button" class="btn btn-secondary">
+					<i class="fa fa-search" aria-hidden="true"></i>
+				</button>
+			</span>
+		</form>
+
+		<div class="mt-1 activity-index">
+			<ul class="activity-entries">
+				@foreach ($allActivities as $activity)
+					<li class="activity-entry">
+						<img class="activity-image" src="{{ $activity->image->getUrl() }}">
+						<div class="activity-info">
+							<h4 class="activity-name">
+								{{ $activity->name }}
+								@if (!$activity->published)
+									<span class="badge badge-warning ml-1">Borrador</span>
+								@endif
+							</h4>
+							<p class="activity-description">{{ $activity->description }}</p>
+							<ul class="activity-tags">
+								@foreach ($activity->tags as $tag)
+									<li class="activity-tag">{{ $tag->name }}</li>
+								@endforeach
+							</ul>
+						</div>
+
+						<div class="activity-actions">
+							<form action="{{ route('admin.activities.destroy', [$activity]) }}" method="post">
+								{{ csrf_field() }}
+								{{ method_field('delete') }}
+								<div class="btn-group">
+									<a class="btn btn-secondary{{ Gate::denies('view', $activity) ? ' disabled' : '' }}"
+									   role="button" href="{{ route('admin.activities.show', [$activity]) }}">
+										<i class="fa fa-cog"></i><span class="ml-1">Administrar</span>
+									</a>
+
+									<a class="btn btn-secondary{{ Gate::denies('update', $activity) ? ' disabled' : '' }}"
+									   role="button" href="{{ route('admin.activities.edit', [$activity]) }}">
+										<i class="fa fa-pencil"></i><span class="ml-1">Editar</span>
+									</a>
+
+									<button class="btn btn-danger{{ Gate::denies('delete', $activity) ? ' disabled' : '' }}"
+									        role="button" type="submit">
+										<i class="fa fa-times"></i><span class="ml-1">Eliminar</span>
+									</button>
+								</div>
+							</form>
+						</div>
+					</li>
+				@endforeach
+			</ul>
+		</div>
+	</section>
 @stop

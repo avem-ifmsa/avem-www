@@ -2,38 +2,33 @@
 
 namespace Avem\Http\ViewComposers;
 
+use Avem\User;
 use Avem\Activity;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 
 class AdminActivityViewComposer
 {
-	private function filterActivities(Request $request, $query)
+	/**
+	 * Get activities organized by given user.
+	 *
+	 * @param  User  $user
+	 * @return Avem\Activity
+	 */
+	private function organizedActivities(User $user)
 	{
-		$filter = '%'.$request->input('q').'%';
-		return $query->where('name', 'LIKE', $filter)
-		             ->orWhere('description', 'LIKE', $filter);
-	}
-
-	private function getRequestedActivities(Request $request)
-	{
-		if ($filter = $request->input('q'))
-			$matchingActivities = Activity::search($filter)->get();
-		
-		if ($request->input('organized_by', 'me') == 'me') {
-			$chargePeriods = $request->user()->chargePeriods();
-			$organizedActivities = $chargePeriods->join('activity_charge_period', 'charge_periods.id', '=', 'activity_charge_period.charge_period_id')
-			                                     ->join('activities', 'activities.id', '=', 'activity_charge_period.activity_id');
-			if (isset($matchingActivities))
-				$organizedActivities = $organizedActivities->whereIn('activities.id', $matchingActivities->pluck('id'));
-			$matchingActivities = $organizedActivities->select('activities.*')->get();
-		}
-
-		return isset($matchingActivities) ? $matchingActivities : Activity::all();
+		$user->load('chargePeriods', 'chargePeriods.organizedActivities');
+		return $user->chargePeriods->reduce(function($activities, $period) {
+			return $activities->merge(
+				$period->organizedActivities->filter(function($a) use ($activities) {
+					return !$activities->contains('id', $a->id);
+				})
+			);
+		}, collect([]));
 	}
 
 	/**
-	 * Create a new profile composer.
+	 * Create a new admin activity view composer.
 	 *
 	 * @return void
 	 */
@@ -50,6 +45,12 @@ class AdminActivityViewComposer
 	 */
 	public function compose(View $view)
 	{
-		$view->with('activities', $this->getRequestedActivities($this->request));
+		$view->with('allActivities', Activity::all());
+
+		if ($user = $this->request->user()) {
+			$view->with('organizedActivities', $this->organizedActivities($user));
+		} else {
+			$view->with('organizedActivities', collect([]));
+		}
 	}
 }
