@@ -27,7 +27,7 @@ class CreateActivityTicketsTable extends Migration
 			      ->onDelete('cascade');
 
 			$table->foreign('charge_period_id')
-			      ->references('id')->on('charge_period')
+			      ->references('id')->on('charge_periods')
 			      ->onDelete('cascade');
 
 			$table->foreign('performed_activity_id')
