@@ -13,10 +13,32 @@
 						<a class="gallery-item-link" href="{{ route('admin.activities.show', [$activity]) }}">
 							<img class="gallery-item-top card-img-top"
 							     src="{{ $activity->getFirstMediaUrl('images') }}">
+
 							<div class="gallery-item-content card-block">
-								<h4 class="gallery-item-title card-title">
-									{{ $activity->name }}
-								</h4>
+								<div class="gallery-header card-title">
+									<h4 class="gallery-item-title">
+										{{ $activity->name }}
+									</h4>
+
+									<div class="gallery-item-extra">
+										@if ($activity->start !== null)
+											<span class="float-left">
+												<i class="fa fa-calendar mr-1"></i>
+												{{ $activity->start->format('d/m/y') }}
+											</span>
+										@endif
+
+										@if ($activity->location !== null)
+											<span class="float-right">
+												{{ $activity->location }}
+											</span>
+										@endif
+									</div>
+								</div>
+
+								<p class="gallery-item-description">
+									{{ $activity->description }}
+								</p>
 							</div>
 						</a>
 					</li>
@@ -56,15 +78,10 @@
 						<img class="activity-image" src="{{ $activity->image->getUrl() }}">
 						<div class="activity-info">
 							<div class="activity-header">
-								<h4 class="activity-name">
-									{{ $activity->name }}
-									@if (!$activity->published)
-										<span class="badge badge-warning ml-1">Borrador</span>
-									@endif
-								</h4>
-
+								<h4 class="activity-name">{{ $activity->name }}</h4>
 								<span class="activity-extra">
 									@if ($activity->start !== null)
+										<i class="fa fa-calendar mr-1"></i>
 										{{ $activity->start->formatLocalized('%e de %B del %Y') }}
 									@endif
 									@if ($activity->location !== null)

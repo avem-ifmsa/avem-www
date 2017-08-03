@@ -17,12 +17,48 @@
 
 		&-top {
 			width: 100%;
-			height: 60%;
+			height: 50%;
 			object-fit: cover;
 		}
 
 		&-title {
+			margin: 0;
 			font-size: 1.2em;
+		}
+
+		&-extra {
+			color: #888;
+			font-size: 0.9em;
+
+			&::after {
+				clear: both;
+				content: '';
+				display: block;
+			}
+		}
+
+		&-description {
+			color: #888;
+			font-size: 0.9em;
+			text-align: justify;
+
+			overflow: hidden;
+			height: 4 * 1.1em;
+			line-height: 1.1em;
+
+			position: relative;
+
+			&::after {
+				content: '';
+				display: block;
+
+				bottom: 0;
+				width: 100%;
+				height: 1.3em;
+				position: absolute;
+
+				background: linear-gradient(to bottom, rgba(#fff, 0), rgba(#fff, 1) 100%);
+			}
 		}
 
 		&-link {
