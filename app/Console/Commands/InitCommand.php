@@ -369,6 +369,7 @@ class InitCommand extends Command
 
 		// LOME <lome@avem.es>
 		[
+			'index'          => 0,
 			'name'           => 'Responsable de educación médica',
 			'ifmsa_name'     => 'Local Officer of Medical Education',
 			'ifmsa_acronym'  => 'LOME',
@@ -383,6 +384,7 @@ class InitCommand extends Command
 
 		// LOME <lome2@avem.es>
 		[
+			'index'          => 0,
 			'name'           => 'Responsable de educación médica',
 			'ifmsa_name'     => 'Local Officer of Medical Education',
 			'ifmsa_acronym'  => 'LOME',
@@ -397,6 +399,7 @@ class InitCommand extends Command
 
 		// LPO <lpo@avem.es>
 		[
+			'index'          => 0,
 			'name'           => 'Responsable de salud pública',
 			'ifmsa_name'     => 'Local Officer of Public Health',
 			'ifmsa_acronym'  => 'LPO',
@@ -412,6 +415,7 @@ class InitCommand extends Command
 
 		// LPO <lpo2@avem.es>
 		[
+			'index'          => 0,
 			'name'           => 'Responsable de salud pública',
 			'ifmsa_name'     => 'Local Officer of Public Health',
 			'ifmsa_acronym'  => 'LPO',
@@ -427,6 +431,7 @@ class InitCommand extends Command
 
 		// LPO <lpo3@avem.es>
 		[
+			'index'          => 0,
 			'name'           => 'Responsable de salud pública',
 			'ifmsa_name'     => 'Local Officer of Public Health',
 			'ifmsa_acronym'  => 'LPO',
@@ -442,6 +447,7 @@ class InitCommand extends Command
 
 		// LORSA <lorsa@avem.es>
 		[
+			'index'          => 0,
 			'name'           => 'Responsable de sexualidad',
 			'ifmsa_name'     => 'Local Officer of Reproductive health and Sexuality including HIV/AIDS',
 			'ifmsa_acronym'  => 'LORSA',
@@ -455,6 +461,7 @@ class InitCommand extends Command
 
 		// LORSA <lorsa2@avem.es>
 		[
+			'index'          => 0,
 			'name'           => 'Responsable de sexualidad',
 			'ifmsa_name'     => 'Local Officer of Reproductive health and Sexuality including HIV/AIDS',
 			'ifmsa_acronym'  => 'LORSA',
@@ -468,6 +475,7 @@ class InitCommand extends Command
 
 		// LORP <lorp@avem.es>
 		[
+			'index'          => 0,
 			'name'           => 'Responsable de derechos humanos',
 			'ifmsa_name'     => 'Local Officer of human Rights and Peace',
 			'ifmsa_acronym'  => 'LORP',
@@ -482,6 +490,7 @@ class InitCommand extends Command
 
 		// LORP <lorp2@avem.es>
 		[
+			'index'          => 0,
 			'name'           => 'Responsable de derechos humanos',
 			'ifmsa_name'     => 'Local Officer of human Rights and Peace',
 			'ifmsa_acronym'  => 'LORP',
@@ -496,6 +505,7 @@ class InitCommand extends Command
 
 		// LEO <leo@avem.es>
 		[
+			'index'          => 0,
 			'name'           => 'Responsable de intercambios internacionales clínicos',
 			'ifmsa_name'     => 'Local Exchange Officer',
 			'ifmsa_acronym'  => 'LEO',
@@ -509,6 +519,7 @@ class InitCommand extends Command
 
 		// LEO <leo2@avem.es>
 		[
+			'index'          => 0,
 			'name'           => 'Responsable de intercambios internacionales clínicos',
 			'ifmsa_name'     => 'Local Exchange Officer',
 			'ifmsa_acronym'  => 'LEO',
@@ -522,6 +533,7 @@ class InitCommand extends Command
 
 		// LORE <lore@avem.es>
 		[
+			'index'          => 0,
 			'name'           => 'Responsable de intercambios internacionales de investigación',
 			'ifmsa_name'     => 'Local Officer of Research Exchanges',
 			'ifmsa_acronym'  => 'LORE',
@@ -536,6 +548,7 @@ class InitCommand extends Command
 
 		// LONE <lone@avem.es>
 		[
+			'index'          => 0,
 			'name'           => 'Responsable de intercambios nacionales',
 			'ifmsa_name'     => 'Local Officer of National Exchanges',
 			'ifmsa_acronym'  => 'LONE',
@@ -550,6 +563,7 @@ class InitCommand extends Command
 
 		// LONE <lone2@avem.es>
 		[
+			'index'          => 0,
 			'name'           => 'Responsable de intercambios nacionales',
 			'ifmsa_name'     => 'Local Officer of National Exchanges',
 			'ifmsa_acronym'  => 'LONE',
@@ -564,6 +578,7 @@ class InitCommand extends Command
 
 		// LOIH <incomings@avem.es>
 		[
+			'index'          => 0,
 			'name'           => 'Responsable de coordinación de acogida de intercambios',
 			'ifmsa_name'     => 'Local Officer of Incoming Hosting',
 			'ifmsa_acronym'  => 'LOIH',
