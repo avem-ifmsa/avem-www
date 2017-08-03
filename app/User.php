@@ -135,12 +135,13 @@ class User extends Authenticatable implements HasMediaConversions
 				      ->orWhereBetween('activities.start', ['charge_periods.start', 'charge_periods.end'])
 				      ->orWhereBetween('activities.end', ['charge_periods.start', 'charge_periods.end']);
 			});
-		
-		$allInscribedActivities = User::find($this->id)
+
+		$allInscribedActivities = $this->query()
 			->crossJoin('activities')->where('inscription_policy', 'all')
 			->select('activities.*', 'users.id as pivot_user_id', 'activities.id as pivot_activity_id')
-			->whereDate('activities.end', '>=', $this->created_at);
-		
+			->whereDate('activities.end', '>=', $this->created_at)
+			->where('users.id', $this->id);
+
 		return $selfInscribedActivities->union($boardInscribedActivities)
 		                               ->union($allInscribedActivities);
 	}
@@ -225,7 +226,7 @@ class User extends Authenticatable implements HasMediaConversions
 		                    ->select('roles.*', 'roles.id as pivot_role_id', 'charge_periods.user_id as pivot_user_id')
 		                    ->join('charge_role', 'charge_role.charge_id', '=', 'charge_periods.charge_id')
 		                    ->join('roles', 'roles.id', '=', 'charge_role.role_id');
-		
+
 		return $ownRoles->union($chargeRoles);
 	}
 

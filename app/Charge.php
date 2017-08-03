@@ -51,14 +51,14 @@ class Charge extends Model
 	{
 		$ownTags = $this->ownTags();
 
-		$groupTags = Charge::find($this->id)
+		$groupTags = $this->query()
 			->select('tags.*', 'charges.id as pivot_charge_id', 'tags.id as pivot_tag_id')
 			->join('working_groups', 'working_groups.id', '=', 'charges.working_group_id')
-			->join('taggables', function($join) {
-				$join->on('taggable_id', '=', 'working_groups.id');
-				$join->where('taggable_type', 'working_group');
-			})->join('tags', 'tags.id', '=', 'taggables.tag_id');
-		
+			->join('taggables', 'taggables.taggable_id', '=', 'working_groups.id')
+			->join('tags', 'tags.id', '=', 'taggables.tag_id')
+			->where('taggable_type', 'working_group')
+			->where('charges.id', $this->id);
+
 		return $ownTags->union($groupTags);
 	}
 
