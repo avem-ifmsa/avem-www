@@ -100,7 +100,7 @@
 			<p class="col-md-6 form-group{{ $errors->has('start') ? ' has-danger' : '' }}">
 				<label class="label--smaller" for="form-start">Inicio de la actividad</label>
 				<input id="form-start" class="form-control form-control-sm" name="start" type="datetime-local" value="{{
-					old('start', isset($activity) && $activity->start ? $activity->start->toW3cString() : '')
+					old('start', isset($activity) && $activity->start ? $activity->start->format('Y-m-d\TH:i') : '')
 				}}">
 				@if ($errors->has('start'))
 					<span class="form-text">
@@ -112,7 +112,7 @@
 			<p class="col-md-6 form-group{{ $errors->has('end') ? ' has-danger' : '' }}">
 				<label class="label--smaller" for="form-end">Fín de la actividad</label>
 				<input id="form-end" class="form-control form-control-sm" name="end" type="datetime-local" value="{{
-					old('end', isset($activity) && $activity->end ? $activity->end->toW3cString() : '')
+					old('end', isset($activity) && $activity->end ? $activity->end->format('Y-m-d\TH:i') : '')
 				}}">
 				@if ($errors->has('end'))
 					<span class="form-text">
@@ -151,8 +151,8 @@
 		<div class="row">
 			<p class="col-md-6 form-group{{ $errors->has('inscription_start') ? ' has-danger' : '' }}">
 				<label class="label--smaller" for="form-inscription-start">Inicio del periodo</label>
-				<input id="form-inscription-start" class="form-control form-control-sm" name="inscription_start" type="datetime-local" value="{{
-					old('inscription_start', isset($activity) && $activity->inscriptionStart ? $activity->inscriptionStart->toW3cString() : '')
+				<input id="form-inscription-start" class="form-control form-control-sm" name="inscription_start" type="date" value="{{
+					old('inscription_start', isset($activity) && $activity->inscriptionStart ? $activity->inscriptionStart->toDateString() : '')
 				}}">
 				@if ($errors->has('inscription_start'))
 					<span class="form-text">
@@ -163,8 +163,8 @@
 
 			<p class="col-md-6 form-group{{ $errors->has('inscription_end') ? ' has-danger' : '' }}">
 				<label class="label--smaller" for="form-inscription-end">Fín del periodo</label>
-				<input id="form-inscription-end" class="form-control form-control-sm" name="inscription_end" type="datetime-local" value="{{
-					old('inscription_end', isset($activity) && $activity->inscriptionEnd ? $activity->inscriptionEnd->toW3cString() : '')
+				<input id="form-inscription-end" class="form-control form-control-sm" name="inscription_end" type="date" value="{{
+					old('inscription_end', isset($activity) && $activity->inscriptionEnd ? $activity->inscriptionEnd->toDateString() : '')
 				}}">
 				@if ($errors->has('inscription_end'))
 					<span class="form-text">

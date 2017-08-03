@@ -55,12 +55,24 @@
 					<li class="activity-entry">
 						<img class="activity-image" src="{{ $activity->image->getUrl() }}">
 						<div class="activity-info">
-							<h4 class="activity-name">
-								{{ $activity->name }}
-								@if (!$activity->published)
-									<span class="badge badge-warning ml-1">Borrador</span>
-								@endif
-							</h4>
+							<div class="activity-header">
+								<h4 class="activity-name">
+									{{ $activity->name }}
+									@if (!$activity->published)
+										<span class="badge badge-warning ml-1">Borrador</span>
+									@endif
+								</h4>
+
+								<span class="activity-extra">
+									@if ($activity->start !== null)
+										{{ $activity->start->formatLocalized('%e de %B del %Y') }}
+									@endif
+									@if ($activity->location !== null)
+										en {{ $activity->location }}
+									@endif
+								</span>
+							</div>
+
 							<p class="activity-description">{{ $activity->description }}</p>
 							<ul class="activity-tags">
 								@foreach ($activity->tags as $tag)

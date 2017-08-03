@@ -99,6 +99,34 @@ class Activity extends Model implements HasMediaConversions
 		     ->sharpen(10);
 	}
 
+	public function setStartAttribute($date)
+	{
+		$this->attributes['start'] = $date
+			? Carbon::createFromFormat('Y-m-d\TH:i', $date)
+			: null;
+	}
+
+	public function setEndAttribute($date)
+	{
+		$this->attributes['end'] = $date
+			? Carbon::createFromFormat('Y-m-d\TH:i', $date)
+			: null;
+	}
+
+	public function setInscriptionStartAttribute($date)
+	{
+		$this->attributes['inscription_start'] = $date
+			? Carbon::createFromFormat('Y-m-d', $date)
+			: null;
+	}
+
+	public function setInscriptionEndAttribute($date)
+	{
+		$this->attributes['inscription_end'] = $date
+			? Carbon::createFromFormat('Y-m-d', $date)
+			: null;
+	}
+
 	public function selfInscribedUsers()
 	{
 		return $this->belongsToMany('Avem\User');

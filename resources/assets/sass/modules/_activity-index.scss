@@ -29,14 +29,30 @@
 	width: calc(100% - 250px);
 }
 
-.activity-name, .activity-description, .activity-tags {
+.activity-name,
+.activity-tags,
+.activity-extra,
+.activity-description {
 	margin: 0;
 	display: block;
 }
 
+.activity-header {
+	&::after {
+		clear: both;
+		content: '';
+		display: block;
+	}
+}
+
 .activity-name {
+	float: left;
 	height: 30px;
-	font-size: 1.2em;
+	font-size: 1.3em;
+}
+
+.activity-extra {
+	float: right;
 }
 
 .activity-description {
