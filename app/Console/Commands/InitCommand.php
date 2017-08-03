@@ -132,29 +132,34 @@ class InitCommand extends Command
 
 		// Cargos burocráticos
 		[
+			'index' => 0,
 			'name'  => 'Cargos burocráticos',
 			'color' => '#a01238',
 		],
 
 		// Grupos de trabajo temático
 		[
+			'index' => 1,
 			'name'  => 'Grupos de trabajo temático',
 		],
 
 		// Cargos de apoyo
 		[
+			'index' => 2,
 			'name'  => 'Cargos de apoyo',
 			'color' => '#c8c800',
 		],
 
 		// Cargos de intercambios
 		[
+			'index' => 3,
 			'name'  => 'Cargos de intercambios',
 			'color' => '#1368d8',
 		],
 
 		// Cargos de trabajo temático > Educación médica
 		[
+			'index'         => 0,
 			'name'          => 'Educación médica',
 			'color'         => '#485b6b',
 			'_parent'       => 'Grupos de trabajo temático',
@@ -169,6 +174,7 @@ class InitCommand extends Command
 
 		// Cargos de trabajo temático > Salud pública
 		[
+			'index'         => 1,
 			'name'          => 'Salud pública',
 			'color'         => '#ff8316',
 			'_parent'       => 'Grupos de trabajo temático',
@@ -184,6 +190,7 @@ class InitCommand extends Command
 
 		// Cargos de trabajo temático > Sexualidad
 		[
+			'index'         => 2,
 			'name'          => 'Sexualidad',
 			'color'         => '#dc083c',
 			'_parent'       => 'Grupos de trabajo temático',
@@ -197,6 +204,7 @@ class InitCommand extends Command
 
 		// Cargos de trabajo temático > Derechos humanos
 		[
+			'index'         => 3,
 			'name'          => 'Derechos humanos',
 			'color'         => '#44b724',
 			'_parent'       => 'Grupos de trabajo temático',
@@ -209,8 +217,23 @@ class InitCommand extends Command
 				'intolerancia, racismo, violencia y abuso a las personas.',
 		],
 
+		// Cargos de intercambios > Intercambios nacionales
+		[
+			'index'         => 0,
+			'name'          => 'Intercambios nacionales',
+			'_parent'       => 'Cargos de intercambios',
+			'ifmsa_name'    => 'Standing Committee On National Exchanges',
+			'ifmsa_acronym' => 'SCONE',
+			'_tags'         => ['SCONE', 'Intercambios nacionales'],
+			'description'   =>
+				'Gestiona los intercambios entre universidades españolas, tanto para los que ' .
+				'vienen (incomings) como para los que se van (outgoings). Coordinan tanto '    .
+				'intercambios clínicos (o profesionales) como de investigación.',
+		],
+
 		// Cargos de intercambios > Intercambios internacionales clínicos
 		[
+			'index'         => 1,
 			'name'          => 'Intercambios internacionales clínicos',
 			'_parent'       => 'Cargos de intercambios',
 			'ifmsa_name'    => 'Standing Committee On Professional Exchanges',
@@ -225,6 +248,7 @@ class InitCommand extends Command
 
 		// Cargos de intercambios > Intercambios internacionales de investigación
 		[
+			'index'         => 2,
 			'name'          => 'Intercambios internacionales de investigación',
 			'_parent'       => 'Cargos de intercambios',
 			'ifmsa_name'    => 'Standing Committee On Research Exchanges',
@@ -238,21 +262,9 @@ class InitCommand extends Command
 				'disponibles para estudiantes de todos los cursos.',
 		],
 
-		// Cargos de intercambios > Intercambios nacionales
-		[
-			'name'          => 'Intercambios nacionales',
-			'_parent'       => 'Cargos de intercambios',
-			'ifmsa_name'    => 'Standing Committee On National Exchanges',
-			'ifmsa_acronym' => 'SCONE',
-			'_tags'         => ['SCONE', 'Intercambios nacionales'],
-			'description'   =>
-				'Gestiona los intercambios entre universidades españolas, tanto para los que ' .
-				'vienen (incomings) como para los que se van (outgoings). Coordinan tanto '    .
-				'intercambios clínicos (o profesionales) como de investigación.',
-		],
-
 		// Cargos de intercambios > Coordinación de acogida de intercambios
 		[
+			'index'         => 3,
 			'name'          => 'Coordinación de acogida de intercambios',
 			'_parent'       => 'Cargos de intercambios',
 			'ifmsa_name'    => 'Standing Committee On Incoming Hosting',
@@ -271,6 +283,7 @@ class InitCommand extends Command
 
 		// Presidencia <presidencia@avem.es>
 		[
+			'index'          => 0,
 			'name'           => 'Presidencia',
 			'email'          => 'presidencia@avem.es',
 			'_working_group' => 'Cargos burocráticos',
@@ -285,6 +298,7 @@ class InitCommand extends Command
 
 		// Vicepresidencia <vicepresidencia@avem.es>
 		[
+			'index'          => 1,
 			'name'           => 'Vicepresidencia',
 			'email'          => 'vicepresidencia@avem.es',
 			'_working_group' => 'Cargos burocráticos',
@@ -301,6 +315,7 @@ class InitCommand extends Command
 
 		// Tesorería <tesoreria@avem.es>
 		[
+			'index'          => 2,
 			'name'           => 'Tesorería',
 			'email'          => 'tesoreria@avem.es',
 			'_working_group' => 'Cargos burocráticos',
@@ -313,6 +328,7 @@ class InitCommand extends Command
 
 		// Secretaría <secretaria@avem.es>
 		[
+			'index'          => 3,
 			'name'           => 'Secretaría',
 			'email'          => 'secretaria@avem.es',
 			'_working_group' => 'Cargos burocráticos',
@@ -325,6 +341,7 @@ class InitCommand extends Command
 
 		// Comunicación <comunicacion@avem.es>
 		[
+			'index'          => 0,
 			'name'           => 'Responsable de comunicación',
 			'email'          => 'comunicacion@avem.es',
 			'_working_group' => 'Cargos de apoyo',
@@ -338,6 +355,7 @@ class InitCommand extends Command
 
 		// Webmaster <webmaster@avem.es>
 		[
+			'index'          => 1,
 			'name'           => 'Webmaster',
 			'email'          => 'webmaster@avem.es',
 			'_working_group' => 'Cargos de apoyo',
@@ -634,7 +652,7 @@ class InitCommand extends Command
 			$roleData[$roleInfo['name']] = $roleInfo;
 			return $roleData;
 		}, []);
-		
+
 		$roleNames = array_keys($roleData);
 		foreach (Role::whereIn('name', $roleNames)->get() as $role) {
 			$roleInfo = $roleData[$role->name];
@@ -659,13 +677,13 @@ class InitCommand extends Command
 		$workingGroups = WorkingGroup::whereIn('name', $groupNames)->get();
 		foreach ($workingGroups as $workingGroup) {
 			$groupInfo = $groupData[$workingGroup->name];
-			
+
 			if (isset($groupInfo['_parent'])) {
 				$parentName = $groupInfo['_parent'];
 				$parentGroup = $workingGroups->where('name', $parentName)->first();
 				$parentGroup->subgroups()->save($workingGroup);
 			}
-			
+
 			if (isset($groupInfo['_tags'])) {
 				$workingGroup->tags()->saveMany(array_map(function($tagName) {
 					return Tag::firstOrCreate([ 'name' => $tagName ]);
