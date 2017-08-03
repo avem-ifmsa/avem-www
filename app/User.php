@@ -108,9 +108,10 @@ class User extends Authenticatable implements HasMediaConversions
 
 	public function getProfileImageUrlAttribute()
 	{
-		$profileImage = $this->profileImage;
-		return $profileImage ? $profileImage->getUrl('thumb')
-		                     : asset('img/user-default-image.svg');
+		$imageUrl = $this->getFirstMediaUrl('avatars');
+		if (!$imageUrl)
+			return asset('img/user-default-image.svg');
+		return $imageUrl;
 	}
 
 	public function hasPermission($name)
