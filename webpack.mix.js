@@ -16,6 +16,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
    .version();
 
 mix.browserSync({
+	open: false,
 	proxy: {
 		target: 'localhost:8000',
 		reqHeaders: function() {
