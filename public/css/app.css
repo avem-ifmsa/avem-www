@@ -13378,6 +13378,7 @@ a.text-gray-dark:hover {
   border-radius: 5px;
   display: inline-block;
   background-color: #5bc0de;
+  cursor: default;
 }
 
 .activity-actions {
