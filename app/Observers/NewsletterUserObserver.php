@@ -17,10 +17,9 @@ class NewsletterUserObserver
 	 */
 	public function created(User $user)
 	{
-		$job = new SubscribeUserToNewsletter($user);
-		dispatch($job->onQueue('newsletter'));
+		dispatch(new SubscribeUserToNewsletter($user));
 	}
-	
+
 	/**
 	 * Listen to the User updating event.
 	 *
@@ -32,8 +31,7 @@ class NewsletterUserObserver
 		if ($user->isDirty('email')) {
 			$newEmail = $user->email;
 			$oldEmail = $user->getOriginal('email');
-			$job = new UpdateUserNewsletterEmail($user, $oldEmail);
-			dispatch($job->onQueue('newsletter'));
+			dispatch(new UpdateUserNewsletterEmail($user, $oldEmail));
 		}
 	}
 
@@ -45,7 +43,6 @@ class NewsletterUserObserver
 	 */
 	public function deleting(User $user)
 	{
-		$job = new UnsubscribeUserFromNewsletter($user);
-		dispatch($job->onQueue('newsletter'));
+		dispatch(new UnsubscribeUserFromNewsletter($user));
 	}
 }

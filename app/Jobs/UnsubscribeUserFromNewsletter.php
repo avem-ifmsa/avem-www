@@ -2,6 +2,7 @@
 
 namespace Avem\Jobs;
 
+use Log;
 use Avem\User;
 use Newsletter;
 use Illuminate\Bus\Queueable;
@@ -14,6 +15,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 class UnsubscribeUserFromNewsletter implements ShouldQueue
 {
 	use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+	private $user;
 
 	/**
 	 * Create a new job instance.
@@ -30,9 +33,14 @@ class UnsubscribeUserFromNewsletter implements ShouldQueue
 	 *
 	 * @return void
 	 */
-	public function handle(Newsletter $newsletter)
+	public function handle()
 	{
-		if (!$newsletter->unsubscribe($this->user->email))
+		Log::info('Unsubscribing user #'.$this->user->id.' from newsletter');
+
+		if (!Newsletter::unsubscribe($this->user->email)) {
+			Log::error('Newsletter unsubscription failed for user #'.$this->user->id);
+
 			throw new NewsletterError($this->user->email);
+		}
 	}
 }

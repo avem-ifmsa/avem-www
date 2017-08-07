@@ -2,6 +2,7 @@
 
 namespace Avem\Jobs;
 
+use Log;
 use Avem\User;
 use Newsletter;
 use Illuminate\Bus\Queueable;
@@ -14,6 +15,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 class SubscribeUserToNewsletter implements ShouldQueue
 {
 	use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+	private $user;
 
 	/**
 	 * Create a new job instance.
@@ -30,15 +33,20 @@ class SubscribeUserToNewsletter implements ShouldQueue
 	 *
 	 * @return void
 	 */
-	public function handle(Newsletter $newsletter)
+	public function handle()
 	{
 		$userFields = [
-			'FNAME'  => $user->name,
-			'LNAME'  => $user->surname,
-			'NSOCIO' => $user->id,
+			'FNAME'  => $this->user->name,
+			'LNAME'  => $this->user->surname,
+			'NSOCIO' => $this->user->id,
 		];
-		
-		if (!$newsletter->subscribe($this->user->email, $userFields))
+
+		Log::info('Subscribing user #'.$this->user->id.' to newsletter');
+
+		if (!Newsletter::subscribe($this->user->email, $userFields)) {
+			Log:error('Newsletter subscription failed for user #'.$this->user->id);
+			
 			throw new NewsletterError($this->user->email);
+		}
 	}
 }

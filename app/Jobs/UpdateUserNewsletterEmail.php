@@ -2,6 +2,7 @@
 
 namespace Avem\Jobs;
 
+use Log;
 use Avem\User;
 use Newsletter;
 use Illuminate\Bus\Queueable;
@@ -14,6 +15,9 @@ use Illuminate\Foundation\Bus\Dispatchable;
 class UpdateUserNewsletterEmail implements ShouldQueue
 {
 	use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+	private $user;
+	private $oldEmail;
 
 	/**
 	 * Create a new job instance.
@@ -31,11 +35,16 @@ class UpdateUserNewsletterEmail implements ShouldQueue
 	 *
 	 * @return void
 	 */
-	public function handle(Newsletter $newsletter)
+	public function handle()
 	{
-		if ($newsletter->isSubscribed($this->oldEmail)) {
-			if (!$newsletter->updateEmailAddress($this->oldEmail, $this->user->email))
+		Log::info('Updating newsletter subscription for user #'.$this->user->id);
+
+		if (Newsletter::isSubscribed($this->oldEmail)) {
+			if (!Newsletter::updateEmailAddress($this->oldEmail, $this->user->email)) {
+				Log::error('Newsletter subscription update failed for user #'.$this->user->id);
+
 				throw new NewsletterError($this->oldEmail);
+			}
 		}
 	}
 }
