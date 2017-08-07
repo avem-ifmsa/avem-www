@@ -16,11 +16,6 @@ class ActivityController extends Controller
 {
 	use ManagesTagsTrait;
 
-	private function getCurrentChargePeriod(Request $request)
-	{
-		return $request->user()->chargePeriods()->active()->first();
-	}
-
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -146,6 +141,15 @@ class ActivityController extends Controller
 		});
 
 		return redirect()->route('admin.activities.index');
+	}
+
+	public function confirmDelete(Activity $activity)
+	{
+		$this->authorize('delete', $activity);
+
+		return view('admin.activities.delete', [
+			'activity' => $activity,
+		]);
 	}
 
 	/**

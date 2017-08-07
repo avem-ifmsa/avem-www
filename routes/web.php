@@ -60,7 +60,11 @@ Route::group([ 'as'         => 'admin.',
 
 	Route::resource('workingGroups', 'WorkingGroupController');
 
-	Route::resource('activities'   , 'ActivityController'    );
+	Route::resource('activities', 'ActivityController');
+	Route::get('activities/{activity}/delete', [
+		'as' => 'activities.delete', 'uses' => 'ActivityController@confirmDelete'
+	]);
+
 	Route::resource('exchanges'    , 'ExchangeController'    );
 	Route::resource('users'        , 'UserController'        );
 

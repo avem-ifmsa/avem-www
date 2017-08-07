@@ -14,6 +14,7 @@ require('./bootstrap');
 
 Vue.use(VueAsyncComputed);
 
+Vue.component('input-confirm', require('./components/InputConfirm.vue'));
 Vue.component('input-image'  , require('./components/InputImage.vue'  ));
 Vue.component('open-select'  , require('./components/OpenSelect.vue'  ));
 Vue.component('token-input'  , require('./components/TokenInput.vue'  ));
