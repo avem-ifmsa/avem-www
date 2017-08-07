@@ -27,7 +27,7 @@
 		</p>
 
 		<p class="mt-5 text-center">
-			<button class="btn btn-primary" type="submit">Iniciar sesión</button>
+			<button class="btn btn-primary" type="submit" role="button">Iniciar sesión</button>
 
 			<div class="mt-4 text-center">
 				<a class="mr-5" href="{{ route('register') }}">¿Todavía no eres socio?</a>
