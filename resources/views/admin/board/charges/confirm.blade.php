@@ -46,7 +46,7 @@
 								<label for="confirm-end" class="h6">Asignar cargo hasta&hellip;</label>
 								<select id="confirm-end" class="my-1 form-control" name="end" required>
 									<option value="{{ $upcomingPeriodEnd }}">Finalizar el año que viene</option>
-									<option value="{{ $currentPeriodEnd  }}">Finalizar el periodo actual</option>
+									<option value="{{ $currentPeriodEnd  }}">Finalizar con el periodo actual</option>
 								</select>
 							</p>
 						</div>

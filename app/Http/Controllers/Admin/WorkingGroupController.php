@@ -37,7 +37,7 @@ class WorkingGroupController extends Controller
 		if ($parentGroup = $request->input('parentGroup'))
 			Session::flash('_old_input.parent_group', $parentGroup);
 
-		return view('admin.workingGroups.create', [
+		return view('admin.board.workingGroups.create', [
 			'workingGroups' => $this->getWorkingGroups(),
 		]);
 	}
@@ -75,7 +75,7 @@ class WorkingGroupController extends Controller
 	{
 		$this->authorize('update', $workingGroup);
 
-		return view('admin.workingGroups.edit', [
+		return view('admin.board.workingGroups.edit', [
 			'workingGroup'  => $workingGroup,
 			'workingGroups' => $this->getWorkingGroups($workingGroup),
 		]);

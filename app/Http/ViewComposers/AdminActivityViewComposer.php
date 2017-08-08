@@ -45,7 +45,6 @@ class AdminActivityViewComposer
 	 */
 	public function compose(View $view)
 	{
-
 		if ($filter = $this->request->input('q')) {
 			$view->with('allActivities', Activity::search($filter)->get());
 			$view->with('q', $filter);

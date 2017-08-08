@@ -45,7 +45,7 @@ class ChargePeriodController extends Controller
 	 */
 	public function manage(Request $request, ChargePeriod $chargePeriod)
 	{
-		return view('admin.chargePeriods.manage', [
+		return view('admin.board.chargePeriods.manage', [
 			'chargePeriod' => $chargePeriod->load('user', 'charge'),
 		]);
 	}

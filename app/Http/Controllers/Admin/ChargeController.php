@@ -50,7 +50,7 @@ class ChargeController extends Controller
 		if ($chargeGroup = $request->input('workingGroup'))
 			Session::flash('_old_input.working_group', $chargeGroup);
 
-		return view('admin.charges.create', [
+		return view('admin.board.charges.create', [
 			'workingGroups' => $this->getWorkingGroups(),
 		]);
 	}
@@ -89,7 +89,7 @@ class ChargeController extends Controller
 	{
 		$this->authorize('update', $charge);
 
-		return view('admin.charges.edit', [
+		return view('admin.board.charges.edit', [
 			'charge'        => $charge,
 			'workingGroups' => $this->getWorkingGroups(),
 		]);
@@ -131,7 +131,7 @@ class ChargeController extends Controller
 	{
 		$this->authorize('create', ChargePeriod::class);
 
-		return view('admin.charges.assign', [
+		return view('admin.board.charges.assign', [
 			'charge' => $charge,
 		]);
 	}
@@ -152,7 +152,7 @@ class ChargeController extends Controller
 		$user = User::findOrFail($request->input('user'));
 		$upcomingPeriodEnd = $currentPeriodEnd->copy()->addYear();
 
-		return view('admin.charges.confirm', [
+		return view('admin.board.charges.confirm', [
 			'user'              => $user,
 			'charge'            => $charge,
 			'currentPeriodEnd'  => $currentPeriodEnd,
