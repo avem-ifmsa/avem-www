@@ -74,12 +74,12 @@ class ActivityTicketController extends Controller
 	 * Display the specified resource.
 	 *
 	 * @param  \Avem\Activity  $activity
-	 * @param  \Avem\ActivityTicket  $activityTicket
+	 * @param  \Avem\ActivityTicket  $ticket
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show(Activity $activity, ActivityTicket $ticketLot)
+	public function show(Activity $activity, ActivityTicket $ticket)
 	{
-		$this->authorize('view', $ticketLot);
+		$this->authorize('view', $ticket);
 
 		// ...
 	}
@@ -89,15 +89,15 @@ class ActivityTicketController extends Controller
 	 *
 	 * @param  \Illuminate\Http\Request  $request
 	 * @param  \Avem\Activity  $activity
-	 * @param  \Avem\ActivityTicket  $activityTicket
+	 * @param  \Avem\ActivityTicket  $ticket
 	 * @return \Illuminate\Http\Response
 	 */
-	public function expire(Request $request, Activity $activity, ActivityTicket $activityTicket)
+	public function expire(Request $request, Activity $activity, ActivityTicket $ticket)
 	{
-		$this->authorize('update', $activityTicket);
+		$this->authorize('update', $ticket);
 
 		$now = Carbon::now();
-		ActivityTicket::fromTicketLot($activityTicket)->update([
+		ActivityTicket::fromTicketLot($ticket)->update([
 			'expires_at' => $now, 'updated_at' => $now,
 		]);
 
