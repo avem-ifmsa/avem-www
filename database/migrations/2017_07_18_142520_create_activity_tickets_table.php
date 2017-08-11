@@ -15,8 +15,8 @@ class CreateActivityTicketsTable extends Migration
 	{
 		Schema::create('activity_tickets', function (Blueprint $table) {
 			$table->increments('id');
-			$table->string('code', 6)->unique();
 			$table->integer('activity_id')->unsigned();
+			$table->string('code', 6)->nullable()->unique();
 			$table->integer('charge_period_id')->unsigned();
 			$table->integer('performed_activity_id')->unsigned()->nullable();
 			$table->timestamp('expires_at');

@@ -30,6 +30,7 @@
 
 										@if ($activity->location !== null)
 											<span class="float-right">
+												<i class="fa fa-map-marker"></i>
 												{{ $activity->location }}
 											</span>
 										@endif
@@ -81,11 +82,9 @@
 							<div class="activity-header">
 								<h4 class="activity-name">{{ $activity->name }}</h4>
 								<span class="activity-extra">
-									@if ($activity->start !== null)
+									@if ($activity->start !== null && $activity->location !== null)
 										<i class="fa fa-calendar mr-1"></i>
 										{{ $activity->start->formatLocalized('%e de %B del %Y') }}
-									@endif
-									@if ($activity->location !== null)
 										en {{ $activity->location }}
 									@endif
 								</span>

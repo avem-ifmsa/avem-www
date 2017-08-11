@@ -61,11 +61,19 @@ Route::group([ 'as'         => 'admin.',
 	Route::resource('workingGroups', 'WorkingGroupController');
 
 	Route::resource('activities', 'ActivityController');
+
 	Route::get('activities/{activity}/delete', [
 		'as' => 'activities.delete', 'uses' => 'ActivityController@confirmDelete'
 	]);
 
-	Route::resource('exchanges'    , 'ExchangeController'    );
-	Route::resource('users'        , 'UserController'        );
+	Route::resource('activities.tickets', 'ActivityTicketController');
+	Route::resource('activities.assistants', 'ActivityAssistantController');
+
+	Route::post('activities/{activity}/tickets/{activityTicket}/expire', [
+		'as' => 'activities.tickets.expire', 'uses' => 'ActivityTicketController@expire'
+	]);
+
+	Route::resource('exchanges', 'ExchangeController');
+	Route::resource('users'    , 'UserController'    );
 
 });

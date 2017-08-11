@@ -27,7 +27,7 @@ class ActivityTicket extends Model
 		'created_at', 'updated_at', 'exchanged_at', 'expires_at',
 	];
 
-	public static function saving(ActivityTicket $activityTicket)
+	public static function saving($activityTicket)
 	{
 		parent::saving($activityTicket);
 
@@ -35,45 +35,24 @@ class ActivityTicket extends Model
 		$activityTicket->issuerPeriod()->associate($chargePeriod);
 	}
 
-	public static scopeExpired($expired = true, $query) {
+	public static function scopeExpired($query, $expired = true)
+	{
 		$query->whereDate('expires_at', $expired ? '<=' : '>', Carbon::now());
 	}
 
-	private static function generateRandomCode($length = 6)
+	public static function scopeExchanged($query, $exchanged = true)
 	{
-		$code = [];
-		$charset = 'abcdefghjkmnpqrstuvwxyz23456789';
-		$charsetLength = strlen($charset);
-		for ($i = 0; $i < $length; ++$i) {
-			$index = mt_rand(0, $charsetLength - 1);
-			$code[] = $charset[$index];
-		}
-		return implode('', $code);
+		$exchanged
+			? $query->whereNotNull('performed_activity_id')
+			: $query->where('performed_activity_id', null);
 	}
 
-	public static function generate(Activity $activity, $expiresAt, $count)
+	public static function scopeFromTicketLot($query, $ticketLot)
 	{
-		$newTickets = [];
-		$oldCodes = ActivityTicket::all()->pluck('code');
-		$chargePeriod = Auth::user()->currentChargePeriod;
-		for ($i = 0; $i < $count; ++$i) {
-			do {
-				$code = static::generateRandomCode();
-			} while (in_array($code, $oldCodes));
-			$ticket = new ActivityTicket([
-				'code' => $code, 'expires_at' => $expiresAt,
-			]);
-			$ticket->activity()->associate($activity);
-			$ticket->issuerPeriod()->associate($chargePeriod);
-			$newTickets[] = $ticket;
-		}
-		return $newTickets;
-	}
-
-	public static function ticketLots() {
-		static::query()->groupBy(
-			'activity_id', 'charge_period_id', 'created_at'
-		)->get();
+		$query->where('activity_id', $ticketLot->activity_id)
+		      ->where('charge_period_id', $ticketLot->charge_period_id)
+		      ->where('created_at', $ticketLot->created_at)
+		      ->where('expires_at', $ticketLot->expires_at);
 	}
 
 	public function activity()
@@ -81,9 +60,18 @@ class ActivityTicket extends Model
 		return $this->belongsTo('Avem\Activity');
 	}
 
+	public function lotTickets()
+	{
+		return $this->query()
+		            ->where('activity_id', $this->activity_id)
+		            ->where('charge_period_id', $this->charge_period_id)
+		            ->where('created_at', $this->created_at)
+		            ->where('expires_at', $this->expires_at);
+	}
+
 	public function getIsExpiredAttribute()
 	{
-		return Carbon::now()->ge($this->expires_at);
+		return Carbon::now()->gt($this->expires_at);
 	}
 
 	public function getExchangedAtAttribute()

@@ -5,6 +5,7 @@ namespace Avem;
 use Storage;
 use Avem\Role;
 use Avem\Activity;
+use Carbon\Carbon;
 use Laravel\Scout\Searchable;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -27,7 +28,7 @@ class User extends Authenticatable implements HasMediaConversions
 	protected $fillable = [
 		'name', 'surname', 'gender', 'birthday', 'email', 'password',
 	];
-	
+
 	/**
 	 * The attributes that should be included too.
 	 *
@@ -36,7 +37,7 @@ class User extends Authenticatable implements HasMediaConversions
 	protected $appends = [
 		'fullName', 'profileImageUrl',
 	];
-	
+
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
@@ -177,6 +178,13 @@ class User extends Authenticatable implements HasMediaConversions
 		$this->addMediaConversion('thumb')
 		     ->width(368)->height(232)
 		     ->sharpen(10);
+	}
+
+	public function setBirthdayAttribute($date)
+	{
+		$this->attributes['birthday'] = $date
+			? Carbon::createFromFormat('Y-m-d', $date)
+			: null;
 	}
 
 	public function setNameAttribute($firstName)

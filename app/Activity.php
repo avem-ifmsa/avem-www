@@ -39,6 +39,13 @@ class Activity extends Model implements HasMediaConversions
 		return $this->hasMany('Avem\ActivityTicket');
 	}
 
+	public function ticketLots()
+	{
+		return $this->activityTickets()->groupBy(
+			'charge_period_id', 'activity_id', 'created_at', 'expires_at'
+		);
+	}
+
 	public function getImageAttribute()
 	{
 		return $this->getMedia('images')->first();
