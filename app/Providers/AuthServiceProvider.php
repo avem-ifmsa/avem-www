@@ -15,11 +15,11 @@ class AuthServiceProvider extends ServiceProvider
 	 */
 	protected $policies = [
 		'Avem\Activity' => 'Avem\Policies\ActivityPolicy',
-		'Avem\ActivityTicket' => 'Avem\Policies\ActivityTicket',
+		'Avem\ActivityTicket' => 'Avem\Policies\ActivityTicketPolicy',
 		'Avem\Charge' => 'Avem\Policies\ChargePolicy',
 		'Avem\ChargePeriod' => 'Avem\Policies\ChargePeriodPolicy',
 		'Avem\Exchange' => 'Avem\Policies\ExchangePolicy',
-		'Avem\PerformedActivity' => 'Avem\Policies\PerformedActivity',
+		'Avem\PerformedActivity' => 'Avem\Policies\PerformedActivityPolicy',
 		'Avem\Renewal' => 'Avem\Policies\RenewalPolicy',
 		'Avem\User' => 'Avem\Policies\UserPolicy',
 		'Avem\WorkingGroup' => 'Avem\Policies\WorkingGroupPolicy',
