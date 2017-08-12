@@ -66,7 +66,7 @@
 	@else
 
 		<div class="my-3 text-center">
-			Todavía no hay ningún usuario inscrito a esta actividad.
+			Todavía no hay ningún usuario inscrito en esta actividad.
 		</div>
 
 	@endunless

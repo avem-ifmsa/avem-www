@@ -71,7 +71,7 @@ class Activity extends Model implements HasMediaConversions
 	{
 		switch ($this->inscription_policy) {
 			case 'inscribed':
-				return $this->selfInscribedUsers();
+				return $this->selfInscribedUsers;
 
 			case 'board':
 				return User::hydrate($this->query()->crossJoin('charge_periods')
