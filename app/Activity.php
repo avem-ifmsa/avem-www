@@ -51,6 +51,14 @@ class Activity extends Model implements HasMediaConversions
 		return $this->getMedia('images')->first();
 	}
 
+	public function getImageUrlAttribute()
+	{
+		$image = $this->image;
+		if (!$image)
+			return asset('img/activity-default-image.svg');
+		return $image->getUrl();
+	}
+
 	public function getIsReadyToPublishAttribute()
 	{
 		return $this->name !== null

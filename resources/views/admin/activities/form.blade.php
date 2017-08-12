@@ -6,7 +6,7 @@
 	<div class="col-md-5 mb-2">
 		<div class="h-100">
 			<input type="file" is="input-image" name="image" placeholder="{{
-				isset($activity) ? $activity->image->getUrl() : ''
+				isset($activity) ? $activity->imageUrl : asset('img/activity-default-image.svg')
 			}}">
 		</div>
 	</div>

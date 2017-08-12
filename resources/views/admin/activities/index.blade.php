@@ -11,8 +11,7 @@
 				@foreach ($organizedActivities as $activity)
 					<li class="gallery-item card">
 						<a class="gallery-item-link" href="{{ route('admin.activities.show', [$activity]) }}">
-							<img class="gallery-item-top card-img-top"
-							     src="{{ $activity->getFirstMediaUrl('images') }}">
+							<img class="gallery-item-top card-img-top" src="{{ $activity->imageUrl }}">
 
 							<div class="gallery-item-content card-block">
 								<div class="gallery-header card-title">
@@ -77,7 +76,7 @@
 			<ul class="activity-entries">
 				@foreach ($allActivities as $activity)
 					<li class="activity-entry">
-						<img class="activity-image" src="{{ $activity->image->getUrl() }}">
+						<img class="activity-image" src="{{ $activity->imageUrl }}">
 						<div class="activity-info">
 							<div class="activity-header">
 								<h4 class="activity-name">{{ $activity->name }}</h4>

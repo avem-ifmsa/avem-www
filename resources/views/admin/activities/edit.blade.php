@@ -6,7 +6,7 @@
 
 		function isActivityReadyToPublish()
 		{
-			const activityHasImage = {{ $activity->image !== null }};
+			const activityHasImage = {{ $activity->image ? 'true' : 'false' }};
 			return editActivityForm[0].checkValidity()
 			    && (activityHasImage || $('input[name=image]').val() !== '');
 		}
