@@ -25,13 +25,17 @@
 					</td>
 					<td>
 						@if (!$ticketLot->isExpired)
-							<a target="_blank" class="my-1 btn btn-sm btn-block btn-secondary" role="button"
+							<a target="_blank" role="button" class="my-1 btn btn-sm btn-block btn-secondary{{
+								Gate::denies('view', $lotTickets->first()) ? ' disabled' : ''
+							}}"
 							   href="{{ route('admin.activities.tickets.show', [$activity, $lotTickets->first()]) }}">
 								Imprimir
 							</a>
 							<form action="{{ route('admin.activities.tickets.expire', [$activity, $lotTickets->first()]) }}" method="post">
 								{{ csrf_field() }}
-								<button type="submit" class="btn btn-sm btn-block btn-danger" role="button">Expirar</button>
+								<button type="submit" role="button" class="btn btn-sm btn-block btn-danger{{
+									Gate::denies('update', $lotTickets->first()) ? ' disabled' : ''
+								}}">Expirar</button>
 							</form>
 						@endif
 					</td>
@@ -46,7 +50,9 @@
 		</tbody>
 	</table>
 
-	<a class="btn btn-secondary btn-block" href="{{ route('admin.activities.tickets.create', [$activity]) }}">
+	<a href="{{ route('admin.activities.tickets.create', [$activity]) }}" role="button" class="btn btn-secondary btn-block{{
+		Gate::denies('update', $activity) ? ' disabled' : ''
+	}}">
 		Generar tickets
 	</a>
 @endsection

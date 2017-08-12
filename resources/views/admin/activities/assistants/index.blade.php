@@ -33,7 +33,9 @@
 								<form action="{{ route('admin.activities.assistants.witness', [$activity, $user]) }}" method="post">
 									{{ csrf_field() }}
 									<input type="hidden" name="performed" value="1">
-									<button type="submit" class="btn btn-sm btn-block btn-primary" role="button">
+									<button type="submit" role="button" class="btn btn-sm btn-block btn-primary{{
+										Gate::denies('update', $activity) ? ' disabled' : ''
+									}}">
 										Registrar
 									</button>
 								</form>
@@ -41,7 +43,9 @@
 								<form action="{{ route('admin.activities.assistants.witness', [$activity, $user]) }}" method="post">
 									{{ csrf_field() }}
 									<input type="hidden" name="performed" value="0">
-									<button type="submit" class="btn btn-sm btn-block btn-primary btn-danger" role="button">
+									<button type="submit" role="button" class="btn btn-sm btn-block btn-primary btn-danger{{
+										Gate::denies('update', $activity) ? ' disabled' : ''
+									}}">
 										Anular
 									</button>
 								</form>
