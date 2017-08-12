@@ -41,9 +41,9 @@ class Activity extends Model implements HasMediaConversions
 
 	public function ticketLots()
 	{
-		return $this->activityTickets()->groupBy(
-			'charge_period_id', 'activity_id', 'created_at', 'expires_at'
-		);
+		return $this->activityTickets()
+		            ->select('charge_period_id', 'activity_id', 'created_at', 'expires_at')
+		            ->groupBy('charge_period_id', 'activity_id', 'created_at', 'expires_at');
 	}
 
 	public function getImageAttribute()

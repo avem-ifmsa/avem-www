@@ -14,21 +14,22 @@
 
 		<tbody>
 			@forelse ($activity->ticketLots->sortBy('isExpired') as $ticketLot)
+				<?php $lotTickets = Avem\ActivityTicket::fromTicketLot($ticketLot)->get() ?>
 				<tr class="{{ $ticketLot->isExpired ? 'table-danger' : '' }}">
 					<td>{{ $ticketLot->issuerPeriod->user->fullName }}</td>
 					<td>{{ $ticketLot->created_at->diffForHumans()  }}</td>
 					<td>{{ $ticketLot->expires_at->diffForHumans()  }}</td>
 					<td>
-						{{ Avem\ActivityTicket::fromTicketLot($ticketLot)->exchanged()->count() }}
-						/ {{ Avem\ActivityTicket::fromTicketLot($ticketLot)->count() }}
+						{{ $lotTickets->where('isExpired', true)->count() }}
+						/ {{ $lotTickets->count() }}
 					</td>
 					<td>
 						@if (!$ticketLot->isExpired)
 							<a target="_blank" class="my-1 btn btn-sm btn-block btn-secondary" role="button"
-							   href="{{ route('admin.activities.tickets.show', [$activity, $ticketLot]) }}">
+							   href="{{ route('admin.activities.tickets.show', [$activity, $lotTickets->first()]) }}">
 								Imprimir
 							</a>
-							<form action="{{ route('admin.activities.tickets.expire', [$activity, $ticketLot]) }}" method="post">
+							<form action="{{ route('admin.activities.tickets.expire', [$activity, $lotTickets->first()]) }}" method="post">
 								{{ csrf_field() }}
 								<button type="submit" class="btn btn-sm btn-block btn-danger" role="button">Expirar</button>
 							</form>
