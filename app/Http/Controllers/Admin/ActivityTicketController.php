@@ -2,6 +2,7 @@
 
 namespace Avem\Http\Controllers\Admin;
 
+use PDF;
 use Carbon\Carbon;
 use Avem\Activity;
 use Avem\ActivityTicket;
@@ -81,7 +82,12 @@ class ActivityTicketController extends Controller
 	{
 		$this->authorize('view', $ticket);
 
-		// ...
+		$pdf = PDF::loadView('pdf.tickets', [
+			'activity' => $activity,
+			'activityTickets' => ActivityTicket::fromTicketLot($ticket)->get(),
+		]);
+
+		return $pdf->stream($activity->name.' - Tickets.pdf');
 	}
 
 	/**

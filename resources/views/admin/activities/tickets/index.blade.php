@@ -19,12 +19,12 @@
 					<td>{{ $ticketLot->created_at->diffForHumans()  }}</td>
 					<td>{{ $ticketLot->expires_at->diffForHumans()  }}</td>
 					<td>
-						{{ $ticketLot->lotTickets()->exchanged()->count() }} /
-						{{ $ticketLot->lotTickets()->count() }}
+						{{ Avem\ActivityTicket::fromTicketLot($ticketLot)->exchanged()->count() }}
+						/ {{ Avem\ActivityTicket::fromTicketLot($ticketLot)->count() }}
 					</td>
 					<td>
 						@if (!$ticketLot->isExpired)
-							<a class="my-1 btn btn-sm btn-block btn-secondary" role="button"
+							<a target="_blank" class="my-1 btn btn-sm btn-block btn-secondary" role="button"
 							   href="{{ route('admin.activities.tickets.show', [$activity, $ticketLot]) }}">
 								Imprimir
 							</a>

@@ -60,15 +60,6 @@ class ActivityTicket extends Model
 		return $this->belongsTo('Avem\Activity');
 	}
 
-	public function lotTickets()
-	{
-		return $this->query()
-		            ->where('activity_id', $this->activity_id)
-		            ->where('charge_period_id', $this->charge_period_id)
-		            ->where('created_at', $this->created_at)
-		            ->where('expires_at', $this->expires_at);
-	}
-
 	public function getIsExpiredAttribute()
 	{
 		return Carbon::now()->gt($this->expires_at);

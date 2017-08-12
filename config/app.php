@@ -174,6 +174,7 @@ return [
 		Laravel\Scout\ScoutServiceProvider::class,
 		Laravel\Passport\PassportServiceProvider::class,
 		Spatie\Newsletter\NewsletterServiceProvider::class,
+		Barryvdh\Snappy\ServiceProvider::class,
 
 		/*
 		 * Application Service Providers...
@@ -223,6 +224,7 @@ return [
 		'Newsletter' => Spatie\Newsletter\NewsletterFacade::class,
 		'Notification' => Illuminate\Support\Facades\Notification::class,
 		'Password' => Illuminate\Support\Facades\Password::class,
+		'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
 		'Queue' => Illuminate\Support\Facades\Queue::class,
 		'Redirect' => Illuminate\Support\Facades\Redirect::class,
 		'Redis' => Illuminate\Support\Facades\Redis::class,

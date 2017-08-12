@@ -69,7 +69,7 @@ Route::group([ 'as'         => 'admin.',
 	Route::resource('activities.tickets', 'ActivityTicketController');
 	Route::resource('activities.assistants', 'ActivityAssistantController');
 
-	Route::post('activities/{activity}/tickets/{activityTicket}/expire', [
+	Route::post('activities/{activity}/tickets/{ticket}/expire', [
 		'as' => 'activities.tickets.expire', 'uses' => 'ActivityTicketController@expire'
 	]);
 

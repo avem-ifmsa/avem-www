@@ -36,7 +36,7 @@ class GenerateActivityTickets implements ShouldQueue
 		$this->count = $count;
 	}
 
-	private function generateRandomCode($length = 6)
+	private function generateRandomCode($length = 8)
 	{
 		$code = [];
 		$charset = 'abcdefghjkmnpqrstuvwxyz23456789';
