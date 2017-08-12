@@ -98,22 +98,37 @@
 						</div>
 
 						<div class="activity-actions">
-							<div class="btn-group">
-								<a class="btn btn-secondary{{ Gate::denies('view', $activity) ? ' disabled' : '' }}"
-								   role="button" href="{{ route('admin.activities.show', [$activity]) }}">
-									<i class="fa fa-cog"></i><span class="ml-1">Administrar</span>
-								</a>
+							<form action="{{ route('admin.activities.publish', [$activity]) }}" method="post">
+								{{ csrf_field() }}
+								<div class="btn-group">
+									<a class="btn btn-secondary{{ Gate::denies('view', $activity) ? ' disabled' : '' }}"
+									   role="button" href="{{ route('admin.activities.show', [$activity]) }}">
+										<i class="fa fa-cog"></i><span class="ml-1">Administrar</span>
+									</a>
 
-								<a class="btn btn-secondary{{ Gate::denies('update', $activity) ? ' disabled' : '' }}"
-								   role="button" href="{{ route('admin.activities.edit', [$activity]) }}">
-									<i class="fa fa-pencil"></i><span class="ml-1">Editar</span>
-								</a>
+									<a class="btn btn-secondary{{ Gate::denies('update', $activity) ? ' disabled' : '' }}"
+									   role="button" href="{{ route('admin.activities.edit', [$activity]) }}">
+										<i class="fa fa-pencil"></i><span class="ml-1">Editar</span>
+									</a>
 
-								<a class="btn btn-danger{{ Gate::denies('delete', $activity) ? ' disabled' : '' }}"
-								   role="button" href="{{ route('admin.activities.delete', [$activity]) }}">
-									<i class="fa fa-times"></i><span class="ml-1">Eliminar</span>
-								</a>
+									@unless ($activity->published)
+										<input type="hidden" name="published" value="1">
+										<button role="button" type="submit" class="btn btn-primary">
+											<i class="fa fa-eye mr-1"></i>Publicar
+										</button>
+									@else
+										<input type="hidden" name="published" value="0">
+										<button role="button" type="submit" class="btn btn-secondary">
+											<i class="fa fa-eye-slash mr-1"></i>Despublicar
+										</button>
+									@endunless
+
+									<a class="btn btn-danger{{ Gate::denies('delete', $activity) ? ' disabled' : '' }}"
+									   role="button" href="{{ route('admin.activities.delete', [$activity]) }}">
+										<i class="fa fa-times"></i><span class="ml-1">Eliminar</span>
+									</a>
 							</div>
+						</form>
 						</div>
 					</li>
 				@endforeach

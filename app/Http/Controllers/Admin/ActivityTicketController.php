@@ -91,6 +91,24 @@ class ActivityTicketController extends Controller
 	}
 
 	/**
+	 * Shows expire tickets confirm dialog.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \Avem\Activity  $activity
+	 * @param  \Avem\ActivityTicket  $ticket
+	 * @return \Illuminate\Http\Response
+	 */
+	public function confirmExpire(Request $request, Activity $activity, ActivityTicket $ticket)
+	{
+		$this->authorize('update', $ticket);
+
+		return view('admin.activities.tickets.expire', [
+			'activity'        => $activity,
+			'activityTickets' => ActivityTicket::fromTicketLot($ticket)->get(),
+		]);
+	}
+
+	/**
 	 * Expires an activity ticket lot.
 	 *
 	 * @param  \Illuminate\Http\Request  $request

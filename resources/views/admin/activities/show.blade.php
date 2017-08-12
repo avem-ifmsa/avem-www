@@ -1,66 +1,68 @@
-@extends('admin.activities.index')
+@extends('admin.activities.modal')
 
-@push('scripts')
-	<script>
-		$(function() {
-			$('#show-modal').modal();
-		});
-	</script>
-@endpush
-
-@section('content')
-	@parent
-
-	<div id="show-modal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
-		<div class="modal-dialog modal-lg" role="document">
-			<div class="modal-content">
-				<header class="modal-header">
-					<h5 class="modal-title">{{ $activity->name }}</h5>
-					<a role="button" class="close" href="{{ route('admin.activities.index') }}" aria-label="Cerrar">
-						<span aria-hidden="true">&times;</span>
-					</a>
-				</header>
-
-				<div class="modal-body">
-					<div class="container-fluid">
-						<ul class="nav nav-tabs">
-							<li class="nav-item">
-								<a class="nav-link{{
-									Route::currentRouteName() === 'admin.activities.show' ? ' active' : ''
-								}}" href="{{ route('admin.activities.show', [$activity]) }}">
-									Información de la actividad
-								</a>
-							</li>
-
-							<li class="nav-item">
-								<a class="nav-link{{
-									Route::currentRouteName() === 'admin.activities.assistants.index' ? ' active' : ''
-								}}" href="{{ route('admin.activities.assistants.index', [$activity]) }}">
-									Asistentes
-								</a>
-							</li>
-
-							<li class="nav-item">
-								<a class="nav-link{{
-									Route::currentRouteName() === 'admin.activities.tickets.index' ? ' active' : ''
-								}}" href="{{ route('admin.activities.tickets.index', [$activity]) }}">
-									Tickets
-								</a>
-							</li>
-						</ul>
-
-						<div>
-							@section('modal-content')
-
-							@stop
-
-							@yield('modal-content')
-						</div>
-					</div>
-				</div>
-
-				@yield('modal-footer')
+@section('modal-content')
+	<div class="container-fluid">
+		<div class="mx-3 mt-4 row">
+			<div class="col-md-6">
+				<img class="w-100" src="{{ $activity->imageUrl }}">
 			</div>
+
+			<dl class="col-md-6">
+				<dt>Nombre</dt>
+				<dd>{{ $activity->name }}</dd>
+
+				<dt>Lugar</dt>
+				<dd>
+					<i class="fa fa-map-marker mr-1"></i>
+					@if ($activity->location !== null)
+						{{ $activity->location }}
+					@else
+						No asignado
+					@endif
+				</dd>
+
+				<dt>Inicio de la actividad</dt>
+				<dd>
+					<i class="fa fa-calendar mr-1"></i>
+					@if ($activity->start !== null)
+						{{ $activity->start->formatLocalized('%d de %B del %Y a las %H:%M') }}
+					@else
+						No asignado
+					@endif
+				</dd>
+
+				<dt>Fin de la actividad</dt>
+				<dd>
+					<i class="fa fa-calendar mr-1"></i>
+					@if ($activity->end !== null)
+						{{ $activity->end->formatLocalized('%d de %B del %Y a las %H:%M') }}
+					@else
+						No asignado
+					@endif
+				</dd>
+			</dl>
 		</div>
 	</div>
+@stop
+
+@section('modal-footer')
+	<a role="button" href="{{ route('admin.activities.index') }}" class="btn btn-secondary">Cancelar</a>
+
+	<form action="{{ route('admin.activities.publish', [$activity]) }}" method="post">
+		{{ csrf_field() }}
+		@unless ($activity->published)
+			<input type="hidden" name="published" value="1">
+			<button role="button" type="submit" class="btn btn-secondary">Publicar</button>
+		@else
+			<input type="hidden" name="published" value="0">
+			<button role="button" type="submit" class="btn btn-secondary">Despublicar</button>
+		@endunless
+	</form>
+
+	<a role="button" href="{{ route('admin.activities.edit', [$activity]) }}" class="btn btn-primary{{
+		Gate::denies('update', $activity) ? ' disabled' : ''
+	}}" >Editar</a>
+	<a role="button" href="{{ route('admin.activities.delete', [$activity]) }}" class="btn btn-danger{{
+		Gate::denies('delete', $activity) ? ' disabled' : ''
+	}}">Eliminar</a>
 @stop

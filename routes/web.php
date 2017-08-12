@@ -62,11 +62,19 @@ Route::group([ 'as'         => 'admin.',
 
 	Route::resource('activities', 'ActivityController');
 
+	Route::post('activities/{activity}/publish', [
+		'as' => 'activities.publish', 'uses' => 'ActivityController@publish',
+	]);
+
 	Route::get('activities/{activity}/delete', [
 		'as' => 'activities.delete', 'uses' => 'ActivityController@confirmDelete'
 	]);
 
 	Route::resource('activities.tickets', 'ActivityTicketController');
+
+	Route::get('activities/{activity}/tickets/{ticket}/expire', [
+		'as' => 'activities.tickets.expire', 'uses' => 'ActivityTicketController@confirmExpire',
+	]);
 
 	Route::post('activities/{activity}/tickets/{ticket}/expire', [
 		'as' => 'activities.tickets.expire', 'uses' => 'ActivityTicketController@expire'

@@ -1,4 +1,4 @@
-@extends('admin.activities.show')
+@extends('admin.activities.modal')
 
 @section('modal-content')
 	@unless ($activity->inscribedUsers()->isEmpty())

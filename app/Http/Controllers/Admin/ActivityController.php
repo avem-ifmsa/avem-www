@@ -143,6 +143,17 @@ class ActivityController extends Controller
 		return redirect()->route('admin.activities.index');
 	}
 
+	public function publish(Request $request, Activity $activity)
+	{
+		$this->authorize('update', $activity);
+
+		$activity->update([
+			'published' => $request->input('published', false)
+		]);
+
+		return redirect()->route('admin.activities.index');
+	}
+
 	public function confirmDelete(Activity $activity)
 	{
 		$this->authorize('delete', $activity);

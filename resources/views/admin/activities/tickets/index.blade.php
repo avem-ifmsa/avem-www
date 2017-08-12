@@ -1,4 +1,4 @@
-@extends('admin.activities.show')
+@extends('admin.activities.modal')
 
 @section('modal-content')
 	<table class="table">
@@ -20,7 +20,7 @@
 					<td>{{ $ticketLot->created_at->diffForHumans()  }}</td>
 					<td>{{ $ticketLot->expires_at->diffForHumans()  }}</td>
 					<td>
-						{{ $lotTickets->where('isExpired', true)->count() }}
+						{{ $lotTickets->where('performed_activity_id', '!=', null)->count() }}
 						/ {{ $lotTickets->count() }}
 					</td>
 					<td>
@@ -31,12 +31,9 @@
 							   href="{{ route('admin.activities.tickets.show', [$activity, $lotTickets->first()]) }}">
 								Imprimir
 							</a>
-							<form action="{{ route('admin.activities.tickets.expire', [$activity, $lotTickets->first()]) }}" method="post">
-								{{ csrf_field() }}
-								<button type="submit" role="button" class="btn btn-sm btn-block btn-danger{{
-									Gate::denies('update', $lotTickets->first()) ? ' disabled' : ''
-								}}">Expirar</button>
-							</form>
+							<a role="button" href="{{ route('admin.activities.tickets.expire', [$activity, $lotTickets->first()]) }}" class="btn btn-sm btn-block btn-danger{{
+								Gate::denies('update', $lotTickets->first()) ? ' disabled' : ''
+							}}">Expirar</a>
 						@endif
 					</td>
 				</tr>
