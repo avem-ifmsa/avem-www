@@ -63,7 +63,7 @@
 								</div>
 							@endif
 
-							@include('admin.activities.form', compact('activity', 'mbMemberPeriods', 'organizers'))
+							@include('admin.activities.form', compact('activity', 'organizerPeriods', 'chargePeriods'))
 						</div>
 					</div>
 

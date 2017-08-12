@@ -55,7 +55,7 @@
 								Acuérdate de completar los campos que faltan antes de publicarla.
 							</div>
 
-							@include('admin.activities.form', compact('mbMemberPeriods', 'organizers'))
+							@include('admin.activities.form', compact('chargePeriods', 'organizerPeriods'))
 						</div>
 					</div>
 
