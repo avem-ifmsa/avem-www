@@ -129,13 +129,13 @@
 		<label for="form-inscription-policy">Modalidad de inscripción</label>
 		<select id="form-inscripcion-policy" class="form-control" name="inscription_policy">
 			<option value="inscribed" {{
-				(old('inscription_policy', isset($activity) ? $activity->inscriptionPolicy : '') == 'inscribed') ? 'selected' : ''
+				(old('inscription_policy', isset($activity) ? $activity->inscription_policy : '') == 'inscribed') ? 'selected' : ''
 			}}>Predeterminada</option>
 			<option value="all"       {{
-				(old('inscription_policy', isset($activity) ? $activity->inscriptionPolicy : '') == 'all'      ) ? 'selected' : ''
+				(old('inscription_policy', isset($activity) ? $activity->inscription_policy : '') == 'all'      ) ? 'selected' : ''
 			}}>Inscribir automáticamente a todos los socios</option>
 			<option value="board"     {{
-				(old('inscription_policy', isset($activity) ? $activity->inscriptionPolicy : '') == 'board'    ) ? 'selected' : ''
+				(old('inscription_policy', isset($activity) ? $activity->inscription_policy : '') == 'board'    ) ? 'selected' : ''
 			}}>Inscribir automáticamente a los miembros de junta</option>
 		</select>
 		@if ($errors->has('inscription_policy'))

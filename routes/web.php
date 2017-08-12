@@ -67,10 +67,17 @@ Route::group([ 'as'         => 'admin.',
 	]);
 
 	Route::resource('activities.tickets', 'ActivityTicketController');
-	Route::resource('activities.assistants', 'ActivityAssistantController');
 
 	Route::post('activities/{activity}/tickets/{ticket}/expire', [
 		'as' => 'activities.tickets.expire', 'uses' => 'ActivityTicketController@expire'
+	]);
+
+	Route::get('activities/{activity}/assistants', [
+		'as' => 'activities.assistants.index', 'uses' => 'ActivityAssistantController@index',
+	]);
+
+	Route::post('activities/{activity}/assistants/{user}/witness', [
+		'as' => 'activities.assistants.witness', 'uses' => 'ActivityAssistantController@witness',
 	]);
 
 	Route::resource('exchanges', 'ExchangeController');

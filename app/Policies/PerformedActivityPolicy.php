@@ -13,7 +13,7 @@ class PerformedActivityPolicy
 
 	private function isActivityOrganizer(Activity $activity, User $user)
 	{
-		return $activity->organizerPeriods()->where('user_id', $user->id)->exists();
+		return $activity->organizerPeriods->contains('user_id', $user->id);
 	}
 
 	/**

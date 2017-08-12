@@ -7,12 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class PerformedActivity extends Model
 {
-	public static function saving(PerformedActivity $performedActivity)
+	public static function boot()
 	{
-		parent::saving($performedActivity);
+		parent::boot();
 
-		$chargePeriod = Auth::user()->currentChargePeriod;
-		$performedActivity->witnessPeriod()->associate($chargePeriod);
+		static::saving(function($performedActivity) {
+			$chargePeriod = Auth::user()->currentChargePeriod;
+			$performedActivity->witnessPeriod()->associate($chargePeriod);
+		});
 	}
 
 	public function activity()

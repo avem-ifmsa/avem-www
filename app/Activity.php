@@ -2,6 +2,7 @@
 
 namespace Avem;
 
+use DB;
 use Carbon\Carbon;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
@@ -68,27 +69,25 @@ class Activity extends Model implements HasMediaConversions
 
 	public function inscribedUsers()
 	{
-		switch ($this->inscriptionPolicy) {
+		switch ($this->inscription_policy) {
 			case 'inscribed':
 				return $this->selfInscribedUsers();
 
 			case 'board':
-				return $this->query()->crossJoin('charge_periods')
-					->select('users.*', 'activities.id as pivot_activity_id', 'users.id as pivot_user_id')
+				return User::hydrate($this->query()->crossJoin('charge_periods')
 					->join('users', 'users.id', '=', 'charge_periods.user_id')
+					->select('users.*', 'activities.id as pivot_activity_id', 'users.id as pivot_user_id')
 					->where('activities.id', $this->id)
-					->where(function($query) {
-						$query->whereBetween('charge_periods.start', ['activities.start', 'activities.end'])
-						      ->orWhereBetween('charge_periods.end', ['activities.start', 'activities.end'])
-						      ->orWhereBetween('activities.start', ['charge_periods.start', 'charge_periods.end'])
-						      ->orWhereBetween('activities.end', ['charge_periods.start', 'charge_periods.end']);
-					});
+					->whereRaw('"activities"."start" BETWEEN "charge_periods"."start" AND "charge_periods"."end"')
+					->orWhereRaw('"activities"."end" BETWEEN "charge_periods"."start" AND "charge_periods"."end"')
+					->get()->toArray());
 
 			case 'all':
-				$this->query()->crossJoin('users')
+				return User::hydrate($this->query()->crossJoin('users')
 					->select('users.*', 'activities.id as pivot_activity_id', 'users.id as pivot_user_id')
 					->whereDate('users.created_at', '<', 'activities.end')
-					->where('activities.id', $this->id);
+					->where('activities.id', $this->id)
+					->get()->toArray());
 		}
 	}
 

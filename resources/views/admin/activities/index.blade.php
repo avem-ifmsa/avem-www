@@ -61,7 +61,7 @@
 	<section class="my-4">
 		<h2>Todas las actividades</h2>
 
-		<form class="w-100 mx-auto mt-4 input-group">
+		<form class="w-100 mt-4 input-group">
 			<input class="form-control" type="search" name="q"
 			       value="{{ old('q', isset($q) ? $q : '') }}"
 			       placeholder="Día Mundial de la Salud">
