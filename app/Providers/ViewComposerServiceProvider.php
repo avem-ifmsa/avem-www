@@ -14,6 +14,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 	 */
 	public function boot()
 	{
+		View::composer('admin.users.index', 'Avem\Http\ViewComposers\AdminUsersViewComposer');
 		View::composer('admin.board.index', 'Avem\Http\ViewComposers\AdminBoardViewComposer');
 		View::composer('admin.activities.index', 'Avem\Http\ViewComposers\AdminActivityViewComposer');
 	}

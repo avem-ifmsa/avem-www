@@ -88,7 +88,16 @@ Route::group([ 'as'         => 'admin.',
 		'as' => 'activities.assistants.witness', 'uses' => 'ActivityAssistantController@witness',
 	]);
 
+	Route::resource('users', 'UserController');
+
+	Route::post('users/{user}/renew', [
+		'as' => 'users.renew', 'uses' => 'UserController@renew',
+	]);
+
+	Route::get('users/{user}/delete', [
+		'as' => 'users.delete', 'uses' => 'UserController@confirmDelete',
+	]);
+
 	Route::resource('exchanges', 'ExchangeController');
-	Route::resource('users'    , 'UserController'    );
 
 });

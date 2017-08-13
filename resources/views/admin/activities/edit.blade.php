@@ -69,10 +69,20 @@
 
 					<div class="modal-footer">
 						<a class="btn btn-secondary" role="button" href="{{ route('admin.activities.index') }}">Cancelar</a>
-						<button id="edit-publish-unpublish-btn" type="submit" class="btn btn-secondary"
-						        role="button" onclick="toggleActivityDraftStatus()">
-							{{ $activity->published ? 'Despublicar' : 'Publicar' }}
-						</button>
+						@if ($activity->published)
+							<form action="{{ route('admin.activities.publish', [$activity]) }}" method="post">
+								{{ csrf_field() }}
+								<input type="hidden" name="published" value="0">
+								<button type="submit" role="button" class="btn btn-secondary" onclick="toggleActivityDraftStatus()">
+									Despublicar
+								</button>
+							</form>
+						@else
+							<button id="edit-publish-unpublish-btn" type="submit" class="btn btn-secondary"
+							        role="button" onclick="toggleActivityDraftStatus()">
+								{{ $activity->published ? 'Despublicar' : 'Guardar y publicar' }}
+							</button>
+						@endif
 						<button type="submit" class="btn btn-primary" role="button">Guardar</button>
 					</div>
 				</form>

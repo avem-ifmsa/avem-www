@@ -16,8 +16,8 @@
 				</a>
 			</li>
 
-			<li class="dashboard-item">
-				<a href="{{ route('admin.exchanges.index') }}">
+			<li class="dashboard-item dashboard-item--disabled">
+				<a href="#">
 					<div class="item-icon">
 						<span class="fa fa-globe"></span>
 					</div>
@@ -52,7 +52,7 @@
 				</a>
 			</li>
 
-			<li class="dashboard-item item--disabled">
+			<li class="dashboard-item dashboard-item--disabled">
 				<a href="#">
 					<div class="item-icon">
 						<span class="fa fa-pie-chart"></span>

@@ -2,7 +2,7 @@
                            {{ isset($value)    ? ":value=$value"     : '' }}
                            {{ isset($onchange) ? "@change=$onchange" : '' }}>
 	<template scope="data">
-		<div v-if="data.user" class="user-entry">
+		<div v-if="data.user" class="user-result">
 			<img class="user-image" :src="data.user.profileImageUrl">
 			<span class="user-info">
 				<span class="user-name">@{{ data.user.fullName }}</span>

@@ -1,5 +1,7 @@
 .profile-photo {
-	@include media-breakpoint-down('sm') {
+	border-radius: 50%;
+
+	@include media-breakpoint-down('md') {
 		width: 140px;
 		height: 140px;
 		font-size: 0.8em;

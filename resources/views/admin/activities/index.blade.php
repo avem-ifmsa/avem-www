@@ -73,13 +73,22 @@
 		</form>
 
 		<div class="mt-1 activity-index">
-			<ul class="activity-entries">
+			<ul class="activity-items">
 				@foreach ($allActivities as $activity)
-					<li class="activity-entry">
+					<li class="activity-item">
 						<img class="activity-image" src="{{ $activity->imageUrl }}">
 						<div class="activity-info">
 							<div class="activity-header">
-								<h4 class="activity-name">{{ $activity->name }}</h4>
+								<h4 class="activity-name">
+									{{ $activity->name }}
+								</h4>
+
+								@unless ($activity->published)
+									<span class="ml-2 badge badge-warning">
+										Borrador
+									</span>
+								@endunless
+
 								<span class="activity-extra">
 									@if ($activity->start !== null && $activity->location !== null)
 										<i class="fa fa-calendar mr-1"></i>
@@ -127,8 +136,8 @@
 									   role="button" href="{{ route('admin.activities.delete', [$activity]) }}">
 										<i class="fa fa-times"></i><span class="ml-1">Eliminar</span>
 									</a>
-							</div>
-						</form>
+								</div>
+							</form>
 						</div>
 					</li>
 				@endforeach

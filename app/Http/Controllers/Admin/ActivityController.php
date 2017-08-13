@@ -151,7 +151,7 @@ class ActivityController extends Controller
 			'published' => $request->input('published', false)
 		]);
 
-		return redirect()->route('admin.activities.index');
+		return redirect()->back();
 	}
 
 	public function confirmDelete(Activity $activity)

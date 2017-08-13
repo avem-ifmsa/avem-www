@@ -3,6 +3,7 @@
 namespace Avem;
 
 use Auth;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Renewal extends Model
@@ -25,12 +26,16 @@ class Renewal extends Model
 		'created_at', 'updated_at', 'until',
 	];
 
-	public static function saving(Renewal $renewal)
-	{
-		parent::saving($renewal);
 
-		$chargePeriod = Auth::user()->currentChargePeriod;
-		$renewal->issuerPeriod()->associate($chargePeriod);
+
+	public static function boot()
+	{
+		parent::boot();
+
+		static::saving(function($renewal) {
+			$chargePeriod = Auth::user()->currentChargePeriod;
+			$renewal->issuerPeriod()->associate($chargePeriod);
+		});
 	}
 
 	public function issuerPeriod()

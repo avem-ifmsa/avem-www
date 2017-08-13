@@ -1,66 +1,40 @@
 @extends('layouts.admin')
 
 @section('content')
-	<h1>Gestión de usuarios</h1>
+	<h1 class="mt-4">Usuarios</h1>
 
-	<form class="my-4 col-lg-8 offset-lg-2">
+	<form class="mt-4 w-100">
 		<p class="input-group">
-			<input name="q" class="form-control" type="search"
-			       placeholder="Nombre o dirección de correo-e del usuario"
-			    {{ Request::has('q') ? 'value='.Request::get('q') : '' }} />
+			<input name="q" class="form-control" type="search" value="{{ $q }}"
+			       placeholder="Nombre o dirección de correo-e del usuario">
 			<button class="btn btn-secondary input-group-addon"
 			        type="submit" role="button">Buscar</button>
 		</p>
 	</form>
 
-	<table class="table table-hover">
-		<thead class="thead-inverse">
-			<tr>
-				<th class="align-middle">Nombre</th>
-				<th class="align-middle">Dirección de correo-e</th>
-				<th class="align-middle">Activado</th>
-				<th class="align-middle text-nowrap"></th>
-			</tr>
-		</thead>
-
-		<tbody>
+	<div class="mt-2 user-index">
+		<ul class="user-items">
 			@foreach ($users as $user)
-				<tr {{ $user->isActive ? '' : 'class=table-danger'}}>
-					<td>{{ $user->fullName }}</td>
-					<td>{{ $user->email    }}</td>
-
-					@if ($user->isActive)
-						<td>
-							Sí (hasta {{ $user->renewals()->active()->first()->until->diffForHumans() }})
-						</td>
-					@else
-						<td>No</td>
-					@endif
-
-					<td>
-						<div class="form-inline">
-							<a class="mx-1 btn btn-sm btn-secondary{{ Gate::denies('update', $user) ? ' disabled' : ''}}"
-							   {{ Gate::denies('update', $user) ? 'aria-disabled=true' : ''}} role="button"
-							   href="{{ route('admin.users.edit', [$user]) }}" >Editar</a>
-
-							@unless ($user->isActive)
-								<form class="mx-1" action="{{ route('admin.users.renew', [$user]) }}" method="post">
-									{{ csrf_field() }}
-									<button {{ Gate::denies('create', \Avem\Renewal::class) ? 'disabled' : '' }} role="button"
-									        type="submit" class="btn btn-sm btn-secondary">Renovar</button>
-								</form>
-							@endunless
-
-							<form class="mx-1" action="{{ route('admin.users.destroy', [$user]) }}" method="post">
-								{{ csrf_field() }}
-								{{ method_field('delete' )}}
-								<button {{ Gate::denies('delete', $user) ? 'disabled' : '' }} role="button"
-								        type="submit" class="btn btn-sm btn-danger">Eliminar</button>
-							</form>
+				<li class="user-item">
+					<img class="user-image" src="{{ $user->profileImageUrl }}">
+					<div class="user-info">
+						<span class="user-name">{{ $user->fullName }}</span>
+						<span class="user-email">{{ $user->email }}</span>
+					</div>
+					<div class="user-actions">
+						<div class="btn-group btn-group-sm">
+							<a role="button" href="{{ route('admin.users.edit', [$user]) }}"
+							   class="btn btn-secondary{{
+								Gate::denies('update', $user) ? ' disabled' : ''
+							}}">Editar</a>
+							<a role="button" href="{{ route('admin.users.delete', [$user]) }}"
+							   class="btn btn-danger{{
+								Gate::denies('delete', $user)}} ? ' disabled' : ''
+							}}">Eliminar</a>
 						</div>
-					</td>
-				</tr>
+					</div>
+				</li>
 			@endforeach
-		</tbody>
-	</table>
+		</ul>
+	</div>
 @stop

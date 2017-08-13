@@ -14,19 +14,6 @@ use Illuminate\Database\Eloquent\Builder;
 class UserController extends Controller
 {
 	/**
-	 * Filter users by full name or email.
-	 *
-	 * @param \Illuminate\Http\Request  $request
-	 * @param |Illuminate\Database\Eloquent\Builder  $query
-	 */
-	private function filterUsers(Request $request, Builder $query)
-	{
-		$filter = '%'.$request->input('q').'%';
-		return $query->where(\DB::raw('name || " " || surname'), 'LIKE', $filter)
-		             ->orWhere('email', 'LIKE', $filter);
-	}
-
-	/**
 	 * Display a listing of the resource.
 	 *
 	 * @param \Illuminate\Http\Request  $request
@@ -34,14 +21,7 @@ class UserController extends Controller
 	 */
 	public function index(Request $request)
 	{
-		$query = User::query();
-		if ($request->has('q')) {
-			$users = $this->filterUsers($request, $query);
-		}
-
-		return view('admin.users.index', [
-			'users' => $query->get(),
-		]);
+		return view('admin.users.index');
 	}
 
 	/**
@@ -52,6 +32,8 @@ class UserController extends Controller
 	 */
 	public function edit(User $user)
 	{
+		$this->authorize('update', $user);
+
 		return view('admin.users.edit', [
 			'user'  => $user,
 			'roles' => Role::all(),
@@ -67,13 +49,17 @@ class UserController extends Controller
 	 */
 	public function update(Request $request, User $user)
 	{
+		$this->authorize($user);
+
 		$user->fill($request->except('password', 'photo'));
 
 		if ($password = $request->input('password'))
 			$user->password = bcrypt($password);
 
-		if ($photo = $request->file('photo'))
-			$user->setProfileImage($photo);
+		if ($photo = $request->hasFile('photo')) {
+			$user->addMediaFromRequest('photo')
+			     ->toMediaLibrary('avatars');
+		}
 
 		$user->save();
 
@@ -109,6 +95,15 @@ class UserController extends Controller
 		return redirect()->route('admin.users.index');
 	}
 
+	public function confirmDelete(User $user)
+	{
+		$this->authorize('delete', $user);
+
+		return view('admin.users.delete', [
+			'user' => $user,
+		]);
+	}
+
 	/**
 	 * Remove the specified resource from storage.
 	 *
@@ -120,6 +115,7 @@ class UserController extends Controller
 		$this->authorize();
 
 		$user->delete();
+
 		return redirect()->route('admin.users.index');
 	}
 }
