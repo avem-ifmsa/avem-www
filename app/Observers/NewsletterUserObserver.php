@@ -3,11 +3,10 @@
 namespace Avem\Observers;
 
 use Avem\User;
-use Avem\Jobs\SubscribeUserToNewsletter;
-use Avem\Jobs\UpdateUserNewsletterEmail;
-use Avem\Jobs\UnsubscribeUserFromNewsletter;
+use Newsletter;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NewsletterUserObserver
+class NewsletterUserObserver implements ShouldQueue
 {
 	/**
 	 * Listen to the User created event.
@@ -17,7 +16,11 @@ class NewsletterUserObserver
 	 */
 	public function created(User $user)
 	{
-		dispatch(new SubscribeUserToNewsletter($user));
+		Newsletter::subscribe($user->email, [
+			'FNAME'  => $user->name,
+			'LNAME'  => $user->surname,
+			'NSOCIO' => $user->id,
+		]);
 	}
 
 	/**
@@ -31,7 +34,7 @@ class NewsletterUserObserver
 		if ($user->isDirty('email')) {
 			$newEmail = $user->email;
 			$oldEmail = $user->getOriginal('email');
-			dispatch(new UpdateUserNewsletterEmail($user, $oldEmail));
+			Newsletter::updateEmailAddress($oldEmail, $newEmail);
 		}
 	}
 
@@ -43,6 +46,6 @@ class NewsletterUserObserver
 	 */
 	public function deleting(User $user)
 	{
-		dispatch(new UnsubscribeUserFromNewsletter($user));
+		Newsletter::delete($user->email);
 	}
 }
