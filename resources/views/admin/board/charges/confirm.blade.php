@@ -33,7 +33,7 @@
 							<p class="h6">Se va a asignar el cargo {{ $charge->name }} a:</p>
 
 							<div class="my-4">
-								<div class="user-entry user-entry--large text-center">
+								<div class="user-result user-result--large text-center">
 									<img class="user-image" src="{{ $user->profileImageUrl }}">
 									<span class="user-info">
 										<span class="user-name">{{ $user->fullName }}</span>

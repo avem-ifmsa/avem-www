@@ -26,8 +26,6 @@ class Renewal extends Model
 		'created_at', 'updated_at', 'until',
 	];
 
-
-
 	public static function boot()
 	{
 		parent::boot();

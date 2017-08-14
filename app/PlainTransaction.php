@@ -16,12 +16,14 @@ class PlainTransaction extends Model
 		'concept', 'points',
 	];
 
-	public static function saving(PlainTransaction $plainTransaction)
+	public static function boot()
 	{
-		parent::saving($plainTransaction);
+		parent::boot();
 
-		$chargePeriod = Auth::user()->currentChargePeriod;
-		$plainTransaction->applierPeriod()->associate($chargePeriod);
+		static::saving(function($plainTransaction) {
+			$chargePeriod = Auth::user()->currentChargePeriod;
+			$plainTransaction->applierPeriod()->associate($chargePeriod);
+		});
 	}
 
 	public function applierPeriod()

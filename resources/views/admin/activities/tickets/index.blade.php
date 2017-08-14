@@ -40,6 +40,7 @@
 			@empty
 				<tr>
 					<td colspan="5" class="text-center">
+						<i class="fa fa-times mr-1"></i>
 						Todavía no se han generado tickets para esta actividad.
 					</td>
 				</tr>

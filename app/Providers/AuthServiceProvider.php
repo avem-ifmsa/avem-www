@@ -21,6 +21,7 @@ class AuthServiceProvider extends ServiceProvider
 		'Avem\Exchange' => 'Avem\Policies\ExchangePolicy',
 		'Avem\PerformedActivity' => 'Avem\Policies\PerformedActivityPolicy',
 		'Avem\Renewal' => 'Avem\Policies\RenewalPolicy',
+		'Avem\Transaction' => 'Avem\Policies\TransactionPolicy',
 		'Avem\User' => 'Avem\Policies\UserPolicy',
 		'Avem\WorkingGroup' => 'Avem\Policies\WorkingGroupPolicy',
 	];

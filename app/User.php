@@ -2,6 +2,7 @@
 
 namespace Avem;
 
+use DB;
 use Avem\Role;
 use Avem\Activity;
 use Carbon\Carbon;
@@ -243,9 +244,37 @@ class User extends Authenticatable implements HasMediaConversions
 		return $this->belongsToMany('Avem\Activity');
 	}
 
+	public function plainTransactions()
+	{
+		return $this->hasMany('Avem\PlainTransaction');
+	}
+
 	public function transactions()
 	{
-		return $this->hasMany('Avem\Transaction');
+		$plainTransactions = $this->plainTransactions()
+			->select('concept', 'points', 'created_at', 'charge_period_id');
+
+		$activityTransactions = $this->performedActivities()
+			->join('activities', 'performed_activities.activity_id', '=', 'activities.id')
+			->select(
+				'activities.name as concept',
+				'activities.points as points',
+				'performed_activities.created_at as created_at',
+				'performed_activities.charge_period_id as charge_period_id'
+			);
+
+		$renewalTransactions = $this->renewals()
+			->select(
+				DB::raw('\'Renovación de usuario\' as concept'),
+				'1 as points', 'renewals.created_at',
+				'renewals.charge_period_id'
+			);
+
+		return Transaction::hydrate(
+			$plainTransactions->union($activityTransactions)
+			                  ->union($renewalTransactions)
+			                  ->get()->toArray()
+		);
 	}
 
 	public function witnessedActivities()

@@ -23,10 +23,25 @@
 					</div>
 					<div class="user-actions">
 						<div class="btn-group btn-group-sm">
+							@unless ($user->isActive)
+								<a role="button" href="{{ route('admin.users.renewals.create', [$user]) }}"
+								   class="btn btn-secondary{{ Gate::denies('create', Avem\Renewal::class) ? ' disabled' : '' }}">
+									Renovar
+								</a>
+							@else
+
+							@endunless
+
+							<a role="button" href="{{ route('admin.users.transactions.index', [$user]) }}"
+							   class="btn btn-secondary{{ Gate::denies('view', $user) ? ' disabled' : '' }}">
+								Transacciones
+							</a>
+
 							<a role="button" href="{{ route('admin.users.edit', [$user]) }}"
 							   class="btn btn-secondary{{
 								Gate::denies('update', $user) ? ' disabled' : ''
 							}}">Editar</a>
+
 							<a role="button" href="{{ route('admin.users.delete', [$user]) }}"
 							   class="btn btn-danger{{
 								Gate::denies('delete', $user)}} ? ' disabled' : ''

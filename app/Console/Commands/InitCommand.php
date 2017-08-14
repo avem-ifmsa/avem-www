@@ -49,6 +49,12 @@ class InitCommand extends Command
 		['name' => 'exchange:update', 'description' => 'Modificar información sobre los intercambios'],
 		['name' => 'exchange:delete', 'description' => 'Eliminar intercambios'],
 
+		// Transaction permissions
+		['name' => 'transaction:create', 'description' => 'Efectuar nuevas transacciones de puntos'],
+		['name' => 'transaction:view'  , 'description' => 'Ver información sobre las transacciones existentes'],
+		['name' => 'transaction:update', 'description' => 'Modificar transacciones realizadas por otros'],
+		['name' => 'transaction:delete', 'description' => 'Anular transacciones'],
+
 		// User permissions
 		['name' => 'user:create', 'description' => 'Crear nuevos socios'],
 		['name' => 'user:view'  , 'description' => 'Ver la información de los socios'],
@@ -74,6 +80,7 @@ class InitCommand extends Command
 				'activity:create', 'activity:view', 'activity:update', 'activity:delete',
 				'charge:create', 'charge:view', 'charge:update', 'charge:renew', 'charge:delete',
 				'exchange:create', 'exchange:view', 'exchange:update', 'exchange:delete',
+				'transaction:create', 'transaction:view', 'transaction:update', 'transaction:delete',
 				'user:create', 'user:view', 'user:renew', 'user:update', 'user:delete',
 				'working-group:create', 'working-group:view', 'working-group:update', 'working-group:delete',
 			],

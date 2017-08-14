@@ -34,7 +34,7 @@
 									{{ csrf_field() }}
 									<input type="hidden" name="performed" value="1">
 									<button type="submit" role="button" class="btn btn-sm btn-block btn-primary{{
-										Gate::denies('update', $activity) ? ' disabled' : ''
+										(Gate::denies('update', $activity) || !$user->isActive) ? ' disabled' : ''
 									}}">
 										Registrar
 									</button>

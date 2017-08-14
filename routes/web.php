@@ -98,6 +98,18 @@ Route::group([ 'as'         => 'admin.',
 		'as' => 'users.delete', 'uses' => 'UserController@confirmDelete',
 	]);
 
+	Route::resource('users.transactions', 'TransactionController', [
+		'only' => [ 'index', 'create', 'store' ],
+	]);
+
+	Route::resource('users.renewals', 'RenewalController', [
+		'only' => [ 'create', 'store', 'delete' ],
+	]);
+
+	Route::get('users/{user}/renewals/{renewal}/delete', [
+		'as' => 'users.renewals.confirmDelete', 'uses' => 'RenewalController@confirmDelete',
+	]);
+
 	Route::resource('exchanges', 'ExchangeController');
 
 });

@@ -5,8 +5,6 @@ namespace Avem\Http\Controllers\Admin;
 use Auth;
 use Avem\Role;
 use Avem\User;
-use Avem\Renewal;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Avem\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Builder;
@@ -62,35 +60,6 @@ class UserController extends Controller
 		}
 
 		$user->save();
-
-		return redirect()->route('admin.users.index');
-	}
-
-	private function createUserRenewal(Request $request)
-	{
-		$mbMemberPeriods = Auth::user()->mbMember->mbMemberPeriods();
-		$activePeriod = $mbMemberPeriods->active()->first();
-
-		$renewUntil = $this->nextRenewalDate();
-		$renewal = new Renewal([ 'until' => $renewUntil ]);
-		$renewal->issuerPeriod()->associate($activePeriod);
-
-		return $renewal;
-	}
-
-	private function nextRenewalDate()
-	{
-		$date = Carbon::now();
-		$until = Carbon::createFromDate(null, 9, 1);
-		return $date < $until ? $until : $until->addYear();
-	}
-
-	public function renew(Request $request, User $user)
-	{
-		$this->authorize($user);
-
-		$renewal = $this->createUserRenewal($request);
-		$user->renewals()->save($renewal);
 
 		return redirect()->route('admin.users.index');
 	}
