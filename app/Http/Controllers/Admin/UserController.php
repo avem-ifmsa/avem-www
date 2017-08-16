@@ -55,6 +55,9 @@ class UserController extends Controller
 			$user->password = bcrypt($password);
 
 		if ($photo = $request->hasFile('photo')) {
+			if ($user->profileImage !== null)
+				$user->profileImage->delete();
+
 			$user->addMediaFromRequest('photo')
 			     ->toMediaLibrary('avatars');
 		}
