@@ -2,6 +2,7 @@
 
 namespace Avem;
 
+use Auth;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,9 +27,24 @@ class ChargePeriod extends Model
 		'created_at', 'updated_at', 'start', 'end',
 	];
 
-	public function appliedTransactions()
+	public static function boot()
 	{
-		return $this->hasMany('Avem\Transaction');
+		parent::boot();
+
+		static::saving(function($chargePeriod) {
+			$assignerPeriod = Auth::user()->currentChargePeriod;
+			$chargePeriod->assignerPeriod()->associate($assignerPeriod);
+		});
+	}
+
+	public function assignedPeriods()
+	{
+		return $this->hasMany('Avem\ChargePeriod');
+	}
+
+	public function assignerPeriod()
+	{
+		return $this->belongsTo('Avem\ChargePeriod', 'charge_period_id');
 	}
 
 	public function charge()

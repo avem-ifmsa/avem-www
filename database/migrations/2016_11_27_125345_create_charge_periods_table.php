@@ -17,6 +17,7 @@ class CreateChargePeriodsTable extends Migration
 			$table->increments('id');
 			$table->integer('charge_id')->unsigned();
 			$table->integer('user_id')->unsigned()->nullable();
+			$table->integer('charge_period_id')->unsigned()->nullable();
 			$table->date('start');
 			$table->date('end');
 			$table->timestamps();
@@ -24,9 +25,13 @@ class CreateChargePeriodsTable extends Migration
 			$table->foreign('user_id')
 			      ->references('id')->on('users')
 			      ->onDelete('cascade');
-			
+
 			$table->foreign('charge_id')
 			      ->references('id')->on('charges')
+			      ->onDelete('cascade');
+
+			$table->foreign('charge_period_id')
+			      ->references('id')->on('charge_periods')
 			      ->onDelete('cascade');
 		});
 	}
