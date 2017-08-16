@@ -85,7 +85,7 @@ class Activity extends Model implements HasMediaConversions
 			case 'all':
 				return User::hydrate($this->query()->crossJoin('users')
 					->select('users.*', 'activities.id as pivot_activity_id', 'users.id as pivot_user_id')
-					->whereDate('users.created_at', '<', 'activities.end')
+					->whereRaw('"users"."created_at" < "activities"."end"')
 					->where('activities.id', $this->id)
 					->get()->toArray());
 		}
