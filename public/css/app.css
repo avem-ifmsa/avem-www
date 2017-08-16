@@ -13377,7 +13377,7 @@ a.text-gray-dark:hover {
   padding: 0 5px;
   border-radius: 5px;
   display: inline-block;
-  background-color: #5bc0de;
+  background-color: #8eb4cb;
   cursor: default;
 }
 
@@ -13674,6 +13674,18 @@ a.text-gray-dark:hover {
   font-size: 1.4rem;
   color: rgba(0, 0, 0, 0.5);
   background-color: rgba(0, 0, 0, 0.15);
+}
+
+.gallery-item-tags {
+  left: 15px;
+  bottom: 15px;
+  position: absolute;
+}
+
+.gallery-item-draft-mark {
+  right: 15px;
+  bottom: 15px;
+  position: absolute;
 }
 
 .multi-select-items {

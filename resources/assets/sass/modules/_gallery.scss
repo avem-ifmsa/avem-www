@@ -91,5 +91,17 @@
 				background-color: rgba(#000, .15);
 			}
 		}
+
+		&-tags {
+			left: 15px;
+			bottom: 15px;
+			position: absolute;
+		}
+
+		&-draft-mark {
+			right: 15px;
+			bottom: 15px;
+			position: absolute;
+		}
 	}
 }

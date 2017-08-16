@@ -39,6 +39,22 @@
 								<p class="gallery-item-description">
 									{{ $activity->description }}
 								</p>
+
+								<div class="gallery-item-tags">
+									@foreach ($activity->tags as $tag)
+										<span class="badge badge-info">
+											{{ $tag->name }}
+										</span>
+									@endforeach
+								</div>
+
+								@unless ($activity->published)
+									<div class="gallery-item-draft-mark">
+										<span class="badge badge-warning">
+											Borrador
+										</span>
+									</div>
+								@endunless
 							</div>
 						</a>
 					</li>
