@@ -30,8 +30,8 @@
 			<button class="btn btn-primary" type="submit" role="button">Iniciar sesión</button>
 
 			<div class="mt-4 text-center">
-				<a class="mr-5" href="{{ route('register') }}">¿Todavía no eres socio?</a>
-				<a href="{{ route('password.request') }}">¿Has olvidado tu contraseña?</a>
+				<a class="text-nowrap" href="{{ route('register') }}">¿Todavía no eres socio?</a>
+				<a class="text-nowrap" href="{{ route('password.request') }}">¿Has olvidado tu contraseña?</a>
 			</div>
 		</p>
 	</form>
