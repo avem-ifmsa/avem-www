@@ -4,6 +4,8 @@
 @import 'vendor/font-awesome';
 @import 'vendor/raleway-font';
 
+@import 'base/background';
+
 @import 'layout/admin';
 @import 'layout/admin-activities';
 
@@ -18,4 +20,5 @@
 @import 'modules/user-index';
 @import 'modules/user-result';
 
+@import 'themes/main';
 @import 'themes/admin';

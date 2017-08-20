@@ -13,7 +13,25 @@
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/', [
+	'as' => 'welcome', 'uses' => 'MainController@index',
+]);
+
+Route::get('/actividades', [
+	'as' => 'activities', 'uses' => 'MainController@activities',
+]);
+
+Route::get('/intercambios', [
+	'as' => 'exchanges', 'uses' => 'MainController@exchanges',
+]);
+
+Route::get('/about', [
+	'as' => 'about', 'uses' => 'MainController@about',
+]);
+
+Route::get('/home', [
+	'as' => 'home', 'uses' => 'HomeController@index',
+]);
 
 Route::group([ 'as'         => 'admin.',
                'middleware' => ['auth'],
