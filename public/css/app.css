@@ -14054,9 +14054,9 @@ body {
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
   cursor: pointer;
-  font-size: 20px;
   padding: 1px 6px;
   line-height: 25px;
+  font-size: 25px;
   z-index: 100;
 }
 

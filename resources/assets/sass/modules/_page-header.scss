@@ -2,9 +2,6 @@ $page-header-padding-top-sm: 10px;
 $page-header-padding-top-md: 15px;
 $page-header-padding-top-lg: 40px;
 
-$page-menu-width: 300px;
-$page-menu-bg-color: rgba(#000, 0.7);
-
 $header-icon-size-sm: 35px;
 $header-icon-size-md: 60px;
 $header-icon-size-lg: 100px;
@@ -20,6 +17,11 @@ $header-title-font-size-lg: 1.0rem;
 $header-title-vertical-padding-sm: 10px;
 $header-title-vertical-padding-md: 10px;
 $header-title-vertical-padding-lg: 20px;
+
+$page-menu-width: 300px;
+$page-menu-bg-color: rgba(#000, 0.7);
+
+$menu-toggle-font-size: 25px;
 
 body {
 	overflow-x: hidden;
@@ -187,9 +189,9 @@ body {
 		transform: translateY(-50%);
 
 		cursor: pointer;
-		font-size: 20px;
 		padding: 1px 6px;
 		line-height: 25px;
+		font-size: $menu-toggle-font-size;
 
 		z-index: 100;
 
