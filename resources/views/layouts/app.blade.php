@@ -13,6 +13,15 @@
 		<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#999999">
 		<meta name="theme-color" content="#ffffff">
 
+		<!-- OpenGraph Protocol -->
+		<meta property="og:type" content="website">
+		<meta property="og:locale" content="es_ES">
+		<meta property="og:url" content="{{ url('/') }}">
+		<meta property="og:title" content="Web oficial de AVEM">
+		<meta property="og:image" content="{{ asset('img/avem-logo.png') }}">
+		<meta property="og:description" content="Web oficial de la Asociación Valenciana de Estudiantes de Medicina.">
+		<meta name="description" content="Web oficial de la Asociación Valenciana de Estudiantes de Medicina.">
+
 		<!-- CSRF Token -->
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 		<script>
