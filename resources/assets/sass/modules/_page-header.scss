@@ -21,6 +21,34 @@ $header-title-vertical-padding-sm: 10px;
 $header-title-vertical-padding-md: 10px;
 $header-title-vertical-padding-lg: 20px;
 
+body {
+	overflow-x: hidden;
+}
+
+.page-root {
+	position: relative;
+	transition: transform 0.4s ease;
+
+	.is-menu-active & {
+		transform: translateX(80vw);
+
+		@media (min-width: $page-menu-width / 0.8) {
+			transform: translateX($page-menu-width);
+		}
+
+		&::after {
+			content: '';
+			width: 100vw;
+			height: 100vh;
+			position: absolute;
+
+			top: 0;
+			left: 0;
+			z-index: 50;
+		}
+	}
+}
+
 .page-header {
 	position: relative;
 	padding-top: $page-header-padding-top-sm;
@@ -95,8 +123,9 @@ $header-title-vertical-padding-lg: 20px;
 			top: 0;
 			right: 100%;
 			position: fixed;
+			overflow-x: hidden;
 
-			max-width: 80%;
+			max-width: 80vw;
 			min-height: 100vh;
 			width: $page-menu-width;
 
@@ -111,12 +140,11 @@ $header-title-vertical-padding-lg: 20px;
 			&-item {
 				padding: 5px 30px;
 				overflow-x: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
 			}
 
 			&-link {
-				white-space: nowrap;
-				text-overflow: ellipsis;
-
 				color: rgba(#ddd, 0.8);
 
 				&:focus, &:hover {
@@ -167,34 +195,6 @@ $header-title-vertical-padding-lg: 20px;
 
 		@include media-breakpoint-up(md) {
 			display: none;
-		}
-	}
-}
-
-body {
-	overflow-x: hidden;
-}
-
-.page-root {
-	position: relative;
-	transition: transform 0.4s ease;
-
-	.is-menu-active & {
-		transform: translateX(80%);
-
-		@media (min-width: $page-menu-width) {
-			transform: translateX($page-menu-width);
-		}
-
-		&::after {
-			content: '';
-			width: 100vw;
-			height: 100vh;
-			position: absolute;
-
-			top: 0;
-			left: 0;
-			z-index: 50;
 		}
 	}
 }
