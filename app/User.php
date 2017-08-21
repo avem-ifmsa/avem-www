@@ -96,7 +96,7 @@ class User extends Authenticatable implements HasMediaConversions
 
 	public function getPointsAttribute()
 	{
-		$transactions = $this->transactions()->oldest()->get();
+		$transactions = $this->transactions()->sortBy('created_at');
 		return $transactions->reduce(function($result, $t) {
 			return max($result + $t->points, 0);
 		}, 0);

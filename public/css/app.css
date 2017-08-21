@@ -13293,6 +13293,52 @@ body {
   width: 27%;
 }
 
+.l-user-menu {
+  z-index: 100;
+  position: absolute;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+@media (max-width: 991px) {
+  .l-user-menu {
+    right: 10px;
+    top: 27.5px;
+  }
+}
+
+@media (min-width: 768px) {
+  .l-user-menu {
+    right: 15%;
+    top: 45px;
+  }
+}
+
+@media (min-width: 992px) {
+  .l-user-menu {
+    top: 90px;
+  }
+}
+
+.l-menu-content {
+  position: absolute;
+  top: calc(100% + 10px);
+}
+
+@media (max-width: 767px) {
+  .l-menu-content {
+    right: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .l-menu-content {
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+  }
+}
+
 .activity-index .activity-items {
   padding: 10px;
   list-style: none;
@@ -13992,7 +14038,7 @@ body {
     max-width: 80vw;
     min-height: 100vh;
     width: 300px;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: #4f4f4f;
   }
 
   .page-header .header-menu-items {
@@ -14147,6 +14193,137 @@ body {
   right: 20px;
   bottom: 20px;
   position: absolute;
+}
+
+.user-menu--guest {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.user-menu--guest .help-btn {
+  outline: none;
+  margin-right: 15px;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.user-menu--guest .help-btn:focus,
+.user-menu--guest .help-btn:hover {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+@media (max-width: 767px) {
+  .user-menu--guest .help-btn {
+    display: none;
+  }
+}
+
+.user-menu--guest .login-btn {
+  border: none;
+  outline: none;
+  font-size: 0.9em;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.8);
+  text-transform: uppercase;
+  margin: 10px;
+}
+
+.user-menu--guest .login-btn:focus,
+.user-menu--guest .login-btn:hover {
+  text-decoration: none;
+}
+
+@media (min-width: 768px) {
+  .user-menu--guest .login-btn {
+    padding: 5px 10px;
+    border: solid 2px;
+    border-radius: 4px;
+    border-color: rgba(0, 0, 0, 0.8);
+  }
+
+  .user-menu--guest .login-btn:focus,
+  .user-menu--guest .login-btn:hover {
+    color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+}
+
+.user-menu:not(.user-menu--guest) .menu-toggle {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.8);
+  background-color: transparent;
+}
+
+.user-menu:not(.user-menu--guest) .menu-toggle:focus,
+.user-menu:not(.user-menu--guest) .menu-toggle:hover {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.user-menu:not(.user-menu--guest) .menu-content {
+  min-width: 200px;
+  border: 1px solid;
+  padding: 20px 15px;
+  border-radius: 3px;
+  background-color: #fafafa;
+  border-color: rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0 6px 8px rgba(0, 0, 0, 0.175);
+          box-shadow: 0 6px 8px rgba(0, 0, 0, 0.175);
+}
+
+.user-menu:not(.user-menu--guest) .menu-content .user-image {
+  width: 125px;
+  height: 125px;
+  margin: 0 auto;
+  display: block;
+  border-radius: 50%;
+}
+
+.user-menu:not(.user-menu--guest) .menu-content .user-info {
+  margin: 10px 0;
+  padding: 0 10px;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.user-menu:not(.user-menu--guest) .menu-content .user-info .user-name,
+.user-menu:not(.user-menu--guest) .menu-content .user-info .user-email {
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+
+.user-menu:not(.user-menu--guest) .menu-content .user-info .user-email {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.user-menu:not(.user-menu--guest) .menu-content .user-status {
+  margin: 15px 0;
+  display: block;
+  text-align: center;
+}
+
+.user-menu:not(.user-menu--guest) .menu-content .logout-btn {
+  border: none;
+  outline: none;
+  display: block;
+  padding: 5px 15px;
+  border-radius: 2px;
+  margin: 10px auto 0;
+  background-color: #cfcfcf;
+}
+
+.user-menu:not(.user-menu--guest) .menu-content .logout-btn:focus,
+.user-menu:not(.user-menu--guest) .menu-content .logout-btn:hover {
+  -webkit-box-shadow: 0 1px rgba(0, 0, 0, 0.175);
+          box-shadow: 0 1px rgba(0, 0, 0, 0.175);
+  background-color: rgba(207, 207, 207, 0.8);
 }
 
 .user-result {
