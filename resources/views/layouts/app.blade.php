@@ -30,7 +30,7 @@
 			]) !!};
 		</script>
 
-		<title>{{ config('app.name', 'Laravel') }}</title>
+		<title>Web oficial de AVEM</title>
 
 		<!-- Styles -->
 		<link href="{{ mix('css/app.css') }}" rel="stylesheet">
