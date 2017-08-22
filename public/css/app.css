@@ -13256,8 +13256,26 @@ a.text-gray-dark:hover {
   clip: auto;
 }
 
+html {
+  min-height: 100%;
+  background-size: cover;
+  background: radial-gradient(circle at center 27.5px, #fff, #f1f2f4);
+}
+
+@media (min-width: 768px) {
+  html {
+    background: radial-gradient(circle at center 45px, #fff, #f1f2f4);
+  }
+}
+
+@media (min-width: 992px) {
+  html {
+    background: radial-gradient(circle at center 90px, #fff, #f1f2f4);
+  }
+}
+
 body {
-  background: radial-gradient(circle at 50% 0, #fff, #f1f2f4) no-repeat center center fixed;
+  background: transparent;
 }
 
 .l-admin-search {
