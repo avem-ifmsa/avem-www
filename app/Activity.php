@@ -79,14 +79,14 @@ class Activity extends Model implements HasMediaConversions
 					->join('users', 'users.id', '=', 'charge_periods.user_id')
 					->select('users.*', 'activities.id as pivot_activity_id', 'users.id as pivot_user_id')
 					->where('activities.id', $this->id)
-					->whereRaw('"activities"."start" BETWEEN "charge_periods"."start" AND "charge_periods"."end"')
-					->orWhereRaw('"activities"."end" BETWEEN "charge_periods"."start" AND "charge_periods"."end"')
+					->whereRaw('activities.start BETWEEN charge_periods.start AND charge_periods.end')
+					->orWhereRaw('activities.end BETWEEN charge_periods.start AND charge_periods.end')
 					->get()->toArray());
 
 			case 'all':
 				return User::hydrate($this->query()->crossJoin('users')
 					->select('users.*', 'activities.id as pivot_activity_id', 'users.id as pivot_user_id')
-					->whereRaw('"users"."created_at" < "activities"."end"')->orWhere('activities.end', null)
+					->whereRaw('users.created_at < activities.end')->orWhere('activities.end', null)
 					->where('activities.id', $this->id)
 					->get()->toArray());
 		}

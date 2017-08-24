@@ -137,10 +137,10 @@ class User extends Authenticatable implements HasMediaConversions
 			->crossJoin('activities')->where('activities.inscription_policy', 'board')
 			->select('activities.*', 'charge_periods.user_id as pivot_user_id', 'activities.id as pivot_activity_id')
 			->where(function($query) {
-				$query->whereBetween('charge_periods.start', ['activities.start', 'activities.end'])
-				      ->orWhereBetween('charge_periods.end', ['activities.start', 'activities.end'])
-				      ->orWhereBetween('activities.start', ['charge_periods.start', 'charge_periods.end'])
-				      ->orWhereBetween('activities.end', ['charge_periods.start', 'charge_periods.end']);
+				$query->whereRaw('charge_periods.start BETWEEN activities.start AND activities.end')
+				      ->orWhereRaw('charge_periods.end BETWEEN activities.start AND activities.end')
+				      ->orWhereRaw('activities.start BETWEEN charge_periods.start AND charge_periods.end')
+				      ->orWhereRaw('activities.end BETWEEN charge_periods.start AND charge_periods.end');
 			});
 
 		$allInscribedActivities = $this->query()
