@@ -130,7 +130,7 @@ class User extends Authenticatable implements HasMediaConversions
 
 		$boardInscribedActivities = $this->chargePeriods()
 			->crossJoin('activities')->where('activities.inscription_policy', 'board')
-			->select('activities.*', 'users.id as pivot_user_id', 'activities.id as pivot_activity_id')
+			->select('activities.*', 'charge_periods.user_id as pivot_user_id', 'activities.id as pivot_activity_id')
 			->where(function($query) {
 				$query->whereBetween('charge_periods.start', ['activities.start', 'activities.end'])
 				      ->orWhereBetween('charge_periods.end', ['activities.start', 'activities.end'])
@@ -139,10 +139,12 @@ class User extends Authenticatable implements HasMediaConversions
 			});
 
 		$allInscribedActivities = $this->query()
-			->crossJoin('activities')->where('inscription_policy', 'all')
+			->crossJoin('activities')->where('inscription_policy', 'all')->where('published', 1)
 			->select('activities.*', 'users.id as pivot_user_id', 'activities.id as pivot_activity_id')
-			->whereDate('activities.end', '>=', $this->created_at)
-			->where('users.id', $this->id);
+			->where('users.id', $this->id)->where(function($query) {
+				$query->whereRaw('"users"."created_at" < "activities"."end"')
+				      ->orWhere('activities.end', null);
+			});
 
 		return $selfInscribedActivities->union($boardInscribedActivities)
 		                               ->union($allInscribedActivities);
