@@ -85,7 +85,7 @@ class Activity extends Model implements HasMediaConversions
 			case 'all':
 				return User::hydrate($this->query()->crossJoin('users')
 					->select('users.*', 'activities.id as pivot_activity_id', 'users.id as pivot_user_id')
-					->whereRaw('"users"."created_at" < "activities"."end"')
+					->whereRaw('"users"."created_at" < "activities"."end"')->orWhere('activities.end', null)
 					->where('activities.id', $this->id)
 					->get()->toArray());
 		}
@@ -111,6 +111,27 @@ class Activity extends Model implements HasMediaConversions
 		$this->addMediaConversion('thumb')
 		     ->width(368)->height(232)
 		     ->sharpen(10);
+	}
+
+	public function scopeInscribable($query)
+	{
+		$now = Carbon::now();
+		$query->where('published', true)
+			->where(function($q) use ($now) {
+				$q->whereDate('inscription_start', '>=', $now)
+				  ->orWhere('inscription_start', null);
+			})
+			->where(function($q) use ($now) {
+				$q->whereDate('inscription_end', '<', $now)
+				  ->orWhere('inscription_end', null);
+			});
+	}
+
+	public function scopeUpcoming($query)
+	{
+		$query->where(function($q) {
+			$q->whereDate('end', '>', Carbon::now())->orWhere('end', null);
+		});
 	}
 
 	public function setStartAttribute($date)
