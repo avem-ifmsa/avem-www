@@ -33,6 +33,18 @@ Route::get('/home', [
 	'as' => 'home', 'uses' => 'HomeController@index',
 ]);
 
+Route::get('/ticket', [
+	'as' => 'ticket', 'uses' => 'TicketController@exchange',
+]);
+
+Route::get('/desglose', [
+	'as' => 'points', 'uses' => 'TransactionController@index',
+]);
+
+Route::get('/settings', [
+	'as' => 'settings', 'uses' => 'SettingsController@show',
+]);
+
 Route::group([ 'as'         => 'admin.',
                'middleware' => ['auth'],
                'namespace'  => 'Admin' ,
