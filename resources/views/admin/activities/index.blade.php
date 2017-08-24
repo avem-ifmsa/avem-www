@@ -11,7 +11,7 @@
 				@foreach ($organizedActivities as $activity)
 					<li class="gallery-item card">
 						<a class="gallery-item-link" href="{{ route('admin.activities.show', [$activity]) }}">
-							<img class="gallery-item-top card-img-top" src="{{ $activity->imageUrl }}">
+							<img class="gallery-item-image card-img-top" src="{{ $activity->imageUrl }}">
 
 							<div class="gallery-item-content card-block">
 								<div class="gallery-header card-title">
@@ -34,27 +34,27 @@
 											</span>
 										@endif
 									</div>
-								</div>
 
-								<p class="gallery-item-description">
-									{{ $activity->description }}
-								</p>
+									<p class="gallery-item-description">
+										{{ $activity->description }}
+									</p>
 
-								<div class="gallery-item-tags">
-									@foreach ($activity->tags as $tag)
-										<span class="badge badge-info">
-											{{ $tag->name }}
-										</span>
-									@endforeach
-								</div>
-
-								@unless ($activity->published)
-									<div class="gallery-item-draft-mark">
-										<span class="badge badge-warning">
-											Borrador
-										</span>
+									<div class="gallery-item-tags">
+										@foreach ($activity->tags as $tag)
+											<span class="badge badge-info">
+												{{ $tag->name }}
+											</span>
+										@endforeach
 									</div>
-								@endunless
+
+									@unless ($activity->published)
+										<div class="gallery-item-draft-mark">
+											<span class="badge badge-warning">
+												Borrador
+											</span>
+										</div>
+									@endunless
+								</div>
 							</div>
 						</a>
 					</li>
