@@ -67,7 +67,8 @@ class ActivityController extends Controller
 			);
 
 			if ($request->hasFile('image')) {
-				$activity->addMediaFromRequest('image')->toMediaLibrary('images');
+				$activity->addMediaFromRequest('image')
+				         ->toMediaLibrary('images');
 			}
 
 			$activityTags = $this->inputTags($request, 'tags');
