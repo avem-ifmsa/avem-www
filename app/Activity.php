@@ -3,6 +3,7 @@
 namespace Avem;
 
 use DB;
+use Avem\User;
 use Carbon\Carbon;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
@@ -113,18 +114,24 @@ class Activity extends Model implements HasMediaConversions
 		     ->sharpen(10);
 	}
 
-	public function scopeInscribable($query)
+	public function scopeInscribableBy($query, User $user)
 	{
+		$query->where('published', true);
+
 		$now = Carbon::now();
-		$query->where('published', true)
-			->where(function($q) use ($now) {
-				$q->whereDate('inscription_start', '>=', $now)
-				  ->orWhere('inscription_start', null);
-			})
-			->where(function($q) use ($now) {
-				$q->whereDate('inscription_end', '<', $now)
-				  ->orWhere('inscription_end', null);
-			});
+		$query->where(function($q) use ($now) {
+			$q->whereDate('inscription_start', '>=', $now)
+			  ->orWhere('inscription_start', null);
+		});
+		$query->where(function($q) use ($now) {
+			$q->whereDate('inscription_end', '<', $now)
+			  ->orWhere('inscription_end', null);
+		});
+
+		$userAudiences = ['all'];
+		if ($user->hasActiveCharge)
+			array_push($userAudiences, 'board');
+		$query->whereIn('audience', $userAudiences);
 	}
 
 	public function scopeUpcoming($query)

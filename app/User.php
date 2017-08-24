@@ -71,6 +71,11 @@ class User extends Authenticatable implements HasMediaConversions
 		return $this->chargePeriods()->active()->orderBy('start', 'desc')->first();
 	}
 
+	public function hasActiveChargeAttribute()
+	{
+		return $this->chargePeriods()->active()->exists();
+	}
+
 	public function getCurrentChargeAttribute()
 	{
 		$currentPeriod = $this->currentChargePeriod;
