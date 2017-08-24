@@ -72,7 +72,6 @@
 						@if ($activity->published)
 							<form action="{{ route('admin.activities.publish', [$activity]) }}" method="post">
 								{{ csrf_field() }}
-								<input type="hidden" name="published" value="0">
 								<button type="submit" role="button" class="btn btn-secondary" onclick="toggleActivityDraftStatus()">
 									Despublicar
 								</button>
