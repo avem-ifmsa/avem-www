@@ -1,6 +1,6 @@
-$page-header-padding-top-sm: 10px;
-$page-header-padding-top-md: 15px;
-$page-header-padding-top-lg: 40px;
+$page-header-vertical-padding-sm: 10px;
+$page-header-vertical-padding-md: 15px;
+$page-header-vertical-padding-lg: 40px;
 
 $header-icon-size-sm: 35px;
 $header-icon-size-md: 60px;
@@ -53,14 +53,14 @@ body {
 
 .page-header {
 	position: relative;
-	padding-top: $page-header-padding-top-sm;
+	padding: $page-header-vertical-padding-sm 0;
 
 	@include media-breakpoint-up(md) {
-		padding-top: $page-header-padding-top-md;
+		padding: $page-header-vertical-padding-md 0;
 	}
 
 	@include media-breakpoint-up(lg) {
-		padding-top: $page-header-padding-top-lg;
+		padding: $page-header-vertical-padding-lg 0;
 	}
 
 	.header-icon {
@@ -105,8 +105,8 @@ body {
 
 	.header-menu {
 		&-items {
-			list-style-type: none;
 			padding-left: 0;
+			list-style-type: none;
 		}
 
 		&-link {
@@ -134,7 +134,8 @@ body {
 			background-color: $page-menu-bg-color;
 
 			&-items {
-				margin: 15px 0;
+				margin-top: 15px;
+
 				font-size: 1.2em;
 				font-weight: 600;
 			}
@@ -159,7 +160,9 @@ body {
 			&-items {
 				font-size: 17px;
 				max-width: 700px;
-				margin: 25px auto;
+
+				margin: 0 auto;
+				margin-top: 25px;
 
 				display: flex;
 				justify-content: space-between;
