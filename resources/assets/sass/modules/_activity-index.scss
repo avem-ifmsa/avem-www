@@ -102,27 +102,6 @@
 	}
 
 	@include media-breakpoint-up(md) {
-		.activity-info {
-			width: calc(100% - 250px);
-		}
-
-		.activity-image {
-			width: 250px;
-			display: block;
-			object-fit: cover;
-		}
-	}
-
-	@include media-breakpoint-up(lg) {
-		.activity-name {
-			float: left;
-		}
-
-		.activity-extra {
-			margin: 0;
-			float: right;
-		}
-
 		.activity-tags {
 			display: flex;
 			flex-wrap: wrap;
@@ -137,6 +116,28 @@
 			font-size: 0.8em;
 
 			list-style: none;
+		}
+	}
+
+	@include media-breakpoint-up(lg) {
+		.activity-info {
+			min-width: 445px;
+			width: calc(100% - 250px);
+		}
+
+		.activity-image {
+			width: 250px;
+			display: block;
+			object-fit: cover;
+		}
+
+		.activity-name {
+			float: left;
+		}
+
+		.activity-extra {
+			margin: 0;
+			float: right;
 		}
 	}
 }
