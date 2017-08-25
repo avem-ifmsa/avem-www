@@ -4,14 +4,18 @@
 @import 'vendor/font-awesome';
 @import 'vendor/raleway-font';
 
+@import 'base/body';
 @import 'base/background';
 
 @import 'layout/admin';
 @import 'layout/admin-activities';
+@import 'layout/footer';
 @import 'layout/user-menu';
 
 @import 'modules/activity-index';
+@import 'modules/carousel';
 @import 'modules/dashboard';
+@import 'modules/footer';
 @import 'modules/form-group';
 @import 'modules/gallery';
 @import 'modules/multi-select';

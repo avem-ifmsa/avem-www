@@ -95,6 +95,10 @@
 			<div class="container">
 				@yield('content')
 			</div>
+
+			<footer class="l-footer footer">
+
+			</footer>
 		</div>
 	</body>
 @stop

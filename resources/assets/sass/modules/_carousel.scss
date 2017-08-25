@@ -1,0 +1,10 @@
+.carousel {
+	&-image {
+		display: block;
+		min-width: 100%;
+		object-fit: cover;
+
+		height: 60vh;
+		max-height: 400px;
+	}
+}

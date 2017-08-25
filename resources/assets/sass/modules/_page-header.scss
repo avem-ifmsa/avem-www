@@ -32,6 +32,7 @@ body {
 }
 
 .page-root {
+	min-height: 100vh;
 	position: relative;
 	transition: transform 0.4s ease;
 
@@ -131,6 +132,7 @@ body {
 			position: fixed;
 			overflow-x: hidden;
 
+			height: 100%;
 			max-width: 80vw;
 			min-height: 100vh;
 			width: $page-menu-width;
