@@ -14159,8 +14159,8 @@ body {
 
 @media (max-width: 991px) {
   .profile-photo {
-    width: 140px;
-    height: 140px;
+    width: 180px;
+    height: 180px;
     font-size: 0.8em;
   }
 }

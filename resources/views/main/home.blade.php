@@ -2,7 +2,7 @@
 
 @section('home-content')
 	<section class="card p-4">
-		<h2 class="mb-3">Tus actividades</h2>
+		<h3 class="mb-3">Tus actividades</h3>
 
 		@if ($inscribedActivities->isEmpty())
 			<div class="my-3 text-center">
@@ -67,7 +67,7 @@
 	</section>
 
 	<section class="mt-3 card p-4">
-		<h2 class="mb-3">Próximas actividades</h2>
+		<h3 class="mb-3">Próximas actividades</h3>
 
 		@if ($upcomingActivities->isEmpty())
 			<div class="my-3 text-center">

@@ -4,6 +4,7 @@ namespace Avem;
 
 use DB;
 use Avem\Role;
+use Newsletter;
 use Avem\Activity;
 use Carbon\Carbon;
 use Laravel\Scout\Searchable;
@@ -71,11 +72,6 @@ class User extends Authenticatable implements HasMediaConversions
 		return $this->chargePeriods()->active()->orderBy('start', 'desc')->first();
 	}
 
-	public function hasActiveChargeAttribute()
-	{
-		return $this->chargePeriods()->active()->exists();
-	}
-
 	public function getCurrentChargeAttribute()
 	{
 		$currentPeriod = $this->currentChargePeriod;
@@ -87,6 +83,11 @@ class User extends Authenticatable implements HasMediaConversions
 		$name = $this->attributes['name'];
 		$surname = $this->attributes['surname'];
 		return "$name $surname";
+	}
+
+	public function getIsSubscribedToNewsletterAttribute()
+	{
+		return Newsletter::isSubscribed($this->email);
 	}
 
 	public function getHasActiveChargeAttribute()

@@ -45,12 +45,32 @@ Route::get('/home/ajustes', [
 	'as' => 'home.settings', 'uses' => 'HomeController@settings',
 ]);
 
+Route::post('/home/ajustes/guardar', [
+	'as' => 'home.settings.save', 'uses' => 'HomeController@saveSettings',
+]);
+
 Route::get('/home/desglose', [
 	'as' => 'home.points', 'uses' => 'HomeController@transactions',
 ]);
 
 Route::get('/tickets/canjear', [
 	'as' => 'tickets.exchange', 'uses' => 'HomeController@ticket',
+]);
+
+Route::get('/cuenta/eliminar', [
+	'as' => 'account.delete', 'uses' => 'HomeController@deleteAccount',
+]);
+
+Route::post('/cuenta/eliminar', [
+	'as' => 'account.delete.confirm', 'uses' => 'HomeController@confirmDeleteAccount'
+]);
+
+Route::post('/correos/suscribirme', [
+	'as' => 'newsletter.subscribe', 'uses' => 'HomeController@subscribeNewsletter',
+]);
+
+Route::post('/correos/desuscribirme', [
+	'as' => 'newsletter.unsubscribe', 'uses' => 'HomeController@unsubscribeNewsletter',
 ]);
 
 Route::group([ 'as'         => 'admin.',

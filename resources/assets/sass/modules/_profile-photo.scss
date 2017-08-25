@@ -2,8 +2,8 @@
 	border-radius: 50%;
 
 	@include media-breakpoint-down('md') {
-		width: 140px;
-		height: 140px;
+		width: 180px;
+		height: 180px;
 		font-size: 0.8em;
 	}
 
