@@ -13,50 +13,52 @@
 				<ul class="gallery-items">
 					@foreach ($inscribedActivities as $activity)
 						<li class="gallery-item card">
-							<img class="gallery-item-top card-img-top" src="{{ $activity->imageUrl }}">
+							<img class="gallery-item-image card-img-top" src="{{ $activity->imageUrl }}">
 
-							<div class="gallery-item-content card-block">
-								<div class="gallery-header card-title">
-									<h4 class="gallery-item-title">
-										{{ $activity->name }}
-									</h4>
+							<div class="card-block">
+								<div class="gallery-item-content">
+									<div class="gallery-header card-title">
+										<h4 class="gallery-item-title">
+											{{ $activity->name }}
+										</h4>
 
-									<div class="gallery-item-extra">
-										@if ($activity->start !== null)
-											<span class="float-left">
-												<i class="fa fa-calendar mr-1"></i>
-												{{ $activity->start->format('d/m/y') }}
-											</span>
-										@endif
+										<div class="gallery-item-extra">
+											@if ($activity->start !== null)
+												<span class="float-left">
+													<i class="fa fa-calendar mr-1"></i>
+													{{ $activity->start->format('d/m/y') }}
+												</span>
+											@endif
 
-										@if ($activity->location !== null)
-											<span class="float-right">
-												<i class="fa fa-map-marker"></i>
-												{{ $activity->location }}
-											</span>
-										@endif
+											@if ($activity->location !== null)
+												<span class="float-right">
+													<i class="fa fa-map-marker"></i>
+													{{ $activity->location }}
+												</span>
+											@endif
+										</div>
 									</div>
-								</div>
 
-								<p class="gallery-item-description">
-									{{ $activity->description }}
-								</p>
+									<p class="gallery-item-description">
+										{{ $activity->description }}
+									</p>
 
-								<div class="gallery-item-tags">
-									@foreach ($activity->tags as $tag)
-										<span class="badge badge-info">
-											{{ $tag->name }}
-										</span>
-									@endforeach
-								</div>
+									<div class="gallery-item-tags">
+										@foreach ($activity->tags as $tag)
+											<span class="badge badge-info">
+												{{ $tag->name }}
+											</span>
+										@endforeach
+									</div>
 
-								<div class="gallery-item-actions">
-									<form action="{{ route('activities.unsubscribe', [$activity]) }}" method="post">
-										{{ csrf_field() }}
-										<button type="submit" role="button" class="btn btn-block">
-											No asistiré
-										</button>
-									</form>
+									<div class="gallery-item-actions">
+										<form action="{{ route('activities.unsubscribe', [$activity]) }}" method="post">
+											{{ csrf_field() }}
+											<button type="submit" role="button" class="btn btn-block">
+												No asistiré
+											</button>
+										</form>
+									</div>
 								</div>
 							</div>
 						</li>
