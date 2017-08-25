@@ -1,8 +1,8 @@
 @extends('layouts.main')
 
 @section('home-content')
-	<section>
-		<h2>Tus actividades</h2>
+	<section class="card p-4">
+		<h2 class="mb-3">Tus actividades</h2>
 
 		@if ($inscribedActivities->isEmpty())
 			<div class="my-3 text-center">
@@ -66,8 +66,8 @@
 		@endif
 	</section>
 
-	<section>
-		<h2>Próximas actividades</h2>
+	<section class="mt-3 card p-4">
+		<h2 class="mb-3">Próximas actividades</h2>
 
 		@if ($upcomingActivities->isEmpty())
 			<div class="my-3 text-center">
@@ -136,22 +136,22 @@
 
 @section('content')
 	<div class="row">
-		<div class="my-3 my-md-0 col-md-4 col-lg-3">
-			<div class="nav nav-pills flex-column">
+		<div class="mb-3 mb-md-0 col-md-4 col-lg-3">
+			<div class="card nav nav-pills flex-column">
 				<a href="{{ route('home') }}" class="nav-link{{
 					Route::currentRouteName() === 'home' ? ' active' : ''
 				}}">Entorno de usuario</a>
 
-				<a href="{{ route('ticket') }}" class="nav-link{{
-					Route::currentRouteName() === 'ticket' ? ' active' : ''
+				<a href="{{ route('tickets.exchange') }}" class="nav-link{{
+					Route::currentRouteName() === 'tickets.exchange' ? ' active' : ''
 				}}">Canjear tickets</a>
 
-				<a href="{{ route('points') }}" class="nav-link{{
-					Route::currentRouteName() === 'points' ? ' active' : ''
+				<a href="{{ route('home.points') }}" class="nav-link{{
+					Route::currentRouteName() === 'home.points' ? ' active' : ''
 				}}">Desglose de puntos</a>
 
-				<a href="{{ route('settings') }}" class="nav-link{{
-					Route::currentRouteName() === 'settings' ? ' active' : ''
+				<a href="{{ route('home.settings') }}" class="nav-link{{
+					Route::currentRouteName() === 'home.settings' ? ' active' : ''
 				}}">Ajustes</a>
 			</div>
 		</div>
