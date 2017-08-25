@@ -9,6 +9,12 @@
 	</span>
 </template>
 
+<style lang="scss" scoped>
+	.input-group-addon {
+		max-width: 40%;
+	}
+</style>
+
 <script>
 	export default {
 		props: {
