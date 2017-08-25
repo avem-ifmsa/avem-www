@@ -1,6 +1,4 @@
 .gallery {
-	margin: 20px 0;
-
 	&-items {
 		padding: 0;
 		margin: -10px;
@@ -14,6 +12,10 @@
 	&-item {
 		margin: 10px;
 		width: 250px;
+
+		@include media-breakpoint-down(sm) {
+			width: 100%;
+		}
 
 		&-image {
 			width: 100%;
@@ -74,6 +76,8 @@
 			}
 
 			&--new {
+				padding: 20px 0;
+
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
