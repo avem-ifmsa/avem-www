@@ -13956,6 +13956,10 @@ body {
   overflow-x: hidden;
 }
 
+body.is-menu-active {
+  overflow-y: hidden;
+}
+
 .page-root {
   min-height: 100vh;
   position: relative;
@@ -14074,7 +14078,6 @@ body {
     right: 100%;
     position: fixed;
     overflow-x: hidden;
-    height: 100%;
     max-width: 80vw;
     min-height: 100vh;
     width: 300px;

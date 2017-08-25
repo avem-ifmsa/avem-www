@@ -29,6 +29,10 @@ $menu-toggle-font-size: 25px;
 
 body {
 	overflow-x: hidden;
+
+	&.is-menu-active {
+		overflow-y: hidden;
+	}
 }
 
 .page-root {
@@ -132,7 +136,6 @@ body {
 			position: fixed;
 			overflow-x: hidden;
 
-			height: 100%;
 			max-width: 80vw;
 			min-height: 100vh;
 			width: $page-menu-width;
