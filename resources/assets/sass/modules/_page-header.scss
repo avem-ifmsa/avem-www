@@ -1,14 +1,18 @@
-$page-header-vertical-padding-sm: 10px;
-$page-header-vertical-padding-md: 15px;
-$page-header-vertical-padding-lg: 40px;
+$page-header-padding-top-sm: 10px;
+$page-header-padding-top-md: 15px;
+$page-header-padding-top-lg: 40px;
+
+$page-header-padding-bottom-sm: 10px;
+$page-header-padding-bottom-md: 20px;
+$page-header-padding-bottom-lg: 25px;
 
 $header-icon-size-sm: 35px;
 $header-icon-size-md: 60px;
 $header-icon-size-lg: 100px;
 
-$header-title-margin-top-sm: 0px;
-$header-title-margin-top-md: 10px;
-$header-title-margin-top-lg: 10px;
+$header-title-margin-top-sm: 10px;
+$header-title-margin-top-md: 20px;
+$header-title-margin-top-lg: 20px;
 
 $header-title-font-size-sm: 0.5rem;
 $header-title-font-size-md: 0.7rem;
@@ -53,14 +57,17 @@ body {
 
 .page-header {
 	position: relative;
-	padding: $page-header-vertical-padding-sm 0;
+	padding-top: $page-header-padding-top-sm;
+	padding-bottom: $page-header-padding-bottom-sm;
 
 	@include media-breakpoint-up(md) {
-		padding: $page-header-vertical-padding-md 0;
+		padding-top: $page-header-padding-top-md;
+		padding-bottom: $page-header-padding-bottom-md;
 	}
 
 	@include media-breakpoint-up(lg) {
-		padding: $page-header-vertical-padding-lg 0;
+		padding-top: $page-header-padding-top-lg;
+		padding-bottom: $page-header-padding-bottom-lg;
 	}
 
 	.header-icon {
@@ -88,18 +95,15 @@ body {
 
 		font-size: $header-title-font-size-sm;
 		margin-top: $header-title-margin-top-sm;
-		padding: $header-title-vertical-padding-sm 0;
 
 		@include media-breakpoint-up(md) {
 			font-size: $header-title-font-size-md;
 			margin-top: $header-title-margin-top-md;
-			padding: $header-title-vertical-padding-md 0;
 		}
 
 		@include media-breakpoint-up(lg) {
 			font-size: $header-title-font-size-lg;
 			margin-top: $header-title-margin-top-lg;
-			padding: $header-title-vertical-padding-lg 0;
 		}
 	}
 
