@@ -18,7 +18,15 @@ Route::get('/', [
 ]);
 
 Route::get('/actividades', [
-	'as' => 'activities', 'uses' => 'MainController@activities',
+	'as' => 'activities', 'uses' => 'ActivityController@index',
+]);
+
+Route::post('/actividades/{activity}/subscribe', [
+	'as' => 'activities.subscribe', 'uses' => 'ActivityController@subscribe',
+]);
+
+Route::post('/actividades/{activity}/unsubscribe', [
+	'as' => 'activities.unsubscribe', 'uses' => 'ActivityController@unsubscribe',
 ]);
 
 Route::get('/intercambios', [
@@ -33,16 +41,16 @@ Route::get('/home', [
 	'as' => 'home', 'uses' => 'HomeController@index',
 ]);
 
-Route::get('/ticket', [
-	'as' => 'ticket', 'uses' => 'TicketController@exchange',
+Route::get('/home/ajustes', [
+	'as' => 'home.settings', 'uses' => 'HomeController@settings',
 ]);
 
-Route::get('/desglose', [
-	'as' => 'points', 'uses' => 'TransactionController@index',
+Route::get('/home/desglose', [
+	'as' => 'home.points', 'uses' => 'HomeController@transactions',
 ]);
 
-Route::get('/settings', [
-	'as' => 'settings', 'uses' => 'SettingsController@show',
+Route::get('/tickets/canjear', [
+	'as' => 'tickets.exchange', 'uses' => 'HomeController@ticket',
 ]);
 
 Route::group([ 'as'         => 'admin.',
