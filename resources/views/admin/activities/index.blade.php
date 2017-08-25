@@ -88,7 +88,7 @@
 			</span>
 		</form>
 
-		<div class="mt-1 activity-index">
+		<div class="mt-2 activity-index">
 			<ul class="activity-items">
 				@foreach ($allActivities as $activity)
 					<li class="activity-item">
