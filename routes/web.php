@@ -45,11 +45,11 @@ Route::get('/usuario/desglose', [
 	'as' => 'home.points', 'uses' => 'HomeController@transactions',
 ]);
 
-Route::get('/tickets/canjear', [
+Route::get('/usuario/tickets/canjear', [
 	'as' => 'ticket.exchange', 'uses' => 'TicketController@input',
 ]);
 
-Route::post('/tickets/canjear', [
+Route::post('/usuario/tickets/canjear', [
 	'as' => 'ticket.exchange', 'uses' => 'TicketController@exchange',
 ]);
 
@@ -61,19 +61,19 @@ Route::post('/usuario/eliminar', [
 	'as' => 'account.delete.confirm', 'uses' => 'SettingsController@confirmDeleteAccount'
 ]);
 
-Route::get('/home/ajustes', [
+Route::get('/usuario/ajustes', [
 	'as' => 'home.settings', 'uses' => 'SettingsController@index',
 ]);
 
-Route::post('/home/ajustes', [
+Route::post('/usuario/ajustes', [
 	'as' => 'home.settings.store', 'uses' => 'SettingsController@store',
 ]);
 
-Route::post('/correos/suscribirme', [
+Route::post('/usuario/correos/suscribirme', [
 	'as' => 'newsletter.subscribe', 'uses' => 'SettingsController@subscribeNewsletter',
 ]);
 
-Route::post('/correos/desuscribirme', [
+Route::post('/usuario/correos/desuscribirme', [
 	'as' => 'newsletter.unsubscribe', 'uses' => 'SettingsController@unsubscribeNewsletter',
 ]);
 
