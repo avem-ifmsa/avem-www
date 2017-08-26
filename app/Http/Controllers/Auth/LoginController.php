@@ -28,7 +28,7 @@ class LoginController extends Controller
 	 *
 	 * @var string
 	 */
-	protected $redirectTo = '/home';
+	protected $redirectTo = '/usuario';
 
 	/**
 	 * Indicates current request is charge login.
