@@ -43,9 +43,9 @@
 				border-right: 2px dashed;
 			}
 
-			.ticket-item:nth-child(28n+0),
-			.ticket-item:nth-child(29n+0),
-			.ticket-item:nth-child(30n+0) {
+			.ticket-item:nth-child(30n + 28),
+			.ticket-item:nth-child(30n + 29),
+			.ticket-item:nth-child(30n + 30) {
 				border-bottom: 2px dashed;
 			}
 
@@ -54,10 +54,6 @@
 				.ticket-item:nth-child({{ $activityTickets->count() - 1 }}),
 				.ticket-item:nth-child({{ $activityTickets->count() - 0 }}) {
 					border-bottom: 2px dashed;
-				}
-
-				.ticket-item:nth-child({{ $activityTickets->count() }}) {
-					border-right: 2px dashed;
 				}
 			@endif
 
