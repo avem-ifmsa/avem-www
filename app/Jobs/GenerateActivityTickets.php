@@ -76,11 +76,13 @@ class GenerateActivityTickets implements ShouldQueue
 			];
 		}, $ticketCodes));
 
+		Log::info('Generated '.$this->count.' tickets');
+
 		$count = $this->count;
 		$activity = $this->activity;
 		$user = $this->chargePeriod->user;
+		sleep(2); // delay to allow clients to bind event
 		event(new GeneratedActivityTicketLot($user, $activity, $count));
 
-		Log::info('Generated '.$this->count.' tickets');
 	}
 }
