@@ -14,7 +14,7 @@
 		<form action="{{ route('home.settings.store') }}" method="post" enctype="multipart/form-data">
 			{{ csrf_field() }}
 
-			<div class="mx-auto mb-2 my-lg-4 profile-photo">
+			<div class="mx-auto mb-2 mb-lg-4 profile-photo">
 				<input class="rounded-circle" type="file" name="photo" is="input-image"
 				       placeholder="{{ old('photo', $user->profileImageUrl) }}">
 			</div>
