@@ -83,15 +83,13 @@
 								<input id="input-code" type="hidden" name="code">
 
 								<ul class="input-chunks">
-									<input id="input-code-first" maxlength="1"
-									       class="input-chunk input-chunk--upcase"
-									       onkeydown="onChunkKeyDown(this, event)"
-									       oninput="onChunkInput(this)">
+									<input id="input-code-first" maxlength="1" autocomplete="off"
+									       class="form-control input-chunk input-chunk--upcase"
+									       oninput="onChunkInput(this)" onkeydown="onChunkKeyDown(this, event)">
 									@for ($i = 1; $i < 8; ++$i)
-										<input type="text" maxlength="1"
-										       class="input-chunk input-chunk--upcase"
-										       onkeydown="onChunkKeyDown(this, event)"
-										       oninput="onChunkInput(this)">
+										<input type="text" maxlength="1" autocomplete="off"
+										       class="form-control input-chunk input-chunk--upcase"
+										       onkeydown="onChunkKeyDown(this, event)" oninput="onChunkInput(this)">
 									@endfor
 								</ul>
 							</div>
