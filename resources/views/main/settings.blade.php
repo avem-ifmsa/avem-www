@@ -11,7 +11,7 @@
 @section('home-content')
 	<section class="card p-4">
 		<h3>Datos personales</h3>
-		<form action="{{ route('home.settings.save') }}" method="post" enctype="multipart/form-data">
+		<form action="{{ route('home.settings.store') }}" method="post" enctype="multipart/form-data">
 			{{ csrf_field() }}
 
 			<div class="mx-auto mb-2 my-lg-4 profile-photo">

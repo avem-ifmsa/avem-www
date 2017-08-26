@@ -37,19 +37,11 @@ Route::get('/about', [
 	'as' => 'about', 'uses' => 'MainController@about',
 ]);
 
-Route::get('/home', [
+Route::get('/usuario', [
 	'as' => 'home', 'uses' => 'HomeController@index',
 ]);
 
-Route::get('/home/ajustes', [
-	'as' => 'home.settings', 'uses' => 'HomeController@settings',
-]);
-
-Route::post('/home/ajustes/guardar', [
-	'as' => 'home.settings.save', 'uses' => 'HomeController@saveSettings',
-]);
-
-Route::get('/home/desglose', [
+Route::get('/usuario/desglose', [
 	'as' => 'home.points', 'uses' => 'HomeController@transactions',
 ]);
 
@@ -61,20 +53,28 @@ Route::post('/tickets/canjear', [
 	'as' => 'ticket.exchange', 'uses' => 'TicketController@exchange',
 ]);
 
-Route::get('/cuenta/eliminar', [
-	'as' => 'account.delete', 'uses' => 'HomeController@deleteAccount',
+Route::get('/usuario/eliminar', [
+	'as' => 'account.delete', 'uses' => 'SettingsController@deleteAccount',
 ]);
 
-Route::post('/cuenta/eliminar', [
-	'as' => 'account.delete.confirm', 'uses' => 'HomeController@confirmDeleteAccount'
+Route::post('/usuario/eliminar', [
+	'as' => 'account.delete.confirm', 'uses' => 'SettingsController@confirmDeleteAccount'
+]);
+
+Route::get('/home/ajustes', [
+	'as' => 'home.settings', 'uses' => 'SettingsController@index',
+]);
+
+Route::post('/home/ajustes', [
+	'as' => 'home.settings.store', 'uses' => 'SettingsController@store',
 ]);
 
 Route::post('/correos/suscribirme', [
-	'as' => 'newsletter.subscribe', 'uses' => 'HomeController@subscribeNewsletter',
+	'as' => 'newsletter.subscribe', 'uses' => 'SettingsController@subscribeNewsletter',
 ]);
 
 Route::post('/correos/desuscribirme', [
-	'as' => 'newsletter.unsubscribe', 'uses' => 'HomeController@unsubscribeNewsletter',
+	'as' => 'newsletter.unsubscribe', 'uses' => 'SettingsController@unsubscribeNewsletter',
 ]);
 
 Route::group([ 'as'         => 'admin.',

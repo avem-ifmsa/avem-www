@@ -2,10 +2,7 @@
 
 namespace Avem\Http\Controllers;
 
-use DB;
 use Auth;
-use Session;
-use Newsletter;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,7 +18,7 @@ class HomeController extends Controller
 	}
 
 	/**
-	 * Show the application dashboard.
+	 * Show the user dashboard.
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
@@ -31,72 +28,18 @@ class HomeController extends Controller
 	}
 
 	/**
-	 * Show the settings page.
 	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function settings()
-	{
-		return view('main.settings', [
-			'user' => Auth::user(),
-		]);
-	}
-
-	/**
-	 * Store user settings.
+	 * Show user transactions.
 	 *
-	 * @return \Illuminate\Http\Response
+	 * @return  \Illuminate\Http\Response
 	 */
-	public function saveSettings(Request $request)
+	public function transactions()
 	{
-		DB::transaction(function() use ($request) {
-			$user = $request->user();
-			$user->fill($request->except('password', 'photo'));
+		$user = Auth::user();
+		$transactions = $user->transactions()->sortByDesc('created_at');
 
-			if ($request->has('password'))
-				$user->password = bcrypt($request->input('password'));
-
-			if ($request->hasFile('photo')) {
-				if ($user->profileImage !== null)
-					$user->profileImage->delete();
-
-				$user->addMediaFromRequest('photo')
-				     ->toMediaLibrary('avatars');
-			}
-
-			$user->save();
-		});
-
-		return redirect()->route('home.settings');
-	}
-
-	public function subscribeNewsletter()
-	{
-		if (!Newsletter::subscribeOrUpdate(Auth::user()->email))
-			Session::flash('newsletterError', Newsletter::getLastError());
-
-		return redirect()->to(route('home.settings').'#newsletter');
-	}
-
-	public function unsubscribeNewsletter()
-	{
-		if (!Newsletter::unsubscribe(Auth::user()->email))
-			Session::flash('newsletterError', Newsletter::getLastError());
-
-		return redirect()->to(route('home.settings').'#newsletter');
-	}
-
-	public function deleteAccount()
-	{
-		return view('main.account.delete', [
-			'user' => Auth::user(),
+		return view('main.points', [
+			'transactions' => $transactions,
 		]);
-	}
-
-	public function confirmDeleteAccount()
-	{
-		Auth::user()->delete();
-
-		return redirect()->route('home.welcome');
 	}
 }

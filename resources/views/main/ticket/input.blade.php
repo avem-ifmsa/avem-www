@@ -52,7 +52,7 @@
 @endpush
 
 @section('home-content')
-	<section class="card p-3">
+	<section class="card p-4">
 		<h3>Canjear ticket</h3>
 
 		<div class="my-2">
