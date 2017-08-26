@@ -14,13 +14,13 @@
 		<form action="{{ route('home.settings.save') }}" method="post" enctype="multipart/form-data">
 			{{ csrf_field() }}
 
-			<div class="mx-auto mb-2 my-md-4 profile-photo">
+			<div class="mx-auto mb-2 my-lg-4 profile-photo">
 				<input class="rounded-circle" type="file" name="photo" is="input-image"
 				       placeholder="{{ old('photo', $user->profileImageUrl) }}">
 			</div>
 
 			<div class="row">
-				<p class="col-md-4 form-group form-group--required{{ $errors->has('name') ? ' has-danger' : '' }}">
+				<p class="col-lg-4 form-group form-group--required{{ $errors->has('name') ? ' has-danger' : '' }}">
 					<label for="settings-name">Nombre</label>
 					<input id="settings-name" class="form-control" type="text" required
 					       name="name" value="{{ old('name', $user->name) }}">
@@ -31,7 +31,7 @@
 					@endif
 				</p>
 
-				<p class="col-md-8 form-group form-group--required{{ $errors->has('surname') ? ' has-danger' : '' }}">
+				<p class="col-lg-8 form-group form-group--required{{ $errors->has('surname') ? ' has-danger' : '' }}">
 					<label for="settings-surname">Apellidos</label>
 					<input id="settings-surname" class="form-control" type="text" required
 					       name="surname" value="{{ old('surname', $user->surname) }}">
@@ -44,7 +44,7 @@
 			</div>
 
 			<div class="row">
-				<p class="col-md-6 form-group{{ $errors->has('gender') ? ' has-danger' : '' }}">
+				<p class="col-lg-6 form-group{{ $errors->has('gender') ? ' has-danger' : '' }}">
 					<label for="settings-gender">Género</label>
 					<select is="open-select" input-id="settings-gender" name="gender" value="{{ old('gender') }}">
 						<option value=""       {{  old('gender', $user->gender) == ''       ? 'selected' : '' }}>Prefiero no decirlo</option>
@@ -56,7 +56,7 @@
 					</select>
 				</p>
 
-				<p class="col-md-6 form-group{{ $errors->has('birthday') ? ' has-danger' : '' }}">
+				<p class="col-lg-6 form-group{{ $errors->has('birthday') ? ' has-danger' : '' }}">
 					<label for="settings-birthday">Cumpleaños</label>
 					<input id="settings-birthday" class="form-control" type="date" name="birthday"
 					       value="{{ old('birthday', $user->birthday ? $user->birthday->format('Y-m-d') : '') }}">

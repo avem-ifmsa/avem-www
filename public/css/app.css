@@ -13776,6 +13776,32 @@ body {
   margin-top: 10px;
 }
 
+.input-chunks {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.input-chunk {
+  width: 2em;
+  height: 2.5em;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.input-chunk--upcase {
+  text-transform: uppercase;
+}
+
+.input-chunk ~ .input-chunk {
+  margin-left: 5px;
+}
+
 .multi-select-items {
   list-style: none;
   padding: 10px;

@@ -144,8 +144,8 @@
 					Route::currentRouteName() === 'home' ? ' active' : ''
 				}}">Entorno de usuario</a>
 
-				<a href="{{ route('tickets.exchange') }}" class="nav-link{{
-					Route::currentRouteName() === 'tickets.exchange' ? ' active' : ''
+				<a href="{{ route('ticket.exchange') }}" class="nav-link{{
+					Route::currentRouteName() === 'ticket.exchange' ? ' active' : ''
 				}}">Canjear tickets</a>
 
 				<a href="{{ route('home.points') }}" class="nav-link{{

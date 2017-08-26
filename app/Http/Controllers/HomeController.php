@@ -54,7 +54,7 @@ class HomeController extends Controller
 			$user->fill($request->except('password', 'photo'));
 
 			if ($request->has('password'))
-				$user->password = bcrypt($password);
+				$user->password = bcrypt($request->input('password'));
 
 			if ($request->hasFile('photo')) {
 				if ($user->profileImage !== null)
@@ -93,7 +93,7 @@ class HomeController extends Controller
 		]);
 	}
 
-	public function confirmRemoveAccount()
+	public function confirmDeleteAccount()
 	{
 		Auth::user()->delete();
 

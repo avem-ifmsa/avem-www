@@ -84,7 +84,10 @@ class ActivityTicketController extends Controller
 
 		$pdf = PDF::loadView('pdf.tickets', [
 			'activity' => $activity,
-			'activityTickets' => ActivityTicket::fromTicketLot($ticket)->get(),
+			'activityTickets' => ActivityTicket::fromTicketLot($ticket)
+			                                   ->exchanged(false)
+			                                   ->orderBy('id')
+			                                   ->get(),
 		]);
 
 		return $pdf->stream($activity->name.' - Tickets.pdf');

@@ -54,7 +54,11 @@ Route::get('/home/desglose', [
 ]);
 
 Route::get('/tickets/canjear', [
-	'as' => 'tickets.exchange', 'uses' => 'HomeController@ticket',
+	'as' => 'ticket.exchange', 'uses' => 'TicketController@input',
+]);
+
+Route::post('/tickets/canjear', [
+	'as' => 'ticket.exchange', 'uses' => 'TicketController@exchange',
 ]);
 
 Route::get('/cuenta/eliminar', [

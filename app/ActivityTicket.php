@@ -62,7 +62,7 @@ class ActivityTicket extends Model
 
 	public function getIsExpiredAttribute()
 	{
-		return Carbon::now()->gt($this->expires_at);
+		return $this->expires_at < Carbon::now();
 	}
 
 	public function getExchangedAtAttribute()
@@ -77,7 +77,7 @@ class ActivityTicket extends Model
 
 	public function getIsExchangedAttribute()
 	{
-		return $this->performed_activity_id == null;
+		return $this->performedActivity()->exists();
 	}
 
 	public function issuerPeriod()
