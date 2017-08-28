@@ -7,14 +7,23 @@
 }
 
 .input-chunk {
-	width: 2em;
-	height: 2.5em;
-
-	font-size: 1.5em;
+	padding: 0;
 	text-align: center;
 
 	&--upcase {
 		text-transform: uppercase;
+	}
+
+	width: 2em;
+	height: 2.5em;
+	font-size: 1.1em;
+
+	@include media-breakpoint-up(md) {
+		font-size: 1.5em;
+	}
+
+	@include media-breakpoint-up(lg) {
+		font-size: 2em;
 	}
 }
 

@@ -13788,15 +13788,27 @@ body {
 }
 
 .input-chunk {
-  width: 2em;
   padding: 0;
-  height: 2.5em;
-  font-size: 1.5em;
   text-align: center;
+  width: 2em;
+  height: 2.5em;
+  font-size: 1.1em;
 }
 
 .input-chunk--upcase {
   text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .input-chunk {
+    font-size: 1.5em;
+  }
+}
+
+@media (min-width: 992px) {
+  .input-chunk {
+    font-size: 2em;
+  }
 }
 
 .input-chunk ~ .input-chunk {
