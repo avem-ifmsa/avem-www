@@ -35,7 +35,7 @@ class LoginController extends Controller
 	 *
 	 * @var boolean
 	 */
-	private $isChargeLogin = false;
+	private $chargeLogin = false;
 
 	/**
 	 * Create a new controller instance.
@@ -56,7 +56,7 @@ class LoginController extends Controller
 	 */
 	protected function authenticated(Request $request, User $user)
 	{
-		if ($this->isChargeLogin)
+		if ($this->chargeLogin)
 			return redirect()->intended('/admin');
 	}
 
@@ -66,7 +66,7 @@ class LoginController extends Controller
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return mixed
 	 */
-	private function checkChargeLogin(Request $request)
+	private function isChargeLogin(Request $request)
 	{
 		$username = $this->username();
 		$chargeEmail = $request->input($username);
@@ -74,16 +74,16 @@ class LoginController extends Controller
 		if ($charge == null)
 			return null;
 
-		$activePeriods = $charge->mbMemberPeriods()->active();
+		$activePeriods = $charge->periods()->active();
 		if ($activePeriods->count() != 1)
 			return null;
 
-		$mbMember = $activePeriods->first()->mbMember;
-		if (!$mbMember)
+		$user = $activePeriods->first()->user;
+		if (!$user)
 			return null;
 
 		return [
-			$username  => $mbMember->user->email,
+			$username  => $user->email,
 			'password' => $request->input('password'),
 		];
 	}
@@ -96,8 +96,8 @@ class LoginController extends Controller
 	 */
 	protected function credentials(Request $request)
 	{
-		if ($creds = $this->checkChargeLogin($request)) {
-			$this->isChargeLogin = true;
+		if ($creds = $this->isChargeLogin($request)) {
+			$this->chargeLogin = true;
 			return $creds;
 		}
 
