@@ -13646,7 +13646,7 @@ body {
 
 .footer {
   padding: 50px 30px;
-  background-color: #2f2f2f;
+  background-color: #333;
 }
 
 .form-group--required label {
@@ -13789,6 +13789,7 @@ body {
 
 .input-chunk {
   width: 2em;
+  padding: 0;
   height: 2.5em;
   font-size: 1.5em;
   text-align: center;
@@ -14315,13 +14316,13 @@ body.is-menu-active {
     padding: 5px 10px;
     border: solid 2px;
     border-radius: 4px;
-    border-color: rgba(0, 0, 0, 0.8);
+    border-color: #262626;
   }
 
   .user-menu--guest .login-btn:focus,
   .user-menu--guest .login-btn:hover {
     color: rgba(255, 255, 255, 0.8);
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: #333;
   }
 }
 
@@ -14374,7 +14375,7 @@ body.is-menu-active {
 }
 
 .user-menu:not(.user-menu--guest) .menu-content .user-status {
-  margin: 15px 0;
+  margin: 10px 0;
   display: block;
   text-align: center;
 }
@@ -14385,7 +14386,7 @@ body.is-menu-active {
   display: block;
   padding: 5px 15px;
   border-radius: 2px;
-  margin: 10px auto 0;
+  margin: 15px auto 0;
   background-color: #cfcfcf;
 }
 
@@ -14394,6 +14395,10 @@ body.is-menu-active {
   -webkit-box-shadow: 0 1px rgba(0, 0, 0, 0.175);
           box-shadow: 0 1px rgba(0, 0, 0, 0.175);
   background-color: rgba(207, 207, 207, 0.8);
+}
+
+.user-menu--admin .menu-toggle {
+  color: rgba(255, 255, 255, 0.9) !important;
 }
 
 .user-result {
