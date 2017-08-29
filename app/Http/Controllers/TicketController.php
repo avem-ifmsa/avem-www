@@ -12,16 +12,6 @@ use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
-	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		$this->middleware('auth');
-	}
-
 	public function input()
 	{
 		return view('main.ticket.input', [
