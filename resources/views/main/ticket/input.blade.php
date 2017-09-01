@@ -13,26 +13,30 @@
 				focusNextInputChunk(inputElement);
 				break;
 			case 'Backspace':
-				if (inputElement.value == "")
+				if (inputElement.value == '')
 					focusPrevInputChunk(inputElement);
 				break;
 			}
 		}
 
 		function focusPrevInputChunk(inputElement) {
-			if (inputElement.previousElementSibling)
+			if (inputElement.previousElementSibling) {
 				inputElement.previousElementSibling.focus();
+				inputElement.previousElementSibling.select();
+			}
 		}
 
 		function focusNextInputChunk(inputElement) {
-			if (inputElement.nextElementSibling)
+			if (inputElement.nextElementSibling) {
 				inputElement.nextElementSibling.focus();
-			else
+				inputElement.nextElementSibling.select();
+			} else {
 				ticketSubmitButton.focus();
+			}
 		}
 
 		function onChunkInput(inputElement) {
-			if (inputElement.value !== "")
+			if (inputElement.value !== '')
 				focusNextInputChunk(inputElement);
 		}
 
@@ -89,7 +93,7 @@
 									@for ($i = 1; $i < 8; ++$i)
 										<input type="text" maxlength="1" autocomplete="off"
 										       class="form-control input-chunk input-chunk--upcase"
-										       onkeydown="onChunkKeyDown(this, event)" oninput="onChunkInput(this)">
+										       oninput="onChunkInput(this)" onkeydown="onChunkKeyDown(this, event)">
 									@endfor
 								</ul>
 							</div>
