@@ -13962,6 +13962,7 @@ body {
 
 .group-tree .charge-name,
 .group-tree .group-subgroup .group-name {
+  color: #fff;
   display: inline-block;
   background-color: var(--wg-color);
 }
