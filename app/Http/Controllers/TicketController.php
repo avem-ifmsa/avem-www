@@ -30,31 +30,30 @@ class TicketController extends Controller
 		$ticket = ActivityTicket::where('code', $code)->first();
 
 		if (!$ticket) {
-			Session::flash('exchange-error', 'El código introducido no es válido.');
+			Session::flash('exchange-error', '<strong>¡Ups!</strong> El código introducido no es válido.');
 			return redirect()->route('ticket.exchange');
 		}
 
 		if ($ticket->isExpired) {
 			$expiredFor = $ticket->expires_at->diffForHumans();
-			Session::flash('exchange-error', 'El ticket caducó hace '.$expiredFor.'.');
+			Session::flash('exchange-error', '<strong>¡Ups!</strong> El ticket caducó hace '.$expiredFor.'.');
 			return redirect()->route('ticket.exchange');
 		}
 
 		if ($ticket->isExchanged) {
 			if ($ticket->performedActivity->user->id === $user->id) {
-				Session::flash('exchange-error', 'Parece que ya has canjeado este ticket.');
+				Session::flash('exchange-error', '<strong>¡Ups!</strong> Parece que ya has canjeado este ticket.');
 			} else {
-				Session::flash('exchange-error', 'Otro usuario ya ha canjeado este ticket. '.
-				                                 'Si el ticket te pertenece, puedes enviar '.
-				                                 'un correo a <a href="mailto:webmaster@avem.es">'.
-				                                 'webmaster@avem.es</a>.');
+				Session::flash('exchange-error', '<strong>¡Ups!</strong> Otro usuario ya ha canjeado '.
+				                                 'este ticket. Si el ticket te pertenece, puedes enviar un correo a '.
+				                                 '<a href="mailto:webmaster@avem.es">webmaster@avem.es</a>.');
 			}
 			return redirect()->route('ticket.exchange');
 		}
 
 		if ($user->performedActivities()->where('activity_id', $ticket->activity->id)->exists()) {
-			Session::flash('exchange-error', 'Parece que ya se te habían asignado '.
-			                                 'los puntos de esta actividad.');
+			Session::flash('exchange-error', '<strong>¡Ups!</strong> Parece que ya se te habían '.
+			                                 'asignado los puntos para esta actividad.');
 			return redirect()->route('ticket.exchange');
 		}
 
@@ -68,7 +67,7 @@ class TicketController extends Controller
 			$ticket->save();
 		});
 
-		Session::flash('exchange-success', 'Su ticket se ha canjeado con éxito');
+		Session::flash('exchange-success', '<strong>¡Genial!</strong> Su ticket se ha canjeado con éxito.');
 		return redirect()->route('ticket.exchange');
 	}
 }
