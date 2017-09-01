@@ -21,13 +21,13 @@
 					</a>
 				</header>
 
-				
+
 				<form action="{{ route('admin.charges.store') }}" method="post">
 					{{ csrf_field() }}
-					
+
 					<div class="modal-body">
 						<div class="container-fluid">
-							@include('admin.charges.form', [
+							@include('admin.board.charges.form', [
 								'workingGroups' => $workingGroups,
 							])
 						</div>

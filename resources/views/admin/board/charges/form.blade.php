@@ -55,7 +55,7 @@
 	<select name="working_group" class="form-control form-control-sm">
 		<option value="">Ninguno</option>
 		@foreach($workingGroups as $workingGroup)
-			@include('admin.charges._wgSelectPartial', [
+			@include('admin.board.charges._wgSelectPartial', [
 				'workingGroup' => $workingGroup,
 				'value' => old('working_group', isset($charge) ? $charge->working_group_id : null),
 			])

@@ -1,7 +1,7 @@
 @if (!$workingGroup->subgroups->isEmpty())
 	<optgroup label="{{ $workingGroup->name }}">
 		@foreach($workingGroup->subgroups as $childGroup)
-			@include('admin.charges._wgSelectPartial', [
+			@include('admin.board.charges._wgSelectPartial', [
 				'workingGroup' => $childGroup,
 			])
 		@endforeach
