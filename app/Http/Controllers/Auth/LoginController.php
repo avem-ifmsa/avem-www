@@ -2,6 +2,7 @@
 
 namespace Avem\Http\Controllers\Auth;
 
+use Hash;
 use Avem\User;
 use Avem\Charge;
 use Illuminate\Http\Request;
@@ -74,17 +75,17 @@ class LoginController extends Controller
 		if ($charge == null)
 			return null;
 
-		$activePeriods = $charge->periods()->active();
-		if ($activePeriods->count() != 1)
-			return null;
+		$password = $request->input('password');
+		$activePeriods = $charge->periods()->active()->get();
+		$users = $activePeriods->pluck('user')->filter(function($user) use ($password) {
+			return Hash::check($password, $user->password);
+		});
 
-		$user = $activePeriods->first()->user;
-		if (!$user)
+		if ($users->count() !== 1)
 			return null;
 
 		return [
-			$username  => $user->email,
-			'password' => $request->input('password'),
+			$username  => $users[0]->email, 'password' => $password,
 		];
 	}
 
