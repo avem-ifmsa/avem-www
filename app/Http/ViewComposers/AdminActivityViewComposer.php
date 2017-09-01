@@ -4,6 +4,7 @@ namespace Avem\Http\ViewComposers;
 
 use Avem\User;
 use Avem\Activity;
+use Carbon\Carbon;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 
@@ -27,6 +28,27 @@ class AdminActivityViewComposer
 		}, collect([]));
 	}
 
+	private function sortActivities($activities)
+	{
+		$byCreation = $activities->where('start', null);
+		$byProximity = $activities->where('start', '!=', null);
+
+		$now = Carbon::now();
+		$proximity = function($activity) use ($now) {
+			return $activity->start->diffInDays($now);
+		};
+
+		$byCreation->sortByDesc('created_at');
+		$passed = $byProximity->filter(function ($activity) use ($now) {
+			return $activity->start->lt($now);
+		})->sortBy($proximity);
+		$pending = $byProximity->filter(function ($activity) use ($now) {
+			return $activity->start->gte($now);
+		})->sortBy($proximity);
+
+		return array_collapse([$pending, $passed, $byCreation]);
+	}
+
 	/**
 	 * Create a new admin activity view composer.
 	 *
@@ -46,16 +68,27 @@ class AdminActivityViewComposer
 	public function compose(View $view)
 	{
 		if ($filter = $this->request->input('q')) {
-			$view->with('allActivities', Activity::search($filter)->get());
+			$allActivities = Activity::search($filter)->get();
 			$view->with('q', $filter);
 		} else {
-			$view->with('allActivities', Activity::all());
+			$allActivities = Activity::all();
 		}
 
 		if ($user = $this->request->user()) {
-			$view->with('organizedActivities', $this->organizedActivities($user));
+			$organizedActivities = $this->organizedActivities($user);
 		} else {
-			$view->with('organizedActivities', collect([]));
+			$organizedActivities = collect([]);
 		}
+
+		$now = Carbon::now();
+		$activityProximity = function($activity) use ($now) {
+			if ($activity->start != null && $activity->start->gte($now))
+				return $activity->start->diffInDays($now);
+			else
+				return $activity->created_at->diffInDays($now);
+		};
+
+		$view->with('allActivities', $this->sortActivities($allActivities));
+		$view->with('organizedActivities', $this->sortActivities($organizedActivities));
 	}
 }
