@@ -13507,6 +13507,63 @@ body {
   }
 }
 
+.board-view .board-groups,
+.board-view .group-charges {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.board-view .board-group ~ .board-group {
+  margin-top: 15px;
+}
+
+.board-view .group-charges {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin: -10px;
+}
+
+.board-view .group-charge {
+  margin: 10px;
+}
+
+.board-view .charge-image,
+.board-view .charge-info {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.board-view .charge-image {
+  max-width: 120px;
+  border-radius: 50%;
+}
+
+.board-view .charge-info {
+  max-width: 40%;
+  margin-left: 15px;
+}
+
+.board-view .charge-user {
+  display: block;
+  font-size: 1.2em;
+}
+
+.board-view .charge-name {
+  font-size: 1.1em;
+}
+
+.board-view .charge-email {
+  font-size: 1em;
+}
+
+.board-view .charge-description {
+  font-size: 0.9em;
+  line-height: 1.3em;
+}
+
 .carousel-image {
   display: block;
   min-width: 100%;
@@ -13841,16 +13898,16 @@ body {
   margin-left: 5px;
 }
 
-.tree-groups,
-.group-subgroups,
-.group-charges,
-.charge-periods {
+.group-tree .tree-groups,
+.group-tree .group-subgroups,
+.group-tree .group-charges,
+.group-tree .charge-periods {
   padding-left: 0;
   list-style: none;
 }
 
 @media (min-width: 1000px) {
-  .tree-group--level-0 > .group-info > .group-subgroups {
+  .group-tree .tree-group--level-0 > .group-info > .group-subgroups {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -13862,73 +13919,73 @@ body {
             justify-content: space-between;
   }
 
-  .tree-group--level-0 > .group-info > .group-subgroups > .group-subgroup ~ .group-subgroup {
+  .group-tree .tree-group--level-0 > .group-info > .group-subgroups > .group-subgroup ~ .group-subgroup {
     margin-top: 0;
     margin-left: 15px;
   }
 }
 
-.tree-group--level-0 ~ .tree-group--level-0 {
+.group-tree .tree-group--level-0 ~ .tree-group--level-0 {
   margin-top: 40px;
 }
 
-.group-info {
+.group-tree .group-info {
   margin-top: 15px;
 }
 
-.group-subgroup ~ .group-subgroup {
+.group-tree .group-subgroup ~ .group-subgroup {
   margin-top: 20px;
 }
 
-.group-charge ~ .group-charge {
+.group-tree .group-charge ~ .group-charge {
   margin-top: 20px;
 }
 
-.charge-period ~ .charge-period {
+.group-tree .charge-period ~ .charge-period {
   margin-top: 10px;
 }
 
-.charge-periods {
+.group-tree .charge-periods {
   margin: 10px 0;
 }
 
-.charge-period {
+.group-tree .charge-period {
   margin-left: 20px;
 }
 
-.period-user,
-.period-end {
+.group-tree .period-user,
+.group-tree .period-end {
   display: block;
   line-height: 18px;
 }
 
-.group-name,
-.charge-name {
+.group-tree .group-name,
+.group-tree .charge-name {
   font-size: 0.8em;
   font-weight: 600;
 }
 
-.tree-group--level-0 > .group-name {
+.group-tree .tree-group--level-0 > .group-name {
   font-size: 1em;
 }
 
-.charge-name,
-.group-subgroup .group-name {
+.group-tree .charge-name,
+.group-tree .group-subgroup .group-name {
   display: inline-block;
   background-color: var(--wg-color);
 }
 
-.group-subgroup .group-info {
+.group-tree .group-subgroup .group-info {
   padding: 15px;
   margin-top: 0;
   margin-left: 20px;
 }
 
-.tree-group--level-1 {
+.group-tree .tree-group--level-1 {
   position: relative;
 }
 
-.tree-group--level-1::before {
+.group-tree .tree-group--level-1::before {
   content: '';
   width: 5px;
   display: block;
@@ -13940,25 +13997,25 @@ body {
   background-color: var(--wg-color);
 }
 
-.group-name,
-.charge-name {
+.group-tree .group-name,
+.group-tree .charge-name {
   text-transform: uppercase;
 }
 
-.group-charges .charge-name,
-.group-subgroups .group-name,
-.charge-new-link {
+.group-tree .group-charges .charge-name,
+.group-tree .group-subgroups .group-name,
+.group-tree .charge-new-link {
   padding: 3px 8px;
   border-radius: 5px;
   background-color: var(--wg-color);
 }
 
-.charge-period {
+.group-tree .charge-period {
   position: relative;
   color: var(--wg-color);
 }
 
-.charge-period::before {
+.group-tree .charge-period::before {
   content: '\F061';
   font-family: FontAwesome;
   left: -20px;
@@ -13966,28 +14023,28 @@ body {
   position: absolute;
 }
 
-.period-user {
+.group-tree .period-user {
   font-weight: 600;
 }
 
-.charge-new-link,
-.charge-period-link {
+.group-tree .charge-new-link,
+.group-tree .charge-period-link {
   color: inherit;
 }
 
-.charge-new-link:focus,
-.charge-new-link:hover,
-.charge-period-link:focus,
-.charge-period-link:hover {
+.group-tree .charge-new-link:focus,
+.group-tree .charge-new-link:hover,
+.group-tree .charge-period-link:focus,
+.group-tree .charge-period-link:hover {
   color: inherit;
   text-decoration: none;
 }
 
-.charge-new-link {
+.group-tree .charge-new-link {
   opacity: 0.5;
 }
 
-.charge-new-link:hover {
+.group-tree .charge-new-link:hover {
   opacity: 1;
 }
 

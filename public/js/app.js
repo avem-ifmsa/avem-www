@@ -2030,13 +2030,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		onNewTokenInputKeyDown: function onNewTokenInputKeyDown(event) {
 			switch (event.key) {
 				case 'Enter':
-					if (this.newTokenContent !== '') {
-						event.preventDefault();
-						var tokenInput = event.target;
-						this.tokens.push(this.newTokenContent);
-						tokenInput.style.width = null;
-						this.newTokenContent = '';
-					}
+					if (this.newTokenContent === '') break;
+				case ',':
+				case '.':
+					event.preventDefault();
+					var tokenInput = event.target;
+					this.tokens.push(this.newTokenContent);
+					tokenInput.style.width = null;
+					this.newTokenContent = '';
 					break;
 				case 'ArrowLeft':
 					if (this.newTokenContent === '') {
