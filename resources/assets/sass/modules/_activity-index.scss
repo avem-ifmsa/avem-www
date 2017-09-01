@@ -85,16 +85,6 @@
 		display: none;
 	}
 
-	.activity-tag {
-		margin: 3px;
-		padding: 0 5px;
-		border-radius: 5px;
-		display: inline-block;
-		background-color: #8eb4cb;
-
-		cursor: default;
-	}
-
 	.activity-actions {
 		right: 30px;
 		bottom: 20px;
@@ -113,7 +103,7 @@
 			position: absolute;
 
 			color: #fff;
-			font-size: 0.8em;
+			font-size: 1.2em;
 
 			list-style: none;
 		}

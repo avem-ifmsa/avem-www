@@ -41,9 +41,11 @@
 
 									<div class="gallery-item-tags">
 										@foreach ($activity->tags as $tag)
-											<span class="badge badge-info">
+											<a class="badge badge-info" href="{{
+												route('admin.activities.index', [ 'q' => $tag->name ])
+											}}">
 												{{ $tag->name }}
-											</span>
+											</a>
 										@endforeach
 									</div>
 
@@ -117,7 +119,13 @@
 							<p class="activity-description">{{ $activity->description }}</p>
 							<ul class="activity-tags">
 								@foreach ($activity->tags as $tag)
-									<li class="activity-tag">{{ $tag->name }}</li>
+									<li class="activity-tag">
+										<a class="badge badge-info" href="{{
+											route('admin.activities.index', [ 'q' => $tag->name ])
+										}}">
+											{{ $tag->name }}
+										</a>
+									</li>
 								@endforeach
 							</ul>
 						</div>
