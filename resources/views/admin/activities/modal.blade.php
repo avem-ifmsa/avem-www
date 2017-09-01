@@ -55,9 +55,11 @@
 					</div>
 				</div>
 
-				<div class="modal-footer">
-					@yield('modal-footer')
-				</div>
+				@hasSection('modal-footer')
+					<div class="modal-footer">
+						@yield('modal-footer')
+					</div>
+				@endif
 			</div>
 		</div>
 	</div>
