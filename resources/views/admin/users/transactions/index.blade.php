@@ -52,7 +52,7 @@
 							</tbody>
 						</table>
 
-						<a href="{{ route('admin.users.transactions.create', [$user]) }}" role="button" class="btn btn-secondary btn-block{{
+						<a href="{{ route('admin.users.transactions.create', [$user]) }}" role="button" class="btn btn-primary btn-block{{
 							Gate::denies('create', Avem\Transaction::class) ? ' disabled' : ''
 						}}">
 							Crear nueva transacción
