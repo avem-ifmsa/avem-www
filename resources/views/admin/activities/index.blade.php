@@ -91,81 +91,94 @@
 		</form>
 
 		<div class="mt-2 activity-index">
-			<ul class="activity-items">
-				@foreach ($allActivities as $activity)
-					<li class="activity-item">
-						<img class="activity-image" src="{{ $activity->imageUrl }}">
-						<div class="activity-info">
-							<div class="activity-header">
-								<h4 class="activity-name">
-									{{ $activity->name }}
-								</h4>
-
-								@unless ($activity->published)
-									<span class="ml-2 badge badge-warning">
-										Borrador
-									</span>
-								@endunless
-
-								<span class="activity-extra">
-									@if ($activity->start !== null && $activity->location !== null)
-										<i class="fa fa-calendar mr-1"></i>
-										{{ $activity->start->formatLocalized('%e de %B del %Y') }}
-										en {{ $activity->location }}
-									@endif
-								</span>
-							</div>
-
-							<p class="activity-description">{{ $activity->description }}</p>
-							<ul class="activity-tags">
-								@foreach ($activity->tags as $tag)
-									<li class="activity-tag">
-										<a class="badge badge-info" href="{{
-											route('admin.activities.index', [ 'q' => $tag->name ])
-										}}">
-											{{ $tag->name }}
-										</a>
-									</li>
-								@endforeach
-							</ul>
-						</div>
-
-						<div class="activity-actions">
-							<form action="{{ route('admin.activities.publish', [$activity]) }}" method="post">
-								{{ csrf_field() }}
-								<div class="btn-group">
-									<a class="btn btn-secondary{{ Gate::denies('view', $activity) ? ' disabled' : '' }}"
-									   role="button" href="{{ route('admin.activities.show', [$activity]) }}">
-										<i class="fa fa-cog"></i><span class="ml-1">Administrar</span>
-									</a>
-
-									<a class="btn btn-secondary{{ Gate::denies('update', $activity) ? ' disabled' : '' }}"
-									   role="button" href="{{ route('admin.activities.edit', [$activity]) }}">
-										<i class="fa fa-pencil"></i><span class="ml-1">Editar</span>
-									</a>
+			@if ($allActivities->isEmpty())
+				<div class="my-3 text-center">
+					Todavía no existen actividades.
+					@can('create', Avem\Activity::class)
+						Si lo deseas, puedes crear una nueva actividad
+						<a href="{{ route('admin.activities.create') }}">
+						aquí</a>.
+					@else
+						Parece que no tienes permiso para crear actividades.
+					@endcan
+				</div>
+			@else
+				<ul class="activity-items">
+					@foreach ($allActivities as $activity)
+						<li class="activity-item">
+							<img class="activity-image" src="{{ $activity->imageUrl }}">
+							<div class="activity-info">
+								<div class="activity-header">
+									<h4 class="activity-name">
+										{{ $activity->name }}
+									</h4>
 
 									@unless ($activity->published)
-										<input type="hidden" name="published" value="1">
-										<button role="button" type="submit" class="btn btn-primary">
-											<i class="fa fa-eye mr-1"></i>Publicar
-										</button>
-									@else
-										<input type="hidden" name="published" value="0">
-										<button role="button" type="submit" class="btn btn-secondary">
-											<i class="fa fa-eye-slash mr-1"></i>Despublicar
-										</button>
+										<span class="ml-2 badge badge-warning">
+											Borrador
+										</span>
 									@endunless
 
-									<a class="btn btn-danger{{ Gate::denies('delete', $activity) ? ' disabled' : '' }}"
-									   role="button" href="{{ route('admin.activities.delete', [$activity]) }}">
-										<i class="fa fa-times"></i><span class="ml-1">Eliminar</span>
-									</a>
+									<span class="activity-extra">
+										@if ($activity->start !== null && $activity->location !== null)
+											<i class="fa fa-calendar mr-1"></i>
+											{{ $activity->start->formatLocalized('%e de %B del %Y') }}
+											en {{ $activity->location }}
+										@endif
+									</span>
 								</div>
-							</form>
-						</div>
-					</li>
-				@endforeach
-			</ul>
+
+								<p class="activity-description">{{ $activity->description }}</p>
+								<ul class="activity-tags">
+									@foreach ($activity->tags as $tag)
+										<li class="activity-tag">
+											<a class="badge badge-info" href="{{
+												route('admin.activities.index', [ 'q' => $tag->name ])
+											}}">
+												{{ $tag->name }}
+											</a>
+										</li>
+									@endforeach
+								</ul>
+							</div>
+
+							<div class="activity-actions">
+								<form action="{{ route('admin.activities.publish', [$activity]) }}" method="post">
+									{{ csrf_field() }}
+									<div class="btn-group">
+										<a class="btn btn-secondary{{ Gate::denies('view', $activity) ? ' disabled' : '' }}"
+										   role="button" href="{{ route('admin.activities.show', [$activity]) }}">
+											<i class="fa fa-cog"></i><span class="ml-1">Administrar</span>
+										</a>
+
+										<a class="btn btn-secondary{{ Gate::denies('update', $activity) ? ' disabled' : '' }}"
+										   role="button" href="{{ route('admin.activities.edit', [$activity]) }}">
+											<i class="fa fa-pencil"></i><span class="ml-1">Editar</span>
+										</a>
+
+										@unless ($activity->published)
+											<input type="hidden" name="published" value="1">
+											<button role="button" type="submit" class="btn btn-primary">
+												<i class="fa fa-eye mr-1"></i>Publicar
+											</button>
+										@else
+											<input type="hidden" name="published" value="0">
+											<button role="button" type="submit" class="btn btn-secondary">
+												<i class="fa fa-eye-slash mr-1"></i>Despublicar
+											</button>
+										@endunless
+
+										<a class="btn btn-danger{{ Gate::denies('delete', $activity) ? ' disabled' : '' }}"
+										   role="button" href="{{ route('admin.activities.delete', [$activity]) }}">
+											<i class="fa fa-times"></i><span class="ml-1">Eliminar</span>
+										</a>
+									</div>
+								</form>
+							</div>
+						</li>
+					@endforeach
+				</ul>
+			@endif
 		</div>
 	</section>
 @stop

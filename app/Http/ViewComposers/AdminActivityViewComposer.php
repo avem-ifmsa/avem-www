@@ -46,7 +46,8 @@ class AdminActivityViewComposer
 			return $activity->start->gte($now);
 		})->sortBy($proximity);
 
-		return array_collapse([$pending, $passed, $byCreation]);
+		$result = array_collapse([$pending, $passed, $byCreation]);
+		return collect($result);
 	}
 
 	/**
