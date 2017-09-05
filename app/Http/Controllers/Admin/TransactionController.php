@@ -23,7 +23,7 @@ class TransactionController extends Controller
 
 		return view('admin.users.transactions.index', [
 			'user'         => $user,
-			'transactions' => $transactions->sortBy('created_at'),
+			'transactions' => $transactions->sortByDesc('created_at'),
 		]);
 	}
 
