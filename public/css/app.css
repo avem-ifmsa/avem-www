@@ -13730,6 +13730,7 @@ body {
 .gallery-item {
   margin: 10px;
   width: 250px;
+  min-height: 275px;
 }
 
 @media (max-width: 767px) {
