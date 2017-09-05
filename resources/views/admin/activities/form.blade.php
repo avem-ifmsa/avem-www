@@ -56,7 +56,7 @@
 			<div class="col-md-6">
 				<p class="form-group{{ $errors->has('points') ? ' has-danger' : '' }}">
 					<label for="form-points">Puntos</label>
-					<input id="form-points" name="points" class="form-control" type="number" min="0"
+					<input id="form-points" name="points" step="0.25" class="form-control" type="number" min="0"
 					       value="{{ old('points', isset($activity) ? $activity->points : '0') }}">
 					@if ($errors->has('points'))
 						<span class="form-text">

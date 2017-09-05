@@ -11,7 +11,7 @@
 
 <p class="form-group form-group--required{{ $errors->has('points') ? ' has-danger' : '' }}">
 	<label for="form-points">Puntos</label>
-	<input id="form-points" type="number" name="points" class="form-control" required
+	<input id="form-points" type="number" step="0.25" name="points" class="form-control" required
 	       value="{{ old('points', isset($transaction) ? $transaction->points : '' ) }}">
 	@if ($errors->has('points'))
 		<span class="form-text">
