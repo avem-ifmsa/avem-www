@@ -144,4 +144,12 @@
 			opacity: 1;
 		}
 	}
+
+	.charge-new-link,
+	.charge-period-link {
+		&--disabled {
+			cursor: not-allowed;
+			pointer-events: none;
+		}
+	}
 }

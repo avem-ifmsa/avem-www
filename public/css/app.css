@@ -14041,6 +14041,12 @@ body {
   opacity: 1;
 }
 
+.group-tree .charge-new-link--disabled,
+.group-tree .charge-period-link--disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 body {
   overflow-x: hidden;
 }
