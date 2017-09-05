@@ -15,7 +15,8 @@
 		<p class="form-group form-group--required{{ $errors->has('name') ? ' has-danger' : '' }}">
 			<label for="form-name">Nombre de la actividad</label>
 			<input id="form-name" class="form-control" name="name" type="text" required
-			       value="{{ old('name', isset($activity) ? $activity->name : '') }}">
+			       value="{{ old('name', isset($activity) ? $activity->name : '') }}"
+			       placeholder="Charla sobre alimentos funcionales">
 			@if ($errors->has('name'))
 				<span class="form-text">
 					<strong>{{ $errors->first('name') }}</strong>
@@ -25,7 +26,9 @@
 
 		<p class="form-group form-group--required{{ $errors->has('description') ? ' has-danger' : '' }}">
 			<label for="form-description">Descripción</label>
-			<textarea id="form-description" class="form-control" name="description" required>{{
+			<textarea id="form-description" class="form-control" name="description" required
+			          placeholder="En esta charla se abordarán temas relacionados con los alimentos funcionales y su posible impacto sobre la salud&hellip;"
+			>{{
 				old('description', isset($activity) ? $activity->description : '')
 			}}</textarea>
 			@if ($errors->has('description'))
@@ -71,7 +74,7 @@
 			<label for="form-tags">Etiquetas</label>
 			<input is="token-input" class="form-control" id="form-tags" name="tags" type="text" value="{{
 				old('tags', isset($activity) ? $activity->tags->pluck('name')->implode(',') : '')
-			}}">
+			}}" placeholder="Salud pública, SCOPH, LPO&hellip;">
 			@if ($errors->has('tags'))
 				<span class="form-text">
 					<strong>{{ $errors->first('tags') }}</strong>
@@ -85,7 +88,8 @@
 	<p class="form-group{{ $errors->has('location') ? ' has-danger' : '' }}">
 		<label for="form-location">Lugar</label>
 		<input name="location" id="form-location" class="form-control" type="text"
-		       value="{{ old('location', isset($activity) ? $activity->location : '') }}">
+		       value="{{ old('location', isset($activity) ? $activity->location : '') }}"
+		       placeholder="Aula 1">
 		@if ($errors->has('location'))
 			<span class="form-text">
 				<strong>{{ $errors->first('location') }}</strong>
