@@ -17,7 +17,6 @@ class CreateActivitiesTable extends Migration
 			$table->increments('id');
 			$table->string('name');
 			$table->text('description')->nullable();
-			$table->string('image')->nullable();
 			$table->text('location')->nullable();
 			$table->boolean('published')->default(false);
 			$table->integer('points')->unsigned()->default(0);

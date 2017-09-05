@@ -23,7 +23,7 @@ class Activity extends Model implements HasMediaConversions
 	protected $fillable = [
 		'name', 'description', 'location', 'start', 'end', 'audience',
 		'inscription_policy', 'inscription_start', 'inscription_end',
-		'member_limit', 'points', 'image', 'published',
+		'member_limit', 'points', 'published',
 	];
 
 	/**
