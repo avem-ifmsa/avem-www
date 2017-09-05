@@ -49,6 +49,12 @@
 				border-bottom: 2px dashed;
 			}
 
+			@if ($activityTickets->count() % 3 > 0)
+				.ticket-item:last-child {
+					border-right: 2px dashed;
+				}
+			@endif
+
 			@if ($activityTickets->count() % 30 > 0)
 				.ticket-item:nth-child({{ $activityTickets->count() - 2 }}),
 				.ticket-item:nth-child({{ $activityTickets->count() - 1 }}),
