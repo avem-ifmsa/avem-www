@@ -19,6 +19,7 @@
 										{{ $activity->name }}
 									</h4>
 
+
 									<div class="gallery-item-extra">
 										@if ($activity->start !== null)
 											<span class="float-left">
@@ -41,11 +42,9 @@
 
 									<div class="gallery-item-tags">
 										@foreach ($activity->tags as $tag)
-											<a class="badge badge-info" href="{{
-												route('admin.activities.index', [ 'q' => $tag->name ])
-											}}">
+											<span class="badge badge-info">
 												{{ $tag->name }}
-											</a>
+											</span>
 										@endforeach
 									</div>
 
@@ -120,10 +119,21 @@
 									@endunless
 
 									<span class="activity-extra">
-										@if ($activity->start !== null && $activity->location !== null)
+										@if ($activity->start != null)
 											<i class="fa fa-calendar mr-1"></i>
-											{{ $activity->start->formatLocalized('%e de %B del %Y') }}
-											en {{ $activity->location }}
+											{{ $activity->start->formatLocalized('%e %b del %Y') }}
+											@if ($activity->end != null && $activity->start->isSameDay($activity->end))
+												a las {{ $activity->start->formatLocalized('%H:%M') }}
+												hasta las {{ $activity->end->formatLocalized('%H:%M')}}
+											@elseif ($activity->end != null)
+												hasta {{ $activity->end->formatLocalized('%e %b del %Y') }}
+											@endif
+
+											@if ($activity->location != null)
+												en {{ $activity->location }}
+											@endif
+										@elseif ($activity->location != null)
+											<i class="fa fa-map-marker"></i> {{ $activity->location }}
 										@endif
 									</span>
 								</div>

@@ -13449,6 +13449,10 @@ body {
   display: none;
 }
 
+.activity-index .activity-tag ~ .activity-tag {
+  margin-left: 5px;
+}
+
 .activity-index .activity-actions {
   right: 30px;
   bottom: 20px;
