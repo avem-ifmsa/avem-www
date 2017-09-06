@@ -156,7 +156,7 @@
 			<p class="col-md-6 form-group{{ $errors->has('inscription_start') ? ' has-danger' : '' }}">
 				<label class="label--smaller" for="form-inscription-start">Inicio del periodo</label>
 				<input id="form-inscription-start" class="form-control form-control-sm" name="inscription_start" type="date" value="{{
-					old('inscription_start', isset($activity) && $activity->inscriptionStart ? $activity->inscriptionStart->toDateString() : '')
+					old('inscription_start', isset($activity) && $activity->inscription_start ? $activity->inscription_start->toDateString() : '')
 				}}">
 				@if ($errors->has('inscription_start'))
 					<span class="form-text">
@@ -168,7 +168,7 @@
 			<p class="col-md-6 form-group{{ $errors->has('inscription_end') ? ' has-danger' : '' }}">
 				<label class="label--smaller" for="form-inscription-end">Fín del periodo</label>
 				<input id="form-inscription-end" class="form-control form-control-sm" name="inscription_end" type="date" value="{{
-					old('inscription_end', isset($activity) && $activity->inscriptionEnd ? $activity->inscriptionEnd->toDateString() : '')
+					old('inscription_end', isset($activity) && $activity->inscription_end ? $activity->inscription_end->toDateString() : '')
 				}}">
 				@if ($errors->has('inscription_end'))
 					<span class="form-text">
