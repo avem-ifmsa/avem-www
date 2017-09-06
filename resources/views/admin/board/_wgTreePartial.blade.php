@@ -25,7 +25,7 @@
 						</div>
 
 						<ul class="charge-periods">
-							@forelse ($charge->periods->where('isActive', true) as $period)
+							@forelse ($charge->periods->where('user', '!=', null)->where('isActive', true) as $period)
 								<li class="charge-period">
 									<a class="charge-period-link{{ Gate::denies('create', Avem\ChargePeriod::class) ? ' charge-period-link--disabled' : '' }}" href="{{
 										route('admin.chargePeriods.manage', [$period])

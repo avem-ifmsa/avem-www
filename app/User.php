@@ -57,6 +57,15 @@ class User extends Authenticatable implements HasMediaConversions
 		'created_at', 'updated_at', 'birthday',
 	];
 
+	public static function boot()
+	{
+		parent::boot();
+
+		static::deleting(function($user) {
+			$user->chargePeriods()->active()->update([ 'end' => Carbon::now() ]);
+		});
+	}
+
 	public function chargePeriods()
 	{
 		return $this->hasMany('Avem\ChargePeriod');
