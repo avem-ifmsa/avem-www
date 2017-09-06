@@ -1,7 +1,9 @@
 @extends('layouts.admin')
 
 @section('content')
-	<h1 class="mt-4">Actividades</h1>
+	<h1>
+		<i class="mr-2 fa fa-calendar"></i> Actividades
+	</h1>
 
 	<section class="my-4">
 		<h2>Actividades organizadas por mí</h2>

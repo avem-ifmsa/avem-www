@@ -2,7 +2,7 @@
 
 @section('content')
 	<h1>
-		Junta directiva
+		<i class="mr-2 fa fa-sitemap"></i> Junta directiva
 	</h1>
 
 	<div class="mt-4 group-tree">

@@ -1,7 +1,9 @@
 @extends('layouts.admin')
 
 @section('content')
-	<h1 class="mt-4">Usuarios</h1>
+	<h1>
+		<i class="mr-2 fa fa-users"></i> Usuarios
+	</h1>
 
 	<form class="mt-4 w-100">
 		<p class="input-group">
