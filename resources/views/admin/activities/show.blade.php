@@ -3,44 +3,70 @@
 @section('modal-content')
 	<div class="container-fluid">
 		<div class="mx-3 mt-4 row">
-			<div class="col-md-6">
+			<div class="col-lg-6">
 				<img class="w-100" src="{{ $activity->imageUrl }}">
 			</div>
 
-			<dl class="col-md-6">
-				<dt>Nombre</dt>
-				<dd>{{ $activity->name }}</dd>
+			<div class="col-lg-6 mt-md-3 mt-lg-0">
+				<h4>{{ $activity->name }}</h4>
 
-				<dt>Lugar</dt>
-				<dd>
-					<i class="fa fa-map-marker mr-1"></i>
-					@if ($activity->location !== null)
-						{{ $activity->location }}
-					@else
-						No asignado
+				<div class="clearfix">
+					@if ($activity->start != null)
+						<div class="float-left">
+							<i class="fa fa-calendar"></i>
+							{{ $activity->start->formatLocalized('%e %b del %Y') }}
+							@if ($activity->end != null && $activity->end->isSameDay($activity->start))
+								<span class="ml-2">
+									{{ $activity->start->formatLocalized('%H:%M') }}
+									- {{ $activity->end->formatLocalized('%H:%M') }}
+								</span>
+							@elseif ($activity->end != null)
+								- {{ $activity->end->formatLocalized('%e %b del %Y') }}
+							@endif
+						</div>
 					@endif
-				</dd>
 
-				<dt>Inicio de la actividad</dt>
-				<dd>
-					<i class="fa fa-calendar mr-1"></i>
-					@if ($activity->start !== null)
-						{{ $activity->start->formatLocalized('%d de %B del %Y a las %H:%M') }}
-					@else
-						No asignado
+					@if ($activity->location != null)
+						<div class="float-right">
+							<i class="fa fa-map-marker"></i>
+							{{ $activity->location }}
+						</div>
 					@endif
-				</dd>
+				</div>
 
-				<dt>Fin de la actividad</dt>
-				<dd>
-					<i class="fa fa-calendar mr-1"></i>
-					@if ($activity->end !== null)
-						{{ $activity->end->formatLocalized('%d de %B del %Y a las %H:%M') }}
-					@else
-						No asignado
+				<p class="my-2">
+					{{ $activity->description }}
+				</p>
+
+				<dl class="row">
+					@if ($activity->inscription_start && $activity->inscription_end)
+						<dt class="col-md-4">Inscripciones:</dt>
+						<dd class="col-md-8">
+							<div class="text-nowrap">
+								{{ $activity->inscription_start->formatLocalized('%e %b del %Y') }}
+								- {{ $activity->inscription_end->formatLocalized('%e %b del %Y') }}
+							</div>
+
+							@if ($activity->member_limit != null)
+								<div class="text-nowrap">
+									{{ $activity->member_limit }} plazas disponibles
+								</div>
+							@endif
+						</dd>
 					@endif
-				</dd>
-			</dl>
+
+					<dt class="col-md-4">Responsables:</dt>
+					<dd class="col-md-8">
+						<ul class="list-unstyled">
+							@foreach ($activity->organizerPeriods as $period)
+							<li>
+								{{ $period->user->fullName }}
+							</li>
+							@endforeach
+						</ul>
+					</dd>
+				</dl>
+			</div>
 		</div>
 	</div>
 @stop
