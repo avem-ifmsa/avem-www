@@ -59,8 +59,10 @@ class ActivityController extends Controller
 	{
 		$this->authorize('create', Activity::class);
 
-		DB::transaction(function() use ($request) {
-			$activity = Activity::create($request->all());
+		$activity = new Activity($request->all());
+
+		DB::transaction(function() use ($request, $activity) {
+			$activity->save();
 
 			$activity->organizerPeriods()->sync(
 				$request->input('organizer_periods', [])
@@ -75,7 +77,7 @@ class ActivityController extends Controller
 			$activity->tags()->sync($activityTags->pluck('id'));
 		});
 
-		return redirect()->route('admin.activities.index');
+		return redirect()->route('admin.activities.show', [$activity]);
 	}
 
 	/**
@@ -141,7 +143,7 @@ class ActivityController extends Controller
 			$activity->tags()->sync($activityTags->pluck('id'));
 		});
 
-		return redirect()->route('admin.activities.index');
+		return redirect()->route('admin.activities.show', [$activity]);
 	}
 
 	public function publish(Request $request, Activity $activity)
