@@ -13,7 +13,7 @@
 				<div class="clearfix">
 					@if ($activity->start != null)
 						<div class="float-left">
-							<i class="fa fa-calendar"></i>
+							<i class="mr-1 fa fa-calendar"></i>
 							{{ $activity->start->formatLocalized('%e %b del %Y') }}
 							@if ($activity->end != null && $activity->end->isSameDay($activity->start))
 								<span class="ml-2">
@@ -28,7 +28,7 @@
 
 					@if ($activity->location != null)
 						<div class="float-right">
-							<i class="fa fa-map-marker"></i>
+							<i class="mr-1 fa fa-map-marker"></i>
 							{{ $activity->location }}
 						</div>
 					@endif

@@ -19,18 +19,17 @@
 										{{ $activity->name }}
 									</h4>
 
-
 									<div class="gallery-item-extra">
 										@if ($activity->start !== null)
 											<span class="float-left">
-												<i class="fa fa-calendar mr-1"></i>
+												<i class="mr-1 fa fa-calendar"></i>
 												{{ $activity->start->format('d/m/y') }}
 											</span>
 										@endif
 
 										@if ($activity->location !== null)
 											<span class="float-right">
-												<i class="fa fa-map-marker"></i>
+												<i class="mr-1 fa fa-map-marker"></i>
 												{{ $activity->location }}
 											</span>
 										@endif
@@ -120,7 +119,7 @@
 
 									<span class="activity-extra">
 										@if ($activity->start != null)
-											<i class="fa fa-calendar mr-1"></i>
+											<i class="mr-1 fa fa-calendar"></i>
 											{{ $activity->start->formatLocalized('%e %b del %Y') }}
 											@if ($activity->end != null && $activity->start->isSameDay($activity->end))
 												a las {{ $activity->start->formatLocalized('%H:%M') }}
@@ -133,7 +132,7 @@
 												en {{ $activity->location }}
 											@endif
 										@elseif ($activity->location != null)
-											<i class="fa fa-map-marker"></i> {{ $activity->location }}
+											<i class="mr-1 fa fa-map-marker"></i> {{ $activity->location }}
 										@endif
 									</span>
 								</div>
