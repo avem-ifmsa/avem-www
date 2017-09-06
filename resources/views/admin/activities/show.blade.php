@@ -8,7 +8,11 @@
 			</div>
 
 			<div class="col-lg-6 mt-md-3 mt-lg-0">
-				<h4>{{ $activity->name }}</h4>
+				@if ($activity->name != null)
+					<h4>{{ $activity->name }}</h4>
+				@else
+					<h4 class="font-italic">No establecido</h4>
+				@endif
 
 				<div class="clearfix">
 					@if ($activity->start != null)
@@ -39,6 +43,11 @@
 				</p>
 
 				<dl class="row">
+					@if ($activity->points != 0)
+						<dt class="col-md-4">Puntos:</dt>
+						<dd class="col-md-8">{{ $activity->points }}</dd>
+					@endif
+
 					@if ($activity->inscription_start && $activity->inscription_end)
 						<dt class="col-md-4">Inscripciones:</dt>
 						<dd class="col-md-8">
