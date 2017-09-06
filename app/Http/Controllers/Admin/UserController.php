@@ -47,7 +47,7 @@ class UserController extends Controller
 	 */
 	public function update(Request $request, User $user)
 	{
-		$this->authorize($user);
+		$this->authorize('update', $user);
 
 		$user->fill($request->except('password', 'photo'));
 
@@ -84,7 +84,7 @@ class UserController extends Controller
 	 */
 	public function destroy(User $user)
 	{
-		$this->authorize();
+		$this->authorize('delete', $user);
 
 		$user->delete();
 
