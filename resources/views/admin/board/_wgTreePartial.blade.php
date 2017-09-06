@@ -31,7 +31,7 @@
 										route('admin.chargePeriods.manage', [$period])
 									}}">
 										<span class="period-user">{{ $period->user->fullName }} ({{ $period->user->id }})</span>
-										<span class="period-end">Ocupa este cargo hasta {{ $period->end->formatLocalized('%B del %Y') }} ({{ $period->end->diffForHumans() }})</span>
+										<span class="period-end">Ocupa este cargo hasta {{ $period->end->formatLocalized('%d %b %Y') }} ({{ $period->end->diffForHumans() }})</span>
 									</a>
 								</li>
 							@empty
