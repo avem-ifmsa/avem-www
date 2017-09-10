@@ -137,7 +137,7 @@
 @stop
 
 @section('content')
-	<div class="container">
+	<div class="container mb-4">
 		<div class="row">
 			<div class="mb-3 mb-md-0 col-md-4 col-lg-3">
 				<div class="card nav nav-pills flex-column">
