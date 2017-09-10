@@ -13568,6 +13568,25 @@ body {
   max-height: 400px;
 }
 
+.cta {
+  width: 60%;
+  font-size: 1.3rem;
+  margin: 90px auto;
+  text-align: center;
+}
+
+.cta-title {
+  font-size: 1.5em;
+}
+
+.cta-text {
+  font-size: 0.9em;
+}
+
+.cta-button {
+  padding: 20px 10px;
+}
+
 .dashboard {
   min-width: 240px;
   margin-top: 10px;
@@ -13730,7 +13749,7 @@ body {
 }
 
 .footer-section .section-link:hover {
-  color: rgba(204, 204, 204, 0.8);
+  color: rgba(221, 221, 221, 0.8);
 }
 
 .footer-section--about {

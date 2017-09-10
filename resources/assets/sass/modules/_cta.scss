@@ -1,0 +1,18 @@
+.cta {
+	width: 60%;
+	font-size: 1.3rem;
+	margin: 90px auto;
+	text-align: center;
+
+	&-title {
+		font-size: 1.5em;
+	}
+
+	&-text {
+		font-size: 0.9em;
+	}
+
+	&-button {
+		padding: 20px 10px;
+	}
+}
