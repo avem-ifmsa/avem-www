@@ -1,7 +1,8 @@
 .cta {
-	width: 60%;
+	width: 100%;
+	font-weight: 600;
+	padding: 90px 20%;
 	font-size: 1.3rem;
-	margin: 90px auto;
 	text-align: center;
 
 	&-title {
@@ -13,6 +14,40 @@
 	}
 
 	&-button {
-		padding: 20px 10px;
+		margin: 10px;
+		color: inherit;
+		padding: 10px 40px;
+		white-space: nowrap;
+		display: inline-block;
+
+		&:focus, &:hover {
+			text-decoration: none;
+		}
+	}
+
+	&-actions {
+		margin: 10px 0;
+
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	&--welcome {
+		color: rgba(#fff, 0.9);
+		background-size: cover;
+		background-position: 50% 50%;
+		background-image: url(~/img/farmacriticxs.jpg);
+
+		.cta-button {
+			color: #830019;
+			border-radius: 3px;
+			background-color: rgba(#fff, 0.9);
+
+			&:focus, &:hover {
+				background-color: #fff;
+				box-shadow: 0 6px 8px rgba(#000, 0.2);
+			}
+		}
 	}
 }

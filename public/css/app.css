@@ -13317,7 +13317,6 @@ body {
 
 .l-footer {
   width: 100%;
-  margin-top: 30px;
 }
 
 .l-user-menu {
@@ -13569,9 +13568,10 @@ body {
 }
 
 .cta {
-  width: 60%;
+  width: 100%;
+  font-weight: 600;
+  padding: 90px 20%;
   font-size: 1.3rem;
-  margin: 90px auto;
   text-align: center;
 }
 
@@ -13584,7 +13584,48 @@ body {
 }
 
 .cta-button {
-  padding: 20px 10px;
+  margin: 10px;
+  color: inherit;
+  padding: 10px 40px;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.cta-button:focus,
+.cta-button:hover {
+  text-decoration: none;
+}
+
+.cta-actions {
+  margin: 10px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.cta--welcome {
+  color: rgba(255, 255, 255, 0.9);
+  background-size: cover;
+  background-position: 50% 50%;
+  background-image: url(/img/farmacriticxs.jpg);
+}
+
+.cta--welcome .cta-button {
+  color: #830019;
+  border-radius: 3px;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.cta--welcome .cta-button:focus,
+.cta--welcome .cta-button:hover {
+  background-color: #fff;
+  -webkit-box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
 
 .dashboard {

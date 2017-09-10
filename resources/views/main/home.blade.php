@@ -137,29 +137,31 @@
 @stop
 
 @section('content')
-	<div class="row">
-		<div class="mb-3 mb-md-0 col-md-4 col-lg-3">
-			<div class="card nav nav-pills flex-column">
-				<a href="{{ route('home') }}" class="nav-link{{
-					Route::currentRouteName() === 'home' ? ' active' : ''
-				}}">Entorno de usuario</a>
+	<div class="container">
+		<div class="row">
+			<div class="mb-3 mb-md-0 col-md-4 col-lg-3">
+				<div class="card nav nav-pills flex-column">
+					<a href="{{ route('home') }}" class="nav-link{{
+						Route::currentRouteName() === 'home' ? ' active' : ''
+					}}">Entorno de usuario</a>
 
-				<a href="{{ route('ticket.exchange') }}" class="nav-link{{
-					Route::currentRouteName() === 'ticket.exchange' ? ' active' : ''
-				}}">Canjear tickets</a>
+					<a href="{{ route('ticket.exchange') }}" class="nav-link{{
+						Route::currentRouteName() === 'ticket.exchange' ? ' active' : ''
+					}}">Canjear tickets</a>
 
-				<a href="{{ route('home.points') }}" class="nav-link{{
-					Route::currentRouteName() === 'home.points' ? ' active' : ''
-				}}">Desglose de puntos</a>
+					<a href="{{ route('home.points') }}" class="nav-link{{
+						Route::currentRouteName() === 'home.points' ? ' active' : ''
+					}}">Desglose de puntos</a>
 
-				<a href="{{ route('home.settings') }}" class="nav-link{{
-					Route::currentRouteName() === 'home.settings' ? ' active' : ''
-				}}">Ajustes</a>
+					<a href="{{ route('home.settings') }}" class="nav-link{{
+						Route::currentRouteName() === 'home.settings' ? ' active' : ''
+					}}">Ajustes</a>
+				</div>
 			</div>
-		</div>
 
-		<div class="col-md-8 col-lg-9">
-			@yield('home-content')
+			<div class="col-md-8 col-lg-9">
+				@yield('home-content')
+			</div>
 		</div>
 	</div>
 @endsection

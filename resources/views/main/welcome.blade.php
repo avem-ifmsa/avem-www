@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-	<div class="cta">
+	<div class="cta cta--welcome">
 		<h3 class="cta-title">
 			Porque la medicina no solo está en los libros.
 		</h3>
@@ -13,7 +13,10 @@
 			Lo mejor está por llegar.
 		</p>
 
-		<a href="{{ route('register') }}" class="cta-button" role="button">Hazte socio</a>
+		<div class="cta-actions">
+			<a href="https://medium.com/@AVEM/qui%C3%A9nes-somos-80f42a6dd598" class="cta-button" role="button">Conócenos</a>
+			<a href="{{ route('register') }}" class="cta-button" role="button">Hazte socio</a>
+		</div>
 	</div>
 
 	{{-- <div id="welcome-carousel" class="carousel slide" data-ride="carousel">
