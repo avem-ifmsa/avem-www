@@ -13737,7 +13737,8 @@ body {
 }
 
 .footer-section .section-content {
-  padding-left: 2em;
+  padding-left: 0;
+  list-style-type: none;
   color: rgba(170, 170, 170, 0.8);
 }
 
@@ -14581,6 +14582,10 @@ body.is-menu-active {
 .user-result--large .user-image {
   width: 64px;
   height: 64px;
+}
+
+.main {
+  font-family: 'Libre Franklin', sans-serif;
 }
 
 .admin {
