@@ -3,7 +3,7 @@
 @section('content')
 	<div class="cta">
 		<h3 class="cta-title">
-			Porque la medicina no sólo está en los libros.
+			Porque la medicina no solo está en los libros.
 		</h3>
 
 		<p class="cta-text">
