@@ -1,4 +1,58 @@
 .footer {
 	padding: 50px 30px;
 	background-color: #333;
+
+	&-section {
+		margin-top: 10px;
+
+		.section-logo {
+			fill: #fff;
+			width: 75px;
+			height: 75px;
+			margin-left: -10px;
+			display: inline-block;
+		}
+
+		.section-title {
+			color: #fff;
+		}
+
+		.section-content {
+			padding-left: 2em;
+			color: rgba(#aaa, 0.8);
+		}
+
+		.section-link {
+			color: inherit;
+			cursor: pointer;
+			font-size: 1.1em;
+			text-decoration: none;
+
+			&:hover {
+				color: rgba(#ddd, 0.8);
+			}
+		}
+
+		&--about {
+			margin-top: 0;
+
+			.section-title {
+				font-weight: 600;
+				text-transform: uppercase;
+
+				margin-top: 10px;
+				font-size: 1.4em;
+				line-height: 1.4em;
+			}
+
+			.section-content {
+				width: 80%;
+				padding-left: 0;
+				margin-top: 10px;
+
+				font-size: 1.1em;
+				line-height: 1.2em;
+			}
+		}
+	}
 }

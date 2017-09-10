@@ -16,9 +16,11 @@
 					{!! file_get_contents('img/avem-logo.svg') !!}
 				</a>
 
+				<!--
 				<button type="button" class="header-menu-toggle" onclick="toggleHeaderMenu()">
 					<i class="fa fa-bars"></i>
 				</button>
+				-->
 
 				<div class="l-user-menu">
 					@if (Auth::guest())
@@ -67,6 +69,7 @@
 					@endif
 				</div>
 
+				<!--
 				<nav class="header-menu">
 					<ul class="header-menu-items">
 						<li class="header-menu-item">
@@ -90,6 +93,7 @@
 						</li>
 					</ul>
 				</nav>
+			-->
 			</div>
 
 			<div class="container">
@@ -97,7 +101,53 @@
 			</div>
 
 			<footer class="l-footer footer">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-3 footer-section footer-section--about">
+							<div class="section-logo">
+								{!! file_get_contents('img/avem-icon.svg') !!}
+							</div>
 
+							<h4 class="section-title">
+								Associació Valenciana d'Estudiants de Medicina
+							</h4>
+
+							<p class="section-content">
+								La Asociación Valenciana de Estudiantes de Medicina
+								(<abbr title="Asociación Valenciana de Estudiantes de Medicina">AVEM</abbr>)
+								es un Comité Local de IFMSA-Spain que ofrece un programa de intercambios y actividades.
+							</p>
+						</div>
+
+						<div class="col-md-3 footer-section">
+							<h4 class="section-title">Noticias</h4>
+							<ul class="section-content">
+								<li><a class="section-link" href="https://blog.avem.es">Blog</a></li>
+								<li><a class="section-link" href="https://www.facebook.com/avem.ifmsavalencia">Facebook</a></li>
+								<li><a class="section-link" href="https://www.instagram.com/avem_ifmsa/">Instagram</a></li>
+							</ul>
+						</div>
+
+						<div class="col-md-3 footer-section">
+							<h4 class="section-title">Sobre nosotros</h4>
+							<ul class="section-content">
+								<li><a class="section-link" href="http://help.avem.es/avem-e-ifmsa/quien-manda-en-avem.html">Junta directiva</a></li>
+								<li><a class="section-link" href="http://help.avem.es/avem-e-ifmsa/cualquier-persona-puede-ser-miembro-de-la-junta-directiva.html">Participa en la junta directiva</a></li>
+								<li><a class="section-link" href="https://medium.com/@AVEM/t%C3%A9rminos-y-condiciones-da509034f946">Términos y condiciones</a></li>
+							</ul>
+						</div>
+
+						<div class="col-md-3 footer-section">
+							<h4 class="section-title">Ayuda</h4>
+							<ul class="section-content">
+								<li><a class="section-link" href="http://help.avem.es">Centro de ayuda</a></li>
+								<li><a class="section-link" href="#">Normativa de la asociación</a></li>
+								<li><a class="section-link" href="#">Código de conducta</a></li>
+								<li><a class="section-link" href="mailto:reportar@avem.es">Reportar un incidente</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
 			</footer>
 		</div>
 	</body>

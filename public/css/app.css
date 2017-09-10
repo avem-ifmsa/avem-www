@@ -13701,6 +13701,58 @@ body {
   background-color: #333;
 }
 
+.footer-section {
+  margin-top: 10px;
+}
+
+.footer-section .section-logo {
+  fill: #fff;
+  width: 75px;
+  height: 75px;
+  margin-left: -10px;
+  display: inline-block;
+}
+
+.footer-section .section-title {
+  color: #fff;
+}
+
+.footer-section .section-content {
+  padding-left: 2em;
+  color: rgba(170, 170, 170, 0.8);
+}
+
+.footer-section .section-link {
+  color: inherit;
+  cursor: pointer;
+  font-size: 1.1em;
+  text-decoration: none;
+}
+
+.footer-section .section-link:hover {
+  color: rgba(204, 204, 204, 0.8);
+}
+
+.footer-section--about {
+  margin-top: 0;
+}
+
+.footer-section--about .section-title {
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top: 10px;
+  font-size: 1.4em;
+  line-height: 1.4em;
+}
+
+.footer-section--about .section-content {
+  width: 80%;
+  padding-left: 0;
+  margin-top: 10px;
+  font-size: 1.1em;
+  line-height: 1.2em;
+}
+
 .form-group--required label {
   position: relative;
 }
