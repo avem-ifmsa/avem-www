@@ -14524,18 +14524,22 @@ body.is-menu-active {
   text-align: center;
 }
 
-.user-menu:not(.user-menu--guest) .menu-content .logout-btn {
+.user-menu:not(.user-menu--guest) .menu-content .user-button {
+  width: 100%;
   border: none;
   outline: none;
   display: block;
   padding: 5px 15px;
   border-radius: 2px;
-  margin: 15px auto 0;
+  margin: 10px auto 0;
+  text-align: center;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.8);
   background-color: #cfcfcf;
 }
 
-.user-menu:not(.user-menu--guest) .menu-content .logout-btn:focus,
-.user-menu:not(.user-menu--guest) .menu-content .logout-btn:hover {
+.user-menu:not(.user-menu--guest) .menu-content .user-button:focus,
+.user-menu:not(.user-menu--guest) .menu-content .user-button:hover {
   -webkit-box-shadow: 0 1px rgba(0, 0, 0, 0.175);
           box-shadow: 0 1px rgba(0, 0, 0, 0.175);
   background-color: rgba(207, 207, 207, 0.8);
@@ -14585,6 +14589,24 @@ body.is-menu-active {
 }
 
 .main {
+  font-family: 'Libre Franklin', sans-serif;
+}
+
+.main h1,
+.main h2,
+.main h3,
+.main h4,
+.main h5,
+.main h6 {
+  font-family: 'Libre Franklin', sans-serif;
+}
+
+.main p {
+  font-family: 'Libre Franklin', sans-serif;
+}
+
+.main a,
+.main button {
   font-family: 'Libre Franklin', sans-serif;
 }
 

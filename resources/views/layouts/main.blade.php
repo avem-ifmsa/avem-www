@@ -58,9 +58,13 @@
 									</div>
 								@endif
 
+								<a class="user-button" role="button" href="{{ route('home') }}">
+									Entorno de usuario
+								</a>
+
 								<form action="{{ route('logout') }}" method="post">
 									{{ csrf_field() }}
-									<button type="submit" class="logout-btn" role="button">
+									<button type="submit" class="user-button" role="button">
 										Cerrar sesión
 									</button>
 								</form>
@@ -113,8 +117,7 @@
 							</h4>
 
 							<p class="section-content">
-								La Asociación Valenciana de Estudiantes de Medicina
-								(<abbr title="Asociación Valenciana de Estudiantes de Medicina">AVEM</abbr>)
+								La <abbr title="Asociación Valenciana de Estudiantes de Medicina">AVEM</abbr>
 								es un Comité Local de IFMSA-Spain que ofrece un programa de intercambios y actividades.
 							</p>
 						</div>

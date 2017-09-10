@@ -105,13 +105,19 @@ $user-image-size: 30px;
 				text-align: center;
 			}
 
-			.logout-btn {
+			.user-button {
+				width: 100%;
 				border: none;
 				outline: none;
 				display: block;
+
 				padding: 5px 15px;
 				border-radius: 2px;
-				margin: 15px auto 0;
+				margin: 10px auto 0;
+
+				text-align: center;
+				text-decoration: none;
+				color: rgba(#000, 0.8);
 				background-color: #cfcfcf;
 
 				&:focus, &:hover {
