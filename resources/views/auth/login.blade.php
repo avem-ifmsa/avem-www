@@ -1,6 +1,12 @@
 @extends('layouts.auth')
 
 @section('content')
+	<div class="page-header">
+		<a class="header-icon" href="{{ url('/') }}">
+			{!! file_get_contents('img/avem-logo.svg') !!}
+		</a>
+	</div>
+
 	<div class="mt-4 col-md-6 offset-md-3">
 		<form method="post" action="{{ route('login') }}">
 			{{ csrf_field() }}
