@@ -22,6 +22,16 @@
 		<meta property="og:description" content="Web oficial de la Asociación Valenciana de Estudiantes de Medicina.">
 		<meta name="description" content="Web oficial de la Asociación Valenciana de Estudiantes de Medicina.">
 
+		<!-- Global Site Tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-86942802-2"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments)};
+			gtag('js', new Date());
+
+			gtag('config', 'UA-86942802-2');
+		</script>
+
 		<!-- CSRF Token -->
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 		<script>
