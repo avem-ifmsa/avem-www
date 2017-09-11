@@ -27,6 +27,17 @@ class Activity extends Model implements HasMediaConversions
 	];
 
 	/**
+	 * The attributes and their respective types.
+	 *
+	 * @var array
+	 */
+	protected $casts = [
+		'points'       => 'float',
+		'member_limit' => 'integer',
+		'published'    => 'boolean',
+	];
+
+	/**
 	 * The attributes that should be mutated to dates.
 	 *
 	 * @var array

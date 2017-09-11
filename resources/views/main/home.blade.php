@@ -1,5 +1,13 @@
 @extends('layouts.main')
 
+@push('scripts')
+	<script>
+		$(function () {
+			$('[data-toggle="tooltip"]').tooltip();
+		});
+	</script>
+@endpush
+
 @section('home-content')
 	<section class="card p-4">
 		<h3 class="mb-3">Tus actividades</h3>
@@ -54,9 +62,12 @@
 									<div class="gallery-item-actions">
 										<form action="{{ route('activities.unsubscribe', [$activity]) }}" method="post">
 											{{ csrf_field() }}
-											<button type="submit" role="button" class="btn btn-block">
-												No asistiré
-											</button>
+											<button type="submit" role="button" class="btn btn-block"
+												@if ($activity->inscription_policy != 'inscribed')
+													disabled data-toggle="tooltip" data-placement="bottom"
+													title="No es posible desinscribirse de esta actividad"
+												@endif
+											>No asistiré</button>
 										</form>
 									</div>
 								</div>
@@ -122,9 +133,15 @@
 								<div class="gallery-item-actions">
 									<form action="{{ route('activities.subscribe', [$activity]) }}" method="post">
 										{{ csrf_field() }}
-										<button type="submit" role="button" class="btn btn-block">
-											Asistiré
-										</button>
+										<button type="submit" role="button" class="btn btn-block"
+											@if($activity->inscription_policy != 'inscribed')
+												disabled data-toggle="tooltip" data-placement="bottom"
+												title="No es posible suscribirse a esta actividad"
+											@elseif ($activity->member_limit !== null && $activity->member_limit >= $activity->inscribedUsers()->count())
+												disabled data-toggle="tooltip" data-placement="bottom"
+												title="No quedan plazas para esta actividad"
+											@endif
+										>Asistiré</button>
 									</form>
 								</div>
 							</div>
