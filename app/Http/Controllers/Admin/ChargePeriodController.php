@@ -25,6 +25,10 @@ class ChargePeriodController extends Controller
 		$chargePeriod->start = Carbon::now();
 		$chargePeriod->end = $request->input('end');
 
+		$assignerPeriod = $request->user()->currentChargePeriod;
+		if ($assignerPeriod)
+			$chargePeriod->assignerPeriod()->associate($assignerPeriod);
+
 		$chargeUser = User::findOrFail($request->input('user'));
 		$chargePeriod->user()->associate($chargeUser);
 

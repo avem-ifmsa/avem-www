@@ -58,9 +58,10 @@ class TicketController extends Controller
 		}
 
 		DB::transaction(function() use ($user, $ticket) {
-			$performedActivity = new performedActivity;
+			$performedActivity = new PerformedActivity;
 			$performedActivity->user()->associate($user);
 			$performedActivity->activity()->associate($ticket->activity);
+			$performedActivity->witnessPeriod()->associate($ticket->issuerPeriod);
 			$performedActivity->save();
 
 			$ticket->performedActivity()->associate($performedActivity);

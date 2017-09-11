@@ -56,9 +56,11 @@ class TransactionController extends Controller
 	{
 		$this->authorize('create', Transaction::class);
 
-		$t = new PlainTransaction($request->all());
-		$t->user()->associate($user);
-		$t->save();
+		$transaction = new PlainTransaction($request->all());
+		$transaction->user()->associate($user);
+		$chargePeriod = $request->user()->currentChargePeriod;
+		$transaction->applierPeriod()->associate($chargePeriod);
+		$transaction->save();
 
 		return redirect()->route('admin.users.transactions.index', [$user]);
 	}

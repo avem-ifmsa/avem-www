@@ -50,6 +50,8 @@ class ActivityAssistantController extends Controller
 		if ($request->input('performed')) {
 			$performedActivity = new PerformedActivity;
 			$performedActivity->user()->associate($user);
+			$chargePeriod = $request->user()->currentChargePeriod;
+			$performedActivity->witnessPeriod()->associate($chargePeriod);
 			$performedActivity->activity()->associate($activity);
 			$performedActivity->save();
 		} else {

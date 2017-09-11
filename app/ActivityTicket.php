@@ -27,14 +27,6 @@ class ActivityTicket extends Model
 		'created_at', 'updated_at', 'exchanged_at', 'expires_at',
 	];
 
-	public static function saving($activityTicket)
-	{
-		parent::saving($activityTicket);
-
-		$chargePeriod = Auth::user()->currentChargePeriod;
-		$activityTicket->issuerPeriod()->associate($chargePeriod);
-	}
-
 	public static function scopeExpired($query, $expired = true)
 	{
 		$query->whereDate('expires_at', $expired ? '<=' : '>', Carbon::now());

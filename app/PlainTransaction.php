@@ -16,16 +16,6 @@ class PlainTransaction extends Model
 		'concept', 'points',
 	];
 
-	public static function boot()
-	{
-		parent::boot();
-
-		static::saving(function($plainTransaction) {
-			$chargePeriod = Auth::user()->currentChargePeriod;
-			$plainTransaction->applierPeriod()->associate($chargePeriod);
-		});
-	}
-
 	public function applierPeriod()
 	{
 		return $this->belongsTo('Avem\ChargePeriod', 'charge_period_id');

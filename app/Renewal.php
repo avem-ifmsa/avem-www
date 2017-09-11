@@ -26,16 +26,6 @@ class Renewal extends Model
 		'created_at', 'updated_at', 'until',
 	];
 
-	public static function boot()
-	{
-		parent::boot();
-
-		static::saving(function($renewal) {
-			$chargePeriod = Auth::user()->currentChargePeriod;
-			$renewal->issuerPeriod()->associate($chargePeriod);
-		});
-	}
-
 	public function issuerPeriod()
 	{
 		return $this->belongsTo('Avem\ChargePeriod', 'charge_period_id');

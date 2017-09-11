@@ -45,6 +45,8 @@ class RenewalController extends Controller
 
 		$renewal = new Renewal;
 		$renewal->until = $this->nextRenewalDate();
+		$chargePeriod = $request->user()->currentChargePeriod;
+		$renewal->issuerPeriod()->associate($chargePeriod);
 		$renewal->user()->associate($user);
 		$renewal->save();
 

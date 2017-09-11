@@ -27,16 +27,6 @@ class ChargePeriod extends Model
 		'created_at', 'updated_at', 'start', 'end',
 	];
 
-	public static function boot()
-	{
-		parent::boot();
-
-		static::saving(function($chargePeriod) {
-			$assignerPeriod = Auth::user()->currentChargePeriod;
-			$chargePeriod->assignerPeriod()->associate($assignerPeriod);
-		});
-	}
-
 	public function assignedPeriods()
 	{
 		return $this->hasMany('Avem\ChargePeriod');
