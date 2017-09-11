@@ -124,7 +124,7 @@ class Activity extends Model implements HasMediaConversions
 			  ->orWhere('inscription_start', null);
 		});
 		$query->where(function($q) use ($now) {
-			$q->whereDate('inscription_end', '<', $now)
+			$q->whereDate('inscription_end', '<=', $now)
 			  ->orWhere('inscription_end', null);
 		});
 
