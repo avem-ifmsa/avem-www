@@ -33,7 +33,7 @@
 
 						<p>
 							Si lo que desea es <strong>dejar de recibir nuestros correos</strong>, solo tiene que
-							<a href="{{ route('home.settings').'#newsletter' }}">desuscribirse de nuestra lista
+							<a href="{{ route('home.settings').'#correos' }}">desuscribirse de nuestra lista
 							de correo</a>. De esta manera, conservará sus datos y podrá volver a suscribirse en
 							cualquier momento.
 						</p>

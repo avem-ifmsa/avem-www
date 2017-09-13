@@ -98,7 +98,7 @@
 	</section>
 
 	<section class="mt-3 card p-3">
-		<a name="newsletter"></a>
+		<a name="correos"></a>
 
 		<h3>Recibir correos</h3>
 

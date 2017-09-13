@@ -55,7 +55,7 @@ class SettingsController extends Controller
 		if (!Newsletter::subscribeOrUpdate(Auth::user()->email))
 			Session::flash('newsletterError', Newsletter::getLastError());
 
-		return redirect()->to(route('home.settings').'#newsletter');
+		return redirect()->to(route('home.settings').'#correos');
 	}
 
 	public function unsubscribeNewsletter()
@@ -63,7 +63,7 @@ class SettingsController extends Controller
 		if (!Newsletter::unsubscribe(Auth::user()->email))
 			Session::flash('newsletterError', Newsletter::getLastError());
 
-		return redirect()->to(route('home.settings').'#newsletter');
+		return redirect()->to(route('home.settings').'#correos');
 	}
 
 	public function deleteAccount()
