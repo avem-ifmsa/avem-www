@@ -46,7 +46,7 @@ return [
         /*
          * The domain that should be prepended when generating urls.
          */
-        'domain' => 'https://s3.'.env('AWS_S3_REGION').'.amazonaws.com/'.env('AWS_S3_BUCKET'),
+        'domain' => 'https://'.env('AWS_S3_BUCKET').'.s3.amazonaws.com',
     ],
 
     'remote' => [
