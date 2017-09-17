@@ -134,7 +134,9 @@ class ActivityController extends Controller
 			);
 
 			if ($request->hasFile('image')) {
-				$activity->clearMediaCollection('images');
+				if ($activity->image !== null)
+					$activity->image->delete();
+
 				$activity->addMediaFromRequest('image')
 				         ->toMediaLibrary('images');
 			}
