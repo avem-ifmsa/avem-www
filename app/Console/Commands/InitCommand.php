@@ -100,9 +100,19 @@ class InitCommand extends Command
 			'name'         => 'activities_r',
 			'description'  => 'Permite crear y administrar actividades.',
 			'_permissions' => [
-				'activity:create',
+				'activity:create','activity:view', 'activity:update', 'activity:delete',
 			],
 		],
+
+        // Transactions role
+        [
+            'name'         => 'transactions_r',
+            'description'  => 'Permite transferir y modificar puntos.',
+            '_permissions' => [
+                'transaction:create', 'transaction:view', 'transaction:update', 'transaction:delete',
+            ],
+        ],
+
 
 		// Bureaucracy role
 		[
@@ -294,7 +304,7 @@ class InitCommand extends Command
 			'name'           => 'Presidencia',
 			'email'          => 'presidencia@avem.es',
 			'_working_group' => 'Cargos burocráticos',
-			'_roles'         => [ 'bureaucracy_r', 'finances_r', 'help_r'],
+			'_roles'         => [ 'bureaucracy_r', 'finances_r', 'help_r', 'activities_r', 'transactions_r'],
 			'description'    =>
 				'Representa oficial y legalmente a la Asociación y es responsable de las '    .
 				'relaciones externas —con otras asociaciones, personalidades y organismos. '  .
@@ -309,7 +319,7 @@ class InitCommand extends Command
 			'name'           => 'Vicepresidencia',
 			'email'          => 'vicepresidencia@avem.es',
 			'_working_group' => 'Cargos burocráticos',
-			'_roles'         => ['bureaucracy_r', 'finances_r', 'help_r'],
+			'_roles'         => ['bureaucracy_r', 'finances_r', 'help_r', 'activities_r', 'transactions_r'],
 			'description'    =>
 				'Sustituye el cargo de presidencia en ausencia de éste. Supervisa y participa' .
 				'en el correcto funcionamiento de las actividades y los cargos de la '         .
@@ -326,7 +336,7 @@ class InitCommand extends Command
 			'name'           => 'Tesorería',
 			'email'          => 'tesoreria@avem.es',
 			'_working_group' => 'Cargos burocráticos',
-			'_roles'         => ['bureaucracy_r', 'finances_r', 'help_r'],
+			'_roles'         => ['bureaucracy_r', 'finances_r', 'help_r', 'activities_r', 'transactions_r'],
 			'description'    =>
 				'Ordena, autoriza, registra, justifica y gestiona los movimientos monetarios de ' .
 				'la Asociación en consonancia con Presidencia. Además, se encarga de buscar '     .
@@ -339,7 +349,7 @@ class InitCommand extends Command
 			'name'           => 'Secretaría',
 			'email'          => 'secretaria@avem.es',
 			'_working_group' => 'Cargos burocráticos',
-			'_roles'         => ['bureaucracy_r', 'finances_r', 'help_r'],
+			'_roles'         => ['bureaucracy_r', 'finances_r', 'help_r', 'activities_r', 'transactions_r'],
 			'description'    =>
 				'Es responsable de los trabajos administrativos de la Asociación: toma actas de las ' .
 				'reuniones, hace certificados y documentos, presenta papeles, y actualiza la lista '  .
