@@ -107,6 +107,7 @@
 							<button class="btn btn-primary" type="submit" role="button">Registrarse</button>
 						</p>
 					</form>
+					<p>Formas de pago</p>
 				</div>
 			</div>
 		</div>
