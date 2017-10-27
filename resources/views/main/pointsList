@@ -1,0 +1,26 @@
+@extends('main.home')
+
+@section('home-content')
+	<section class="card p-4">
+		<h3>(en desarrollo!!) Lista de puntos totales (en desarrollo!!)</h3>
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Puntos totales</th>
+				</tr>
+			</thead>
+
+			<tbody><!--
+				@foreach ($transactions as $transaction)
+					<tr>
+						<td>{{ $transaction->concept }}</td>
+						<td>{{ $transaction->created_at }}</td>
+						<td>{{ $transaction->points }}</td>
+					</tr>
+				@endforeach
+			</tbody> -->
+		</table>
+	</section>
+@stop
