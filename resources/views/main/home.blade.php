@@ -173,6 +173,10 @@
 					<a href="{{ route('home.settings') }}" class="nav-link{{
 						Route::currentRouteName() === 'home.settings' ? ' active' : ''
 					}}">Ajustes</a>
+					
+					<a href="{{ route('home.pointsList') }}" class="nav-link{{
+						Route::currentRouteName() === 'home.pointsList' ? ' active' : ''
+					}}">Lista de puntos (en desarrollo!!)</a>
 				</div>
 			</div>
 
