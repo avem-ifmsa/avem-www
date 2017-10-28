@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
 	protected $commands = [
 		Commands\AddUserCommand::class,
 		Commands\InitCommand::class,
+		Commands\updateTotalPointsCommand::class,
 	];
 
 	/**
