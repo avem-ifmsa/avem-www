@@ -1,27 +1,27 @@
-<?php
 
+
+<?php
+#/App/Console/Commands/QuizStart.php
 namespace App\Console\Commands;
 
-use App\User;
-use App\DripEmailer;
 use Illuminate\Console\Command;
 
-class SendEmails extends Command
+class QuizStart extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'update:points';
+    protected $signature = 'quiz:start';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Update the field total_points in users table';
-    
+    protected $description = 'Command description';
+
     /**
      * Create a new command instance.
      *
@@ -39,6 +39,10 @@ class SendEmails extends Command
      */
     public function handle()
     {
-        echo "Si ves esto, funciona, amigo";
+        $this->line("Some text");
+        $this->info("Hey, watch this !");
+        $this->comment("Just a comment passing by");
+        $this->question("Why did you do that?");
+        $this->error("Ops, that should not happen.");
     }
 }
