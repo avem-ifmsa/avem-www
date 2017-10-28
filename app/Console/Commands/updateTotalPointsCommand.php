@@ -39,6 +39,6 @@ class SendEmails extends Command
      */
     public function handle()
     {
-        echo "Si ves esto, funciona";
+        echo "Si ves esto, funciona, amigo";
     }
 }
