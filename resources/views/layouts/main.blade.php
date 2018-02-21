@@ -144,7 +144,7 @@
 							<h4 class="section-title">Ayuda</h4>
 							<ul class="section-content">
 								<li><a class="section-link" href="http://help.avem.es">Centro de ayuda</a></li>
-								<li><a class="section-link" href="#">Normativa de la asociación</a></li>
+								<li><a class="section-link" href="https://docs.google.com/document/d/1VBsZ4o0rzRr6Y2Prw4tmmS7ZpX6YbnQlq1atiZ2HJno/edit?usp=sharing">Reglamento interno</a></li>
 								<li><a class="section-link" href="#">Código de conducta</a></li>
 								<li><a class="section-link" href="mailto:reportar@avem.es">Reportar un incidente</a></li>
 							</ul>
