@@ -3,7 +3,7 @@
 @section('home-content')
 	<section class="card p-4">
 		<h3>Transacciones de puntos</h3>
-		<a href="https://docs.google.com/document/d/1WteKp_JXuFNrAYCxur1_E4FutD0xIHeOTM7BCLr0Xho/edit?usp=sharing"><p>Lista de socios ordenados según sus puntos</p?</a>
+		<a href="https://docs.google.com/document/d/1WteKp_JXuFNrAYCxur1_E4FutD0xIHeOTM7BCLr0Xho/edit?usp=sharing"><p>Lista de socios ordenados según sus puntos</p></a>
 		<table class="table table-striped">
 			<thead>
 				<tr>
