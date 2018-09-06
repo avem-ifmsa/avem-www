@@ -1,5 +1,5 @@
 @extends('main.home')
-
+<!--
 @push('scripts')
 	<script>
 		var ticketSubmitButton, ticketCodeInput;
@@ -54,11 +54,11 @@
 		});
 	</script>
 @endpush
-
+-->
 @section('home-content')
 	<section class="card p-4">
-		<h3>Canjear ticket</h3>
-
+		<h3>Calendario de actividades</h3>
+		<!--
 		<div class="my-2">
 			@if (Session::has('exchange-error'))
 				<div class="alert alert-warning">
@@ -115,5 +115,8 @@
 				</p>
 			@endif
 		</div>
+		-->
+		<iframe src="https://calendar.google.com/calendar/embed?src=im2pquv9sr5j0uenm96dqf2478%40group.calendar.google.com&ctz=Europe%2FMadrid" style="border: 0" width="800" height="600" frameborder="0" scrolling="no">
+		</iframe>
 	</section>
 @stop
