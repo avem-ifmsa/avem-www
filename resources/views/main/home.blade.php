@@ -174,6 +174,8 @@
 						Route::currentRouteName() === 'home.settings' ? ' active' : ''
 					}}">Ajustes</a>
 				</div>
+				<iframe src="https://calendar.google.com/calendar/embed?src=im2pquv9sr5j0uenm96dqf2478%40group.calendar.google.com&ctz=Europe%2FMadrid" style="border: 0" width="800" height="600" frameborder="0" scrolling="no">
+				</iframe>
 			</div>
 
 			<div class="col-md-8 col-lg-9">
