@@ -283,7 +283,7 @@ class User extends Authenticatable implements HasMediaConversions
 		$renewalTransactions = $this->renewals()
 			->select(
 				DB::raw('\'Renovación de usuario\' as concept'),
-				DB::raw('1 as points'), 'renewals.created_at',
+				DB::raw('0 as points'), 'renewals.created_at',
 				'renewals.charge_period_id'
 			);
 
