@@ -289,7 +289,7 @@ class User extends Authenticatable implements HasMediaConversions
 
 		return Transaction::hydrate(
 			$plainTransactions->union($activityTransactions)
-			                  ->union($renewalTransactions)
+			                 //->union($renewalTransactions)
 			                  ->get()->toArray()
 		);
 	}
