@@ -78,7 +78,16 @@
 			</div>
 		@endif
 	</section>
-
+	
+	<section class="card p-4">
+		<h3 class="mb-3">Rifa semana 15 años AVEM</h3>
+		<div class="my-3 text-center">
+			Lista con los números de cada socio para la rifa que se realizará por el aniversario
+			de la funcación de AVEM.<br>
+			<a href='https://docs.google.com/spreadsheets/d/1Ja7wKyoRU_U_uimbXB-1lrsjlsfRg2edahFRvJwDF3k/edit?usp=sharing'>Lista</a>
+		</div>
+	</section>
+	
 	<section class="mt-3 card p-4">
 		<h3 class="mb-3">Próximas actividades</h3>
 
