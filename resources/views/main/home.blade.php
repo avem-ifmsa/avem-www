@@ -9,8 +9,8 @@
 @endpush
 
 @section('home-content')
-	<section class="card p-4">
-		<h3 class="mb-3">Rifa semana 15 años AVEM</h3>
+	<section class="card p-4 mt-3">
+		<h3 class="mb-3">Semana 15 años AVEM</h3>
 		<div class="my-3 text-center">
 			<a href='https://docs.google.com/forms/d/e/1FAIpQLSdBDfdepa1di6WEmOQ9rIjxYLZKyv_cHMQvp3yh5OQV83rF3g/viewform'>
 				Formulario evaluación para las actividades de la semana 15 aniversario AVEM<br>
