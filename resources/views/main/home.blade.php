@@ -12,9 +12,13 @@
 	<section class="card p-4">
 		<h3 class="mb-3">Rifa semana 15 años AVEM</h3>
 		<div class="my-3 text-center">
-			Lista con los números de cada socio para la rifa que se realizará por el aniversario
-			de la funcación de AVEM.<br>
-			<a href='https://docs.google.com/spreadsheets/d/1Ja7wKyoRU_U_uimbXB-1lrsjlsfRg2edahFRvJwDF3k/edit?usp=sharing'>Lista</a>
+			<a href='https://docs.google.com/forms/d/e/1FAIpQLSdBDfdepa1di6WEmOQ9rIjxYLZKyv_cHMQvp3yh5OQV83rF3g/viewform'>
+				Formulario evaluación para las actividades de la semana 15 aniversario AVEM<br>
+			</a>
+			<a href='https://docs.google.com/spreadsheets/d/1Ja7wKyoRU_U_uimbXB-1lrsjlsfRg2edahFRvJwDF3k/edit?usp=sharing'>
+				Lista con los números de cada socio para la rifa que se realizará por el aniversario
+				de la fundación de AVEM.<br>
+			</a>
 		</div>
 	</section>
 	<section class="card p-4">
