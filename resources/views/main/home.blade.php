@@ -10,6 +10,13 @@
 
 @section('home-content')
 	<section class="card p-4">
+		<h3 class="mb-3">Form DMS 2019</h3>
+		<p>El formulario se abrirá el JUEVES 21 A LAS 19:00</p>
+		<a href="https://drive.google.com/open?id=1Clzjo9XlD5FnDqcVCEwrJoXLYkLPcu9ReZo2mYeV0lY">Acceder al formulario</a>
+	</section>
+
+@section('home-content')
+	<section class="card p-4">
 		<h3 class="mb-3">Tus actividades</h3>
 
 		@if ($inscribedActivities->isEmpty())
