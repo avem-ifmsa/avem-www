@@ -1,0 +1,27 @@
+for ($c = 0; $c < 10; $c++){
+	$date = '2019-08-31';
+	$userName = DB::table('users')->where('id', $c)->value('name');
+	$userSurname = DB::table('users')->where('id', $c)->value('surname');
+	$sumaPA = DB::table('performed_activities')->join('activities', 'activities.id', '=', 'performed_activities.activity_id')->where([['user_id', $c], ['activities.created_at', '<', $date],])->sum('activities.points');
+	$numeroActividades = DB::table('performed_activities')->join('activities', 'activities.id', '=', 'performed_activities.activity_id')->where([['user_id', $c], ['activities.created_at', '<', $date],])->count();
+	$sumaPT = DB::table('plain_transactions')->where([['user_id', $c], ['created_at', '<', $date],])->sum('points');
+	$sumaTotal = ($sumaPA + $sumaPT);
+	if ($sumaPA == NULL || $userName == NULL || $sumaPA === 0){echo "$c: Nulo\n\n";}
+	else {
+	DB::table('plain_transactions')->insert([['concept' => 'Puntos actividades 2018-2019'], ['points' => $sumaPA], ['user_id' => $c], ['charge_period_id' => '6'],]);
+	DB::table('performed_activities')->join('activities', 'activities.id', '=', 'performed_activities.activity_id')->where([['user_id', $c], ['activities.created_at', '<', $date]])->sum('activities.points')->delete();	
+	$sumaPApost = DB::table('performed_activities')->join('activities', 'activities.id', '=', 'performed_activities.activity_id')->where([['user_id', $c], ['activities.created_at', '<', $date],])->sum('activities.points');
+	$numeroActividadesPost = DB::table('performed_activities')->join('activities', 'activities.id', '=', 'performed_activities.activity_id')->where([['user_id', $c], ['activities.created_at', '<', $date],])->count();
+	$sumaPTpost = DB::table('plain_transactions')->where([['user_id', $c], ['created_at', '<', $date],])->sum('points');
+	$sumaTotalpost = ($sumaPApost + $sumaPTpost);
+	echo "$c) $userName $userSurname
+	|-SumaPA: $sumaPA
+	|-Numero de actividades: $numeroActividades
+	|-Suma: $sumaTotal
+	|-------------------------------------------
+	|-SumaPA: $sumaPApost
+	|-Numero de actividades: $numeroActividadesPost
+	|-Suma: $sumaTotalpost
+	\n\n";
+	}
+}
