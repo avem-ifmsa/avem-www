@@ -25,3 +25,23 @@ for ($c = 0; $c < 10; $c++){
 	\n\n";
 	}
 }
+
+// Suma de puntos totales
+
+for ($c = 0; $c < 700; $c++){
+	$date = '2019-10-29 13:59:00';
+	$userName = DB::table('users')->where('id', $c)->value('name');
+	$userSurname = DB::table('users')->where('id', $c)->value('surname');
+	$sumaPA = DB::table('performed_activities')->join('activities', 'activities.id', '=', 'performed_activities.activity_id')->where([['user_id', $c], ['activities.created_at', '<', $date],])->sum('activities.points');
+	$sumaPT = DB::table('plain_transactions')->where([['user_id', $c], ['created_at', '<', $date],])->sum('points');
+	$sumaTotal = ($sumaPA + $sumaPT);
+	if ($userName == NULL){echo "$c: Nulo\n\n";}
+	else {
+	DB::table('users')->where('id', $c)->update(['total_points' => $sumaTotal]);
+	echo "$c) $userName $userSurname
+	|-SumaPA: $sumaPA
+	|-SumaPT: $sumaPT
+	|-Suma: $sumaTotal
+	\n\n";
+	}
+}
