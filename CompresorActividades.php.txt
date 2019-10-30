@@ -1,4 +1,4 @@
-for ($c = 0; $c < 10; $c++){
+for ($c = 0; $c < 200; $c++){
 	$date = '2019-08-31';
 	$userName = DB::table('users')->where('id', $c)->value('name');
 	$userSurname = DB::table('users')->where('id', $c)->value('surname');
@@ -8,7 +8,7 @@ for ($c = 0; $c < 10; $c++){
 	$sumaTotal = ($sumaPA + $sumaPT);
 	if ($sumaPA == NULL || $userName == NULL || $sumaPA === 0){echo "$c: Nulo\n\n";}
 	else {
-	DB::table('plain_transactions')->insert([['concept' => 'Puntos actividades 2018-2019'], ['points' => $sumaPA], ['user_id' => $c], ['charge_period_id' => '6'],]);
+	DB::table('plain_transactions')->insert(['concept' => 'Puntos actividades 2018-2019', 'points' => $sumaPA, 'user_id' => $c, 'charge_period_id' => '6', 'created_at' = $date]);
 	DB::table('performed_activities')->join('activities', 'activities.id', '=', 'performed_activities.activity_id')->where([['user_id', $c], ['activities.created_at', '<', $date]])->sum('activities.points')->delete();	
 	$sumaPApost = DB::table('performed_activities')->join('activities', 'activities.id', '=', 'performed_activities.activity_id')->where([['user_id', $c], ['activities.created_at', '<', $date],])->sum('activities.points');
 	$numeroActividadesPost = DB::table('performed_activities')->join('activities', 'activities.id', '=', 'performed_activities.activity_id')->where([['user_id', $c], ['activities.created_at', '<', $date],])->count();
@@ -45,3 +45,36 @@ for ($c = 0; $c < 700; $c++){
 	\n\n";
 	}
 }
+
+//Script para restar puntos de intercambios, necesita un array con el formato siguiente con número de socio y destino
+$intercambio = array(12, 'Austria', 13, 'Rusia', 4, 'China', 11, 'Mexico');
+
+
+for ($c = 0; $c < count($intercambio); $c++){
+	$date = Carbon\Carbon::now();	
+	$date->toDateTimeString();	
+	$userId = $intercambio[$c];	
+	$c++;	
+	$destino = "Intercambio 2019-2020 a $intercambio[$c]";	
+	$userName = DB::table('users')->where('id', $userId)->value('name');	
+	$userSurname = DB::table('users')->where('id', $userId)->value('surname');	
+	$sumaPA = DB::table('performed_activities')->join('activities', 'activities.id', '=', 'performed_activities.activity_id')->where([['user_id', $userId], ['activities.created_at', '<', $date],])->sum('activities.points');	
+	$sumaPT = DB::table('plain_transactions')->where([['user_id', $userId], ['created_at', '<', $date],])->sum('points');	
+	$sumaTotal = ($sumaPA + $sumaPT);	
+	if($sumaTotal < 80){
+		$restaPuntos = $sumaTotal * -1;
+	} elseif($sumaTotal >= 80){
+		$restaPuntos = -80;
+	} else{
+		echo "Error";
+	}
+	DB::table('plain_transactions')->insert(['concept' => $destino, 'points' => $restaPuntos, 'user_id' => $userId, 'charge_period_id' => '6', 'created_at' => $date, 'updated_at' => $date]);
+	echo "$userId) $userName $userSurname	
+	-Puntos actividades: $sumaPA	
+	-Puntos transacciones: $sumaPT	
+	-Suma total de puntos: $sumaTotal
+	-Resta de puntos: $restaPuntos
+	-Destino intercambio: $destino\n\n";	
+}
+
+
