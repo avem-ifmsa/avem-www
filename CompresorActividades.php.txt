@@ -62,11 +62,11 @@ for ($c = 0; $c < count($intercambio); $c++){
 	$sumaPT = DB::table('plain_transactions')->where([['user_id', $userId], ['created_at', '<', $date],])->sum('points');	
 	$sumaTotal = ($sumaPA + $sumaPT);	
 	if($sumaTotal < 80){
-		$restaPuntos = $sumaTotal * -1;
+	$restaPuntos = $sumaTotal * -1;
 	} elseif($sumaTotal >= 80){
-		$restaPuntos = -80;
+	$restaPuntos = -80;
 	} else{
-		echo "Error";
+	echo "Error";
 	}
 	DB::table('plain_transactions')->insert(['concept' => $destino, 'points' => $restaPuntos, 'user_id' => $userId, 'charge_period_id' => '6', 'created_at' => $date, 'updated_at' => $date]);
 	echo "$userId) $userName $userSurname	
