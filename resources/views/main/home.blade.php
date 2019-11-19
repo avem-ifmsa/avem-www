@@ -8,6 +8,12 @@
 	</script>
 @endpush
 
+@section('home-content')	
+	<section class="card p-4">	
+		<h3 class="mb-3">Votación nueva LPO</h3>	
+		<a href="https://forms.gle/Q1LWrxgtG3y8ePrr5">Acceder al formulario</a>	
+	</section>
+
 @section('home-content')
 	<section class="card p-4">
 		<h3 class="mb-3">Tus actividades</h3>
