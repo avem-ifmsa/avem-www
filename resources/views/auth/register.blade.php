@@ -111,6 +111,11 @@
 					Para ganar puntos y solicitar intercambios es necesario pagar la cuota de socio (12€)</br>
 					Formas de pago: mediante transferencia bancaria a ES47 2038 6319 7460 0005 4141 enviando una copia del comprobante a tesoreria@avem.es o pagando en metálico en el despacho de AVEM.
 					</p>
+					<p>
+					¡Usuarios de Safari!</br>
+					Es posible que al crear un nuevo usuario desde el explorador Safari aparezcan errores con el formato
+					de fecha. Recomendamos usar otros exploradores (Chrome, Firefox, Opera...)
+					</p>
 				</div>
 			</div>
 		</div>
