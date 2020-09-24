@@ -109,7 +109,7 @@
 					</form>
 					<p>La inscripción en AVEM es gratuita, asi como la asistencia a la mayora de actividades.</br>
 					Para ganar puntos y solicitar intercambios es necesario pagar la cuota de socio (12€)</br>
-					Formas de pago: mediante transferencia bancaria a (La nueva cuenta bancaria se publicará en cuanto esté disponible, gracias por vuestra paciencia :D) enviando una copia del comprobante a tesoreria@avem.es o pagando en metálico en el despacho de AVEM.
+					Formas de pago: mediante transferencia bancaria a ES93 2038 6166 29 600459898 enviando una copia del comprobante a tesoreria@avem.es o pagando en metálico en el despacho de AVEM.
 					</p>
 					<p>
 					¡Usuarios de Safari!</br>
