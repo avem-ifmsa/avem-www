@@ -80,4 +80,6 @@ for ($c = 0; $c < count($intercambio); $c++){
 	-Destino intercambio: $destino\n\n";	
 }
 
+Lista puntos
+select row_number() over (order by total_points desc nulls last),u.name, u.surname, u.total_points from users as u join renewals as r on r.user_id = u.id where r.until = '2020-09-01';
 
