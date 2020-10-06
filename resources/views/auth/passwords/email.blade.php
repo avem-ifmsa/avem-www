@@ -24,6 +24,9 @@
 
 			<p>
 				<button class="btn btn-primary" type="submit" role="button">Enviar enlace al correo</button>
+				!! Estamos solucionando un problema con nuestro servicio de recuperación de contraseñas, por lo que no estará disponible durante unos días. <br />
+				Si necesitas acceder urgentemente a tu cuenta, escríbenos a webmaster@avem.es <br />
+				Gracias :D
 			</p>
 		</form>
 	</div>
