@@ -1,5 +1,5 @@
 for ($c = 0; $c < 1200; $c++){
-	$date = '2019-12-31';
+	$date = '2021-08-31';
 	$userName = DB::table('users')->where('id', $c)->value('name');
 	$userSurname = DB::table('users')->where('id', $c)->value('surname');
 	$sumaPA = DB::table('performed_activities')->join('activities', 'activities.id', '=', 'performed_activities.activity_id')->where([['user_id', $c], ['activities.created_at', '<', $date],])->sum('activities.points');
