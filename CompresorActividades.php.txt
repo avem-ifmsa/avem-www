@@ -1,4 +1,4 @@
-for ($c = 0; $c < 900; $c++){
+for ($c = 0; $c < 1200; $c++){
 	$date = '2019-12-31';
 	$userName = DB::table('users')->where('id', $c)->value('name');
 	$userSurname = DB::table('users')->where('id', $c)->value('surname');
@@ -8,7 +8,7 @@ for ($c = 0; $c < 900; $c++){
 	$sumaTotal = ($sumaPA + $sumaPT);
 	if ($sumaPA === NULL || $userName === NULL || $userSurname === NULL || $sumaPA === 0){echo "$c: Nulo\n $sumaPA $userName \n\n";}
 	else {
-	DB::table('plain_transactions')->insert(['concept' => 'Puntos actividades 2019', 'points' => $sumaTotal, 'user_id' => $c, 'charge_period_id' => '6', 'created_at' => $date]);
+	DB::table('plain_transactions')->insert(['concept' => 'Puntos actividades curso 2020-2021', 'points' => $sumaTotal, 'user_id' => $c, 'charge_period_id' => '6', 'created_at' => $date]);
 	DB::table('performed_activities')->join('activities', 'activities.id', '=', 'performed_activities.activity_id')->where([['user_id', $c], ['activities.created_at', '<', $date]])->delete();
 	DB::table('plain_transactions')->where([['user_id', $c], ['created_at', '<', $date],])->delete();	
 	$sumaPApost = DB::table('performed_activities')->join('activities', 'activities.id', '=', 'performed_activities.activity_id')->where([['user_id', $c], ['activities.created_at', '<', $date],])->sum('activities.points');
