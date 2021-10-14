@@ -146,7 +146,7 @@
 							<ul class="section-content">
 								<li><a class="section-link" href="http://help.avem.es">Centro de ayuda</a></li>
 								<li><a class="section-link" href="https://docs.google.com/document/d/1VBsZ4o0rzRr6Y2Prw4tmmS7ZpX6YbnQlq1atiZ2HJno/edit?usp=sharing">Reglamento interno</a></li>
-								<li><a class="section-link" href="mailto:reportar@avem.es">Reportar un incidente</a></li>
+								<li><a class="section-link" href="https://docs.google.com/document/d/11xTIxMOehQQOfnBAWismDt1UZuV7jTtER32i34Kf4ik/edit?usp=sharing">Baremo de puntos</a></li>
 							</ul>
 						</div>
 					</div>
