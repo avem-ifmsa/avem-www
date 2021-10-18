@@ -1,3 +1,5 @@
+// Script para fusionar actividades anteriores a la variable $date
+
 for ($c = 0; $c < 1200; $c++){
 	$date = '2021-08-31';
 	$userName = DB::table('users')->where('id', $c)->value('name');
@@ -83,3 +85,26 @@ for ($c = 0; $c < count($intercambio); $c++){
 Lista puntos
 select row_number() over (order by total_points desc nulls last),u.name, u.surname, u.total_points from users as u join renewals as r on r.user_id = u.id where r.until = '2021-09-01';
 
+// Detección de duplicados en actividades
+
+select pa.id, u.name, u.surname, a.name, u2.name 
+from performed_activities as pa 
+join users as u on u.id=pa.user_id 
+join activities as a on a.id=pa.activity_id 
+join charge_periods as cp on cp.id = pa.charge_period_id 
+join users as u2 on cp.user_id = u2.id 
+inner join 
+(select user_id, activity_id from performed_activities group by user_id, activity_id having count(*)>1) 
+pa2 on pa2.user_id=pa.user_id and pa2.activity_id=pa.activity_id order by pa.id;
+
+// Detección de duplicados en renewals
+
+select r.id, r.user_id, r.until from renewals as r
+inner join
+	(select user_id, count(user_id) 
+	from renewals 
+	where until > '2022-01-01'
+	group by user_id 
+	having count(*)>1)
+r2 on r2.user_id = r.user_id
+where until > '2022-01-01'
