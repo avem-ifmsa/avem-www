@@ -128,6 +128,7 @@
 								<li><a class="section-link" href="https://blog.avem.es">Blog</a></li>
 								<li><a class="section-link" href="https://www.facebook.com/avem.ifmsavalencia">Facebook</a></li>
 								<li><a class="section-link" href="https://www.instagram.com/avem_ifmsa/">Instagram</a></li>
+								<li><a class="section-link" href="https://www.youtube.com/channel/UCZMc24zfTxRZNPVQQNECVVA">Youtube</a></li>
 							</ul>
 						</div>
 
@@ -144,9 +145,8 @@
 							<h4 class="section-title">Ayuda</h4>
 							<ul class="section-content">
 								<li><a class="section-link" href="http://help.avem.es">Centro de ayuda</a></li>
-								<li><a class="section-link" href="#">Normativa de la asociación</a></li>
-								<li><a class="section-link" href="#">Código de conducta</a></li>
-								<li><a class="section-link" href="mailto:reportar@avem.es">Reportar un incidente</a></li>
+								<li><a class="section-link" href="https://docs.google.com/document/d/1VBsZ4o0rzRr6Y2Prw4tmmS7ZpX6YbnQlq1atiZ2HJno/edit?usp=sharing">Reglamento interno</a></li>
+								<li><a class="section-link" href="https://docs.google.com/document/d/11xTIxMOehQQOfnBAWismDt1UZuV7jTtER32i34Kf4ik/edit?usp=sharing">Baremo de puntos</a></li>
 							</ul>
 						</div>
 					</div>

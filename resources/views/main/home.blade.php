@@ -78,7 +78,7 @@
 			</div>
 		@endif
 	</section>
-
+	
 	<section class="mt-3 card p-4">
 		<h3 class="mb-3">Próximas actividades</h3>
 
@@ -164,7 +164,7 @@
 
 					<a href="{{ route('ticket.exchange') }}" class="nav-link{{
 						Route::currentRouteName() === 'ticket.exchange' ? ' active' : ''
-					}}">Canjear tickets</a>
+					}}">Calendario de actividades</a>
 
 					<a href="{{ route('home.points') }}" class="nav-link{{
 						Route::currentRouteName() === 'home.points' ? ' active' : ''

@@ -1,0 +1,110 @@
+// Script para fusionar actividades anteriores a la variable $date
+
+for ($c = 0; $c < 1200; $c++){
+	$date = '2021-08-31';
+	$userName = DB::table('users')->where('id', $c)->value('name');
+	$userSurname = DB::table('users')->where('id', $c)->value('surname');
+	$sumaPA = DB::table('performed_activities')->join('activities', 'activities.id', '=', 'performed_activities.activity_id')->where([['user_id', $c], ['activities.created_at', '<', $date],])->sum('activities.points');
+	$numeroActividades = DB::table('performed_activities')->join('activities', 'activities.id', '=', 'performed_activities.activity_id')->where([['user_id', $c], ['activities.created_at', '<', $date],])->count();
+	$sumaPT = DB::table('plain_transactions')->where([['user_id', $c], ['created_at', '<', $date],])->sum('points');
+	$sumaTotal = ($sumaPA + $sumaPT);
+	if ($sumaPA === NULL || $userName === NULL || $userSurname === NULL || $sumaPA === 0){echo "$c: Nulo\n $sumaPA $userName \n\n";}
+	else {
+	DB::table('plain_transactions')->insert(['concept' => 'Puntos actividades curso 2020-2021', 'points' => $sumaTotal, 'user_id' => $c, 'charge_period_id' => '6', 'created_at' => $date]);
+	DB::table('performed_activities')->join('activities', 'activities.id', '=', 'performed_activities.activity_id')->where([['user_id', $c], ['activities.created_at', '<', $date]])->delete();
+	DB::table('plain_transactions')->where([['user_id', $c], ['created_at', '<', $date],])->delete();	
+	$sumaPApost = DB::table('performed_activities')->join('activities', 'activities.id', '=', 'performed_activities.activity_id')->where([['user_id', $c], ['activities.created_at', '<', $date],])->sum('activities.points');
+	$numeroActividadesPost = DB::table('performed_activities')->join('activities', 'activities.id', '=', 'performed_activities.activity_id')->where([['user_id', $c], ['activities.created_at', '<', $date],])->count();
+	$sumaPTpost = DB::table('plain_transactions')->where([['user_id', $c], ['created_at', '<=', $date],])->sum('points');
+	$sumaTotalpost = ($sumaPApost + $sumaPTpost);
+	echo "$c) $userName $userSurname
+	|SumaPA: $sumaPA
+	|Numero de actividades: $numeroActividades
+	|SumaPT: $sumaPT
+	|Suma: $sumaTotal
+	|-------------------------------------------
+	|SumaPA: $sumaPApost
+	|Numero de actividades: $numeroActividadesPost
+	|SumaPT: $sumaPTpost
+	|Suma: $sumaTotalpost
+	\n\n";
+	}
+}
+
+// Suma de puntos totales
+
+for ($c = 0; $c < 1500; $c++){
+	$date = '2021-10-29 13:59:00';
+	$userName = DB::table('users')->where('id', $c)->value('name');
+	$userSurname = DB::table('users')->where('id', $c)->value('surname');
+	$sumaPA = DB::table('performed_activities')->join('activities', 'activities.id', '=', 'performed_activities.activity_id')->where([['user_id', $c], ['activities.created_at', '<', $date],])->sum('activities.points');
+	$sumaPT = DB::table('plain_transactions')->where([['user_id', $c], ['created_at', '<', $date],])->sum('points');
+	$sumaTotal = ($sumaPA + $sumaPT);
+	if ($userName == NULL){echo "$c: Nulo\n\n";}
+	else {
+	DB::table('users')->where('id', $c)->update(['total_points' => $sumaTotal]);
+	echo "$c) $userName $userSurname
+	|-SumaPA: $sumaPA
+	|-SumaPT: $sumaPT
+	|-Suma: $sumaTotal
+	\n\n";
+	}
+}
+
+//Script para restar puntos de intercambios, necesita un array con el formato siguiente con número de socio y destino
+$intercambio = array(12, 'Austria', 13, 'Rusia', 4, 'China', 11, 'Mexico');
+
+
+for ($c = 0; $c < count($intercambio); $c++){
+	$date = Carbon\Carbon::now();	
+	$date->toDateTimeString();	
+	$userId = $intercambio[$c];	
+	$c++;	
+	$destino = "Intercambio 2019-2020 a $intercambio[$c]";	
+	$userName = DB::table('users')->where('id', $userId)->value('name');	
+	$userSurname = DB::table('users')->where('id', $userId)->value('surname');	
+	$sumaPA = DB::table('performed_activities')->join('activities', 'activities.id', '=', 'performed_activities.activity_id')->where([['user_id', $userId], ['activities.created_at', '<', $date],])->sum('activities.points');	
+	$sumaPT = DB::table('plain_transactions')->where([['user_id', $userId], ['created_at', '<', $date],])->sum('points');	
+	$sumaTotal = ($sumaPA + $sumaPT);	
+	if($sumaTotal < 80){
+	$restaPuntos = $sumaTotal * -1;
+	} elseif($sumaTotal >= 80){
+	$restaPuntos = -80;
+	} else{
+	echo "Error";
+	}
+	DB::table('plain_transactions')->insert(['concept' => $destino, 'points' => $restaPuntos, 'user_id' => $userId, 'charge_period_id' => '6', 'created_at' => $date, 'updated_at' => $date]);
+	echo "$userId) $userName $userSurname	
+	-Puntos actividades: $sumaPA	
+	-Puntos transacciones: $sumaPT	
+	-Suma total de puntos: $sumaTotal
+	-Resta de puntos: $restaPuntos
+	-Destino intercambio: $destino\n\n";	
+}
+
+Lista puntos
+select row_number() over (order by total_points desc nulls last),u.name, u.surname, u.total_points from users as u join renewals as r on r.user_id = u.id where r.until = '2021-09-01';
+
+// Detección de duplicados en actividades
+
+select pa.id, u.name, u.surname, a.name, u2.name 
+from performed_activities as pa 
+join users as u on u.id=pa.user_id 
+join activities as a on a.id=pa.activity_id 
+join charge_periods as cp on cp.id = pa.charge_period_id 
+join users as u2 on cp.user_id = u2.id 
+inner join 
+(select user_id, activity_id from performed_activities group by user_id, activity_id having count(*)>1) 
+pa2 on pa2.user_id=pa.user_id and pa2.activity_id=pa.activity_id order by pa.id;
+
+// Detección de duplicados en renewals
+
+select r.id, r.user_id, r.until from renewals as r
+inner join
+	(select user_id, count(user_id) 
+	from renewals 
+	where until > '2022-01-01'
+	group by user_id 
+	having count(*)>1)
+r2 on r2.user_id = r.user_id
+where until > '2022-01-01'

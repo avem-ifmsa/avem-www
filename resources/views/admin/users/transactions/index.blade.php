@@ -15,7 +15,7 @@
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<header class="modal-header">
-					<h5 class="modal-title">Transacciones del usuario</h5>
+					<h5 class="modal-title">Transacciones del usuario <span class="user-name">{{ $user->fullName }}</span></h5>
 					<a role="button" class="close" href="{{ route('admin.users.index') }}" aria-label="Cerrar">
 						<span aria-hidden="true">&times;</span>
 					</a>

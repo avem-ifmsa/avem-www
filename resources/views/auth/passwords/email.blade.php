@@ -24,6 +24,7 @@
 
 			<p>
 				<button class="btn btn-primary" type="submit" role="button">Enviar enlace al correo</button>
+				
 			</p>
 		</form>
 	</div>

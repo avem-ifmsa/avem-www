@@ -54,7 +54,7 @@
 						}}>Nadie</option>
 					</select>
 				</p>
-			</div>
+			</div> 
 
 			<div class="col-md-6">
 				<p class="form-group{{ $errors->has('points') ? ' has-danger' : '' }}">
@@ -148,7 +148,7 @@
 			</span>
 		@endif
 	</p>
-
+	<!--
 	<div>
 		<span>Periodo de inscripción</span>
 
@@ -190,7 +190,7 @@
 		@endif
 	</p>
 </div>
-
+-->
 <div class="form-group{{ $errors->has('organizers') ? ' has-danger' : '' }}">
 	<label>Responsables de la actividad</label>
 	@include('components.mbMemberSelect', [
