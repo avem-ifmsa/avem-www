@@ -1,7 +1,7 @@
 // Script para fusionar actividades anteriores a la variable $date
 
 for ($c = 0; $c < 1200; $c++){
-	$date = '2021-08-31';
+	$date = '2023-08-31';
 	$userName = DB::table('users')->where('id', $c)->value('name');
 	$userSurname = DB::table('users')->where('id', $c)->value('surname');
 	$sumaPA = DB::table('performed_activities')->join('activities', 'activities.id', '=', 'performed_activities.activity_id')->where([['user_id', $c], ['activities.created_at', '<', $date],])->sum('activities.points');
@@ -34,7 +34,7 @@ for ($c = 0; $c < 1200; $c++){
 // Suma de puntos totales
 
 for ($c = 0; $c < 1500; $c++){
-	$date = '2021-10-29 13:59:00';
+	$date = '2023-10-29 13:59:00';
 	$userName = DB::table('users')->where('id', $c)->value('name');
 	$userSurname = DB::table('users')->where('id', $c)->value('surname');
 	$sumaPA = DB::table('performed_activities')->join('activities', 'activities.id', '=', 'performed_activities.activity_id')->where([['user_id', $c], ['activities.created_at', '<', $date],])->sum('activities.points');
@@ -83,7 +83,7 @@ for ($c = 0; $c < count($intercambio); $c++){
 }
 
 Lista puntos
-select row_number() over (order by total_points desc nulls last),u.name, u.surname, u.total_points from users as u join renewals as r on r.user_id = u.id where r.until = '2021-09-01';
+select row_number() over (order by total_points desc nulls last),u.id, u.name, u.surname, u.total_points from users as u join renewals as r on r.user_id = u.id where r.until = '2022-09-01';
 
 // Detección de duplicados en actividades
 
