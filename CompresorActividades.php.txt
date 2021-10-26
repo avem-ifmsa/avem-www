@@ -60,7 +60,7 @@ for ($c = 0; $c < count($intercambio); $c++){
 	$date->toDateTimeString();	
 	$userId = $intercambio[$c];	
 	$c++;	
-	$destino = "Intercambio 2019-2020 a $intercambio[$c]";	
+	$destino = "Intercambio 2020-2021 a $intercambio[$c]";	
 	$userName = DB::table('users')->where('id', $userId)->value('name');	
 	$userSurname = DB::table('users')->where('id', $userId)->value('surname');	
 	$sumaPA = DB::table('performed_activities')->join('activities', 'activities.id', '=', 'performed_activities.activity_id')->where([['user_id', $userId], ['activities.created_at', '<', $date],])->sum('activities.points');	
