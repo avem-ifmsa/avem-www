@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Laravel\Scout\Searchable;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
+use Spatie\MediaLibrary\Media;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
@@ -190,10 +191,11 @@ class User extends Authenticatable implements HasMediaConversions
 		return $this->hasManyThrough('Avem\Exchange', 'Avem\ChargePeriod');
 	}
 
-	public function registerMediaConversions()
+	public function registerMediaConversions(Media $media = null)
 	{
 		$this->addMediaConversion('thumb')
-		     ->width(368)->height(232)
+		     ->width(368)
+			 ->height(232)
 		     ->sharpen(10);
 	}
 

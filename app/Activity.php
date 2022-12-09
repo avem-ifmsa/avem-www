@@ -7,6 +7,7 @@ use Avem\User;
 use Carbon\Carbon;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\Media;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 
@@ -118,10 +119,11 @@ class Activity extends Model implements HasMediaConversions
 		return $this->hasMany('Avem\PerformedActivity');
 	}
 
-	public function registerMediaConversions()
+	public function registerMediaConversions(Media $media = null)
 	{
 		$this->addMediaConversion('thumb')
-		     ->width(368)->height(232)
+		     ->width(368)
+			 ->height(232)
 		     ->sharpen(10);
 	}
 

@@ -59,7 +59,7 @@ class UserController extends Controller
 				$user->profileImage->delete();
 
 			$user->addMediaFromRequest('photo')
-			     ->toMediaLibrary('avatars');
+			     ->toMediaCollection('avatars');
 		}
 
 		$user->save();

@@ -70,7 +70,7 @@ class ActivityController extends Controller
 
 			if ($request->hasFile('image')) {
 				$activity->addMediaFromRequest('image')
-				         ->toMediaLibrary('images');
+				         ->toMediaCollection('images');
 			}
 
 			$activityTags = $this->inputTags($request, 'tags');
@@ -138,7 +138,7 @@ class ActivityController extends Controller
 					$activity->image->delete();
 
 				$activity->addMediaFromRequest('image')
-				         ->toMediaLibrary('images');
+				         ->toMediaCollection('images');
 			}
 
 			$activityTags = $this->inputTags($request, 'tags');
