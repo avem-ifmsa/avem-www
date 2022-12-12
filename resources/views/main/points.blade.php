@@ -9,6 +9,7 @@
 				<tr>
 					<th>Concepto</th>
 					<th>Fecha</th>
+					<th>Aplicado por</th>
 					<th>Puntos</th>
 				</tr>
 			</thead>
@@ -18,6 +19,7 @@
 					<tr>
 						<td>{{ $transaction->concept }}</td>
 						<td>{{ $transaction->created_at }}</td>
+						<td>{{ $transaction->applierPeriod->user->fullName }}</td>
 						<td>{{ $transaction->points }}</td>
 					</tr>
 				@endforeach
