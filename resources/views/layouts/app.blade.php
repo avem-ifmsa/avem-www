@@ -22,14 +22,14 @@
 		<meta property="og:description" content="Web oficial de la Asociación Valenciana de Estudiantes de Medicina.">
 		<meta name="description" content="Web oficial de la Asociación Valenciana de Estudiantes de Medicina.">
 
-		<!-- Global Site Tag (gtag.js) - Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-86942802-2"></script>
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-HGQVE344CD"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments)};
+  			function gtag(){dataLayer.push(arguments);}
 			gtag('js', new Date());
 
-			gtag('config', 'UA-86942802-2');
+ 			gtag('config', 'G-HGQVE344CD');
 		</script>
 
 		<!-- CSRF Token -->
