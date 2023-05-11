@@ -26,10 +26,10 @@
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-HGQVE344CD"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
-  			function gtag(){dataLayer.push(arguments);}
+			function gtag(){dataLayer.push(arguments)};
 			gtag('js', new Date());
 
- 			gtag('config', 'G-HGQVE344CD');
+			gtag('config', 'G-HGQVE344CD');
 		</script>
 
 		<!-- CSRF Token -->
