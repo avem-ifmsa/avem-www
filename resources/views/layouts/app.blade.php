@@ -22,15 +22,6 @@
 		<meta property="og:description" content="Web oficial de la Asociación Valenciana de Estudiantes de Medicina.">
 		<meta name="description" content="Web oficial de la Asociación Valenciana de Estudiantes de Medicina.">
 
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-HGQVE344CD"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments)};
-			gtag('js', new Date());
-
-			gtag('config', 'G-HGQVE344CD');
-		</script>
 
 		<!-- CSRF Token -->
 		<meta name="csrf-token" content="{{ csrf_token() }}">
@@ -49,6 +40,16 @@
 		<!-- Scripts -->
 		<script src="{{ mix('js/app.js') }}"></script>
 		@stack('scripts')
+		
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-HGQVE344CD"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-HGQVE344CD');
+		</script>
 	</head>
 
 	@yield('body')
